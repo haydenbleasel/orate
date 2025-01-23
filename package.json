@@ -21,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/haydenbleasel/orate/issues"
   },
-  "homepage": "https://github.com/haydenbleasel/orate#readme"
+  "homepage": "https://github.com/haydenbleasel/orate#readme",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "tsup": "^8.3.5",
+    "ultracite": "4.1.16"
+  }
 }
