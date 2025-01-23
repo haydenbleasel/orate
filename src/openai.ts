@@ -7,11 +7,11 @@ const provider = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 export const openai = {
   speech: (model: SpeechCreateParams["model"], voice: SpeechCreateParams["voice"]) => {
     return async (prompt: string) => {
-        const response = await provider.audio.speech.create({
-          model,
-          voice,
-          input: prompt,
-        });
+      const response = await provider.audio.speech.create({
+        model,
+        voice,
+        input: prompt,
+      });
 
       return response.arrayBuffer();
     };
