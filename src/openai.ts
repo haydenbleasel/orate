@@ -1,6 +1,6 @@
 import OpenAI from "openai";
-import { SpeechCreateParams } from "openai/resources/audio/speech";
-import { TranscriptionCreateParams } from "openai/resources/audio/transcriptions";
+import type { SpeechCreateParams } from "openai/resources/audio/speech";
+import type { TranscriptionCreateParams } from "openai/resources/audio/transcriptions";
 
 const provider = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
