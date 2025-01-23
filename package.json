@@ -28,6 +28,7 @@
     "ultracite": "4.1.16"
   },
   "dependencies": {
+    "elevenlabs": "^1.50.4",
     "openai": "^4.80.0"
   }
 }
