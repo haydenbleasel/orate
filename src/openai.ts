@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { SpeechCreateParams } from "openai/resources/audio/speech";
 import { SpeechModel } from "./types";
+import { TranscriptionCreateParams } from "openai/resources/audio/transcriptions";
 
 const apiKey = process.env.OPENAI_API_KEY;
 
@@ -10,19 +11,30 @@ if (!apiKey) {
 
 const provider = new OpenAI({ apiKey });
 
-export const openai = (
-  model: SpeechCreateParams["model"],
-  voice: SpeechCreateParams["voice"]
-): SpeechModel => {
-  return {
-    generate: async (prompt: string) => {
-      const response = await provider.audio.speech.create({
-        model,
-        voice,
-        input: prompt,
-      });
+export const openai = {
+  speech: (model: SpeechCreateParams["model"], voice: SpeechCreateParams["voice"]) => {
+    return {
+      generate: async (prompt: string) => {
+        const response = await provider.audio.speech.create({
+          model,
+          voice,
+          input: prompt,
+        });
 
-      return { audio: await response.arrayBuffer() };
-    },
-  };
+        return { audio: await response.arrayBuffer() };
+      },
+    };
+  },
+  transcribe: (model: TranscriptionCreateParams["model"]) => {
+    return {
+      generate: async (audio: ArrayBuffer) => {
+        const response = await provider.audio.transcriptions.create({
+          model,
+          file: audio,
+        });
+
+        return response.text;
+      },
+    };
+  },
 };
