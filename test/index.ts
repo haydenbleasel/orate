@@ -1,7 +1,9 @@
+import { writeFile } from "node:fs/promises";
 import { speak, transcribe } from "../src";
 import { openai } from "../src/openai";
 import { assembly } from "../src/assembly";
 import { elevenlabs } from "../src/eleven-labs";
+import { azure } from "../src/azure";
 
 // OpenAI Text to Speech
 const openAiSpeech = await speak({
@@ -9,11 +11,13 @@ const openAiSpeech = await speak({
   prompt: "What is love?",
 });
 
+await writeFile("openai-speech.wav", Buffer.from(openAiSpeech));
 console.log("OpenAI Text to Speech", openAiSpeech);
+
 
 // OpenAI Speech to Text
 const openAiText = await transcribe({
-  model: openai.sst('whisper-1'),
+  model: openai.stt('whisper-1'),
   audio: openAiSpeech,
 });
 
@@ -25,12 +29,32 @@ const elevenLabsSpeech = await speak({
   prompt: "What is love?",
 });
 
+await writeFile("eleven-labs-speech.wav", Buffer.from(elevenLabsSpeech));
 console.log("ElevenLabs Text to Speech", elevenLabsSpeech);
 
 // AssemblyAI Speech to Text
 const assemblyText = await transcribe({
-  model: assembly.sst(),
+  model: assembly.stt(),
   audio: elevenLabsSpeech,
 });
 
 console.log("AssemblyAI Speech to Text", assemblyText);
+
+// Azure Text to Speech
+const azureSpeech = await speak({
+  model: azure.tts('en-US-AvaMultilingualNeural'),
+  prompt: "What is love?",
+});
+
+await writeFile("azure-speech.wav", Buffer.from(azureSpeech));
+console.log("Azure Text to Speech", azureSpeech);
+
+// Azure Speech to Text
+const azureText = await transcribe({
+  model: azure.stt(),
+  audio: azureSpeech,
+});
+
+console.log("Azure Speech to Text", azureText);
+
+process.exit(0);

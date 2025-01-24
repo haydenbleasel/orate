@@ -12,7 +12,7 @@ const createProvider = () => {
 };
 
 export const assembly = {
-  sst: (model: SpeechModel = 'best') => {
+  stt: (model: SpeechModel = 'best') => {
     const provider = createProvider();
 
     return async (audio: ArrayBuffer) => {

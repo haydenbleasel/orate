@@ -26,7 +26,7 @@ export const openai = {
       return response.arrayBuffer();
     };
   },
-  sst: (model: TranscriptionCreateParams["model"] = 'whisper-1') => {
+  stt: (model: TranscriptionCreateParams["model"] = 'whisper-1') => {
     const provider = createProvider();
 
     return async (audio: ArrayBuffer) => {
