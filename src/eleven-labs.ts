@@ -53,11 +53,16 @@ export const elevenlabs = {
         model_id: models[model],
       });
 
-      const array = await response.toArray();
+      const chunks: Uint8Array[] = [];
+      
+      for await (const chunk of response) {
+        chunks.push(chunk);
+      }
 
-      console.log(response, array);
+      const buffer = Buffer.concat(chunks);
+      const arrayBuffer = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
 
-      return array;
+      return arrayBuffer;
     };
   },
 };

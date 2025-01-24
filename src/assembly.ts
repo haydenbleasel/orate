@@ -1,4 +1,5 @@
-import { AssemblyAI, SpeechModel } from "assemblyai";
+import { AssemblyAI } from "assemblyai";
+import type { SpeechModel } from "assemblyai";
 
 const createProvider = () => {
   const apiKey = process.env.ASSEMBLYAI_API_KEY;
@@ -14,7 +15,7 @@ export const assembly = {
   sst: (model: SpeechModel = 'best') => {
     const provider = createProvider();
 
-    return async (audio: Buffer) => {
+    return async (audio: ArrayBuffer) => {
       const response = await provider.transcripts.transcribe({
         audio,
         speech_model: model,
