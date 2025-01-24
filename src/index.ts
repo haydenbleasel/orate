@@ -15,6 +15,9 @@ export type TranscribeOptions = {
   audio: ArrayBuffer;
 };
 
-export async function transcribe({ model, audio }: TranscribeOptions): Promise<string> {
+export async function transcribe({
+  model,
+  audio,
+}: TranscribeOptions): Promise<string> {
   return await model(audio);
 }

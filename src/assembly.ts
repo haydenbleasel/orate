@@ -1,11 +1,11 @@
-import { AssemblyAI } from "assemblyai";
-import type { SpeechModel } from "assemblyai";
+import { AssemblyAI } from 'assemblyai';
+import type { SpeechModel } from 'assemblyai';
 
 const createProvider = () => {
   const apiKey = process.env.ASSEMBLYAI_API_KEY;
 
   if (!apiKey) {
-    throw new Error("ASSEMBLYAI_API_KEY is not set");
+    throw new Error('ASSEMBLYAI_API_KEY is not set');
   }
 
   return new AssemblyAI({ apiKey });
@@ -41,4 +41,3 @@ export const assembly = {
     };
   },
 };
-

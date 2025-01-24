@@ -1,19 +1,19 @@
-import Azure from "microsoft-cognitiveservices-speech-sdk";
+import Azure from 'microsoft-cognitiveservices-speech-sdk';
 
 const createProvider = () => {
   const apiKey = process.env.AZURE_API_KEY;
   const region = process.env.AZURE_REGION;
 
   if (!apiKey) {
-    throw new Error("AZURE_API_KEY is not set");
+    throw new Error('AZURE_API_KEY is not set');
   }
 
   if (!region) {
-    throw new Error("AZURE_REGION is not set");
+    throw new Error('AZURE_REGION is not set');
   }
 
   const speechConfig = Azure.SpeechConfig.fromSubscription(apiKey, region);
-  speechConfig.speechRecognitionLanguage = "en-US";
+  speechConfig.speechRecognitionLanguage = 'en-US';
 
   return speechConfig;
 };
@@ -586,21 +586,25 @@ const voices = [
 ] as const;
 
 export const azure = {
-  tts: (voice: typeof voices[number] = 'en-US-AriaNeural') => {
+  tts: (voice: (typeof voices)[number] = 'en-US-AriaNeural') => {
     const provider = createProvider();
     provider.speechSynthesisVoiceName = voice;
 
     return async (prompt: string) => {
       const speechSynthesizer = new Azure.SpeechSynthesizer(provider);
-      
+
       const result = new Promise<ArrayBuffer>((resolve, reject) => {
-        speechSynthesizer.speakTextAsync(prompt, (result) => {
-          speechSynthesizer.close();
-          resolve(result.audioData);
-        }, (error) => {
-          speechSynthesizer.close();
-          reject(error);
-        });
+        speechSynthesizer.speakTextAsync(
+          prompt,
+          (result) => {
+            speechSynthesizer.close();
+            resolve(result.audioData);
+          },
+          (error) => {
+            speechSynthesizer.close();
+            reject(error);
+          }
+        );
       });
 
       const audio = await result;
@@ -614,29 +618,35 @@ export const azure = {
     return async (audio: ArrayBuffer) => {
       const buffer = Buffer.from(audio);
       const audioConfig = Azure.AudioConfig.fromWavFileInput(buffer);
-      const speechRecognizer = new Azure.SpeechRecognizer(provider, audioConfig);
+      const speechRecognizer = new Azure.SpeechRecognizer(
+        provider,
+        audioConfig
+      );
 
       const result = await new Promise<string | null>((resolve, reject) => {
-        speechRecognizer.recognizeOnceAsync((result) => {
-          speechRecognizer.close();
-          
-          switch (result.reason) {
-            case Azure.ResultReason.RecognizedSpeech:
-              resolve(result.text);
-              break;
-            case Azure.ResultReason.NoMatch:
-              resolve(null);
-              break;
-            case Azure.ResultReason.Canceled:
-              reject(Azure.CancellationDetails.fromResult(result).reason);
-              break;
-            default:
-              resolve(null);
+        speechRecognizer.recognizeOnceAsync(
+          (result) => {
+            speechRecognizer.close();
+
+            switch (result.reason) {
+              case Azure.ResultReason.RecognizedSpeech:
+                resolve(result.text);
+                break;
+              case Azure.ResultReason.NoMatch:
+                resolve(null);
+                break;
+              case Azure.ResultReason.Canceled:
+                reject(Azure.CancellationDetails.fromResult(result).reason);
+                break;
+              default:
+                resolve(null);
+            }
+          },
+          (error) => {
+            speechRecognizer.close();
+            reject(error);
           }
-        }, (error) => {
-          speechRecognizer.close();
-          reject(error);
-        });
+        );
       });
 
       if (!result) {
@@ -647,4 +657,3 @@ export const azure = {
     };
   },
 };
-
