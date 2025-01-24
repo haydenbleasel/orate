@@ -47,6 +47,8 @@
   },
   "dependencies": {
     "@deepgram/sdk": "^3.9.0",
+    "@aws-sdk/client-polly": "^3.734.0",
+    "@aws-sdk/client-transcribe": "^3.734.0",
     "@google-cloud/speech": "^6.7.0",
     "@google-cloud/text-to-speech": "^5.8.0",
     "@speechify/api-sdk": "^2.3.0",
