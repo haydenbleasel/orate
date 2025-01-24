@@ -1,4 +1,5 @@
 import { Snippet } from '@/components/snippet';
+import { AnimateProvider } from '@/providers/animate';
 import Image from 'next/image';
 import Speech from './speech.jpg';
 
@@ -44,13 +45,37 @@ const snippets = [
 export const TextToSpeech = () => (
   <section className="container mx-auto grid grid-cols-2 items-start gap-32 px-4 py-24">
     <div className="grid gap-6">
-      <p className="text-muted-foreground">Text to speech</p>
-      <h2 className="text-7xl">Generate realistic, human-like speech</h2>
-      <p className="text-lg text-muted-foreground">
-        Transform text into natural-sounding speech with a unified API that
-        works with leading AI providers like OpenAI, ElevenLabs and AssemblyAI.
-      </p>
-      <Snippet snippets={snippets} />
+      <AnimateProvider
+        initial={{ opacity: 0, transform: 'translateY(-8px)' }}
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+      >
+        <p className="text-muted-foreground">Text to speech</p>
+      </AnimateProvider>
+      <AnimateProvider
+        initial={{ opacity: 0, transform: 'translateY(-8px)' }}
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        delay={0.2}
+      >
+        <h2 className="text-7xl">Generate realistic, human-like speech</h2>
+      </AnimateProvider>
+      <AnimateProvider
+        initial={{ opacity: 0, transform: 'translateY(-8px)' }}
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        delay={0.4}
+      >
+        <p className="text-lg text-muted-foreground">
+          Transform text into natural-sounding speech with a unified API that
+          works with leading AI providers like OpenAI, ElevenLabs and
+          AssemblyAI.
+        </p>
+      </AnimateProvider>
+      <AnimateProvider
+        initial={{ opacity: 0, transform: 'translateY(-8px)' }}
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        delay={0.6}
+      >
+        <Snippet snippets={snippets} />
+      </AnimateProvider>
     </div>
     <Image src={Speech} alt="Speech" />
   </section>
