@@ -1,5 +1,7 @@
+import { Installer } from '@/components/installer';
 import Link from 'next/link';
 import Balancer from 'react-wrap-balancer';
+import { Button } from './ui/button';
 
 export const Hero = () => (
   <header className="container mx-auto grid items-center justify-center gap-6 px-4 py-24 text-center">
@@ -14,8 +16,10 @@ export const Hero = () => (
       </Balancer>
     </p>
     <div className="flex items-center justify-center gap-4">
-      <pre className="rounded-md border px-4 py-2 text-sm">npm i orate</pre>
-      <Link href="/#docs">Read more</Link>
+      <Installer code="npm i orate" />
+      <Button asChild variant="link" size="lg" className="px-4">
+        <Link href="/#docs">Read more</Link>
+      </Button>
     </div>
   </header>
 );

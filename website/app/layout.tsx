@@ -1,11 +1,12 @@
+import { Navbar } from '@/components/navbar';
+import { Toaster } from '@/components/ui/sonner';
+import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/providers/theme';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
-import './globals.css';
-import { Navbar } from '@/components/navbar';
-import { cn } from '@/lib/utils';
-import { ThemeProvider } from '@/providers/theme';
 import type { ReactNode } from 'react';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Orate',
@@ -29,6 +30,7 @@ const RootLayout = ({ children }: RootLayoutProps) => (
       <ThemeProvider>
         <Navbar />
         {children}
+        <Toaster />
       </ThemeProvider>
     </body>
   </html>

@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from './logo.svg';
@@ -17,8 +18,10 @@ export const Navbar = () => (
       <a href="/#overview">Overview</a>
       <a href="/#docs">Docs</a>
     </div>
-    <div>
-      <button>Install</button>
+    <div className="flex items-center justify-end">
+      <Button size="sm" variant="outline">
+        Install
+      </Button>
     </div>
   </nav>
 );
