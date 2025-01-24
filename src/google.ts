@@ -1,6 +1,8 @@
 import speechToText from '@google-cloud/speech';
+import type { google as SpeechToTextTypes } from '@google-cloud/speech/build/protos/protos';
 import textToSpeech from '@google-cloud/text-to-speech';
-import type { google as googleTypes } from '@google-cloud/text-to-speech/build/protos/protos';
+import type { google as TextToSpeechTypes } from '@google-cloud/text-to-speech/build/protos/protos';
+import deepmerge from 'deepmerge';
 
 /**
  * Creates a Text-to-Speech client using the Google Cloud API
@@ -660,18 +662,14 @@ export const google = {
   /**
    * Creates a text-to-speech synthesis function using Google Cloud TTS
    * @param {(typeof voices)[number]} model - The voice model to use for synthesis. Defaults to 'en-US-Casual-K'
-   * @param {Omit<googleTypes.cloud.texttospeech.v1.IVoiceSelectionParams, 'name'>} options - Additional voice configuration options
+   * @param {TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest} options - Additional voice configuration options
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
     model: (typeof voices)[number] = 'en-US-Casual-K',
-    options: Omit<
-      googleTypes.cloud.texttospeech.v1.IVoiceSelectionParams,
-      'name'
-    > = {}
+    options?: TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest
   ) => {
     const provider = createTTSProvider();
-
     /**
      * Synthesizes text to speech using Google Cloud TTS
      * @param {string} prompt - The text to convert to speech
@@ -679,16 +677,17 @@ export const google = {
      * @throws {Error} If synthesis fails or no audio content is returned
      */
     return async (prompt: string) => {
-      const [response] = await provider.synthesizeSpeech({
-        input: { text: prompt },
-        voice: {
-          name: model,
-          ...options,
-        },
-        audioConfig: {
-          audioEncoding: 'MP3',
-        },
-      });
+      const request: TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest =
+        deepmerge(
+          {
+            input: { text: prompt },
+            voice: { name: model },
+            audioConfig: { audioEncoding: 'MP3' },
+          },
+          options ?? {}
+        );
+
+      const [response] = await provider.synthesizeSpeech(request);
 
       if (!response.audioContent) {
         throw new Error('No audio content returned.');
@@ -705,9 +704,13 @@ export const google = {
   /**
    * Creates a speech-to-text transcription function using Google Cloud STT
    * @param {(typeof models)[number]} model - The model to use for transcription. Defaults to 'chirp_2'
+   * @param {SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest} options - Additional options for the transcription
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (model: (typeof models)[number] = 'chirp_2') => {
+  stt: (
+    model: (typeof models)[number] = 'chirp_2',
+    options?: SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest
+  ) => {
     const provider = createSTTProvider();
 
     /**
@@ -719,13 +722,19 @@ export const google = {
     return async (audio: ArrayBuffer) => {
       const content = Buffer.from(audio).toString('base64');
 
-      const [response] = await provider.recognize({
-        config: {
-          autoDecodingConfig: {},
-          model: model,
-        },
-        content: content,
-      });
+      const request: SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest =
+        deepmerge(
+          {
+            config: {
+              autoDecodingConfig: {},
+              model: model,
+            },
+            content,
+          },
+          options ?? {}
+        );
+
+      const [response] = await provider.recognize(request);
 
       if (!response.results?.length) {
         throw new Error('No results returned.');

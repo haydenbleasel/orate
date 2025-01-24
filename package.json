@@ -11,7 +11,12 @@
     "type": "git",
     "url": "git+https://github.com/haydenbleasel/orate.git"
   },
-  "keywords": ["ai", "text", "speech", "transcribe"],
+  "keywords": [
+    "ai",
+    "text",
+    "speech",
+    "transcribe"
+  ],
   "author": "Hayden Bleasel <hello@haydenbleasel.com>",
   "license": "MIT",
   "bugs": {
@@ -28,6 +33,7 @@
     "@google-cloud/speech": "^6.7.0",
     "@google-cloud/text-to-speech": "^5.8.0",
     "assemblyai": "^4.8.0",
+    "deepmerge": "^4.3.1",
     "elevenlabs": "^1.50.4",
     "ibm-watson": "^10.0.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
