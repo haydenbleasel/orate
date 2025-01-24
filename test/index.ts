@@ -1,11 +1,11 @@
 import { writeFile } from 'node:fs/promises';
-import { speak, transcribe } from '../src';
-import { assembly } from '../src/assembly';
-import { azure } from '../src/azure';
-import { elevenlabs } from '../src/eleven-labs';
-import { google } from '../src/google';
-import { ibm } from '../src/ibm';
-import { openai } from '../src/openai';
+import { speak, transcribe } from '../dist';
+import { assembly } from '../dist/assembly';
+import { azure } from '../dist/azure';
+import { elevenlabs } from '../dist/eleven-labs';
+import { google } from '../dist/google';
+import { ibm } from '../dist/ibm';
+import { openai } from '../dist/openai';
 
 const prompt = "What is love? Baby don't hurt me.";
 
