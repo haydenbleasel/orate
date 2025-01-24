@@ -60,7 +60,7 @@ export const TextToSpeech = () => (
         delay={0.2}
       >
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-          Generate realistic, human-like speech
+          Generate realistic speech with AI
         </h2>
       </AnimateProvider>
       <AnimateProvider
@@ -69,9 +69,8 @@ export const TextToSpeech = () => (
         delay={0.4}
       >
         <p className="text-lg text-muted-foreground">
-          Transform text into natural-sounding speech with a unified API that
-          works with leading AI providers like OpenAI, ElevenLabs and
-          AssemblyAI.
+          Convert your text into lifelike speech using our simple API that
+          integrates seamlessly with many leading AI providers.
         </p>
       </AnimateProvider>
       <AnimateProvider

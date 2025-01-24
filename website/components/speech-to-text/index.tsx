@@ -70,8 +70,8 @@ export const SpeechToText = () => (
         delay={0.4}
       >
         <p className="text-lg text-muted-foreground">
-          Convert speech to text with a unified API that works with leading AI
-          providers like OpenAI, ElevenLabs and AssemblyAI.
+          Transform spoken words into meaningful text with unparalleled
+          accuracy, speed and reliability; powered by leading AI providers.
         </p>
       </AnimateProvider>
       <AnimateProvider
