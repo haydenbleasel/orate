@@ -17,6 +17,8 @@ const table = [
   ['AssemblyAI', 'Speech to Text', 'Pending', null, null],
   ['Azure', 'Text to Speech', 'Pending', null, null],
   ['Azure', 'Speech to Text', 'Pending', null, null],
+  ['IBM', 'Text to Speech', 'Pending', null, null],
+  ['IBM', 'Speech to Text', 'Pending', null, null],
   ['Google', 'Text to Speech', 'Pending', null, null],
   ['Google', 'Speech to Text', 'Pending', null, null],
 ];

@@ -3,27 +3,37 @@ import SpeechToTextV1 from 'ibm-watson/speech-to-text/v1';
 import TextToSpeechV1 from 'ibm-watson/text-to-speech/v1';
 
 const createTTSProvider = () => {
-  const apikey = process.env.IBM_API_KEY;
+  const apikey = process.env.IBM_TTS_API_KEY;
+  const serviceUrl = process.env.IBM_TTS_URL;
 
   if (!apikey) {
-    throw new Error('IBM_API_KEY is not set');
+    throw new Error('IBM_TTS_API_KEY is not set');
+  }
+
+  if (!serviceUrl) {
+    throw new Error('IBM_TTS_URL is not set');
   }
 
   const authenticator = new IamAuthenticator({ apikey });
 
-  return new TextToSpeechV1({ authenticator });
+  return new TextToSpeechV1({ authenticator, serviceUrl });
 };
 
 const createSTTProvider = () => {
-  const apikey = process.env.IBM_API_KEY;
+  const apikey = process.env.IBM_STT_API_KEY;
+  const serviceUrl = process.env.IBM_STT_URL;
 
   if (!apikey) {
-    throw new Error('IBM_API_KEY is not set');
+    throw new Error('IBM_STT_API_KEY is not set');
+  }
+
+  if (!serviceUrl) {
+    throw new Error('IBM_STT_URL is not set');
   }
 
   const authenticator = new IamAuthenticator({ apikey });
 
-  return new SpeechToTextV1({ authenticator });
+  return new SpeechToTextV1({ authenticator, serviceUrl });
 };
 
 const voices = [

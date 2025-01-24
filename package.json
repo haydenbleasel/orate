@@ -5,18 +5,13 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsup",
-    "test": "node test/index.js"
+    "test": "bun test/index.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haydenbleasel/orate.git"
   },
-  "keywords": [
-    "ai",
-    "text",
-    "speech",
-    "transcribe"
-  ],
+  "keywords": ["ai", "text", "speech", "transcribe"],
   "author": "Hayden Bleasel <hello@haydenbleasel.com>",
   "license": "MIT",
   "bugs": {
