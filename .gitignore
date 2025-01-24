@@ -42,3 +42,4 @@ dist/
 
 # test
 test.ts
+test/*.wav
