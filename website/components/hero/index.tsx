@@ -8,16 +8,16 @@ import { Waveform } from './waveform';
 export const Hero = () => (
   <header
     id="overview"
-    className="container mx-auto grid items-center justify-center gap-6 px-4 py-24 text-center"
+    className="container mx-auto grid items-center justify-center gap-6 px-4 py-16 text-center sm:py-24"
   >
     <Waveform />
     <AnimateProvider
       initial={{ opacity: 0, transform: 'translateY(-8px)' }}
       whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
     >
-      <p className="text-7xl">
+      <h1 className="text-5xl sm:text-6xl md:text-7xl">
         <Balancer>The AI toolkit for speech</Balancer>
-      </p>
+      </h1>
     </AnimateProvider>
     <AnimateProvider
       initial={{ opacity: 0, transform: 'translateY(-8px)' }}
@@ -37,7 +37,7 @@ export const Hero = () => (
       whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
       delay={0.4}
     >
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
         <Installer code="npm i orate" />
         <Button asChild variant="link" size="lg" className="px-4">
           <Link href="https://github.com/haydenbleasel/orate">

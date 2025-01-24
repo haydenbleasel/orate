@@ -10,11 +10,11 @@ const links = [
 ];
 
 export const Navbar = () => (
-  <nav className="container sticky top-0 z-50 mx-auto grid grid-cols-[100px_1fr_100px] items-center bg-background/90 p-4 backdrop-blur-sm">
+  <nav className="container sticky top-0 z-50 mx-auto grid grid-cols-[1fr_1fr] items-center bg-background/90 p-4 backdrop-blur-sm md:grid-cols-[100px_1fr_100px]">
     <Link href="/">
       <Logo />
     </Link>
-    <div className="flex items-center justify-center gap-8 text-sm">
+    <div className="hidden items-center justify-center gap-8 text-sm md:flex">
       {links.map(({ href, label }) => (
         <a
           key={href}

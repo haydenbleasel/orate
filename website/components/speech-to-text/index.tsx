@@ -45,9 +45,9 @@ const snippets = [
 export const SpeechToText = () => (
   <section
     id="stt"
-    className="container mx-auto grid grid-cols-2 items-start gap-32 px-4 py-24"
+    className="container mx-auto grid items-start gap-32 px-4 py-16 sm:py-24 lg:grid-cols-2"
   >
-    <Image src={Writing} alt="Writing" />
+    <Image src={Writing} alt="Writing" className="hidden lg:block" />
     <div className="grid gap-6">
       <AnimateProvider
         initial={{ opacity: 0, transform: 'translateY(-8px)' }}
@@ -60,7 +60,9 @@ export const SpeechToText = () => (
         whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
         delay={0.2}
       >
-        <h2 className="text-7xl">Transcribe complex audio into text</h2>
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+          Transcribe complex audio into text
+        </h2>
       </AnimateProvider>
       <AnimateProvider
         initial={{ opacity: 0, transform: 'translateY(-8px)' }}
@@ -76,6 +78,7 @@ export const SpeechToText = () => (
         initial={{ opacity: 0, transform: 'translateY(-8px)' }}
         whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
         delay={0.6}
+        className="grid"
       >
         <Snippet snippets={snippets} />
       </AnimateProvider>

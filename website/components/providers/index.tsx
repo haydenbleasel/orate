@@ -22,7 +22,7 @@ export const Providers = () => (
         Plug and play your favorite AI provider
       </p>
     </AnimateProvider>
-    <div className="grid w-full grid-cols-3 gap-4 md:grid-cols-6">
+    <div className="grid w-full grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-6">
       {images.map((image, index) => (
         <AnimateProvider
           key={image.src}
