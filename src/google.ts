@@ -671,11 +671,11 @@ export const google = {
         content: content,
       });
 
-      if (!response.results) {
+      if (!response.results?.length) {
         throw new Error('No results returned.');
       }
 
-      if (!response.results[0].alternatives) {
+      if (!response.results[0].alternatives?.length) {
         throw new Error('No alternatives returned.');
       }
 

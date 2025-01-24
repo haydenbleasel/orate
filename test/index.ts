@@ -4,6 +4,7 @@ import { assembly } from '../src/assembly';
 import { azure } from '../src/azure';
 import { elevenlabs } from '../src/eleven-labs';
 import { google } from '../src/google';
+import { ibm } from '../src/ibm';
 import { openai } from '../src/openai';
 
 const prompt = "What is love? Baby don't hurt me.";
@@ -149,6 +150,37 @@ try {
     'Success',
     azureText,
     azureTextEnd - azureTextStart
+  );
+
+  // IBM Text to Speech
+  const ibmSpeechStart = performance.now();
+  const ibmSpeech = await speak({
+    model: ibm.tts(),
+    prompt,
+  });
+  const ibmSpeechEnd = performance.now();
+  await writeFile('./test/ibm-speech.wav', Buffer.from(ibmSpeech));
+  updateStatus(
+    'IBM',
+    'Text to Speech',
+    'Success',
+    ibmSpeech.byteLength,
+    ibmSpeechEnd - ibmSpeechStart
+  );
+
+  // IBM Speech to Text
+  const ibmTextStart = performance.now();
+  const ibmText = await transcribe({
+    model: ibm.stt(),
+    audio: ibmSpeech,
+  });
+  const ibmTextEnd = performance.now();
+  updateStatus(
+    'IBM',
+    'Speech to Text',
+    'Success',
+    ibmText,
+    ibmTextEnd - ibmTextStart
   );
 
   // Google Text to Speech

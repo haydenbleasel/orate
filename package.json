@@ -33,6 +33,7 @@
     "@google-cloud/text-to-speech": "^5.8.0",
     "assemblyai": "^4.8.0",
     "elevenlabs": "^1.50.4",
+    "ibm-watson": "^10.0.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
     "openai": "^4.80.0"
   }
