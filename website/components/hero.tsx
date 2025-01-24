@@ -2,10 +2,12 @@ import { Installer } from '@/components/installer';
 import { AnimateProvider } from '@/providers/animate';
 import Link from 'next/link';
 import Balancer from 'react-wrap-balancer';
+import { Waveform } from './hero/waveform';
 import { Button } from './ui/button';
 
 export const Hero = () => (
   <header className="container mx-auto grid items-center justify-center gap-6 px-4 py-24 text-center">
+    <Waveform />
     <AnimateProvider
       initial={{ opacity: 0, transform: 'translateY(-8px)' }}
       whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
