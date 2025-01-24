@@ -2,6 +2,7 @@ import { Navbar } from '@/components/navbar';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/providers/theme';
+import { Analytics } from '@vercel/analytics/next';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
@@ -32,6 +33,7 @@ const RootLayout = ({ children }: RootLayoutProps) => (
         {children}
         <Toaster />
       </ThemeProvider>
+      <Analytics />
     </body>
   </html>
 );

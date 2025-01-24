@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { track } from '@vercel/analytics';
 import { CheckIcon, CopyIcon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -9,9 +10,10 @@ import { toast } from 'sonner';
 type CopyButtonProps = {
   code: string;
   className?: string;
+  name: string;
 };
 
-export const CopyButton = ({ code, className }: CopyButtonProps) => {
+export const CopyButton = ({ code, className, name }: CopyButtonProps) => {
   const [copied, setCopied] = useState(false);
   const Icon = copied ? CheckIcon : CopyIcon;
 
@@ -19,6 +21,7 @@ export const CopyButton = ({ code, className }: CopyButtonProps) => {
     navigator.clipboard.writeText(code);
     setCopied(true);
     toast.success('Copied example code to clipboard');
+    track('Copy button clicked', { name });
 
     setTimeout(() => {
       setCopied(false);
@@ -28,7 +31,7 @@ export const CopyButton = ({ code, className }: CopyButtonProps) => {
   return (
     <Button
       size="icon"
-      className={cn('-m-2', className)}
+      className={cn('-m-2 shrink-0', className)}
       variant="ghost"
       onClick={handleCopy}
       disabled={copied}
