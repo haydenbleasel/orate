@@ -26,8 +26,8 @@ export const Navbar = () => (
       ))}
     </div>
     <div className="flex items-center justify-end">
-      <Button size="sm" variant="outline">
-        Install
+      <Button size="sm" variant="outline" asChild>
+        <Link href="/#footer">Install</Link>
       </Button>
     </div>
   </nav>

@@ -20,7 +20,7 @@ export const CopyButton = ({ code, className, name }: CopyButtonProps) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
     setCopied(true);
-    toast.success('Copied example code to clipboard');
+    toast.success('Copied to clipboard');
     track('Copy button clicked', { name });
 
     setTimeout(() => {

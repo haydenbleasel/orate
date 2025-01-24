@@ -2,7 +2,10 @@ import Link from 'next/link';
 import { Logo } from './logo';
 
 export const Footer = () => (
-  <nav className="container mx-auto grid grid-cols-[150px_1fr_150px] items-center justify-between p-4">
+  <footer
+    id="footer"
+    className="container mx-auto grid grid-cols-[150px_1fr_150px] items-center justify-between p-4"
+  >
     <Link href="/">
       <Logo />
     </Link>
@@ -28,5 +31,5 @@ export const Footer = () => (
         View on GitHub
       </Link>
     </div>
-  </nav>
+  </footer>
 );
