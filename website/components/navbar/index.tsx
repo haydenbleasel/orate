@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Logo from './logo.svg';
 
 export const Navbar = () => (
-  <nav className="container sticky top-0 z-50 mx-auto grid grid-cols-[100px_1fr_100px] items-center p-4">
+  <nav className="container sticky top-0 z-50 mx-auto grid grid-cols-[100px_1fr_100px] items-center bg-background/90 p-4 backdrop-blur-sm">
     <Link href="/">
       <Image
         src={Logo}

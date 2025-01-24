@@ -1,28 +1,40 @@
-import { CopyButton } from '@/components/copy-button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Image from 'next/image';
 import { codeToHtml } from 'shiki';
 import Typescript from './typescript.svg';
 
 type SnippetProps = {
-  code: string;
+  snippets: {
+    provider: string;
+    name: string;
+    code: string;
+  }[];
 };
 
-export const Snippet = async ({ code }: SnippetProps) => {
-  const html = await codeToHtml(code, {
-    lang: 'typescript',
-    theme: 'vitesse-black',
-    transformers: [
-      {
-        pre(node) {
-          node.properties.style = '';
+export const Snippet = async ({ snippets }: SnippetProps) => {
+  const newSnippets = snippets.map(async ({ code, ...props }) => ({
+    ...props,
+    code: await codeToHtml(code, {
+      lang: 'typescript',
+      theme: 'vitesse-black',
+      transformers: [
+        {
+          pre(node) {
+            node.properties.style = '';
+          },
         },
-      },
-    ],
-  });
+      ],
+    }),
+  }));
+
+  const tabs = await Promise.all(newSnippets);
 
   return (
-    <div className="grid divide-y rounded-lg border">
-      <div className="flex items-center gap-2 px-6 py-4">
+    <Tabs
+      defaultValue={tabs[0].name}
+      className="grid divide-y overflow-hidden rounded-lg border"
+    >
+      <div className="flex items-center gap-2 px-6 py-2">
         <Image
           src={Typescript}
           alt="Typescript"
@@ -30,16 +42,27 @@ export const Snippet = async ({ code }: SnippetProps) => {
           height={16}
           className="shrink-0 opacity-20 brightness-0 dark:invert"
         />
-        <p className="flex-1 font-mono text-muted-foreground text-sm">
-          orate.ts
-        </p>
-        <CopyButton code={code} />
+        <TabsList className="bg-transparent">
+          {tabs.map(({ name }) => (
+            <TabsTrigger
+              key={name}
+              value={name}
+              className="data-[state=active]:bg-secondary"
+            >
+              {name}
+            </TabsTrigger>
+          ))}
+        </TabsList>
       </div>
-      <div
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: "This is a snippet"
-        dangerouslySetInnerHTML={{ __html: html }}
-        className="overflow-x-auto p-6"
-      />
-    </div>
+      {tabs.map(({ name, code }) => (
+        <TabsContent key={name} value={name} className="m-0 overflow-hidden">
+          <div
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: "This is a snippet"
+            dangerouslySetInnerHTML={{ __html: code }}
+            className="overflow-x-auto p-6"
+          />
+        </TabsContent>
+      ))}
+    </Tabs>
   );
 };

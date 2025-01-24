@@ -13,12 +13,12 @@ export const Providers = () => (
     <p className="font-medium text-muted-foreground text-sm">
       Plug and play your favorite AI provider
     </p>
-    <div className="grid w-full grid-cols-6 gap-4">
+    <div className="grid w-full grid-cols-3 gap-4 md:grid-cols-6">
       {images.map((image) => (
         <div key={image.src} className="flex items-center justify-center">
           <Image
             src={image}
-            alt={image.alt}
+            alt=""
             className="h-full max-h-7 w-full max-w-28 brightness-0 dark:invert"
           />
         </div>

@@ -18,7 +18,9 @@ export const Hero = () => (
     <div className="flex items-center justify-center gap-4">
       <Installer code="npm i orate" />
       <Button asChild variant="link" size="lg" className="px-4">
-        <Link href="/#docs">Read more</Link>
+        <Link href="https://github.com/haydenbleasel/orate">
+          View on GitHub
+        </Link>
       </Button>
     </div>
   </header>
