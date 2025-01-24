@@ -38,7 +38,7 @@ const snippets = [
   {
     provider: 'ibm',
     name: 'IBM',
-    code: createSnippet('ibm'),
+    code: createSnippet('ibm', "'en-US_BroadbandModel'"),
   },
 ];
 
