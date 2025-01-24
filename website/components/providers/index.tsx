@@ -10,7 +10,10 @@ import OpenAI from './openai.svg';
 const images = [OpenAI, ElevenLabs, AssemblyAI, Azure, IBM, Google];
 
 export const Providers = () => (
-  <section className="container mx-auto grid gap-16 border-y px-4 py-16 text-center">
+  <section
+    id="providers"
+    className="container mx-auto grid gap-16 border-y px-4 py-16 text-center"
+  >
     <AnimateProvider
       initial={{ opacity: 0, transform: 'translateY(-8px)' }}
       whileInView={{ opacity: 1, transform: 'translateY(0px)' }}

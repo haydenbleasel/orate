@@ -19,13 +19,12 @@ type RootLayoutProps = {
 };
 
 const RootLayout = ({ children }: RootLayoutProps) => (
-  <html lang="en" suppressHydrationWarning>
+  <html lang="en" suppressHydrationWarning className="scroll-smooth">
     <body
       className={cn(
         GeistSans.variable,
         GeistMono.variable,
-        'antialiased',
-        'bg-secondary dark:bg-background'
+        'bg-secondary antialiased dark:bg-background'
       )}
     >
       <ThemeProvider>

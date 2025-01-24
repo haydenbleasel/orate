@@ -43,7 +43,10 @@ const snippets = [
 ];
 
 export const SpeechToText = () => (
-  <section className="container mx-auto grid grid-cols-2 items-start gap-32 px-4 py-24">
+  <section
+    id="stt"
+    className="container mx-auto grid grid-cols-2 items-start gap-32 px-4 py-24"
+  >
     <Image src={Writing} alt="Writing" />
     <div className="grid gap-6">
       <AnimateProvider
