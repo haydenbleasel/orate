@@ -94,6 +94,90 @@ const voices = [
 ] as const;
 
 /**
+ * List of available IBM Watson speech-to-text models
+ * Includes models for different languages, bandwidths and use cases:
+ * - BroadbandModel: For high-quality audio (16kHz+)
+ * - NarrowbandModel: For telephony audio (8kHz)
+ * - Multimedia: Optimized for media/entertainment content
+ * - Telephony: Optimized for phone conversations
+ * Format: {language}-{region}_{type} (e.g. en-US_BroadbandModel)
+ */
+
+const models = [
+  'ar-MS_BroadbandModel',
+  'ar-MS_Telephony',
+  'cs-CZ_Telephony',
+  'de-DE_BroadbandModel',
+  'de-DE_Multimedia',
+  'de-DE_NarrowbandModel',
+  'de-DE_Telephony',
+  'en-AU_BroadbandModel',
+  'en-AU_Multimedia',
+  'en-AU_NarrowbandModel',
+  'en-AU_Telephony',
+  'en-IN_Telephony',
+  'en-GB_BroadbandModel',
+  'en-GB_Multimedia',
+  'en-GB_NarrowbandModel',
+  'en-GB_Telephony',
+  'en-US_BroadbandModel',
+  'en-US_Multimedia',
+  'en-US_NarrowbandModel',
+  'en-US_ShortForm_NarrowbandModel',
+  'en-US_Telephony',
+  'en-WW_Medical_Telephony',
+  'es-AR_BroadbandModel',
+  'es-AR_NarrowbandModel',
+  'es-CL_BroadbandModel',
+  'es-CL_NarrowbandModel',
+  'es-CO_BroadbandModel',
+  'es-CO_NarrowbandModel',
+  'es-ES_BroadbandModel',
+  'es-ES_NarrowbandModel',
+  'es-ES_Multimedia',
+  'es-ES_Telephony',
+  'es-LA_Telephony',
+  'es-MX_BroadbandModel',
+  'es-MX_NarrowbandModel',
+  'es-PE_BroadbandModel',
+  'es-PE_NarrowbandModel',
+  'fr-CA_BroadbandModel',
+  'fr-CA_Multimedia',
+  'fr-CA_NarrowbandModel',
+  'fr-CA_Telephony',
+  'fr-FR_BroadbandModel',
+  'fr-FR_Multimedia',
+  'fr-FR_NarrowbandModel',
+  'fr-FR_Telephony',
+  'hi-IN_Telephony',
+  'it-IT_BroadbandModel',
+  'it-IT_NarrowbandModel',
+  'it-IT_Multimedia',
+  'it-IT_Telephony',
+  'ja-JP_BroadbandModel',
+  'ja-JP_Multimedia',
+  'ja-JP_NarrowbandModel',
+  'ja-JP_Telephony',
+  'ko-KR_BroadbandModel',
+  'ko-KR_Multimedia',
+  'ko-KR_NarrowbandModel',
+  'ko-KR_Telephony',
+  'nl-BE_Telephony',
+  'nl-NL_BroadbandModel',
+  'nl-NL_Multimedia',
+  'nl-NL_NarrowbandModel',
+  'nl-NL_Telephony',
+  'pt-BR_BroadbandModel',
+  'pt-BR_Multimedia',
+  'pt-BR_NarrowbandModel',
+  'pt-BR_Telephony',
+  'sv-SE_Telephony',
+  'zh-CN_BroadbandModel',
+  'zh-CN_NarrowbandModel',
+  'zh-CN_Telephony',
+] as const;
+
+/**
  * IBM Watson Speech Services functionality for text-to-speech and speech-to-text
  */
 export const ibm = {
@@ -135,7 +219,10 @@ export const ibm = {
    * Creates a speech-to-text transcription function using IBM Watson STT
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (options?: Omit<RecognizeParams, 'audio'>) => {
+  stt: (
+    model: (typeof models)[number] = 'en-US_BroadbandModel',
+    options?: Omit<RecognizeParams, 'model' | 'audio'>
+  ) => {
     const provider = createSTTProvider();
 
     /**
@@ -149,6 +236,7 @@ export const ibm = {
       const response = await provider.recognize({
         audio: Buffer.from(audio),
         contentType: 'audio/mp3',
+        model,
         ...options,
       });
 
