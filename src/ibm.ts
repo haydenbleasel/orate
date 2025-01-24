@@ -1,6 +1,8 @@
 import { IamAuthenticator } from 'ibm-watson/auth';
 import SpeechToTextV1 from 'ibm-watson/speech-to-text/v1';
+import type { RecognizeParams } from 'ibm-watson/speech-to-text/v1-generated';
 import TextToSpeechV1 from 'ibm-watson/text-to-speech/v1';
+import type { SynthesizeParams } from 'ibm-watson/text-to-speech/v1-generated';
 
 /**
  * Creates a Text-to-Speech client using the IBM Watson API
@@ -100,7 +102,10 @@ export const ibm = {
    * @param {(typeof voices)[number]} voice - The voice model to use for synthesis. Defaults to 'en-US_AllisonV3Voice'
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (voice: (typeof voices)[number] = 'en-US_AllisonV3Voice') => {
+  tts: (
+    voice: (typeof voices)[number] = 'en-US_AllisonV3Voice',
+    options?: Omit<SynthesizeParams, 'text' | 'voice'>
+  ) => {
     const provider = createTTSProvider();
 
     /**
@@ -113,6 +118,7 @@ export const ibm = {
         text: prompt,
         accept: 'audio/mp3',
         voice,
+        ...options,
       });
 
       const chunks: Buffer[] = [];
@@ -129,7 +135,7 @@ export const ibm = {
    * Creates a speech-to-text transcription function using IBM Watson STT
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: () => {
+  stt: (options?: Omit<RecognizeParams, 'audio'>) => {
     const provider = createSTTProvider();
 
     /**
@@ -143,6 +149,7 @@ export const ibm = {
       const response = await provider.recognize({
         audio: Buffer.from(audio),
         contentType: 'audio/mp3',
+        ...options,
       });
 
       if (!response.result.results?.length) {
