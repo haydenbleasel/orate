@@ -18,8 +18,6 @@ export const SnippetTabs = ({ tabs }: SnippetTabsProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0].name);
   const activeTab = tabs.find((tab) => tab.name === selectedTab);
 
-  console.log(activeTab);
-
   return (
     <Tabs
       value={selectedTab}
