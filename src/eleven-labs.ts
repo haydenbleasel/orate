@@ -1,4 +1,5 @@
 import { ElevenLabsClient } from 'elevenlabs';
+import type { TextToSpeechRequest } from 'elevenlabs/api';
 
 /**
  * Creates an ElevenLabs provider instance with API key from environment variables
@@ -62,11 +63,13 @@ export const elevenlabs = {
    * Creates a text-to-speech synthesis function using ElevenLabs
    * @param {keyof typeof models} model - The model ID to use for synthesis. Defaults to 'multilingual_v2'
    * @param {keyof typeof voices} voice - The voice ID to use for synthesis. Defaults to 'aria'
+   * @param {Omit<TextToSpeechRequest, 'text' | 'model_id'>} options - Additional options for the synthesis
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
     model: keyof typeof models = 'multilingual_v2',
-    voice: keyof typeof voices = 'aria'
+    voice: keyof typeof voices = 'aria',
+    options?: Omit<TextToSpeechRequest, 'text' | 'model_id'>
   ) => {
     /**
      * Synthesizes text to speech using ElevenLabs
@@ -80,6 +83,7 @@ export const elevenlabs = {
       const response = await provider.textToSpeech.convert(voices[voice], {
         text: prompt,
         model_id: models[model],
+        ...options,
       });
 
       const chunks: Uint8Array[] = [];
