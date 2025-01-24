@@ -4,6 +4,7 @@ import { openai } from "../src/openai";
 import { assembly } from "../src/assembly";
 import { elevenlabs } from "../src/eleven-labs";
 import { azure } from "../src/azure";
+import { google } from "../src/google";
 
 // OpenAI Text to Speech
 const openAiSpeech = await speak({
@@ -11,7 +12,7 @@ const openAiSpeech = await speak({
   prompt: "What is love?",
 });
 
-await writeFile("openai-speech.wav", Buffer.from(openAiSpeech));
+await writeFile("./test/openai-speech.wav", Buffer.from(openAiSpeech));
 console.log("OpenAI Text to Speech", openAiSpeech);
 
 
@@ -29,7 +30,7 @@ const elevenLabsSpeech = await speak({
   prompt: "What is love?",
 });
 
-await writeFile("eleven-labs-speech.wav", Buffer.from(elevenLabsSpeech));
+await writeFile("./test/eleven-labs-speech.wav", Buffer.from(elevenLabsSpeech));
 console.log("ElevenLabs Text to Speech", elevenLabsSpeech);
 
 // AssemblyAI Speech to Text
@@ -46,7 +47,7 @@ const azureSpeech = await speak({
   prompt: "What is love?",
 });
 
-await writeFile("azure-speech.wav", Buffer.from(azureSpeech));
+await writeFile("./test/azure-speech.wav", Buffer.from(azureSpeech));
 console.log("Azure Text to Speech", azureSpeech);
 
 // Azure Speech to Text
@@ -56,5 +57,22 @@ const azureText = await transcribe({
 });
 
 console.log("Azure Speech to Text", azureText);
+
+// Google Text to Speech
+const googleSpeech = await speak({
+  model: google.tts(),
+  prompt: "What is love?",
+});
+
+await writeFile("./test/google-speech.wav", Buffer.from(googleSpeech));
+console.log("Google Text to Speech", googleSpeech);
+
+// Google Speech to Text
+const googleText = await transcribe({
+  model: google.stt(),
+  audio: googleSpeech,
+});
+
+console.log("Google Speech to Text", googleText);
 
 process.exit(0);

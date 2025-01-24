@@ -29,6 +29,7 @@
     "ultracite": "4.1.16"
   },
   "dependencies": {
+    "@google-cloud/text-to-speech": "^5.8.0",
     "assemblyai": "^4.8.0",
     "elevenlabs": "^1.50.4",
     "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
