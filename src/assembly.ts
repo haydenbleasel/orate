@@ -11,7 +11,7 @@ const createProvider = () => {
 };
 
 export const assembly = {
-  transcribe: () => {
+  sst: () => {
     const provider = createProvider();
 
     return async (audio: Buffer) => {

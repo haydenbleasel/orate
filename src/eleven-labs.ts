@@ -11,7 +11,7 @@ const createProvider = () => {
 };
 
 export const elevenlabs = {
-  speech: (model: string, voice: string) => {
+  tts: (model: string, voice: string) => {
     return async (prompt: string) => {
       const provider = createProvider();
 
