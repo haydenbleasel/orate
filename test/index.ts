@@ -4,27 +4,33 @@ import { assembly } from "../dist/assembly";
 import { elevenlabs } from "../dist/eleven-labs";
 
 // OpenAI Text to Speech
-const { audio } = await speak({
+const openAiSpeech = await speak({
   model: openai.speech("tts-1", "alloy"),
   prompt: "What is love?",
 });
 
+console.log("OpenAI Text to Speech", openAiSpeech);
+
 // OpenAI Speech to Text
-const text = await transcribe({
+const openAiText = await transcribe({
   model: openai.transcribe("whisper-1"),
-  audio,
+  audio: openAiSpeech,
 });
 
+console.log("OpenAI Speech to Text", openAiText);
+
 // ElevenLabs Text to Speech
-const { audio } = await speak({
+const elevenLabsSpeech = await speak({
   model: elevenlabs.speech("eleven_multilingual_v2"),
   prompt: "What is love?",
 });
 
+console.log("ElevenLabs Text to Speech", elevenLabsSpeech);
+
 // AssemblyAI Speech to Text
-const text = await transcribe({
+const assemblyText = await transcribe({
   model: assembly.transcribe(),
-  audio,
+  audio: elevenLabsSpeech,
 });
 
-console.log(text);
+console.log("AssemblyAI Speech to Text", assemblyText);
