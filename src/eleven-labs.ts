@@ -44,7 +44,7 @@ const models = {
 };
 
 export const elevenlabs = {
-  tts: (model: keyof typeof models, voice: keyof typeof voices) => {
+  tts: (model: keyof typeof models = 'multilingual_v2', voice: keyof typeof voices = 'aria') => {
     return async (prompt: string) => {
       const provider = createProvider();
 
@@ -53,7 +53,11 @@ export const elevenlabs = {
         model_id: models[model],
       });
 
-      return response.toArray();
+      const array = await response.toArray();
+
+      console.log(response, array);
+
+      return array;
     };
   },
 };

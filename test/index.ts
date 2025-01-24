@@ -1,7 +1,7 @@
-import { speak, transcribe } from "../dist";
-import { openai } from "../dist/openai";
-import { assembly } from "../dist/assembly";
-import { elevenlabs } from "../dist/eleven-labs";
+import { speak, transcribe } from "../src";
+import { openai } from "../src/openai";
+import { assembly } from "../src/assembly";
+import { elevenlabs } from "../src/eleven-labs";
 
 // OpenAI Text to Speech
 const openAiSpeech = await speak({
@@ -13,7 +13,7 @@ console.log("OpenAI Text to Speech", openAiSpeech);
 
 // OpenAI Speech to Text
 const openAiText = await transcribe({
-  model: openai.sst("whisper-1"),
+  model: openai.sst('whisper-1'),
   audio: openAiSpeech,
 });
 

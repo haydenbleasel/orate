@@ -13,7 +13,7 @@ const createProvider = () => {
 };
 
 export const openai = {
-  tts: (model: SpeechCreateParams["model"], voice: SpeechCreateParams["voice"]) => {
+  tts: (model: SpeechCreateParams["model"] = 'tts-1', voice: SpeechCreateParams["voice"] = 'alloy') => {
     const provider = createProvider();
 
     return async (prompt: string) => {
@@ -26,7 +26,7 @@ export const openai = {
       return response.arrayBuffer();
     };
   },
-  sst: (model: TranscriptionCreateParams["model"]) => {
+  sst: (model: TranscriptionCreateParams["model"] = 'whisper-1') => {
     const provider = createProvider();
 
     return async (audio: ArrayBuffer) => {
