@@ -8,73 +8,122 @@ import { google } from "../src/google";
 
 const prompt = "What is love? Baby don't hurt me.";
 
-// OpenAI Text to Speech
-const openAiSpeech = await speak({
-  model: openai.tts("tts-1", "alloy"),
-  prompt,
-});
+// Create a table to track progress
+const table = [
+  ['OpenAI', 'Text to Speech', 'Pending', null, null],
+  ['OpenAI', 'Speech to Text', 'Pending', null, null],
+  ['ElevenLabs', 'Text to Speech', 'Pending', null, null],
+  ['AssemblyAI', 'Speech to Text', 'Pending', null, null],
+  ['Azure', 'Text to Speech', 'Pending', null, null],
+  ['Azure', 'Speech to Text', 'Pending', null, null],
+  ['Google', 'Text to Speech', 'Pending', null, null],
+  ['Google', 'Speech to Text', 'Pending', null, null],
+];
 
-await writeFile("./test/openai-speech.wav", Buffer.from(openAiSpeech));
-console.log("OpenAI Text to Speech", openAiSpeech);
+// Helper to print table
+const printTable = () => {
+  console.clear();
+  console.table(table.map(row => ({
+    Provider: row[0],
+    Job: row[1], 
+    Status: row[2],
+    Output: row[3],
+    Time: row[4],
+  })));
+};
 
+// Helper to update status
+const updateStatus = (provider: string, job: string, status: 'Success' | 'Failed', output: string | number, time: number | null) => {
+  const row = table.findIndex(r => r[0] === provider && r[1] === job);
+  if (row >= 0) {
+    table[row][2] = status;
+    table[row][3] = output.toString();
+    table[row][4] = time?.toFixed(2).toString() ?? null;
+    printTable();
+  }
+};
 
-// OpenAI Speech to Text
-const openAiText = await transcribe({
-  model: openai.stt('whisper-1'),
-  audio: openAiSpeech,
-});
+// Initial table display
+printTable();
 
-console.log("OpenAI Speech to Text", openAiText);
+try {
+  // OpenAI Text to Speech
+  const openAiSpeechStart = performance.now();
+  const openAiSpeech = await speak({
+    model: openai.tts("tts-1", "alloy"),
+    prompt,
+  });
+  const openAiSpeechEnd = performance.now();
+  await writeFile("./test/openai-speech.wav", Buffer.from(openAiSpeech));
+  updateStatus('OpenAI', 'Text to Speech', 'Success', openAiSpeech.byteLength, openAiSpeechEnd - openAiSpeechStart);
 
-// ElevenLabs Text to Speech
-const elevenLabsSpeech = await speak({
-  model: elevenlabs.tts('multilingual_v2', 'aria'),
-  prompt,
-});
+  // OpenAI Speech to Text
+  const openAiTextStart = performance.now();
+  const openAiText = await transcribe({
+    model: openai.stt('whisper-1'),
+    audio: openAiSpeech,
+  });
+  const openAiTextEnd = performance.now();
+  updateStatus('OpenAI', 'Speech to Text', 'Success', openAiText, openAiTextEnd - openAiTextStart);
 
-await writeFile("./test/eleven-labs-speech.wav", Buffer.from(elevenLabsSpeech));
-console.log("ElevenLabs Text to Speech", elevenLabsSpeech);
+  // ElevenLabs Text to Speech
+  const elevenLabsSpeechStart = performance.now();
+  const elevenLabsSpeech = await speak({
+    model: elevenlabs.tts('multilingual_v2', 'aria'),
+    prompt,
+  });
+  const elevenLabsSpeechEnd = performance.now();
+  await writeFile("./test/eleven-labs-speech.wav", Buffer.from(elevenLabsSpeech));
+  updateStatus('ElevenLabs', 'Text to Speech', 'Success', elevenLabsSpeech.byteLength, elevenLabsSpeechEnd - elevenLabsSpeechStart);
 
-// AssemblyAI Speech to Text
-const assemblyText = await transcribe({
-  model: assembly.stt(),
-  audio: elevenLabsSpeech,
-});
+  // AssemblyAI Speech to Text
+  const assemblyTextStart = performance.now();
+  const assemblyText = await transcribe({
+    model: assembly.stt(),
+    audio: elevenLabsSpeech,
+  });
+  const assemblyTextEnd = performance.now();
+  updateStatus('AssemblyAI', 'Speech to Text', 'Success', assemblyText, assemblyTextEnd - assemblyTextStart);
 
-console.log("AssemblyAI Speech to Text", assemblyText);
+  // Azure Text to Speech
+  const azureSpeechStart = performance.now();
+  const azureSpeech = await speak({
+    model: azure.tts('en-US-AvaMultilingualNeural'),
+    prompt,
+  });
+  const azureSpeechEnd = performance.now();
+  await writeFile("./test/azure-speech.wav", Buffer.from(azureSpeech));
+  updateStatus('Azure', 'Text to Speech', 'Success', azureSpeech.byteLength, azureSpeechEnd - azureSpeechStart);
 
-// Azure Text to Speech
-const azureSpeech = await speak({
-  model: azure.tts('en-US-AvaMultilingualNeural'),
-  prompt,
-});
+  // Azure Speech to Text
+  const azureTextStart = performance.now();
+  const azureText = await transcribe({
+    model: azure.stt(),
+    audio: azureSpeech,
+  });
+  const azureTextEnd = performance.now();
+  updateStatus('Azure', 'Speech to Text', 'Success', azureText, azureTextEnd - azureTextStart);
 
-await writeFile("./test/azure-speech.wav", Buffer.from(azureSpeech));
-console.log("Azure Text to Speech", azureSpeech);
+  // Google Text to Speech
+  const googleSpeechStart = performance.now();
+  const googleSpeech = await speak({
+    model: google.tts(),
+    prompt,
+  });
+  const googleSpeechEnd = performance.now();
+  await writeFile("./test/google-speech.wav", Buffer.from(googleSpeech));
+  updateStatus('Google', 'Text to Speech', 'Success', googleSpeech.byteLength, googleSpeechEnd - googleSpeechStart);
 
-// Azure Speech to Text
-const azureText = await transcribe({
-  model: azure.stt(),
-  audio: azureSpeech,
-});
+  // Google Speech to Text
+  const googleTextStart = performance.now();
+  const googleText = await transcribe({
+    model: google.stt(),
+    audio: googleSpeech,
+  });
+  const googleTextEnd = performance.now();
+  updateStatus('Google', 'Speech to Text', 'Success', googleText, googleTextEnd - googleTextStart);
 
-console.log("Azure Speech to Text", azureText);
-
-// Google Text to Speech
-const googleSpeech = await speak({
-  model: google.tts(),
-  prompt,
-});
-
-await writeFile("./test/google-speech.wav", Buffer.from(googleSpeech));
-console.log("Google Text to Speech", googleSpeech);
-
-// Google Speech to Text
-const googleText = await transcribe({
-  model: google.stt(),
-  audio: googleSpeech,
-});
-
-console.log("Google Speech to Text", googleText);
-
-process.exit(0);
+} catch (error) {
+  console.error('Error:', error);
+  process.exit(1);
+}
