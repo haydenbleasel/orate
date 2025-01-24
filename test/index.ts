@@ -6,10 +6,12 @@ import { elevenlabs } from "../src/eleven-labs";
 import { azure } from "../src/azure";
 import { google } from "../src/google";
 
+const prompt = "What is love? Baby don't hurt me.";
+
 // OpenAI Text to Speech
 const openAiSpeech = await speak({
   model: openai.tts("tts-1", "alloy"),
-  prompt: "What is love?",
+  prompt,
 });
 
 await writeFile("./test/openai-speech.wav", Buffer.from(openAiSpeech));
@@ -27,7 +29,7 @@ console.log("OpenAI Speech to Text", openAiText);
 // ElevenLabs Text to Speech
 const elevenLabsSpeech = await speak({
   model: elevenlabs.tts('multilingual_v2', 'aria'),
-  prompt: "What is love?",
+  prompt,
 });
 
 await writeFile("./test/eleven-labs-speech.wav", Buffer.from(elevenLabsSpeech));
@@ -44,7 +46,7 @@ console.log("AssemblyAI Speech to Text", assemblyText);
 // Azure Text to Speech
 const azureSpeech = await speak({
   model: azure.tts('en-US-AvaMultilingualNeural'),
-  prompt: "What is love?",
+  prompt,
 });
 
 await writeFile("./test/azure-speech.wav", Buffer.from(azureSpeech));
@@ -61,7 +63,7 @@ console.log("Azure Speech to Text", azureText);
 // Google Text to Speech
 const googleSpeech = await speak({
   model: google.tts(),
-  prompt: "What is love?",
+  prompt,
 });
 
 await writeFile("./test/google-speech.wav", Buffer.from(googleSpeech));

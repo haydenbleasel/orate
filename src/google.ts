@@ -1,7 +1,8 @@
 import textToSpeech from '@google-cloud/text-to-speech';
-import { google as googleTypes } from '@google-cloud/text-to-speech/build/protos/protos';
+import type { google as googleTypes } from '@google-cloud/text-to-speech/build/protos/protos';
+import speechToText from '@google-cloud/speech';
 
-const createProvider = () => {
+const createTTSProvider = () => {
   const apiKey = process.env.GOOGLE_API_KEY;
 
   if (!apiKey) {
@@ -9,6 +10,16 @@ const createProvider = () => {
   }
 
   return new textToSpeech.TextToSpeechClient({ apiKey });
+};
+
+const createSTTProvider = () => {
+  const apiKey = process.env.GOOGLE_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("GOOGLE_API_KEY is not set");
+  }
+
+  return new speechToText.v2.SpeechClient({ apiKey });
 };
 
 const voices = [
@@ -601,9 +612,21 @@ const voices = [
   "yue-HK-Standard-D",
 ] as const;
 
+const models = [
+  'long',
+  'short',
+  'telephony',
+  'telephony_short',
+  'medical_dictation',
+  'medical_conversation',
+  'chirp_2',
+  'chirp_telephony',
+  'chirp',
+] as const;
+
 export const google = {
   tts: (model: typeof voices[number] = 'en-US-Casual-K', options: Omit<googleTypes.cloud.texttospeech.v1.IVoiceSelectionParams, 'name'> = {}) => {
-    const provider = createProvider();
+    const provider = createTTSProvider();
 
     return async (prompt: string) => {
       const [response] = await provider.synthesizeSpeech({
@@ -621,14 +644,42 @@ export const google = {
         throw new Error("No audio content returned.");
       }
 
+      if (typeof response.audioContent === 'string') {
+        throw new Error("Audio content is a string.");
+      }
+
       return response.audioContent;
     };
   },
-  stt: (model: string) => {
-    const provider = createProvider();
+  stt: (model: typeof models[number] = 'chirp_2') => {
+    const provider = createSTTProvider();
 
     return async (audio: ArrayBuffer) => {
-      return "Hello";
+      const content = Buffer.from(audio).toString('base64');
+
+      const [response] = await provider.recognize({
+        config: {
+          autoDecodingConfig: {},
+          model: model,
+        },
+        content: content,
+      });
+
+      if (!response.results) {
+        throw new Error("No results returned.");
+      }
+
+      if (!response.results[0].alternatives) {
+        throw new Error("No alternatives returned.");
+      }
+
+      const { transcript } = response.results[0].alternatives[0];
+
+      if (!transcript) {
+        throw new Error("No transcript returned.");
+      }
+
+      return transcript;
     };
   },
 };
