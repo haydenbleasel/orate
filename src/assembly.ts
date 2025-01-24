@@ -1,6 +1,11 @@
 import { AssemblyAI } from 'assemblyai';
 import type { SpeechModel } from 'assemblyai';
 
+/**
+ * Creates an AssemblyAI provider instance with API key from environment variables
+ * @returns {AssemblyAI} Configured AssemblyAI client instance
+ * @throws {Error} If ASSEMBLYAI_API_KEY environment variable is not set
+ */
 const createProvider = () => {
   const apiKey = process.env.ASSEMBLYAI_API_KEY;
 
@@ -11,10 +16,24 @@ const createProvider = () => {
   return new AssemblyAI({ apiKey });
 };
 
+/**
+ * AssemblyAI speech-to-text functionality
+ */
 export const assembly = {
+  /**
+   * Creates a speech-to-text transcription function using AssemblyAI
+   * @param {SpeechModel} model - The speech model to use for transcription. Defaults to 'best'
+   * @returns {Function} Async function that takes audio and returns transcribed text
+   */
   stt: (model: SpeechModel = 'best') => {
     const provider = createProvider();
 
+    /**
+     * Transcribes audio to text using AssemblyAI
+     * @param {ArrayBuffer} audio - The audio data to transcribe
+     * @returns {Promise<string>} The transcribed text
+     * @throws {Error} If transcription fails, is still processing/queued, or returns no text
+     */
     return async (audio: ArrayBuffer) => {
       const response = await provider.transcripts.transcribe({
         audio,

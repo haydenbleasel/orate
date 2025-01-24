@@ -2,6 +2,12 @@ import { IamAuthenticator } from 'ibm-watson/auth';
 import SpeechToTextV1 from 'ibm-watson/speech-to-text/v1';
 import TextToSpeechV1 from 'ibm-watson/text-to-speech/v1';
 
+/**
+ * Creates a Text-to-Speech client using the IBM Watson API
+ * @returns {TextToSpeechV1} Configured TTS client
+ * @throws {Error} If IBM_TTS_API_KEY environment variable is not set
+ * @throws {Error} If IBM_TTS_URL environment variable is not set
+ */
 const createTTSProvider = () => {
   const apikey = process.env.IBM_TTS_API_KEY;
   const serviceUrl = process.env.IBM_TTS_URL;
@@ -19,6 +25,12 @@ const createTTSProvider = () => {
   return new TextToSpeechV1({ authenticator, serviceUrl });
 };
 
+/**
+ * Creates a Speech-to-Text client using the IBM Watson API
+ * @returns {SpeechToTextV1} Configured STT client
+ * @throws {Error} If IBM_STT_API_KEY environment variable is not set
+ * @throws {Error} If IBM_STT_URL environment variable is not set
+ */
 const createSTTProvider = () => {
   const apikey = process.env.IBM_STT_API_KEY;
   const serviceUrl = process.env.IBM_STT_URL;
@@ -36,6 +48,13 @@ const createSTTProvider = () => {
   return new SpeechToTextV1({ authenticator, serviceUrl });
 };
 
+/**
+ * List of available IBM Watson voice models for text-to-speech
+ * Includes both Expressive and V3 voices in various languages and regions
+ * Format examples:
+ * - Expressive voices: {language}-{region}_{name}Expressive (e.g. en-US_AllisonExpressive)
+ * - V3 voices: {language}-{region}_{name}V3Voice (e.g. en-US_AllisonV3Voice)
+ */
 const voices = [
   'en-AU_HeidiExpressive',
   'en-AU_JackExpressive',
@@ -72,10 +91,23 @@ const voices = [
   'es-US_SofiaV3Voice',
 ] as const;
 
+/**
+ * IBM Watson Speech Services functionality for text-to-speech and speech-to-text
+ */
 export const ibm = {
+  /**
+   * Creates a text-to-speech synthesis function using IBM Watson TTS
+   * @param {(typeof voices)[number]} voice - The voice model to use for synthesis. Defaults to 'en-US_AllisonV3Voice'
+   * @returns {Function} Async function that takes text and returns synthesized audio
+   */
   tts: (voice: (typeof voices)[number] = 'en-US_AllisonV3Voice') => {
     const provider = createTTSProvider();
 
+    /**
+     * Synthesizes text to speech using IBM Watson TTS
+     * @param {string} prompt - The text to convert to speech
+     * @returns {Promise<ArrayBuffer>} The synthesized audio data as an ArrayBuffer
+     */
     return async (prompt: string) => {
       const response = await provider.synthesize({
         text: prompt,
@@ -92,9 +124,21 @@ export const ibm = {
       return Buffer.concat(chunks).buffer;
     };
   },
+
+  /**
+   * Creates a speech-to-text transcription function using IBM Watson STT
+   * @returns {Function} Async function that takes audio and returns transcribed text
+   */
   stt: () => {
     const provider = createSTTProvider();
 
+    /**
+     * Transcribes audio to text using IBM Watson STT
+     * @param {ArrayBuffer} audio - The audio data to transcribe
+     * @returns {Promise<string>} The transcribed text
+     * @throws {Error} If no transcription results are found
+     * @throws {Error} If no transcription alternatives are found
+     */
     return async (audio: ArrayBuffer) => {
       const response = await provider.recognize({
         audio: Buffer.from(audio),

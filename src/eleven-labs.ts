@@ -1,5 +1,10 @@
 import { ElevenLabsClient } from 'elevenlabs';
 
+/**
+ * Creates an ElevenLabs provider instance with API key from environment variables
+ * @returns {ElevenLabsClient} Configured ElevenLabs client instance
+ * @throws {Error} If ELEVENLABS_API_KEY environment variable is not set
+ */
 const createProvider = () => {
   const apiKey = process.env.ELEVENLABS_API_KEY;
 
@@ -10,6 +15,9 @@ const createProvider = () => {
   return new ElevenLabsClient({ apiKey });
 };
 
+/**
+ * Map of available ElevenLabs voice IDs
+ */
 const voices = {
   alice: 'Xb7hH8MSUJpSbSDYk0k2',
   aria: '9BWtsMINqrJLrRacOk9x',
@@ -33,6 +41,9 @@ const voices = {
   will: 'bIHbv24MWmeRgasZH58o',
 };
 
+/**
+ * Map of available ElevenLabs model IDs
+ */
 const models = {
   multilingual_v2: 'eleven_multilingual_v2',
   flash_v2_5: 'eleven_flash_v2_5',
@@ -43,11 +54,26 @@ const models = {
   english_sts_v2: 'eleven_english_sts_v2',
 };
 
+/**
+ * ElevenLabs text-to-speech functionality
+ */
 export const elevenlabs = {
+  /**
+   * Creates a text-to-speech synthesis function using ElevenLabs
+   * @param {keyof typeof models} model - The model ID to use for synthesis. Defaults to 'multilingual_v2'
+   * @param {keyof typeof voices} voice - The voice ID to use for synthesis. Defaults to 'aria'
+   * @returns {Function} Async function that takes text and returns synthesized audio
+   */
   tts: (
     model: keyof typeof models = 'multilingual_v2',
     voice: keyof typeof voices = 'aria'
   ) => {
+    /**
+     * Synthesizes text to speech using ElevenLabs
+     * @param {string} prompt - The text to convert to speech
+     * @returns {Promise<ArrayBuffer>} The synthesized audio data
+     * @throws {Error} If synthesis fails
+     */
     return async (prompt: string) => {
       const provider = createProvider();
 
