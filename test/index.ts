@@ -21,7 +21,7 @@ console.log("OpenAI Speech to Text", openAiText);
 
 // ElevenLabs Text to Speech
 const elevenLabsSpeech = await speak({
-  model: elevenlabs.tts("eleven_multilingual_v2"),
+  model: elevenlabs.tts('multilingual_v2', 'aria'),
   prompt: "What is love?",
 });
 
