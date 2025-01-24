@@ -111,7 +111,7 @@ try {
   // AssemblyAI Speech to Text
   const assemblyTextStart = performance.now();
   const assemblyText = await transcribe({
-    model: assembly.stt(),
+    model: assembly.stt('nano'),
     audio: elevenLabsSpeech,
   });
   const assemblyTextEnd = performance.now();
