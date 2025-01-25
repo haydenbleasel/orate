@@ -1,18 +1,37 @@
-import './global.css';
+import { Navbar } from '@/components/navbar';
+import { Toaster } from '@/components/ui/sonner';
+import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/providers/theme';
+import { Analytics } from '@vercel/analytics/next';
 import { RootProvider } from 'fumadocs-ui/provider';
-import { Inter } from 'next/font/google';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
 import type { ReactNode } from 'react';
+import './globals.css';
 
-const inter = Inter({
-  subsets: ['latin'],
-});
+type RootLayoutProps = {
+  children: ReactNode;
+};
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
-      <body className="flex flex-col min-h-screen">
-        <RootProvider>{children}</RootProvider>
-      </body>
-    </html>
-  );
-}
+const RootLayout = ({ children }: RootLayoutProps) => (
+  <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <body
+      className={cn(
+        GeistSans.variable,
+        GeistMono.variable,
+        'bg-secondary antialiased dark:bg-background'
+      )}
+    >
+      <ThemeProvider>
+        <RootProvider>
+          <Navbar />
+          {children}
+          <Toaster />
+        </RootProvider>
+      </ThemeProvider>
+      <Analytics />
+    </body>
+  </html>
+);
+
+export default RootLayout;
