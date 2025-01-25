@@ -51,23 +51,39 @@ const transcribe = async (audioUrl: string) => {
 };
 
 type GetTranscriptionResponse = {
-  result: {
-    transcription: {
-      full_transcript: string;
+  status: 'queued' | 'processing' | 'done' | 'error';
+  result?: {
+    transcription?: {
+      full_transcript?: string;
     };
   };
 };
 
 const getTranscription = async (transcriptionUrl: string) => {
-  const response = await ky
-    .get(transcriptionUrl, {
-      headers: {
-        'x-gladia-key': getApiKey(),
-      },
-    })
-    .json<GetTranscriptionResponse>();
+  while (true) {
+    const response = await ky
+      .get(transcriptionUrl, {
+        headers: {
+          'x-gladia-key': getApiKey(),
+        },
+      })
+      .json<GetTranscriptionResponse>();
 
-  return response.result.transcription.full_transcript;
+    if (response.status === 'error') {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    if (response.status === 'done') {
+      if (!response.result?.transcription?.full_transcript) {
+        throw new Error('No transcription');
+      }
+
+      return response.result.transcription.full_transcript;
+    }
+
+    // If queued or processing, wait 1 second before polling again
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
 };
 
 /**
