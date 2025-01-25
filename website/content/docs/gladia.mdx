@@ -1,0 +1,67 @@
+---
+title: Gladia
+description: Orate supports Gladia's transcription services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Gladia provide infrastructure to transform note-taking, customer support, sales assistance, user experience, and more. From async to live streaming, their API empowers your platform with accurate, multilingual speech-to-text and actionable insights.
+
+## Setup
+
+The Gladia provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { gladia } from 'orate/gladia';
+```
+
+## Configuration
+
+The Gladia provider looks for the `GLADIA_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+GLADIA_API_KEY="your_api_key"
+```
+
+## Usage
+
+The Gladia provider provides a single interface for all of Gladia's transcription services.
+
+### Speech to Text
+
+The Gladia provider provides a `stt` function that allows you to create a speech-to-text transcription function using Gladia. By default, the `stt` function uses the `best` model.
+
+```tsx
+import { transcribe } from 'orate';
+import { gladia } from 'orate/gladia';
+
+const text = await transcribe({
+  model: gladia.stt(),
+  audio: someArrayBuffer,
+});
+```
+
+You can specify the model to use by passing it as an argument to the `stt` function. By default, the `stt` function uses the `base` model.
+
+```tsx
+const text = await transcribe({
+  model: gladia.stt('enhanced'),
+  audio: someArrayBuffer,
+});
+```
+
+You can also specify specific Gladia properties by passing them as an argument to the `stt` function.
+
+```tsx
+const text = await transcribe({
+  model: gladia.stt('enhanced', {
+    chapterization: true,
+  }),
+  audio: someArrayBuffer,
+});
+```
+
+## Typescript Definitions
+
+The Gladia provider provides Typescript definitions for the `stt` function.
+

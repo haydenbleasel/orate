@@ -9,7 +9,7 @@ describe('Gladia Tests', () => {
     const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });
 
     const text = await transcribe({
-      model: gladia.stt(),
+      model: gladia.stt('enhanced'),
       audio,
     });
 

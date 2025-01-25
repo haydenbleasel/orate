@@ -6,6 +6,7 @@ import Link from 'next/link';
 import AssemblyAI from '../../../public/providers/assembly.svg';
 import Azure from '../../../public/providers/azure.svg';
 import ElevenLabs from '../../../public/providers/elevenlabs.svg';
+import Gladia from '../../../public/providers/gladia.svg';
 import Google from '../../../public/providers/google.svg';
 import IBM from '../../../public/providers/ibm.svg';
 import OpenAI from '../../../public/providers/openai.svg';
@@ -17,6 +18,7 @@ const providers = [
   { name: 'Azure', image: Azure, href: '/docs/azure' },
   { name: 'IBM', image: IBM, href: '/docs/ibm' },
   { name: 'Google', image: Google, href: '/docs/google' },
+  { name: 'Gladia', image: Gladia, href: '/docs/gladia' },
 ];
 
 export const Providers = () => (
@@ -32,7 +34,7 @@ export const Providers = () => (
         Plug and play your favorite AI provider
       </p>
     </AnimateProvider>
-    <div className="grid w-full grid-cols-2 items-center gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-6">
+    <div className="grid w-full grid-cols-2 items-center gap-x-4 gap-y-12 sm:grid-cols-3 md:grid-cols-4">
       {providers.map(({ name, image, href }, index) => (
         <AnimateProvider
           key={name}

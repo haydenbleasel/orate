@@ -35,11 +35,22 @@ type TranscribeResponse = {
   result_url: string;
 };
 
-const transcribe = async (audioUrl: string) => {
+const transcribe = async (
+  audioUrl: string,
+  model: string,
+  options?: object
+) => {
   const response = await ky
     .post('https://api.gladia.io/v2/pre-recorded', {
       json: {
+        ...options,
         audio_url: audioUrl,
+        translation_config: {
+          ...(options
+            ? (options as { translation_config: object }).translation_config
+            : {}),
+          model,
+        },
       },
       headers: {
         'x-gladia-key': getApiKey(),
@@ -95,10 +106,10 @@ export const gladia = {
    * @param {File} audio - The audio data to transcribe
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: () => {
+  stt: (model: 'base' | 'enhanced' = 'base', options?: object) => {
     return async (audio: File) => {
       const audioUrl = await uploadFile(audio);
-      const transcriptionUrl = await transcribe(audioUrl);
+      const transcriptionUrl = await transcribe(audioUrl, model, options);
       const text = await getTranscription(transcriptionUrl);
 
       return text;
