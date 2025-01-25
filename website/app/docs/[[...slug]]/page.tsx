@@ -40,7 +40,7 @@ const Page = async (props: PageProps) => {
   );
 };
 
-export const generateStaticParams = source.generateParams;
+export const generateStaticParams = () => source.generateParams();
 
 export const generateMetadata = async (props: {
   params: Promise<{ slug?: string[] }>;
