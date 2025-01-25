@@ -1,0 +1,17 @@
+---
+title: Providers
+description: Orate serves as a unified API for speech and transcription services.
+---
+
+Companies such as OpenAI, ElevenLabs and AssemblyAI offer speech and transcription services through the use of their own Large Language Models (LLMs). Orate allows you to use these services with a single API, making it easy to switch between providers and use the best AI services for your needs.
+
+Here are the providers that Orate currently supports:
+
+<div className="grid grid-cols-2 gap-4">
+  <ProviderCard id="openai" provider="OpenAI" supports={['speech', 'transcription']} />
+  <ProviderCard id="elevenlabs" provider="ElevenLabs" supports={['speech']} />
+  <ProviderCard id="assemblyai" provider="AssemblyAI" supports={['transcription']} />
+  <ProviderCard id="google" provider="Google" supports={['speech', 'transcription']} />
+  <ProviderCard id="ibm" provider="IBM Watson" supports={['speech', 'transcription']} />
+  <ProviderCard id="azure" provider="Microsoft Azure" supports={['speech', 'transcription']} />
+</div>

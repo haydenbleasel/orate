@@ -81,6 +81,10 @@
   --fd-sidebar-height: calc(100dvh - var(--fd-banner-height) - var(--fd-nav-height) - 68px) !important;
 }
 
+#nd-sidebar > div {
+  @apply md:pt-0;
+}
+
 .top-fd-layout-top {
   top: calc(var(--fd-banner-height) + var(--fd-nav-height) + 68px) !important;
 }

@@ -1,0 +1,14 @@
+{
+  "title": "ui",
+  "root": true,
+  "pages": [
+    "...",
+    "---Providers---",
+    "openai",
+    "elevenlabs",
+    "assembly",
+    "google",
+    "ibm",
+    "azure"
+  ]
+}

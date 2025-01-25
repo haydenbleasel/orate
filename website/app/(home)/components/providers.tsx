@@ -1,11 +1,11 @@
 import { AnimateProvider } from '@/app/providers/animate';
 import Image from 'next/image';
-import AssemblyAI from './assemblyai.svg';
-import Azure from './azure.svg';
-import ElevenLabs from './elevenlabs.svg';
-import Google from './google.svg';
-import IBM from './ibm.svg';
-import OpenAI from './openai.svg';
+import AssemblyAI from '../../../public/providers/assemblyai.svg';
+import Azure from '../../../public/providers/azure.svg';
+import ElevenLabs from '../../../public/providers/elevenlabs.svg';
+import Google from '../../../public/providers/google.svg';
+import IBM from '../../../public/providers/ibm.svg';
+import OpenAI from '../../../public/providers/openai.svg';
 
 const images = [OpenAI, ElevenLabs, AssemblyAI, Azure, IBM, Google];
 
