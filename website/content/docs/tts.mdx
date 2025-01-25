@@ -1,0 +1,20 @@
+---
+title: Text to Speech
+description: Convert text into realistic speech with many voices and languages; powered by leading AI providers.
+---
+
+Orate provides a simple and unified API for converting text into speech using various AI providers. The text-to-speech functionality is accessible through the `speak` function.
+
+## Basic Usage
+
+The basic usage involves importing the `speak` function from Orate and your chosen provider. For example, to use OpenAI's text-to-speech model, you can import the `OpenAI` provider and use its `tts` function:
+
+```tsx
+import { speak } from 'orate';
+import { openai } from 'orate/providers/openai';
+
+const transcription = await speak({
+  model: openai.tts(),
+  prompt: 'Hello, world!',
+});
+```

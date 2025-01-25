@@ -1,6 +1,8 @@
 import { Snippet } from '@/app/(home)/components/snippet';
+import { Button } from '@/app/components/ui/button';
 import { AnimateProvider } from '@/app/providers/animate';
 import Image from 'next/image';
+import Link from 'next/link';
 import Speech from './speech.jpg';
 
 const createSnippet = (
@@ -80,6 +82,15 @@ export const TextToSpeech = () => (
         className="grid"
       >
         <Snippet snippets={snippets} />
+      </AnimateProvider>
+      <AnimateProvider
+        initial={{ opacity: 0, transform: 'translateY(-8px)' }}
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        delay={0.8}
+      >
+        <Button variant="secondary" asChild>
+          <Link href="/docs/tts">Read the docs</Link>
+        </Button>
       </AnimateProvider>
     </div>
     <Image src={Speech} alt="Speech" className="hidden lg:block" />

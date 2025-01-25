@@ -3,6 +3,9 @@
   "root": true,
   "pages": [
     "...",
+    "---Functions---",
+    "stt",
+    "tts",
     "---Providers---",
     "openai",
     "elevenlabs",

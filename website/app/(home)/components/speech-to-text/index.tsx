@@ -1,5 +1,7 @@
+import { Button } from '@/app/components/ui/button';
 import { AnimateProvider } from '@/app/providers/animate';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Snippet } from '../snippet';
 import Writing from './writing.jpg';
 
@@ -81,6 +83,15 @@ export const SpeechToText = () => (
         className="grid"
       >
         <Snippet snippets={snippets} />
+      </AnimateProvider>
+      <AnimateProvider
+        initial={{ opacity: 0, transform: 'translateY(-8px)' }}
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        delay={0.8}
+      >
+        <Button variant="secondary" asChild>
+          <Link href="/docs/stt">Read the docs</Link>
+        </Button>
       </AnimateProvider>
     </div>
   </section>
