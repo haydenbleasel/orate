@@ -1,0 +1,67 @@
+---
+title: Rev AI
+description: Orate supports Rev AI's transcription services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Rev AI offers an accurate API for AI and human-generated transcripts. Trained from the most diverse collection of voices in the world, Rev AI sets the accuracy standard for video and voice applications.
+
+## Setup
+
+The Rev AI provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { rev } from 'orate/rev';
+```
+
+## Configuration
+
+The Rev AI provider looks for the `REV_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+REV_API_KEY="your_api_key"
+```
+
+## Usage
+
+The Rev AI provider provides a single interface for all of Rev AI's transcription services.
+
+### Speech to Text
+
+The Rev AI provider provides a `stt` function that allows you to create a speech-to-text transcription function using Rev AI. By default, the `stt` function uses the `machine` model.
+
+```tsx
+import { transcribe } from 'orate';
+import { rev } from 'orate/rev';
+
+const text = await transcribe({
+  model: rev.stt(),
+  audio: someArrayBuffer,
+});
+```
+
+You can specify the model to use by passing it as an argument to the `stt` function. By default, the `stt` function uses the `base` model.
+
+```tsx
+const text = await transcribe({
+  model: rev.stt('fusion'),
+  audio: someArrayBuffer,
+});
+```
+
+You can also specify specific Rev AI properties by passing them as an argument to the `stt` function.
+
+```tsx
+const text = await transcribe({
+  model: rev.stt('fusion', {
+    remove_disfluencies: true,
+  }),
+  audio: someArrayBuffer,
+});
+```
+
+## Typescript Definitions
+
+The Rev AI provider provides Typescript definitions for the `stt` function.
+

@@ -10,6 +10,7 @@ import Gladia from '../../../public/providers/gladia.svg';
 import Google from '../../../public/providers/google.svg';
 import IBM from '../../../public/providers/ibm.svg';
 import OpenAI from '../../../public/providers/openai.svg';
+import Rev from '../../../public/providers/rev.svg';
 
 const providers = [
   { name: 'OpenAI', image: OpenAI, href: '/docs/openai' },
@@ -19,6 +20,7 @@ const providers = [
   { name: 'IBM', image: IBM, href: '/docs/ibm' },
   { name: 'Google', image: Google, href: '/docs/google' },
   { name: 'Gladia', image: Gladia, href: '/docs/gladia' },
+  { name: 'Rev', image: Rev, href: '/docs/rev' },
 ];
 
 export const Providers = () => (

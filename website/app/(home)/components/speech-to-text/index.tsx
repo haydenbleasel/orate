@@ -50,6 +50,11 @@ const snippets = [
     name: 'Gladia',
     code: createSnippet('gladia', "'enhanced'"),
   },
+  {
+    provider: 'rev',
+    name: 'Rev AI',
+    code: createSnippet('rev', "'machine'"),
+  },
 ];
 
 export const SpeechToText = () => (
