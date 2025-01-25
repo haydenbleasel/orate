@@ -35,7 +35,7 @@ The ElevenLabs provider provides a `tts` function that allows you to create a te
 import { speak } from 'orate';
 import { elevenlabs } from 'orate/elevenlabs';
 
-const elevenLabsSpeech = await speak({
+const speech = await speak({
   model: elevenlabs.tts(),
   prompt: 'Hello, world!',
 });
@@ -44,7 +44,7 @@ const elevenLabsSpeech = await speak({
 You can specify the model and voice to use by passing them as arguments to the `tts` function.
 
 ```tsx
-const elevenLabsSpeech = await speak({
+const speech = await speak({
   model: elevenlabs.tts('english_sts_v2', 'charlotte'),
   prompt: 'Hello, world!',
 });
@@ -53,7 +53,7 @@ const elevenLabsSpeech = await speak({
 You can also specify specific ElevenLabs properties by passing them as an argument to the `tts` function.
 
 ```tsx
-const elevenLabsSpeech = await speak({
+const speech = await speak({
   model: elevenlabs.tts('english_sts_v2', 'charlotte', {
     voice_settings: {
       stability: 0.5,

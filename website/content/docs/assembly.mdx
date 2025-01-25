@@ -35,7 +35,7 @@ The AssemblyAI provider provides a `stt` function that allows you to create a sp
 import { transcribe } from 'orate';
 import { assemblyai } from 'orate/assemblyai';
 
-const assemblyAiText = await transcribe({
+const text = await transcribe({
   model: assemblyai.stt(),
   audio: someArrayBuffer,
 });
@@ -44,7 +44,7 @@ const assemblyAiText = await transcribe({
 You can specify the model to use by passing it as an argument to the `stt` function.
 
 ```tsx
-const assemblyAiText = await transcribe({
+const text = await transcribe({
   model: assemblyai.stt('nano'),
   audio: someArrayBuffer,
 });
@@ -53,7 +53,7 @@ const assemblyAiText = await transcribe({
 You can also specify specific AssemblyAI properties by passing them as an argument to the `stt` function.
 
 ```tsx
-const assemblyAiText = await transcribe({
+const text = await transcribe({
   model: assemblyai.stt('nano', {
     punctuate: false,
   }),
