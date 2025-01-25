@@ -68,7 +68,7 @@
 }
 
 #nd-nav {
-  @apply bg-background/90 backdrop-blur-sm m-0 border-none w-full rounded-none sticky top-0 left-auto right-auto translate-x-0 translate-y-0 mx-auto;
+  @apply bg-background/90 shadow-none backdrop-blur-sm m-0 border-none w-full rounded-none sticky top-0 left-auto right-auto translate-x-0 translate-y-0 mx-auto;
   @apply group-[.docs]:max-w-none group-[.docs]:border-b group-[.docs]:border-x-0 group-[.docs]:border-t-0 group-[.docs]:border-solid
 }
 
@@ -83,6 +83,10 @@
 
 #nd-sidebar > div {
   @apply md:pt-0;
+}
+
+#nd-toc {
+  --fd-toc-height: calc(100dvh - var(--fd-banner-height) - var(--fd-nav-height) - 68px);
 }
 
 .top-fd-layout-top {
