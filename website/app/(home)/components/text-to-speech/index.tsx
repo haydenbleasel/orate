@@ -35,7 +35,7 @@ const snippets = [
   {
     provider: 'google',
     name: 'Google',
-    code: createSnippet('google'),
+    code: createSnippet('google', "'en-US-Casual-K'"),
   },
   {
     provider: 'ibm',

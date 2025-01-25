@@ -35,12 +35,15 @@ const snippets = [
   {
     provider: 'google',
     name: 'Google',
-    code: createSnippet('google'),
+    code: createSnippet(
+      'google',
+      "'projects/{project}/locations/{region}/recognizers/{recognizer}'"
+    ),
   },
   {
     provider: 'ibm',
     name: 'IBM',
-    code: createSnippet('ibm'),
+    code: createSnippet('ibm', "'en-US_BroadbandModel'"),
   },
 ];
 
