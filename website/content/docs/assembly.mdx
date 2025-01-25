@@ -1,4 +1,67 @@
 ---
 title: AssemblyAI
-description: Orate supports AssemblyAI's speech and transcription services.
+description: Orate supports AssemblyAI's transcription services.
 ---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+AssemblyAI is a leader in Speech AI to power world-class products with unmatched accuracy, breakthrough speech-to-text models, and profound speech understanding.
+
+## Setup
+
+The AssemblyAI provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { assemblyai } from 'orate/assemblyai';
+```
+
+## Configuration
+
+The AssemblyAI provider looks for the `ASSEMBLYAI_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+ASSEMBLYAI_API_KEY="your_api_key"
+```
+
+## Usage
+
+The AssemblyAI provider provides a single interface for all of AssemblyAI's transcription services.
+
+### Speech to Text
+
+The AssemblyAI provider provides a `stt` function that allows you to create a speech-to-text transcription function using AssemblyAI. By default, the `stt` function uses the `best` model.
+
+```tsx
+import { transcribe } from 'orate';
+import { assemblyai } from 'orate/assemblyai';
+
+const assemblyAiText = await transcribe({
+  model: assemblyai.stt(),
+  audio: someArrayBuffer,
+});
+```
+
+You can specify the model to use by passing it as an argument to the `stt` function.
+
+```tsx
+const assemblyAiText = await transcribe({
+  model: assemblyai.stt('nano'),
+  audio: someArrayBuffer,
+});
+```
+
+You can also specify specific AssemblyAI properties by passing them as an argument to the `stt` function.
+
+```tsx
+const assemblyAiText = await transcribe({
+  model: assemblyai.stt('nano', {
+    punctuate: false,
+  }),
+  audio: someArrayBuffer,
+});
+```
+
+## Typescript Definitions
+
+The AssemblyAI provider provides Typescript definitions for the `stt` function.
+
