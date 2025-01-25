@@ -38,6 +38,9 @@ importers:
       openai:
         specifier: ^4.80.0
         version: 4.80.0(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      revai-node-sdk:
+        specifier: ^3.8.5
+        version: 3.8.5
       vite:
         specifier: ^6.0.11
         version: 6.0.11(@types/node@18.19.74)
@@ -846,6 +849,9 @@ packages:
   await-to-js@3.0.0:
     resolution: {integrity: sha512-zJAaP9zxTcvTHRlejau3ZOY4V7SRpiByf3/dxx2uyKxxor19tpmpV2QRsTKikckwhaPmr2dVpxxMr7jOCYVp5g==}
     engines: {node: '>=6.0.0'}
+
+  axios@0.21.4:
+    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
 
   axios@1.7.4:
     resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
@@ -2128,6 +2134,9 @@ packages:
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+
+  revai-node-sdk@3.8.5:
+    resolution: {integrity: sha512-BUld7yIKiAYiniyAcVIhy6uHmJs8Ba9d2e0qgyjKII9iHSZGKvfcNFGXl8u3MHB587ytj3ne5z7B0o5MpzzxvQ==}
 
   rollup@4.31.0:
     resolution: {integrity: sha512-9cCE8P4rZLx9+PjoyqHLs31V9a9Vpvfo4qNcs6JCiGWYhw2gijSetFbH6SSy1whnkgcefnUwr8sad7tgqsGvnw==}
@@ -3487,6 +3496,12 @@ snapshots:
       possible-typed-array-names: 1.0.0
 
   await-to-js@3.0.0: {}
+
+  axios@0.21.4:
+    dependencies:
+      follow-redirects: 1.15.9(debug@4.4.0)
+    transitivePeerDependencies:
+      - debug
 
   axios@1.7.4(debug@4.4.0):
     dependencies:
@@ -4931,6 +4946,15 @@ snapshots:
       - supports-color
 
   reusify@1.0.4: {}
+
+  revai-node-sdk@3.8.5:
+    dependencies:
+      axios: 0.21.4
+      form-data: 2.5.2
+      websocket: 1.0.35
+    transitivePeerDependencies:
+      - debug
+      - supports-color
 
   rollup@4.31.0:
     dependencies:
