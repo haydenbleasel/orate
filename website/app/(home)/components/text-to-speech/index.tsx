@@ -1,6 +1,6 @@
 import { Snippet } from '@/app/(home)/components/snippet';
-import { Button } from '@/app/components/ui/button';
 import { AnimateProvider } from '@/app/providers/animate';
+import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import Speech from './speech.jpg';

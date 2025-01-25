@@ -1,5 +1,5 @@
-import { Toaster } from '@/app/components/ui/sonner';
 import { ThemeProvider } from '@/app/providers/theme';
+import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/next';
 import { RootProvider } from 'fumadocs-ui/provider';

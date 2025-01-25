@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/app/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 import { CheckIcon, CopyIcon } from 'lucide-react';
