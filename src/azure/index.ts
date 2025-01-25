@@ -1,3 +1,5 @@
+import stream from 'node:stream';
+import ffmpeg from 'fluent-ffmpeg';
 import Azure from 'microsoft-cognitiveservices-speech-sdk';
 import type { voices } from './voices';
 
@@ -22,6 +24,36 @@ const createProvider = () => {
   speechConfig.speechRecognitionLanguage = 'en-US';
 
   return speechConfig;
+};
+
+/**
+ * Converts an audio file to WAV format
+ * @param {File} audio - The audio file to convert
+ * @returns {Promise<Buffer>} The converted audio file
+ */
+const convertToWavBuffer = async (audio: File) => {
+  const arrayBuffer = await audio.arrayBuffer();
+  const inputBuffer = Buffer.from(arrayBuffer);
+
+  const wavBuffer = await new Promise<Buffer>((resolve, reject) => {
+    const inputStream = stream.Readable.from(inputBuffer);
+    const chunks: Buffer[] = [];
+
+    ffmpeg(inputStream)
+      .toFormat('wav')
+      .on('error', reject)
+      .on('end', () => resolve(Buffer.concat(chunks)))
+      .pipe(
+        new stream.Writable({
+          write(chunk, _, callback) {
+            chunks.push(chunk);
+            callback();
+          },
+        })
+      );
+  });
+
+  return wavBuffer;
 };
 
 /**
@@ -83,7 +115,11 @@ export const azure = {
      * @throws {Error} If transcription fails or no text is returned
      */
     return async (audio: File) => {
-      const audioConfig = Azure.AudioConfig.fromWavFileInput(audio);
+      const buffer = audio.type.includes('wav')
+        ? Buffer.from(await audio.arrayBuffer())
+        : await convertToWavBuffer(audio);
+
+      const audioConfig = Azure.AudioConfig.fromWavFileInput(buffer);
       const speechRecognizer = new Azure.SpeechRecognizer(
         provider,
         audioConfig
