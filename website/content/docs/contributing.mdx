@@ -1,0 +1,122 @@
+---
+title: Contributing
+description: How to run tests, add new providers, and contribute to Orate.
+---
+
+Thank you for your interest in contributing to Orate! This guide will help you get started with development, testing, and adding new providers.
+
+## Development Setup
+
+1. Fork and clone the repository
+2. Install dependencies with `pnpm install`
+
+## Adding a New Provider
+
+To add a new AI provider to Orate, follow these steps:
+
+1. Create a new directory in `src/` for your provider
+2. Create an `index.ts` file with the provider implementation
+3. Add TypeScript types for the provider's models and voices if applicable
+4. Implement the provider interface:
+
+```ts
+export const yourProvider = {
+  // Implement text-to-speech if supported
+  tts: (model?: string, voice?: string, properties?: any) => {
+    // Provider implementation
+    return async (prompt: string) => {
+      // Convert text to speech
+      return new File([audioBuffer], 'speech.mp3', { type: 'audio/mpeg' });
+    };
+  },
+  
+  // Implement speech-to-text if supported
+  stt: (model?: string, properties?: any) => {
+    // Provider implementation
+    return async (audio: File) => {
+      // Convert speech to text
+      return transcribedText;
+    };
+  },
+};
+```
+
+5. Add tests in `__tests__/yourProvider.test.ts`
+6. Add documentation in `website/content/docs/yourProvider.mdx`
+7. Update the providers list in:
+   - `website/content/docs/providers.mdx`
+   - `website/content/docs/meta.json`
+   - `website/app/(home)/components/providers.tsx`
+
+## Environment Variables
+
+Each provider has its own test file that verifies both text-to-speech and speech-to-text functionality where applicable. You'll need to set up the appropriate environment variables for the providers you want to test.
+
+Required environment variables for testing existing providers:
+
+- OpenAI: `OPENAI_API_KEY`
+- ElevenLabs: `ELEVENLABS_API_KEY`
+- AssemblyAI: `ASSEMBLYAI_API_KEY`
+- Google: `GOOGLE_API_KEY`, `GOOGLE_RECOGNIZER`
+- IBM: `IBM_TTS_API_KEY`, `IBM_TTS_URL`, `IBM_STT_API_KEY`, `IBM_STT_URL`
+- Azure: `AZURE_API_KEY`, `AZURE_REGION`
+
+## Running Tests
+
+Orate uses Vitest for testing. The test files can be found in the `__tests__` directory.
+
+To run the tests:
+
+```bash
+pnpm test
+```
+
+This should output a list of tests that have been run e.g.
+
+```sh
+✓ __tests__/azure.test.ts (2 tests) 1444ms
+  ✓ Azure Tests > should convert text to speech 463ms
+  ✓ Azure Tests > should convert speech to text 981ms
+✓ __tests__/elevenlabs.test.ts (1 test) 1568ms
+  ✓ ElevenLabs Tests > should convert text to speech 1567ms
+✓ __tests__/openai.test.ts (2 tests) 1991ms
+  ✓ OpenAI Tests > should convert text to speech 1298ms
+  ✓ OpenAI Tests > should convert speech to text 692ms
+✓ __tests__/ibm.test.ts (2 tests) 5126ms
+  ✓ IBM Tests > should convert text to speech 2207ms
+  ✓ IBM Tests > should convert speech to text 2918ms
+✓ __tests__/assembly.test.ts (1 test) 4307ms
+  ✓ AssemblyAI Tests > should convert speech to text 4306ms
+❯ __tests__/google.test.ts (2 tests) 11013ms
+  ✓ Google Tests > should convert text to speech 8580ms
+  ✓ Google Tests > should convert speech to text 2432ms
+```
+
+## Code Style
+
+Orate uses Biome with the Ultracite configuration for code formatting and linting. You can follow the setup guide on the [Ultracite website](https://www.ultracite.dev/).
+
+Once setup correctly, it should format your code automatically when you save. If not, you can run `npx ultracite` to format your code.
+
+## Submitting a Pull Request
+
+1. Create a new branch for your changes
+2. Make your changes and commit them with descriptive messages
+3. Push your branch to your fork
+4. Submit a pull request to the main Orate repository
+
+Thank you for your contribution!
+
+## Writing Documentation
+
+The documentation is built using Next.js and Fumadocs. To run the documentation site locally, `cd` into the `website` directory and run:
+
+```bash
+pnpm dev
+```
+
+Documentation is written in Markdown and can be found in the `website/content/docs` directory. The `meta.json` file contains the metadata for the documentation pages.
+
+## Questions?
+
+If you have any questions about contributing, please open a GitHub issue or contact me on [X](https://x.com/haydenbleasel).
