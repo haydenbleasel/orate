@@ -3,4 +3,99 @@ title: OpenAI
 description: Orate supports OpenAI's speech and transcription services.
 ---
 
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
 OpenAI is a leading provider of AI services, offering a wide range of speech and transcription services through their Large Language Models (LLMs). Orate allows you to use these services with a single API, making it easy to switch between providers and use the best AI services for your needs.
+
+## Setup
+
+The OpenAI provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { openai } from 'orate/openai';
+```
+
+## Configuration
+
+The OpenAI provider looks for the `OPENAI_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+OPENAI_API_KEY="your_api_key"
+```
+
+## Usage
+
+The OpenAI provider provides a single interface for all of OpenAI's speech and transcription services.
+
+### Text to Speech
+
+The OpenAI provider provides a `tts` function that allows you to create a text-to-speech synthesis function using OpenAI TTS. By default, the `tts` function uses the `tts-1` model and the `alloy` voice.
+
+```tsx
+import { speak } from 'orate';
+import { openai } from 'orate/openai';
+
+const openAiSpeech = await speak({
+  model: openai.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the model and voice to use by passing them as arguments to the `tts` function.
+
+```tsx
+const openAiSpeech = await speak({
+  model: openai.tts('tts-1', 'alloy'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific OpenAI properties by passing them as a third argument to the `tts` function.
+
+```tsx
+const openAiSpeech = await speak({
+  model: openai.tts('tts-1', 'alloy', {
+    speed: 1.25,
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+### Speech to Text
+
+The OpenAI provider provides a `stt` function that allows you to create a speech-to-text transcription function using OpenAI Whisper. By default, the `stt` function uses the `whisper-1` model.
+
+```tsx
+import { transcribe } from 'orate';
+import { openai } from 'orate/openai';
+
+const openAiText = await transcribe({
+  model: openai.stt(),
+  audio: someArrayBuffer,
+});
+```
+
+You can specify the model to use by passing it as an argument to the `stt` function.
+
+```tsx
+const openAiText = await transcribe({
+  model: openai.stt('whisper-1'),
+  audio: someArrayBuffer,
+});
+```
+
+You can also specify specific OpenAI properties by passing them as a third argument to the `stt` function.
+
+```tsx
+const openAiText = await transcribe({
+  model: openai.stt('whisper-1', {
+    temperature: 0.5,
+  }),
+  audio: someArrayBuffer,
+});
+```
+
+## Typescript Definitions
+
+The OpenAI provider provides Typescript definitions for the `tts` and `stt` functions.
+
