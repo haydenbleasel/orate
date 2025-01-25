@@ -15,7 +15,7 @@ describe('IBM Tests', () => {
       Buffer.from(await speech.arrayBuffer())
     );
 
-    expect(speech).toBeInstanceOf(ArrayBuffer);
+    expect(speech).toBeInstanceOf(File);
     expect(speech.size).toBeGreaterThan(0);
   });
 
