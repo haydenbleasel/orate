@@ -127,17 +127,18 @@ export const google = {
     return async (audio: ArrayBuffer) => {
       const content = Buffer.from(audio).toString('base64');
 
-      const request: SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest =
-        deepmerge(
-          {
-            config: {
-              autoDecodingConfig: {},
-              model: model,
-            },
-            content,
+      const defaultConfig: SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest =
+        {
+          config: {
+            autoDecodingConfig: {},
+            model: model,
+            languageCodes: ['en-US'],
           },
-          options ?? {}
-        );
+          content,
+        };
+
+      const request: SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest =
+        deepmerge(defaultConfig, options ?? {});
 
       const [response] = await provider.recognize(request);
 
