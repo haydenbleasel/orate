@@ -5,18 +5,13 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsup",
-    "test": "bun test/index.ts"
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haydenbleasel/orate.git"
   },
-  "keywords": [
-    "ai",
-    "text",
-    "speech",
-    "transcribe"
-  ],
+  "keywords": ["ai", "text", "speech", "transcribe"],
   "author": "Hayden Bleasel <hello@haydenbleasel.com>",
   "license": "MIT",
   "bugs": {
@@ -26,8 +21,14 @@
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.0",
     "@biomejs/biome": "1.9.4",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.2.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^26.0.0",
     "tsup": "^8.3.5",
-    "ultracite": "4.1.16"
+    "ultracite": "4.1.16",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.4"
   },
   "dependencies": {
     "@google-cloud/speech": "^6.7.0",
