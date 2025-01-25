@@ -1,7 +1,6 @@
-import { Navbar } from '@/components/navbar';
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/app/components/ui/sonner';
+import { ThemeProvider } from '@/app/providers/theme';
 import { cn } from '@/lib/utils';
-import { ThemeProvider } from '@/providers/theme';
 import { Analytics } from '@vercel/analytics/next';
 import { RootProvider } from 'fumadocs-ui/provider';
 import { GeistMono } from 'geist/font/mono';
@@ -24,7 +23,6 @@ const RootLayout = ({ children }: RootLayoutProps) => (
     >
       <ThemeProvider>
         <RootProvider>
-          <Navbar />
           {children}
           <Toaster />
         </RootProvider>

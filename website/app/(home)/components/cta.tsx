@@ -1,4 +1,4 @@
-import { AnimateProvider } from '@/providers/animate';
+import { AnimateProvider } from '@/app/providers/animate';
 import Balancer from 'react-wrap-balancer';
 import { Installer } from './installer';
 

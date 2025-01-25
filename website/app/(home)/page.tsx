@@ -1,9 +1,9 @@
-import { CallToAction } from '@/components/cta';
-import { Footer } from '@/components/footer';
-import { Hero } from '@/components/hero';
-import { Providers } from '@/components/providers';
-import { SpeechToText } from '@/components/speech-to-text';
-import { TextToSpeech } from '@/components/text-to-speech';
+import { CallToAction } from '@/app/(home)/components/cta';
+import { Footer } from '@/app/(home)/components/footer';
+import { Hero } from '@/app/(home)/components/hero';
+import { Providers } from '@/app/(home)/components/providers';
+import { SpeechToText } from '@/app/(home)/components/speech-to-text';
+import { TextToSpeech } from '@/app/(home)/components/text-to-speech';
 import type { Metadata } from 'next';
 
 const title = 'Orate | The AI toolkit for speech';

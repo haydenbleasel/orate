@@ -1,5 +1,5 @@
-import { Snippet } from '@/components/snippet';
-import { AnimateProvider } from '@/providers/animate';
+import { Snippet } from '@/app/(home)/components/snippet';
+import { AnimateProvider } from '@/app/providers/animate';
 import Image from 'next/image';
 import Speech from './speech.jpg';
 

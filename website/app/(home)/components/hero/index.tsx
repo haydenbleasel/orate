@@ -1,6 +1,6 @@
-import { Installer } from '@/components/installer';
-import { Button } from '@/components/ui/button';
-import { AnimateProvider } from '@/providers/animate';
+import { Installer } from '@/app/(home)/components/installer';
+import { Button } from '@/app/components/ui/button';
+import { AnimateProvider } from '@/app/providers/animate';
 import Link from 'next/link';
 import Balancer from 'react-wrap-balancer';
 import { Waveform } from './waveform';

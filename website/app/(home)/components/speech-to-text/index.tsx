@@ -1,4 +1,4 @@
-import { AnimateProvider } from '@/providers/animate';
+import { AnimateProvider } from '@/app/providers/animate';
 import Image from 'next/image';
 import { Snippet } from '../snippet';
 import Writing from './writing.jpg';

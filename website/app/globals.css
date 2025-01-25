@@ -66,3 +66,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+#nd-nav {
+  @apply bg-background/90 backdrop-blur-sm m-0 border-none w-full rounded-none sticky top-0 left-auto right-auto translate-x-0 translate-y-0 mx-auto;
+  @apply group-[.docs]:max-w-none group-[.docs]:border-b group-[.docs]:border-x-0 group-[.docs]:border-t-0 group-[.docs]:border-solid
+}
+
+#nd-nav nav {
+  @apply h-auto sm:h-auto py-4;
+}
+
+#nd-sidebar {
+  @apply bg-background;
+  --fd-sidebar-height: calc(100dvh - var(--fd-banner-height) - var(--fd-nav-height) - 68px) !important;
+}
+
+.top-fd-layout-top {
+  top: calc(var(--fd-banner-height) + var(--fd-nav-height) + 68px) !important;
+}

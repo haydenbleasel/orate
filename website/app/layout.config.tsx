@@ -1,4 +1,5 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
+import { Logo } from './(home)/components/logo';
 
 /**
  * Shared layout configurations
@@ -10,11 +11,16 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 export const baseOptions: BaseLayoutProps = {
   nav: {
     // can be JSX too!
-    title: 'My App',
+    title: <Logo />,
   },
   links: [
     {
-      text: 'Documentation',
+      text: 'Home',
+      url: '/',
+      active: 'url',
+    },
+    {
+      text: 'Docs',
       url: '/docs',
       active: 'nested-url',
     },

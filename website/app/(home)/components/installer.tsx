@@ -1,4 +1,4 @@
-import { CopyButton } from '@/components/copy-button';
+import { CopyButton } from '@/app/(home)/components/copy-button';
 
 type SnippetProps = {
   code: string;
