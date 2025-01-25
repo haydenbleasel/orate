@@ -37,7 +37,7 @@ export const elevenlabs = {
     /**
      * Synthesizes text to speech using ElevenLabs
      * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<ArrayBuffer>} The synthesized audio data
+     * @returns {Promise<File>} The synthesized audio data
      * @throws {Error} If synthesis fails
      */
     return async (prompt: string) => {
@@ -56,12 +56,12 @@ export const elevenlabs = {
       }
 
       const buffer = Buffer.concat(chunks);
-      const arrayBuffer = buffer.buffer.slice(
-        buffer.byteOffset,
-        buffer.byteOffset + buffer.byteLength
-      );
 
-      return arrayBuffer;
+      const file = new File([buffer], 'speech.mp3', {
+        type: 'audio/mpeg',
+      });
+
+      return file;
     };
   },
 };

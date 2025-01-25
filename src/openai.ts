@@ -37,17 +37,23 @@ export const openai = {
     /**
      * Synthesizes text to speech using OpenAI TTS
      * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<ArrayBuffer>} The synthesized audio data
+     * @returns {Promise<File>} The synthesized audio data
      */
     return async (prompt: string) => {
       const response = await provider.audio.speech.create({
         model,
         voice,
         input: prompt,
+        response_format: 'mp3',
         ...properties,
       });
 
-      return response.arrayBuffer();
+      const buffer = await response.arrayBuffer();
+      const file = new File([buffer], 'speech.mp3', {
+        type: 'audio/mpeg',
+      });
+
+      return file;
     };
   },
 
@@ -64,13 +70,13 @@ export const openai = {
 
     /**
      * Transcribes audio to text using OpenAI Whisper
-     * @param {ArrayBuffer} audio - The audio data to transcribe
+     * @param {File} audio - The audio data to transcribe
      * @returns {Promise<string>} The transcribed text
      */
-    return async (audio: ArrayBuffer) => {
+    return async (audio: File) => {
       const response = await provider.audio.transcriptions.create({
         model,
-        file: new File([audio], 'audio.wav', { type: 'audio/wav' }),
+        file: audio,
         ...properties,
       });
 

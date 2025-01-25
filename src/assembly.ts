@@ -34,13 +34,16 @@ export const assembly = {
 
     /**
      * Transcribes audio to text using AssemblyAI
-     * @param {ArrayBuffer} audio - The audio data to transcribe
+     * @param {File} audio - The audio data to transcribe
      * @returns {Promise<string>} The transcribed text
      * @throws {Error} If transcription fails, is still processing/queued, or returns no text
      */
-    return async (audio: ArrayBuffer) => {
+    return async (audio: File) => {
+      const buffer = await audio.arrayBuffer();
+      const audioBuffer = Buffer.from(buffer);
+
       const response = await provider.transcripts.transcribe({
-        audio,
+        audio: audioBuffer,
         speech_model: model,
         ...options,
       });

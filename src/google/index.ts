@@ -102,10 +102,11 @@ export const google = {
         throw new Error('Audio content is a string.');
       }
 
-      return response.audioContent.buffer.slice(
-        response.audioContent.byteOffset,
-        response.audioContent.byteOffset + response.audioContent.byteLength
-      ) as ArrayBuffer;
+      const file = new File([response.audioContent], 'speech.mp3', {
+        type: 'audio/mpeg',
+      });
+
+      return file;
     };
   },
 
@@ -123,12 +124,13 @@ export const google = {
 
     /**
      * Transcribes audio to text using Google Cloud STT
-     * @param {ArrayBuffer} audio - The audio data to transcribe
+     * @param {File} audio - The audio data to transcribe
      * @returns {Promise<string>} The transcribed text
      * @throws {Error} If transcription fails or no text is returned
      */
-    return async (audio: ArrayBuffer) => {
-      const content = Buffer.from(audio).toString('base64');
+    return async (audio: File) => {
+      const buffer = await audio.arrayBuffer();
+      const content = Buffer.from(buffer).toString('base64');
 
       const defaultConfig: SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest =
         {

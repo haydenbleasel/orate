@@ -40,7 +40,7 @@ export const azure = {
     /**
      * Synthesizes text to speech using Azure Speech Service
      * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<ArrayBuffer>} The synthesized audio data
+     * @returns {Promise<File>} The synthesized audio data
      * @throws {Error} If synthesis fails
      */
     return async (prompt: string) => {
@@ -61,8 +61,11 @@ export const azure = {
       });
 
       const audio = await result;
+      const file = new File([audio], 'speech.wav', {
+        type: 'audio/wav',
+      });
 
-      return audio;
+      return file;
     };
   },
 
@@ -75,13 +78,12 @@ export const azure = {
 
     /**
      * Transcribes audio to text using Azure Speech Service
-     * @param {ArrayBuffer} audio - The audio data to transcribe
+     * @param {File} audio - The audio data to transcribe
      * @returns {Promise<string>} The transcribed text
      * @throws {Error} If transcription fails or no text is returned
      */
-    return async (audio: ArrayBuffer) => {
-      const buffer = Buffer.from(audio);
-      const audioConfig = Azure.AudioConfig.fromWavFileInput(buffer);
+    return async (audio: File) => {
+      const audioConfig = Azure.AudioConfig.fromWavFileInput(audio);
       const speechRecognizer = new Azure.SpeechRecognizer(
         provider,
         audioConfig

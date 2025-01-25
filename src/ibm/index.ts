@@ -70,12 +70,12 @@ export const ibm = {
     /**
      * Synthesizes text to speech using IBM Watson TTS
      * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<ArrayBuffer>} The synthesized audio data as an ArrayBuffer
+     * @returns {Promise<File>} The synthesized audio data as an File
      */
     return async (prompt: string) => {
       const response = await provider.synthesize({
         text: prompt,
-        accept: 'audio/mp3',
+        accept: 'audio/mpeg',
         voice,
         ...options,
       });
@@ -86,7 +86,13 @@ export const ibm = {
         chunks.push(Buffer.from(chunk));
       }
 
-      return Buffer.concat(chunks).buffer;
+      const buffer = Buffer.concat(chunks).buffer;
+
+      const file = new File([buffer], 'speech.mp3', {
+        type: 'audio/mpeg',
+      });
+
+      return file;
     };
   },
 
@@ -102,15 +108,18 @@ export const ibm = {
 
     /**
      * Transcribes audio to text using IBM Watson STT
-     * @param {ArrayBuffer} audio - The audio data to transcribe
+     * @param {File} audio - The audio data to transcribe
      * @returns {Promise<string>} The transcribed text
      * @throws {Error} If no transcription results are found
      * @throws {Error} If no transcription alternatives are found
      */
-    return async (audio: ArrayBuffer) => {
+    return async (audio: File) => {
+      const buffer = await audio.arrayBuffer();
+      const audioBuffer = Buffer.from(buffer);
+
       const response = await provider.recognize({
-        audio: Buffer.from(audio),
-        contentType: 'audio/mp3',
+        audio: audioBuffer,
+        contentType: 'audio/mpeg',
         model,
         ...options,
       });
