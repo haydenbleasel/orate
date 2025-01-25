@@ -45,6 +45,11 @@ const snippets = [
     name: 'IBM',
     code: createSnippet('ibm', "'en-US_BroadbandModel'"),
   },
+  {
+    provider: 'gladia',
+    name: 'Gladia',
+    code: createSnippet('gladia', "'enhanced'"),
+  },
 ];
 
 export const SpeechToText = () => (
