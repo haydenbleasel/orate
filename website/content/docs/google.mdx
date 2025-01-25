@@ -65,23 +65,14 @@ const speech = await speak({
 
 ### Speech to Text
 
-The Google provider provides a `stt` function that allows you to create a speech-to-text transcription function using Google Cloud Speech-to-Text. By default, the `stt` function uses the `chirp_2` model.
+The Google provider provides a `stt` function that allows you to create a speech-to-text transcription function using Google Cloud Speech-to-Text. Google is unique in the fact that you need to specify a recognizer.
 
 ```tsx
 import { transcribe } from 'orate';
 import { google } from 'orate/google';
 
 const text = await transcribe({
-  model: google.stt(),
-  audio: someArrayBuffer,
-});
-```
-
-You can specify the model to use by passing it as an argument to the `stt` function.
-
-```tsx
-const text = await transcribe({
-  model: google.stt('telephony'),
+  model: google.stt('projects/{project}/locations/{region}/recognizers/{recognizer}'),
   audio: someArrayBuffer,
 });
 ```
@@ -90,7 +81,7 @@ You can also specify specific Google properties by passing them as an argument t
 
 ```tsx
 const text = await transcribe({
-  model: google.stt('telephony', {
+  model: google.stt('projects/{project}/locations/{region}/recognizers/{recognizer}', {
     config: {
       adaptation: {
         phraseSets: {
