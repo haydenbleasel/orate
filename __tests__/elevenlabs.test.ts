@@ -5,16 +5,17 @@ import { elevenlabs } from '../src/eleven-labs';
 
 describe('ElevenLabs Tests', () => {
   it('should convert text to speech', async () => {
-    const elevenLabsSpeech = await speak({
+    const speech = await speak({
       model: elevenlabs.tts('multilingual_v2', 'aria'),
       prompt: 'Hello from Orate, the AI toolkit for speech.',
     });
 
     await writeFile(
       './__tests__/output/eleven-labs-speech.wav',
-      Buffer.from(elevenLabsSpeech)
+      Buffer.from(await speech.arrayBuffer())
     );
-    expect(elevenLabsSpeech).toBeInstanceOf(ArrayBuffer);
-    expect(elevenLabsSpeech.byteLength).toBeGreaterThan(0);
+
+    expect(speech).toBeInstanceOf(ArrayBuffer);
+    expect(speech.size).toBeGreaterThan(0);
   });
 });

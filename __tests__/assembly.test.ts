@@ -5,15 +5,15 @@ import { assembly } from '../src/assembly';
 
 describe('AssemblyAI Tests', () => {
   it('should convert speech to text', async () => {
-    const audio = await readFile('./__tests__/test.mp3');
-    const file = new File([audio], 'test.mp3', { type: 'audio/mp3' });
+    const file = await readFile('./__tests__/test.mp3');
+    const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });
 
-    const assemblyText = await transcribe({
+    const text = await transcribe({
       model: assembly.stt(),
-      audio: file,
+      audio,
     });
 
-    expect(typeof assemblyText).toBe('string');
-    expect(assemblyText.length).toBeGreaterThan(0);
+    expect(typeof text).toBe('string');
+    expect(text.length).toBeGreaterThan(0);
   });
 });

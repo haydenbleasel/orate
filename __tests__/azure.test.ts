@@ -5,29 +5,30 @@ import { azure } from '../src/azure';
 
 describe('Azure Tests', () => {
   it('should convert text to speech', async () => {
-    const azureSpeech = await speak({
+    const speech = await speak({
       model: azure.tts('en-US-AvaMultilingualNeural'),
       prompt: 'Hello from Orate, the AI toolkit for speech.',
     });
 
     await writeFile(
       './__tests__/output/azure-speech.wav',
-      Buffer.from(azureSpeech)
+      Buffer.from(await speech.arrayBuffer())
     );
 
-    expect(azureSpeech).toBeInstanceOf(ArrayBuffer);
-    expect(azureSpeech.byteLength).toBeGreaterThan(0);
+    expect(speech).toBeInstanceOf(ArrayBuffer);
+    expect(speech.size).toBeGreaterThan(0);
   });
 
   it('should convert speech to text', async () => {
-    const audio = await readFile('./__tests__/test.mp3');
+    const file = await readFile('./__tests__/test.mp3');
+    const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });
 
-    const azureText = await transcribe({
+    const text = await transcribe({
       model: azure.stt(),
       audio,
     });
 
-    expect(typeof azureText).toBe('string');
-    expect(azureText.length).toBeGreaterThan(0);
+    expect(typeof text).toBe('string');
+    expect(text.length).toBeGreaterThan(0);
   });
 });
