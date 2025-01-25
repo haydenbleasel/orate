@@ -12,7 +12,10 @@ describe('Speech API Tests', () => {
       prompt,
     });
 
-    await writeFile('./test/azure-speech.wav', Buffer.from(azureSpeech));
+    await writeFile(
+      './__tests__/output/azure-speech.wav',
+      Buffer.from(azureSpeech)
+    );
     expect(azureSpeech).toBeInstanceOf(ArrayBuffer);
     expect(azureSpeech.byteLength).toBeGreaterThan(0);
 

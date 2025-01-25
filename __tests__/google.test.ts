@@ -12,7 +12,10 @@ describe('Speech API Tests', () => {
       prompt,
     });
 
-    await writeFile('./test/google-speech.wav', Buffer.from(googleSpeech));
+    await writeFile(
+      './__tests__/output/google-speech.wav',
+      Buffer.from(googleSpeech)
+    );
     expect(googleSpeech).toBeInstanceOf(ArrayBuffer);
     expect(googleSpeech.byteLength).toBeGreaterThan(0);
 

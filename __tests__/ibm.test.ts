@@ -12,7 +12,10 @@ describe('Speech API Tests', () => {
       prompt,
     });
 
-    await writeFile('./test/ibm-speech.wav', Buffer.from(ibmSpeech));
+    await writeFile(
+      './__tests__/output/ibm-speech.wav',
+      Buffer.from(ibmSpeech)
+    );
     expect(ibmSpeech).toBeInstanceOf(ArrayBuffer);
     expect(ibmSpeech.byteLength).toBeGreaterThan(0);
 

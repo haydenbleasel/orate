@@ -12,7 +12,10 @@ describe('Speech API Tests', () => {
       prompt,
     });
 
-    await writeFile('./test/openai-speech.wav', Buffer.from(openAiSpeech));
+    await writeFile(
+      './__tests__/output/openai-speech.wav',
+      Buffer.from(openAiSpeech)
+    );
     expect(openAiSpeech).toBeInstanceOf(ArrayBuffer);
     expect(openAiSpeech.byteLength).toBeGreaterThan(0);
 

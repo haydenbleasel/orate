@@ -41,7 +41,7 @@ yarn-error.log*
 dist/
 
 # test
-__tests__/*.wav
+__tests__/output
 
 # auto
 .env

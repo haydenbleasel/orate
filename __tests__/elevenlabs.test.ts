@@ -14,7 +14,7 @@ describe('Speech API Tests', () => {
     });
 
     await writeFile(
-      './test/eleven-labs-speech.wav',
+      './__tests__/output/eleven-labs-speech.wav',
       Buffer.from(elevenLabsSpeech)
     );
     expect(elevenLabsSpeech).toBeInstanceOf(ArrayBuffer);
