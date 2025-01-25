@@ -5,7 +5,7 @@ import { assembly } from '../dist/assembly';
 
 describe('AssemblyAI Tests', () => {
   it('should convert speech to text', async () => {
-    const audio = await readFile('./test.mp3');
+    const audio = await readFile('./__tests__/test.mp3');
 
     const assemblyText = await transcribe({
       model: assembly.stt(),
