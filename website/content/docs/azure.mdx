@@ -2,3 +2,70 @@
 title: Azure
 description: Orate supports Azure's speech and transcription services.
 ---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Azure Cognitive Services by Microsoft are a collection of artificial intelligence (AI) APIs that help developers create applications with advanced AI capabilities. These services are available on Microsoft Azure, a cloud computing platform. 
+
+## Setup
+
+The Azure provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { azure } from 'orate/azure';
+```
+
+## Configuration
+
+The Azure provider looks for the `AZURE_API_KEY` and `AZURE_REGION` environment variables. These variables are required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+AZURE_API_KEY="your_api_key"
+AZURE_REGION="your_region" # e.g. "eastus"
+```
+
+## Usage
+
+The Azure provider provides a single interface for all of Azure's speech and transcription services.
+
+### Text to Speech
+
+The Azure provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Azure Speech Service.
+
+```tsx
+import { speak } from 'orate';
+import { azure } from 'orate/azure';
+
+const openAiSpeech = await speak({
+  model: openai.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the voice to use by passing it as an argument to the `tts` function.
+
+```tsx
+const openAiSpeech = await speak({
+  model: azure.tts('en-US-AriaNeural'),
+  prompt: 'Hello, world!',
+});
+```
+
+### Speech to Text
+
+The Azure provider provides a `stt` function that allows you to create a speech-to-text transcription function using Azure Speech Service.
+
+```tsx
+import { transcribe } from 'orate';
+import { azure } from 'orate/azure';
+
+const openAiText = await transcribe({
+  model: azure.stt(),
+  audio: someArrayBuffer,
+});
+```
+
+## Typescript Definitions
+
+The Azure provider provides Typescript definitions for the `tts` and `stt` functions.
+
