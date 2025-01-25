@@ -29,7 +29,8 @@ export const openai = {
    */
   tts: (
     model: SpeechCreateParams['model'] = 'tts-1',
-    voice: SpeechCreateParams['voice'] = 'alloy'
+    voice: SpeechCreateParams['voice'] = 'alloy',
+    properties?: Omit<SpeechCreateParams, 'model' | 'voice' | 'input'>
   ) => {
     const provider = createProvider();
 
@@ -43,6 +44,7 @@ export const openai = {
         model,
         voice,
         input: prompt,
+        ...properties,
       });
 
       return response.arrayBuffer();
@@ -54,7 +56,10 @@ export const openai = {
    * @param {TranscriptionCreateParams["model"]} model - The model to use for transcription. Defaults to 'whisper-1'
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (model: TranscriptionCreateParams['model'] = 'whisper-1') => {
+  stt: (
+    model: TranscriptionCreateParams['model'] = 'whisper-1',
+    properties?: Omit<TranscriptionCreateParams, 'model' | 'file'>
+  ) => {
     const provider = createProvider();
 
     /**
@@ -66,6 +71,7 @@ export const openai = {
       const response = await provider.audio.transcriptions.create({
         model,
         file: new File([audio], 'audio.wav', { type: 'audio/wav' }),
+        ...properties,
       });
 
       return response.text;
