@@ -1,7 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
-import { speak } from '../dist';
-import { elevenlabs } from '../dist/eleven-labs';
+import { speak } from '../src';
+import { elevenlabs } from '../src/eleven-labs';
 
 describe('ElevenLabs Tests', () => {
   it('should convert text to speech', async () => {

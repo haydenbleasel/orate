@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
-import { speak, transcribe } from '../dist';
-import { azure } from '../dist/azure';
+import { speak, transcribe } from '../src';
+import { azure } from '../src/azure';
 
 describe('Azure Tests', () => {
   it('should convert text to speech', async () => {

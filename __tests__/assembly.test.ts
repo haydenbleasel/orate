@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
-import { transcribe } from '../dist';
-import { assembly } from '../dist/assembly';
+import { transcribe } from '../src';
+import { assembly } from '../src/assembly';
 
 describe('AssemblyAI Tests', () => {
   it('should convert speech to text', async () => {

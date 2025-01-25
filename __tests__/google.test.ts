@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
-import { speak, transcribe } from '../dist';
-import { google } from '../dist/google';
+import { speak, transcribe } from '../src';
+import { google } from '../src/google';
 
 describe('Google Tests', () => {
   it('should convert text to speech', async () => {
