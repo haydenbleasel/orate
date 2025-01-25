@@ -14,35 +14,14 @@ const url = 'https://www.orate.dev';
 export const metadata: Metadata = {
   title,
   description,
-  authors: [
-    {
-      name: 'Hayden Bleasel',
-      url: 'https://www.haydenbleasel.com',
-    },
-  ],
-  formatDetection: {
-    telephone: false,
-  },
-  creator: 'Hayden Bleasel',
-  keywords: ['speech', 'ai', 'toolkit', 'text-to-speech', 'speech-to-text'],
   openGraph: {
     title,
     description,
     url,
-    siteName: title,
-    locale: 'en_US',
-    type: 'website',
   },
   twitter: {
     title,
     description,
-    creator: '@haydenbleasel',
-    card: 'summary_large_image',
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title,
   },
 };
 
