@@ -82,15 +82,15 @@ export const google = {
      * @throws {Error} If synthesis fails or no audio content is returned
      */
     return async (prompt: string) => {
+      const defaultConfig: TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest =
+        {
+          input: { text: prompt },
+          voice: { name: model, languageCode: 'en-US' },
+          audioConfig: { audioEncoding: 'MP3' },
+        };
+
       const request: TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest =
-        deepmerge(
-          {
-            input: { text: prompt },
-            voice: { name: model },
-            audioConfig: { audioEncoding: 'MP3' },
-          },
-          options ?? {}
-        );
+        deepmerge(defaultConfig, options ?? {});
 
       const [response] = await provider.synthesizeSpeech(request);
 
