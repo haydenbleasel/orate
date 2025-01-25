@@ -1,6 +1,6 @@
 import { AnimateProvider } from '@/app/providers/animate';
 import Image from 'next/image';
-import AssemblyAI from '../../../public/providers/assemblyai.svg';
+import AssemblyAI from '../../../public/providers/assembly.svg';
 import Azure from '../../../public/providers/azure.svg';
 import ElevenLabs from '../../../public/providers/elevenlabs.svg';
 import Google from '../../../public/providers/google.svg';

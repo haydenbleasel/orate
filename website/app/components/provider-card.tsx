@@ -9,10 +9,7 @@ type ProviderCardProps = {
 };
 
 export const ProviderCard = ({ id, provider, supports }: ProviderCardProps) => (
-  <Link
-    href={`/docs/providers/${id}`}
-    className="rounded-lg border p-0.5 no-underline"
-  >
+  <Link href={`/docs/${id}`} className="rounded-lg border p-0.5 no-underline">
     <div className="flex aspect-video items-center justify-center rounded-[6px] bg-secondary">
       <Image
         src={`/providers/${id}.svg`}
