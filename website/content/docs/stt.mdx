@@ -36,6 +36,8 @@ The `audio` parameter is a `File` object that contains the audio data to be tran
 const audio = new File([audioBuffer], 'audio.wav', { type: 'audio/wav' });
 ```
 
-## Why use a `File` object?
+Orate uses a `File` object because it is supported by all major browsers and can be easily converted to other formats. Additionally, the various AI providers require the audio data to be in a specific format, and the `File` object is the most convenient way to determine the audio format.
 
-The `File` object is used because it is the most common format for audio data. It is supported by all major browsers and can be easily converted to other formats. Additionally, the various AI providers require the audio data to be in a specific format, and the `File` object is the most convenient way to determine the audio format.
+## Audio formats
+
+Orate endeavours to support all audio formats and handle conversions for the various providers. If you encounter an error, please let us know and we will do our best to support your use case.

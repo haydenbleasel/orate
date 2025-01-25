@@ -18,3 +18,19 @@ const transcription = await speak({
   prompt: 'Hello, world!',
 });
 ```
+
+### `model`
+
+The `model` parameter is a function that returns a model instance. The model instance is a function that takes a prompt and returns a promise that resolves to the speech of the prompt.
+
+```tsx
+const model = openai.tts();
+```
+
+### `prompt`
+
+The `prompt` parameter is a string that contains the text to be converted into speech.
+
+```tsx
+const prompt = 'Hello, world!';
+```
