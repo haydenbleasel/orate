@@ -1,4 +1,6 @@
 import { AnimateProvider } from '@/app/providers/animate';
+import { cn } from '@/lib/utils';
+import { ArrowRightIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import AssemblyAI from '../../../public/providers/assembly.svg';
@@ -38,13 +40,25 @@ export const Providers = () => (
           whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
           delay={0.1 * index}
         >
-          <Link href={href}>
-            <div className="flex items-center justify-center">
+          <Link href={href} className="group">
+            <div className="relative flex items-center justify-center">
               <Image
                 src={image}
                 alt=""
-                className="h-full max-h-7 w-full max-w-28 brightness-0 dark:invert"
+                className={cn(
+                  'h-full max-h-7 w-full max-w-28 blur-0 brightness-0 transition-all duration-300 dark:invert',
+                  'group-hover:blur-lg'
+                )}
               />
+              <div
+                className={cn(
+                  '-translate-x-1/2 -translate-y-1/2 pointer-events-none absolute top-1/2 left-1/2 flex select-none items-center gap-1 text-xs opacity-0 transition-all',
+                  'group-hover:opacity-100'
+                )}
+              >
+                <span>View docs</span>
+                <ArrowRightIcon size={12} />
+              </div>
             </div>
           </Link>
         </AnimateProvider>

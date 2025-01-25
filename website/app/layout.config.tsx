@@ -24,5 +24,15 @@ export const baseOptions: BaseLayoutProps = {
       url: '/docs',
       active: 'nested-url',
     },
+    {
+      text: 'NPM',
+      url: 'https://www.npmjs.com/package/orate',
+      active: 'none',
+    },
+    {
+      text: 'GitHub',
+      url: 'https://github.com/haydenbleasel/orate',
+      active: 'none',
+    },
   ],
 };
