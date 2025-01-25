@@ -102,7 +102,10 @@ export const google = {
         throw new Error('Audio content is a string.');
       }
 
-      return response.audioContent;
+      return response.audioContent.buffer.slice(
+        response.audioContent.byteOffset,
+        response.audioContent.byteOffset + response.audioContent.byteLength
+      ) as ArrayBuffer;
     };
   },
 
