@@ -70,7 +70,7 @@ export const ibm = {
     /**
      * Synthesizes text to speech using IBM Watson TTS
      * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<File>} The synthesized audio data as an File
+     * @returns {Promise<File>} The synthesized audio data as a File
      */
     return async (prompt: string) => {
       const response = await provider.synthesize({
