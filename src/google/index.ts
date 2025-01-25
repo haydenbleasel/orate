@@ -112,12 +112,12 @@ export const google = {
 
   /**
    * Creates a speech-to-text transcription function using Google Cloud STT
-   * @param {(typeof models)[number]} model - The model to use for transcription. Defaults to 'chirp_2'
+   * @param {string} recognizer - The recognizer to use for transcription
    * @param {SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest} options - Additional options for the transcription
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt: (
-    model: (typeof models)[number] = 'chirp_2',
+    recognizer: string,
     options?: SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest
   ) => {
     const provider = createSTTProvider();
@@ -134,11 +134,7 @@ export const google = {
 
       const defaultConfig: SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest =
         {
-          config: {
-            autoDecodingConfig: {},
-            model: model,
-            languageCodes: ['en-US'],
-          },
+          recognizer,
           content,
         };
 
