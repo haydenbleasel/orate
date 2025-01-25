@@ -1,7 +1,6 @@
 import { Installer } from '@/app/(home)/components/installer';
 import { AnimateProvider } from '@/app/providers/animate';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import Balancer from 'react-wrap-balancer';
 import { Waveform } from './waveform';
 
@@ -40,9 +39,13 @@ export const Hero = () => (
       <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
         <Installer code="npm i orate" />
         <Button asChild variant="link" size="lg" className="px-4">
-          <Link href="https://github.com/haydenbleasel/orate">
+          <a
+            href="https://github.com/haydenbleasel/orate"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             View on GitHub
-          </Link>
+          </a>
         </Button>
       </div>
     </AnimateProvider>
