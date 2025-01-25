@@ -1,11 +1,16 @@
 import type { Metadata } from 'next';
 
+const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : 'http://localhost:3000';
+
 export const createMetadata = (
   title: string,
   description: string
 ): Metadata => ({
   title,
   description,
+  metadataBase: new URL(baseUrl),
   authors: [
     {
       name: 'Hayden Bleasel',
@@ -25,7 +30,7 @@ export const createMetadata = (
     type: 'website',
     images: [
       {
-        url: 'https://www.orate.dev/opengraph-image.png',
+        url: new URL('/opengraph-image.png', baseUrl).toString(),
         width: 1200,
         height: 630,
       },
@@ -38,7 +43,7 @@ export const createMetadata = (
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://www.orate.dev/opengraph-image.png',
+        url: new URL('/opengraph-image.png', baseUrl).toString(),
         width: 1200,
         height: 630,
       },
