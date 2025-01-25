@@ -68,8 +68,12 @@
 }
 
 #nd-nav {
-  @apply bg-background/90 shadow-none backdrop-blur-sm m-0 border-none w-full rounded-none sticky top-0 left-auto right-auto translate-x-0 translate-y-0 mx-auto;
+  @apply bg-secondary/90 shadow-none backdrop-blur-sm m-0 border-none w-full rounded-none sticky top-0 left-auto right-auto translate-x-0 translate-y-0 mx-auto;
   @apply group-[.docs]:max-w-none group-[.docs]:border-b group-[.docs]:border-x-0 group-[.docs]:border-t-0 group-[.docs]:border-solid
+}
+
+.dark #nd-nav {
+  @apply bg-background/90;
 }
 
 #nd-nav nav {

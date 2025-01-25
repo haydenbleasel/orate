@@ -22,7 +22,7 @@ export const SnippetTabs = ({ tabs }: SnippetTabsProps) => {
     <Tabs
       value={selectedTab}
       onValueChange={setSelectedTab}
-      className="grid divide-y overflow-hidden rounded-lg border"
+      className="grid divide-y overflow-hidden rounded-lg border bg-background"
     >
       <div className="flex items-center gap-2 px-6 py-2">
         <Image

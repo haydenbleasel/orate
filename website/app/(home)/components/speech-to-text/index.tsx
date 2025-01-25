@@ -92,7 +92,7 @@ export const SpeechToText = () => (
         whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
         delay={0.8}
       >
-        <Button variant="secondary" asChild>
+        <Button size="lg" className="px-4" asChild>
           <Link href="/docs/stt">Read the docs</Link>
         </Button>
       </AnimateProvider>
