@@ -4,7 +4,8 @@
   "description": "The AI toolkit for speech.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx tsup",
+    "prepublishOnly": "pnpm build",
+    "build": "tsup",
     "test": "vitest"
   },
   "files": ["dist"],
