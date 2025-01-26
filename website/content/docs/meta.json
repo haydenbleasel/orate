@@ -1,0 +1,24 @@
+{
+  "title": "ui",
+  "root": true,
+  "pages": [
+    "...",
+    "---Functions---",
+    "stt",
+    "tts",
+    "---Providers---",
+    "assembly",
+    "deepgram",
+    "elevenlabs",
+    "gladia",
+    "google",
+    "ibm",
+    "azure",
+    "murf",
+    "openai",
+    "rev",
+    "native",
+    "---Other---",
+    "contributing"
+  ]
+}

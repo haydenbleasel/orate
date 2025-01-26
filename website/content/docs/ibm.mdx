@@ -1,0 +1,101 @@
+---
+title: IBM Watson
+description: Orate supports IBM Watson's speech and transcription services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+IBM offers a portfolio of AI products that accelerate generative AI into core workflows, driving automation and productivity, including IBM Watson Speech to Text and Text to Speech.
+
+## Setup
+
+The IBM provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { ibm } from 'orate/ibm';
+```
+
+## Configuration
+
+The IBM provider looks for the `IBM_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+IBM_API_KEY="your_api_key"
+```
+
+## Usage
+
+The IBM provider provides a single interface for all of IBM's speech and transcription services.
+
+### Text to Speech
+
+The IBM provider provides a `tts` function that allows you to create a text-to-speech synthesis function using IBM Text to Speech. By default, the `tts` function uses the `en-US_AllisonV3Voice` voice.
+
+```tsx
+import { speak } from 'orate';
+import { ibm } from 'orate/ibm';
+
+const speech = await speak({
+  model: ibm.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the model and voice to use by passing them as arguments to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: ibm.tts('en-AU_HeidiExpressive'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific IBM properties by passing them as an argument to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: ibm.tts('en-AU_HeidiExpressive', {
+    pitchPercentage: 5,
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+### Speech to Text
+
+The IBM provider provides a `stt` function that allows you to create a speech-to-text transcription function using IBM Speech to Text. By default, the `stt` function uses the `en-US_BroadbandModel` model.
+
+```tsx
+import { transcribe } from 'orate';
+import { ibm } from 'orate/ibm';
+
+const text = await transcribe({
+  model: ibm.stt(),
+  audio: someArrayBuffer,
+});
+```
+
+You can specify the model to use by passing it as an argument to the `stt` function.
+
+```tsx
+const text = await transcribe({
+  model: ibm.stt('ar-MS_Telephony'),
+  audio: someArrayBuffer,
+});
+```
+
+You can also specify specific IBM properties by passing them as an argument to the `stt` function.
+
+```tsx
+const text = await transcribe({
+  model: ibm.stt('ar-MS_Telephony', {
+    smartFormatting: true,
+  }),
+  audio: someArrayBuffer,
+});
+```
+
+## Typescript Definitions
+
+The IBM provider provides Typescript definitions for the `tts` and `stt` functions.
+

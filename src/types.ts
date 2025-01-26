@@ -1,4 +1,4 @@
 export type OrateModel = {
-  tts?: () => (prompt: string) => Promise<ArrayBuffer>;
-  stt?: () => (audio: ArrayBuffer) => Promise<string>;
+  tts?: () => (prompt: string) => Promise<File>;
+  stt?: () => (audio: File) => Promise<string>;
 };

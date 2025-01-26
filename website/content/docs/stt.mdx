@@ -1,0 +1,43 @@
+---
+title: Speech to Text
+description: Transform spoken words into meaningful text with unparalleled accuracy, speed and reliability; powered by leading AI providers.
+---
+
+Orate provides a simple and unified API for transcribing audio into text using various AI providers. The speech-to-text functionality is accessible through the `transcribe` function.
+
+## Basic Usage
+
+The basic usage involves importing the `transcribe` function from Orate and your chosen provider. For example, to use OpenAI's speech-to-text model, you can import the `OpenAI` provider and use its `stt` function:
+
+```tsx
+import { transcribe } from 'orate';
+import { openai } from 'orate/providers/openai';
+import audioFile from './audio.wav';
+
+const transcription = await transcribe({
+  model: openai.stt(),
+  audio: audioFile,
+});
+```
+
+### `model`
+
+The `model` parameter is a function that returns a model instance. The model instance is a function that takes an audio file and returns a promise that resolves to the transcription of the audio.
+
+```tsx
+const model = openai.stt();
+```
+
+### `audio`
+
+The `audio` parameter is a `File` object that contains the audio data to be transcribed.
+
+```tsx
+const audio = new File([audioBuffer], 'audio.wav', { type: 'audio/wav' });
+```
+
+Orate uses a `File` object because it is supported by all major browsers and can be easily converted to other formats. Additionally, the various AI providers require the audio data to be in a specific format, and the `File` object is the most convenient way to determine the audio format.
+
+## Audio formats
+
+Orate endeavours to support all audio formats and handle conversions for the various providers. If you encounter an error, please let us know and we will do our best to support your use case.

@@ -1,0 +1,69 @@
+---
+title: ElevenLabs
+description: Orate supports ElevenLabs' speech services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+ElevenLabs creates emotionally & contextually aware AI voices. Their voice AI responds to emotional cues in text and adapts its delivery to suit both the immediate content and the wider context. This lets their AI voices achieve high emotional range and avoid making logical errors.
+
+## Setup
+
+The ElevenLabs provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { elevenlabs } from 'orate/elevenlabs';
+```
+
+## Configuration
+
+The ElevenLabs provider looks for the `ELEVENLABS_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+ELEVENLABS_API_KEY="your_api_key"
+```
+
+## Usage
+
+The ElevenLabs provider provides a single interface for all of ElevenLabs' speech and transcription services.
+
+### Text to Speech
+
+The ElevenLabs provider provides a `tts` function that allows you to create a text-to-speech synthesis function using ElevenLabs. By default, the `tts` function uses the `multilingual_v2` model and the `aria` voice.
+
+```tsx
+import { speak } from 'orate';
+import { elevenlabs } from 'orate/elevenlabs';
+
+const speech = await speak({
+  model: elevenlabs.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the model and voice to use by passing them as arguments to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: elevenlabs.tts('english_sts_v2', 'charlotte'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific ElevenLabs properties by passing them as an argument to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: elevenlabs.tts('english_sts_v2', 'charlotte', {
+    voice_settings: {
+      stability: 0.5,
+    },
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+## Typescript Definitions
+
+The ElevenLabs provider provides Typescript definitions for the `tts` function.
+

@@ -1,0 +1,67 @@
+---
+title: Murf
+description: Orate supports Murf's speech services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Murf is a leading provider of AI services, offering a wide range of speech services through their Large Language Models (LLMs). Orate allows you to use these services with a single API, making it easy to switch between providers and use the best AI services for your needs.
+
+## Setup
+
+The Murf provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { murf } from 'orate/murf';
+```
+
+## Configuration
+
+The Murf provider looks for the `MURF_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+MURF_API_KEY="your_api_key"
+```
+
+## Usage
+
+The Murf provider provides a single interface for all of Murf's speech services.
+
+### Text to Speech
+
+The Murf provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Murf's TTS. By default, the `tts` function uses the `GEN2` model and the `en-US-natalie` voice.
+
+```tsx
+import { speak } from 'orate';
+import { murf } from 'orate/murf';
+
+const speech = await speak({
+  model: murf.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the model and voice to use by passing them as arguments to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: murf.tts('GEN1', 'en-AU-joyce'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific Murf properties by passing them as an argument to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: murf.tts('GEN1', 'en-AU-joyce', {
+    pitch: 25,
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+## Typescript Definitions
+
+The Murf provider provides Typescript definitions for the `tts` function.
+

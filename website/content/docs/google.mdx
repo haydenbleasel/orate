@@ -1,0 +1,100 @@
+---
+title: Google
+description: Orate supports Google's speech and transcription services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Google offers a wide range of speech and transcription services through their Large Language Models (LLMs), including Google Cloud Speech-to-Text and Google Cloud Text-to-Speech.
+
+## Setup
+
+The Google provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { google } from 'orate/google';
+```
+
+## Configuration
+
+The Google provider looks for the `GOOGLE_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+GOOGLE_API_KEY="your_api_key"
+```
+
+## Usage
+
+The Google provider provides a single interface for all of Google's speech and transcription services.
+
+### Text to Speech
+
+The Google provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Google Cloud Text-to-Speech. By default, the `tts` function uses the `en-US-Casual-K` model.
+
+```tsx
+import { speak } from 'orate';
+import { google } from 'orate/google';
+
+const speech = await speak({
+  model: google.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the model to use by passing it as an argument to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: google.tts('ar-XA-Wavenet-A'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific Google properties by passing them as an argument to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: google.tts('ar-XA-Wavenet-A', {
+    advancedVoiceOptions: {
+      lowLatencyJourneySynthesis: true,
+    },
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+### Speech to Text
+
+The Google provider provides a `stt` function that allows you to create a speech-to-text transcription function using Google Cloud Speech-to-Text. Google is unique in the fact that you need to specify a recognizer.
+
+```tsx
+import { transcribe } from 'orate';
+import { google } from 'orate/google';
+
+const text = await transcribe({
+  model: google.stt('projects/{project}/locations/{region}/recognizers/{recognizer}'),
+  audio: someArrayBuffer,
+});
+```
+
+You can also specify specific Google properties by passing them as an argument to the `stt` function.
+
+```tsx
+const text = await transcribe({
+  model: google.stt('projects/{project}/locations/{region}/recognizers/{recognizer}', {
+    config: {
+      adaptation: {
+        phraseSets: {
+          phrases: ['hello', 'world'],
+        },
+      },
+    },
+  }),
+  audio: someArrayBuffer,
+});
+```
+
+## Typescript Definitions
+
+The Google provider provides Typescript definitions for the `tts` and `stt` functions.
+
