@@ -103,6 +103,11 @@ export const TextToSpeech = () => (
         </Button>
       </AnimateProvider>
     </div>
-    <Image src={Speech} alt="Speech" className="hidden lg:block" />
+    <AnimateProvider
+      initial={{ opacity: 0, transform: 'translateY(-8px)' }}
+      whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+    >
+      <Image src={Speech} alt="Speech" className="hidden lg:block" />
+    </AnimateProvider>
   </section>
 );

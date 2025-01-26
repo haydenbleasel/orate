@@ -67,7 +67,12 @@ export const SpeechToText = () => (
     id="stt"
     className="container mx-auto grid items-start gap-32 px-4 py-16 sm:py-24 lg:grid-cols-2"
   >
-    <Image src={Writing} alt="Writing" className="hidden lg:block" />
+    <AnimateProvider
+      initial={{ opacity: 0, transform: 'translateY(-8px)' }}
+      whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+    >
+      <Image src={Writing} alt="Writing" className="hidden lg:block" />
+    </AnimateProvider>
     <div className="grid gap-6">
       <AnimateProvider
         initial={{ opacity: 0, transform: 'translateY(-8px)' }}
