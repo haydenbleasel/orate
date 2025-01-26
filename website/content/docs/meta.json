@@ -8,16 +8,16 @@
     "tts",
     "---Providers---",
     "assembly",
-    "azure",
     "deepgram",
     "elevenlabs",
     "gladia",
     "google",
     "ibm",
-    "native",
+    "azure",
     "murf",
     "openai",
     "rev",
+    "native",
     "---Other---",
     "contributing"
   ]
