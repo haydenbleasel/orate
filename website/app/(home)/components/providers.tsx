@@ -9,6 +9,7 @@ import ElevenLabs from '../../../public/providers/elevenlabs.svg';
 import Gladia from '../../../public/providers/gladia.svg';
 import Google from '../../../public/providers/google.svg';
 import IBM from '../../../public/providers/ibm.svg';
+import Murf from '../../../public/providers/murf.svg';
 import OpenAI from '../../../public/providers/openai.svg';
 import Rev from '../../../public/providers/rev.svg';
 
@@ -21,6 +22,7 @@ const providers = [
   { name: 'Google', image: Google, href: '/docs/google' },
   { name: 'Gladia', image: Gladia, href: '/docs/gladia' },
   { name: 'Rev', image: Rev, href: '/docs/rev' },
+  { name: 'Murf', image: Murf, href: '/docs/murf' },
 ];
 
 export const Providers = () => (
