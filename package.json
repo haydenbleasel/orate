@@ -49,6 +49,7 @@
     "@deepgram/sdk": "^3.9.0",
     "@google-cloud/speech": "^6.7.0",
     "@google-cloud/text-to-speech": "^5.8.0",
+    "@speechify/api-sdk": "^2.3.0",
     "assemblyai": "^4.8.0",
     "deepmerge": "^4.3.1",
     "elevenlabs": "^1.50.4",
@@ -58,7 +59,7 @@
     "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
     "openai": "^4.80.0",
     "revai-node-sdk": "^3.8.5",
-    "vite": "^6.0.11",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11"
   }
 }
