@@ -7,11 +7,7 @@ export const native = {
    * @param {SpeechRecognition} options - Additional options to pass to the SpeechRecognition
    * @returns {Function} Async function that records audio and returns transcribed text
    */
-  stt: (options?: {
-    lang?: string;
-    continuous?: boolean;
-    interimResults?: boolean;
-  }) => {
+  stt: (options?: { lang?: string }) => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -29,12 +25,6 @@ export const native = {
 
         if (options?.lang) {
           recognition.lang = options.lang;
-        }
-        if (options?.continuous) {
-          recognition.continuous = options.continuous;
-        }
-        if (options?.interimResults) {
-          recognition.interimResults = options.interimResults;
         }
 
         recognition.onresult = (event) => {

@@ -1,0 +1,51 @@
+---
+title: Web Speech API
+description: Orate supports the native Web Speech API for speech-to-text.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+The Web Speech API enables you to incorporate voice data into web apps. The Web Speech API has two parts: SpeechSynthesis (Text-to-Speech), and SpeechRecognition (Asynchronous Speech Recognition), the latter of which is what Orate uses for speech-to-text.
+
+## Setup
+
+The Web Speech API provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { native } from 'orate/native';
+```
+
+## Configuration
+
+The Native provider does not require any configuration.
+
+## Usage
+
+The Native provider provides a single interface for all of the Web Speech API's functionality.
+
+### Speech to Text
+
+The Native provider provides a `stt` function that allows you to create a speech-to-text transcription function using the Web Speech API.
+
+```tsx
+import { transcribe } from 'orate';
+import { native } from 'orate/native';
+
+const text = await transcribe({
+  model: native.stt(),
+  audio: someArrayBuffer,
+});
+```
+
+You can specify a language to use by passing it as an option to the `stt` function. If not specified, this defaults to the HTML lang attribute value, or the user agent's language setting if that isn't set either.
+
+```tsx
+const text = await transcribe({
+  model: native.stt({ lang: 'en-US' }),
+  audio: someArrayBuffer,
+});
+```
+
+## Typescript Definitions
+
+The Native provider provides Typescript definitions for the `stt` function.
