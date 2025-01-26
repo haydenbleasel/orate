@@ -1,0 +1,101 @@
+---
+title: Deepgram
+description: Orate supports Deepgram's speech and transcription services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Deepgram’s voice AI platform provides APIs for speech-to-text, text-to-speech, and full speech-to-speech voice agents.
+
+## Setup
+
+The Deepgram provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { deepgram } from 'orate/deepgram';
+```
+
+## Configuration
+
+The Deepgram provider looks for the `DEEPGRAM_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+DEEPGRAM_API_KEY="your_api_key"
+```
+
+## Usage
+
+The Deepgram provider provides a single interface for all of Deepgram's speech and transcription services.
+
+### Text to Speech
+
+The Deepgram provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Deepgram TTS. By default, the `tts` function uses the `aura-asteria-en` model.
+
+```tsx
+import { speak } from 'orate';
+import { deepgram } from 'orate/deepgram';
+
+const speech = await speak({
+  model: deepgram.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the model and voice to use by passing them as arguments to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: deepgram.tts('aura-luna-en'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific OpenAI properties by passing them as an argument to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: deepgram.tts('aura-luna-en', {
+    sample_rate: 16000
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+### Speech to Text
+
+The Deepgram provider provides a `stt` function that allows you to create a speech-to-text transcription function using Deepgram's speech-to-text model. By default, the `stt` function uses the `nova-2` model.
+
+```tsx
+import { transcribe } from 'orate';
+import { deepgram } from 'orate/deepgram';
+
+const text = await transcribe({
+  model: deepgram.stt(),
+  audio: someArrayBuffer,
+});
+```
+
+You can specify the model to use by passing it as an argument to the `stt` function.
+
+```tsx
+const text = await transcribe({
+  model: deepgram.stt('enhanced'),
+  audio: someArrayBuffer,
+});
+```
+
+You can also specify specific OpenAI properties by passing them as an argument to the `stt` function.
+
+```tsx
+const text = await transcribe({
+  model: deepgram.stt('enhanced', {
+    filler_words: true,
+  }),
+  audio: someArrayBuffer,
+});
+```
+
+## Typescript Definitions
+
+The Deepgram provider provides Typescript definitions for the `tts` and `stt` functions.
+
