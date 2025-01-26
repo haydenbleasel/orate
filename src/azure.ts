@@ -611,7 +611,12 @@ const convertToWavBuffer = async (audio: File) => {
     ffmpeg(inputStream)
       .toFormat('wav')
       .on('error', reject)
-      .on('end', () => resolve(Buffer.concat(chunks)))
+      .on('end', () => {
+        const buffer = Buffer.concat(
+          chunks.map((chunk) => new Uint8Array(chunk.buffer))
+        );
+        resolve(buffer);
+      })
       .pipe(
         new stream.Writable({
           write(chunk, _, callback) {
