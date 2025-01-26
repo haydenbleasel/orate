@@ -80,10 +80,11 @@ export const ibm = {
         ...options,
       });
 
-      const chunks: Buffer[] = [];
+      const chunks: Uint8Array[] = [];
 
       for await (const chunk of response.result) {
-        const part = typeof chunk === 'string' ? Buffer.from(chunk) : chunk;
+        const part: Uint8Array =
+          typeof chunk === 'string' ? Buffer.from(chunk) : chunk;
 
         chunks.push(part);
       }
