@@ -19,9 +19,9 @@ const createProvider = () => {
   return createClient(apiKey);
 };
 
-type DeepgramModel = 'aura';
+type DeepgramTranscriptModel = 'aura';
 
-type DeepgramVoice =
+type DeepgramTranscriptVoice =
   | 'asteria-en'
   | 'luna-en'
   | 'stella-en'
@@ -35,19 +35,55 @@ type DeepgramVoice =
   | 'helios-en'
   | 'zeus-en';
 
+type DeepgramSpeechModel =
+  | 'nova-2'
+  | 'nova-2-general'
+  | 'nova-2-meeting'
+  | 'nova-2-phonecall'
+  | 'nova-2-finance'
+  | 'nova-2-conversationalai'
+  | 'nova-2-voicemail'
+  | 'nova-2-video'
+  | 'nova-2-medical'
+  | 'nova-2-drivethru'
+  | 'nova-2-automotive'
+  | 'nova-2-atc'
+  | 'nova'
+  | 'nova-general'
+  | 'nova-phonecall'
+  | 'nova-medical'
+  | 'enhanced'
+  | 'enhanced-general'
+  | 'enhanced-meeting'
+  | 'enhanced-phonecall'
+  | 'enhanced-finance'
+  | 'base'
+  | 'base-general'
+  | 'base-meeting'
+  | 'base-phonecall'
+  | 'base-finance'
+  | 'base-conversationalai'
+  | 'base-voicemail'
+  | 'base-video'
+  | 'whisper'
+  | 'whisper-tiny'
+  | 'whisper-base'
+  | 'whisper-small'
+  | 'whisper-medium'
+  | 'whisper-large';
 /**
  * Deepgram Speech Services functionality for text-to-speech and speech-to-text
  */
 export const deepgram = {
   /**
    * Creates a text-to-speech synthesis function using Deepgram TTS
-   * @param {DeepgramModel} model - The model to use for synthesis. Defaults to 'aura'
-   * @param {DeepgramVoice} voice - The voice to use for synthesis. Defaults to 'asteria-en'
+   * @param {DeepgramTranscriptModel} model - The model to use for synthesis. Defaults to 'aura'
+   * @param {DeepgramTranscriptVoice} voice - The voice to use for synthesis. Defaults to 'asteria-en'
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
-    model: DeepgramModel = 'aura',
-    voice: DeepgramVoice = 'asteria-en',
+    model: DeepgramTranscriptModel = 'aura',
+    voice: DeepgramTranscriptVoice = 'asteria-en',
     properties?: Omit<SpeakSchema, 'model'>
   ) => {
     const provider = createProvider();
@@ -98,7 +134,7 @@ export const deepgram = {
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt: (
-    model: PrerecordedSchema['model'] = 'nova-2',
+    model: DeepgramSpeechModel | string = 'nova-2',
     properties?: Omit<PrerecordedSchema, 'model'>
   ) => {
     const provider = createProvider();
