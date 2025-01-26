@@ -1,10 +1,8 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Image from 'next/image';
 import { useState } from 'react';
 import { CopyButton } from '../copy-button';
-import Typescript from './typescript.svg';
 
 type SnippetTabsProps = {
   tabs: {
@@ -24,15 +22,8 @@ export const SnippetTabs = ({ tabs }: SnippetTabsProps) => {
       onValueChange={setSelectedTab}
       className="grid divide-y overflow-hidden rounded-lg border bg-background"
     >
-      <div className="flex items-center gap-2 px-6 py-2">
-        <Image
-          src={Typescript}
-          alt="Typescript"
-          width={16}
-          height={16}
-          className="shrink-0 opacity-20 brightness-0 dark:invert"
-        />
-        <TabsList className="flex-1 justify-start bg-transparent">
+      <div className="grid grid-cols-[1fr_44px] divide-x overflow-hidden">
+        <TabsList className="!overflow-x-auto h-auto w-full flex-1 justify-start bg-transparent p-2">
           {tabs.map(({ name }) => (
             <TabsTrigger
               key={name}
@@ -44,7 +35,9 @@ export const SnippetTabs = ({ tabs }: SnippetTabsProps) => {
           ))}
         </TabsList>
         {activeTab && (
-          <CopyButton name={activeTab.name} code={activeTab.code} />
+          <div className="flex aspect-square w-11 shrink-0 items-center justify-center">
+            <CopyButton name={activeTab.name} code={activeTab.code} />
+          </div>
         )}
       </div>
       {tabs.map(({ name, html }) => (
@@ -52,7 +45,7 @@ export const SnippetTabs = ({ tabs }: SnippetTabsProps) => {
           <div
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "This is a snippet"
             dangerouslySetInnerHTML={{ __html: html }}
-            className="overflow-x-auto p-6 text-sm sm:text-base"
+            className="overflow-x-auto p-6 text-sm"
           />
         </TabsContent>
       ))}
