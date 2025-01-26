@@ -42,6 +42,11 @@ const snippets = [
     name: 'IBM',
     code: createSnippet('ibm', "'en-US_BroadbandModel'"),
   },
+  {
+    provider: 'murf',
+    name: 'Murf',
+    code: createSnippet('murf', "'GEN2', 'en-US-natalie'"),
+  },
 ];
 
 export const TextToSpeech = () => (
