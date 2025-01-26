@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { ArrowRightIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Marquee from 'react-fast-marquee';
 import AssemblyAI from '../../../public/providers/assembly.svg';
 import Azure from '../../../public/providers/azure.svg';
 import Deepgram from '../../../public/providers/deepgram.svg';
@@ -30,37 +31,48 @@ const providers = [
 export const Providers = () => (
   <section
     id="providers"
-    className="container mx-auto grid gap-16 border-y px-4 py-16 text-center"
+    className={cn(
+      'container mx-auto grid gap-8 border-y px-4 py-8 text-center',
+      'sm:gap-16 sm:py-16'
+    )}
   >
     <AnimateProvider
       initial={{ opacity: 0, transform: 'translateY(-8px)' }}
       whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
     >
       <p className="font-medium text-muted-foreground text-sm">
-        Plug and play your favorite AI provider
+        Plug and play your favorite AI speech provider
       </p>
     </AnimateProvider>
-    <div className="grid w-full grid-cols-2 items-center gap-x-4 gap-y-12 sm:grid-cols-3 md:grid-cols-4">
-      {providers.map(({ name, image, href }, index) => (
-        <AnimateProvider
-          key={name}
-          initial={{ opacity: 0, transform: 'translateY(-8px)' }}
-          whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
-          delay={0.1 * index}
-        >
-          <Link href={href} className="group">
+    <AnimateProvider
+      initial={{ opacity: 0, transform: 'translateY(-8px)' }}
+      whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+      delay={0.2}
+      className="sm:-my-8 w-full overflow-hidden sm:h-24 sm:py-8"
+    >
+      <Marquee
+        loop={0}
+        autoFill
+        pauseOnHover
+        className="!overflow-visible flex items-center"
+      >
+        {providers.map(({ name, image, href }) => (
+          <Link href={href} className="group mx-8 block sm:mx-16" key={name}>
             <div className="relative flex items-center justify-center">
               <Image
                 src={image}
                 alt=""
                 className={cn(
-                  'h-full max-h-7 w-full max-w-28 blur-0 brightness-0 transition-all duration-300 dark:invert',
-                  'group-hover:blur-lg'
+                  'h-full w-full object-contain blur-0 brightness-0 transition-all duration-300 dark:invert',
+                  'max-h-4 max-w-16',
+                  'sm:max-h-8 sm:max-w-32',
+                  'sm:group-hover:blur-lg'
                 )}
               />
               <div
                 className={cn(
-                  '-translate-x-1/2 -translate-y-1/2 pointer-events-none absolute top-1/2 left-1/2 flex select-none items-center gap-1 text-xs opacity-0 transition-all',
+                  '-translate-y-1/2 pointer-events-none absolute top-1/2 left-0 hidden w-full select-none items-center justify-center gap-1 text-center text-xs opacity-0 transition-all',
+                  'sm:flex',
                   'group-hover:opacity-100'
                 )}
               >
@@ -69,8 +81,10 @@ export const Providers = () => (
               </div>
             </div>
           </Link>
-        </AnimateProvider>
-      ))}
-    </div>
+        ))}
+      </Marquee>
+      <div className="absolute top-0 bottom-0 left-0 z-10 h-full w-24 bg-gradient-to-r from-secondary to-transparent dark:from-background" />
+      <div className="absolute top-0 right-0 bottom-0 z-10 h-full w-24 bg-gradient-to-l from-secondary to-transparent dark:from-background" />
+    </AnimateProvider>
   </section>
 );
