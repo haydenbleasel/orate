@@ -1,3 +1,15 @@
+# v1.0.9 (Sun Jan 26 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Accessibility improvements, add speechify voices ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.8 (Sun Jan 26 2025)
 
 #### ⚠️ Pushed to `main`
