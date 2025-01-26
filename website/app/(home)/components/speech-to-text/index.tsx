@@ -55,6 +55,11 @@ const snippets = [
     name: 'Rev AI',
     code: createSnippet('rev', "'machine'"),
   },
+  {
+    provider: 'deepgram',
+    name: 'Deepgram',
+    code: createSnippet('deepgram', "'nova-2'"),
+  },
 ];
 
 export const SpeechToText = () => (

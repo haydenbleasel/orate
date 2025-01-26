@@ -47,6 +47,11 @@ const snippets = [
     name: 'Murf',
     code: createSnippet('murf', "'GEN2', 'en-US-natalie'"),
   },
+  {
+    provider: 'deepgram',
+    name: 'Deepgram',
+    code: createSnippet('deepgram', "'aura', 'asteria-en'"),
+  },
 ];
 
 export const TextToSpeech = () => (
