@@ -83,7 +83,9 @@ export const ibm = {
       const chunks: Buffer[] = [];
 
       for await (const chunk of response.result) {
-        chunks.push(Buffer.from(chunk));
+        const part = typeof chunk === 'string' ? Buffer.from(chunk) : chunk;
+
+        chunks.push(part);
       }
 
       const buffer = Buffer.concat(chunks).buffer;
