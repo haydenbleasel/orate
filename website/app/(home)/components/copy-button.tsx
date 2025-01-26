@@ -35,6 +35,7 @@ export const CopyButton = ({ code, className, name }: CopyButtonProps) => {
       variant="ghost"
       onClick={handleCopy}
       disabled={copied}
+      aria-label="Copy to clipboard"
     >
       <Icon size={16} className="text-muted-foreground" />
     </Button>

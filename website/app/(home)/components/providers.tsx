@@ -59,7 +59,12 @@ export const Providers = () => (
         className="!overflow-visible flex items-center"
       >
         {providers.map(({ name, image, href }) => (
-          <Link href={href} className="group mx-8 block sm:mx-16" key={name}>
+          <Link
+            href={href}
+            className="group mx-8 block sm:mx-16"
+            key={name}
+            aria-label={`View docs for ${name}`}
+          >
             <div className="relative flex items-center justify-center">
               <Image
                 src={image}
