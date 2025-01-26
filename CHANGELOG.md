@@ -1,3 +1,19 @@
+# v1.0.5 (Sun Jan 26 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of https://github.com/haydenbleasel/orate ([@haydenbleasel](https://github.com/haydenbleasel))
+- Fix azure type issue ([@haydenbleasel](https://github.com/haydenbleasel))
+- Update elevenlabs.test.ts ([@haydenbleasel](https://github.com/haydenbleasel))
+- Map dist folder exports ([@haydenbleasel](https://github.com/haydenbleasel))
+- Flatten output directory structure ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.4 (Sun Jan 26 2025)
 
 #### ⚠️ Pushed to `main`
