@@ -5,24 +5,21 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./dist/*": "./dist/*.mjs"
+  },
   "scripts": {
     "prepublishOnly": "pnpm build",
     "build": "tsup",
     "test": "vitest"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haydenbleasel/orate.git"
   },
-  "keywords": [
-    "ai",
-    "text",
-    "speech",
-    "transcribe"
-  ],
+  "keywords": ["ai", "text", "speech", "transcribe"],
   "author": "Hayden Bleasel <hello@haydenbleasel.com>",
   "license": "MIT",
   "bugs": {
