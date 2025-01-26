@@ -1,7 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak } from '../src';
-import { elevenlabs } from '../src/eleven-labs';
+import { elevenlabs } from '../src/elevenlabs';
 
 describe('ElevenLabs Tests', () => {
   it('should convert text to speech', async () => {
@@ -11,7 +11,7 @@ describe('ElevenLabs Tests', () => {
     });
 
     await writeFile(
-      './__tests__/output/eleven-labs-speech.wav',
+      './__tests__/output/elevenlabs-speech.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 
