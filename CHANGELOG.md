@@ -1,3 +1,15 @@
+# v1.0.7 (Sun Jan 26 2025)
+
+#### 🐛 Bug Fix
+
+- Speechify [#4](https://github.com/haydenbleasel/orate/pull/4) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.6 (Sun Jan 26 2025)
 
 #### ⚠️ Pushed to `main`
