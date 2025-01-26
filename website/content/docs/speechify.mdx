@@ -1,0 +1,64 @@
+---
+title: Speechify
+description: Orate supports Speechify's speech services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Speechify offer a text-to-speech API that delivers their most natural and beloved AI voices directly to developers worldwide.
+
+## Setup
+
+The Speechify provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { speechify } from 'orate/speechify';
+```
+
+## Configuration
+
+The Speechify provider looks for the `SPEECHIFY_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+SPEECHIFY_API_KEY="your_api_key"
+```
+
+## Usage
+
+The Speechify provider provides a single interface for all of Speechify's speech services.
+
+### Text to Speech
+
+The Speechify provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Speechify's TTS. By default, the `tts` function uses the `simba-multilingual` model and the `george` voice.
+
+```tsx
+import { speak } from 'orate';
+import { speechify } from 'orate/speechify';
+
+const speech = await speak({
+  model: speechify.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the model and voice to use by passing them as arguments to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: speechify.tts('simba-turbo', 'kristy'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific Speechify properties by passing them as an argument to the `tts` function.
+
+```tsx
+const speech = await speak({
+  model: speechify.tts('simba-turbo', 'kristy', {
+    options: {
+      enableLoudnessNormalization: true,
+    }
+  }),
+  prompt: 'Hello, world!',
+});
+```
