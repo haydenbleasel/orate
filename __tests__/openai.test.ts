@@ -23,12 +23,12 @@ describe('OpenAI Tests', () => {
     const file = await readFile('./__tests__/test.mp3');
     const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });
 
-    const openAiText = await transcribe({
+    const text = await transcribe({
       model: openai.stt('whisper-1'),
       audio,
     });
 
-    expect(typeof openAiText).toBe('string');
-    expect(openAiText.length).toBeGreaterThan(0);
+    expect(typeof text).toBe('string');
+    expect(text.length).toBeGreaterThan(0);
   });
 });
