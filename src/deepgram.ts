@@ -19,18 +19,35 @@ const createProvider = () => {
   return createClient(apiKey);
 };
 
+type DeepgramModel = 'aura';
+
+type DeepgramVoice =
+  | 'asteria-en'
+  | 'luna-en'
+  | 'stella-en'
+  | 'athena-en'
+  | 'hera-en'
+  | 'orion-en'
+  | 'arcas-en'
+  | 'perseus-en'
+  | 'angus-en'
+  | 'orpheus-en'
+  | 'helios-en'
+  | 'zeus-en';
+
 /**
  * Deepgram Speech Services functionality for text-to-speech and speech-to-text
  */
 export const deepgram = {
   /**
    * Creates a text-to-speech synthesis function using Deepgram TTS
-   * @param {SpeakSchema["model"]} model - The model to use for synthesis. Defaults to 'aura-asteria-en'
-   * @param {Omit<SpeakSchema, "model">} properties - The properties to use for synthesis.
+   * @param {DeepgramModel} model - The model to use for synthesis. Defaults to 'aura'
+   * @param {DeepgramVoice} voice - The voice to use for synthesis. Defaults to 'asteria-en'
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
-    model: SpeakSchema['model'] = 'aura-asteria-en',
+    model: DeepgramModel = 'aura',
+    voice: DeepgramVoice = 'asteria-en',
     properties?: Omit<SpeakSchema, 'model'>
   ) => {
     const provider = createProvider();
@@ -41,9 +58,10 @@ export const deepgram = {
      * @returns {Promise<File>} The synthesized audio data
      */
     return async (prompt: string) => {
+      const parsedModel = `${model}-${voice}`;
       const response = await provider.speak.request(
         { text: prompt },
-        { model, ...properties }
+        { model: parsedModel, ...properties }
       );
 
       const stream = await response.getStream();

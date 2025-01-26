@@ -29,7 +29,7 @@ The Deepgram provider provides a single interface for all of Deepgram's speech a
 
 ### Text to Speech
 
-The Deepgram provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Deepgram TTS. By default, the `tts` function uses the `aura-asteria-en` model.
+The Deepgram provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Deepgram TTS. By default, the `tts` function uses the `aura` model with the `asteria-en` voice.
 
 ```tsx
 import { speak } from 'orate';
@@ -45,7 +45,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```tsx
 const speech = await speak({
-  model: deepgram.tts('aura-luna-en'),
+  model: deepgram.tts('aura', 'luna-en'),
   prompt: 'Hello, world!',
 });
 ```
@@ -54,7 +54,7 @@ You can also specify specific OpenAI properties by passing them as an argument t
 
 ```tsx
 const speech = await speak({
-  model: deepgram.tts('aura-luna-en', {
+  model: deepgram.tts('aura', 'luna-en', {
     sample_rate: 16000
   }),
   prompt: 'Hello, world!',
