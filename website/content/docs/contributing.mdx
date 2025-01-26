@@ -14,10 +14,9 @@ Thank you for your interest in contributing to Orate! This guide will help you g
 
 To add a new AI provider to Orate, follow these steps:
 
-1. Create a new directory in `src/` for your provider
-2. Create an `index.ts` file with the provider implementation
-3. Add TypeScript types for the provider's models and voices if applicable
-4. Implement the provider interface:
+1. Create a new file in `src/` for your provider e.g. `openai.ts` 
+2. Add TypeScript types for the provider's models and voices if applicable
+3. Implement the provider interface:
 
 ```ts
 export const yourProvider = {
@@ -41,11 +40,10 @@ export const yourProvider = {
 };
 ```
 
-5. Add tests in `__tests__/yourProvider.test.ts`
-6. Add documentation in `website/content/docs/yourProvider.mdx`
-7. Update the providers list in:
+4. Add tests in `__tests__/yourProvider.test.ts`
+5. Add documentation in `website/content/docs/yourProvider.mdx`
+6. Update the providers list in:
    - `website/content/docs/providers.mdx`
-   - `website/content/docs/meta.json`
    - `website/app/(home)/components/providers.tsx`
 
 ## Environment Variables
