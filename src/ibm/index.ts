@@ -88,8 +88,7 @@ export const ibm = {
         chunks.push(part);
       }
 
-      const buffer = Buffer.concat(chunks).buffer;
-
+      const buffer = Buffer.concat(chunks);
       const file = new File([buffer], 'speech.mp3', {
         type: 'audio/mpeg',
       });
