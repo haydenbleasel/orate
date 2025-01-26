@@ -37,7 +37,7 @@ import { speak } from 'orate';
 import { azure } from 'orate/azure';
 
 const speech = await speak({
-  model: openai.tts(),
+  model: azure.tts(),
   prompt: 'Hello, world!',
 });
 ```

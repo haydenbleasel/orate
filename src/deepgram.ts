@@ -140,7 +140,7 @@ export const deepgram = {
     const provider = createProvider();
 
     /**
-     * Transcribes audio to text using OpenAI Whisper
+     * Transcribes audio to text using Deepgram STT
      * @param {File} audio - The audio data to transcribe
      * @returns {Promise<string>} The transcribed text
      */

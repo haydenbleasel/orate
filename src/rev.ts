@@ -41,7 +41,7 @@ export const rev = {
     const provider = createProvider();
 
     /**
-     * Transcribes audio to text using OpenAI Whisper
+     * Transcribes audio to text using Rev.ai
      * @param {File} audio - The audio data to transcribe
      * @returns {Promise<string>} The transcribed text
      */
