@@ -1,3 +1,15 @@
+# v1.0.4 (Sun Jan 26 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Remove notes on TS definitions ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.3 (Sun Jan 26 2025)
 
 #### ⚠️ Pushed to `main`
