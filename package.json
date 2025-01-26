@@ -36,6 +36,7 @@
     "vitest": "^3.0.4"
   },
   "dependencies": {
+    "@deepgram/sdk": "^3.9.0",
     "@google-cloud/speech": "^6.7.0",
     "@google-cloud/text-to-speech": "^5.8.0",
     "assemblyai": "^4.8.0",
