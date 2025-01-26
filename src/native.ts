@@ -1,3 +1,32 @@
+interface Window {
+  SpeechRecognition: typeof SpeechRecognition;
+  webkitSpeechRecognition: typeof SpeechRecognition;
+}
+
+declare class SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  onresult: (event: SpeechRecognitionEvent) => void;
+  onerror: (event: SpeechRecognitionErrorEvent) => void;
+  start(): void;
+}
+
+interface SpeechRecognitionEvent {
+  results: {
+    [index: number]: {
+      [index: number]: {
+        transcript: string;
+      };
+    };
+  };
+}
+
+interface SpeechRecognitionErrorEvent {
+  error: string;
+  message: string;
+}
+
 /**
  * Native Web Speech API functionality for speech-to-text
  */
@@ -9,7 +38,8 @@ export const native = {
    */
   stt: (options?: { lang?: string }) => {
     const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
+      (window as unknown as Window).SpeechRecognition ||
+      (window as unknown as Window).webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
       throw new Error('Speech recognition not supported in this browser');

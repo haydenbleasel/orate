@@ -1,7 +1,44 @@
 import { ElevenLabsClient } from 'elevenlabs';
 import type { TextToSpeechRequest } from 'elevenlabs/api';
-import { models } from './models';
-import { voices } from './voices';
+
+/**
+ * Map of available ElevenLabs model IDs
+ */
+const models = {
+  multilingual_v2: 'eleven_multilingual_v2',
+  flash_v2_5: 'eleven_flash_v2_5',
+  flash_v2: 'eleven_flash_v2',
+  turbo_v2: 'eleven_turbo_v2',
+  turbo_v2_5: 'eleven_turbo_v2_5',
+  multilingual_sts_v2: 'eleven_multilingual_sts_v2',
+  english_sts_v2: 'eleven_english_sts_v2',
+};
+
+/**
+ * Map of available ElevenLabs voice IDs
+ */
+const voices = {
+  alice: 'Xb7hH8MSUJpSbSDYk0k2',
+  aria: '9BWtsMINqrJLrRacOk9x',
+  bill: 'pqHfZKP75CvOlQylNhV4',
+  brian: 'nPczCjzI2devNBz1zQrb',
+  callum: 'N2lVS1w4EtoT3dr4eOWO',
+  charlie: 'IKne3meq5aSn9XLyUdCD',
+  charlotte: 'XB0fDUnXU5powFXDhCwa',
+  chris: 'iP95p4xoKVk53GoZ742B',
+  daniel: 'onwK4e9ZLuTAKqWW03F9',
+  eric: 'cjVigY5qzO86Huf0OWal',
+  george: 'JBFqnCBsd6RMkjVDRZzb',
+  jessica: 'cgSgspJ2msm6clMCkdW9',
+  laura: 'FGY2WhTYpPnrIDTdsKH5',
+  liam: 'TX3LPaxmHKxFdv7VOQHJ',
+  lily: 'pFZP5JQG7iQjIQuC4Bku',
+  matilda: 'XrExE9yKIg1WjnnlVkGX',
+  river: 'SAz9YHcvj6GT2YYXdXww',
+  roger: 'CwhRBWXzGAHq8TQ4Fs17',
+  sarah: 'EXAVITQu4vr4xnSDxMaL',
+  will: 'bIHbv24MWmeRgasZH58o',
+};
 
 /**
  * Creates an ElevenLabs provider instance with API key from environment variables

@@ -3,8 +3,132 @@ import SpeechToTextV1 from 'ibm-watson/speech-to-text/v1';
 import type { RecognizeParams } from 'ibm-watson/speech-to-text/v1-generated';
 import TextToSpeechV1 from 'ibm-watson/text-to-speech/v1';
 import type { SynthesizeParams } from 'ibm-watson/text-to-speech/v1-generated';
-import type { models } from './models';
-import type { voices } from './voices';
+
+/**
+ * List of available IBM Watson speech-to-text models
+ * Includes models for different languages, bandwidths and use cases:
+ * - BroadbandModel: For high-quality audio (16kHz+)
+ * - NarrowbandModel: For telephony audio (8kHz)
+ * - Multimedia: Optimized for media/entertainment content
+ * - Telephony: Optimized for phone conversations
+ * Format: {language}-{region}_{type} (e.g. en-US_BroadbandModel)
+ */
+const models = [
+  'ar-MS_BroadbandModel',
+  'ar-MS_Telephony',
+  'cs-CZ_Telephony',
+  'de-DE_BroadbandModel',
+  'de-DE_Multimedia',
+  'de-DE_NarrowbandModel',
+  'de-DE_Telephony',
+  'en-AU_BroadbandModel',
+  'en-AU_Multimedia',
+  'en-AU_NarrowbandModel',
+  'en-AU_Telephony',
+  'en-IN_Telephony',
+  'en-GB_BroadbandModel',
+  'en-GB_Multimedia',
+  'en-GB_NarrowbandModel',
+  'en-GB_Telephony',
+  'en-US_BroadbandModel',
+  'en-US_Multimedia',
+  'en-US_NarrowbandModel',
+  'en-US_ShortForm_NarrowbandModel',
+  'en-US_Telephony',
+  'en-WW_Medical_Telephony',
+  'es-AR_BroadbandModel',
+  'es-AR_NarrowbandModel',
+  'es-CL_BroadbandModel',
+  'es-CL_NarrowbandModel',
+  'es-CO_BroadbandModel',
+  'es-CO_NarrowbandModel',
+  'es-ES_BroadbandModel',
+  'es-ES_NarrowbandModel',
+  'es-ES_Multimedia',
+  'es-ES_Telephony',
+  'es-LA_Telephony',
+  'es-MX_BroadbandModel',
+  'es-MX_NarrowbandModel',
+  'es-PE_BroadbandModel',
+  'es-PE_NarrowbandModel',
+  'fr-CA_BroadbandModel',
+  'fr-CA_Multimedia',
+  'fr-CA_NarrowbandModel',
+  'fr-CA_Telephony',
+  'fr-FR_BroadbandModel',
+  'fr-FR_Multimedia',
+  'fr-FR_NarrowbandModel',
+  'fr-FR_Telephony',
+  'hi-IN_Telephony',
+  'it-IT_BroadbandModel',
+  'it-IT_NarrowbandModel',
+  'it-IT_Multimedia',
+  'it-IT_Telephony',
+  'ja-JP_BroadbandModel',
+  'ja-JP_Multimedia',
+  'ja-JP_NarrowbandModel',
+  'ja-JP_Telephony',
+  'ko-KR_BroadbandModel',
+  'ko-KR_Multimedia',
+  'ko-KR_NarrowbandModel',
+  'ko-KR_Telephony',
+  'nl-BE_Telephony',
+  'nl-NL_BroadbandModel',
+  'nl-NL_Multimedia',
+  'nl-NL_NarrowbandModel',
+  'nl-NL_Telephony',
+  'pt-BR_BroadbandModel',
+  'pt-BR_Multimedia',
+  'pt-BR_NarrowbandModel',
+  'pt-BR_Telephony',
+  'sv-SE_Telephony',
+  'zh-CN_BroadbandModel',
+  'zh-CN_NarrowbandModel',
+  'zh-CN_Telephony',
+] as const;
+
+/**
+ * List of available IBM Watson voice models for text-to-speech
+ * Includes both Expressive and V3 voices in various languages and regions
+ * Format examples:
+ * - Expressive voices: {language}-{region}_{name}Expressive (e.g. en-US_AllisonExpressive)
+ * - V3 voices: {language}-{region}_{name}V3Voice (e.g. en-US_AllisonV3Voice)
+ */
+const voices = [
+  'en-AU_HeidiExpressive',
+  'en-AU_JackExpressive',
+  'en-US_AllisonExpressive',
+  'en-US_EmmaExpressive',
+  'en-US_LisaExpressive',
+  'en-US_MichaelExpressive',
+  'en-GB_GeorgeExpressive',
+  'es-LA_DanielaExpressive',
+  'nl-NL_MerelV3Voice',
+  'en-GB_CharlotteV3Voice',
+  'en-GB_JamesV3Voice',
+  'en-GB_KateV3Voice',
+  'en-US_AllisonV3Voice',
+  'en-US_EmilyV3Voice',
+  'en-US_HenryV3Voice',
+  'en-US_KevinV3Voice',
+  'en-US_LisaV3Voice',
+  'en-US_MichaelV3Voice',
+  'en-US_OliviaV3Voice',
+  'fr-CA_LouiseV3Voice',
+  'fr-FR_NicolasV3Voice',
+  'fr-FR_ReneeV3Voice',
+  'de-DE_BirgitV3Voice',
+  'de-DE_DieterV3Voice',
+  'de-DE_ErikaV3Voice',
+  'it-IT_FrancescaV3Voice',
+  'ja-JP_EmiV3Voice',
+  'ko-KR_JinV3Voice',
+  'pt-BR_IsabelaV3Voice',
+  'es-ES_EnriqueV3Voice',
+  'es-ES_LauraV3Voice',
+  'es-LA_SofiaV3Voice',
+  'es-US_SofiaV3Voice',
+] as const;
 
 /**
  * Creates a Text-to-Speech client using the IBM Watson API
