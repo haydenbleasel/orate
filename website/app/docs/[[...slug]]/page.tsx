@@ -53,7 +53,7 @@ export const generateMetadata = async (props: {
   }
 
   return {
-    title: page.data.title,
+    title: `${page.data.title} | Orate`,
     description: page.data.description,
   };
 };
