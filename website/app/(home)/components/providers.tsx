@@ -14,6 +14,7 @@ import IBM from '../../../public/providers/ibm.svg';
 import Murf from '../../../public/providers/murf.svg';
 import OpenAI from '../../../public/providers/openai.svg';
 import Rev from '../../../public/providers/rev.svg';
+import Speechify from '../../../public/providers/speechify.svg';
 
 const providers = [
   { name: 'OpenAI', image: OpenAI, href: '/docs/openai' },
@@ -25,6 +26,7 @@ const providers = [
   { name: 'Gladia', image: Gladia, href: '/docs/gladia' },
   { name: 'Rev', image: Rev, href: '/docs/rev' },
   { name: 'Murf', image: Murf, href: '/docs/murf' },
+  { name: 'Speechify', image: Speechify, href: '/docs/speechify' },
   { name: 'Deepgram', image: Deepgram, href: '/docs/deepgram' },
 ];
 
