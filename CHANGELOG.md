@@ -1,3 +1,22 @@
+# v1.0.3 (Sun Jan 26 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Fixed local TS setup ([@haydenbleasel](https://github.com/haydenbleasel))
+- More attempts to fix IBM ([@haydenbleasel](https://github.com/haydenbleasel))
+- More IBM tweaks ([@haydenbleasel](https://github.com/haydenbleasel))
+- Update package.json ([@haydenbleasel](https://github.com/haydenbleasel))
+- Parse chunks in IBM response ([@haydenbleasel](https://github.com/haydenbleasel))
+- Copy config from other package ([@haydenbleasel](https://github.com/haydenbleasel))
+- Install typescript lol ([@haydenbleasel](https://github.com/haydenbleasel))
+- Update push.yml ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.2 (Sun Jan 26 2025)
 
 #### ⚠️ Pushed to `main`
