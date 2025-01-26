@@ -1,3 +1,15 @@
+# v1.0.6 (Sun Jan 26 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update package.json ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.5 (Sun Jan 26 2025)
 
 #### ⚠️ Pushed to `main`
