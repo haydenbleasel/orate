@@ -52,6 +52,11 @@ const snippets = [
     name: 'Deepgram',
     code: createSnippet('deepgram', "'aura', 'asteria-en'"),
   },
+  {
+    provider: 'speechify',
+    name: 'Speechify',
+    code: createSnippet('speechify', "'simba-multilingual', 'george'"),
+  },
 ];
 
 export const TextToSpeech = () => (
