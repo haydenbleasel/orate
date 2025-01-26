@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AssemblyAI from '../../../public/providers/assembly.svg';
 import Azure from '../../../public/providers/azure.svg';
+import Deepgram from '../../../public/providers/deepgram.svg';
 import ElevenLabs from '../../../public/providers/elevenlabs.svg';
 import Gladia from '../../../public/providers/gladia.svg';
 import Google from '../../../public/providers/google.svg';
@@ -23,6 +24,7 @@ const providers = [
   { name: 'Gladia', image: Gladia, href: '/docs/gladia' },
   { name: 'Rev', image: Rev, href: '/docs/rev' },
   { name: 'Murf', image: Murf, href: '/docs/murf' },
+  { name: 'Deepgram', image: Deepgram, href: '/docs/deepgram' },
 ];
 
 export const Providers = () => (
