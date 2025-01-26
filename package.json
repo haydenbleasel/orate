@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": "./dist/index.mjs",
-    "./dist/*": "./dist/*.mjs"
+    "./*": "./dist/*.mjs"
   },
   "scripts": {
     "prepublishOnly": "pnpm build",
