@@ -1,3 +1,15 @@
+# v1.0.20 (Mon Jan 27 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Remove duplicate entry ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.19 (Mon Jan 27 2025)
 
 #### ⚠️ Pushed to `main`
