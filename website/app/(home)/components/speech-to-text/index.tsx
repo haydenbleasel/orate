@@ -10,10 +10,11 @@ const createSnippet = (
   props?: string
 ) => `import { transcribe } from 'orate';
 import { ${provider} } from 'orate/${provider}';
+import audio from './audio.wav';
 
 const text = await transcribe({
   model: ${provider}.stt(${props ?? ''}),
-  audio: await fetch('/audio.wav').then((res) => res.arrayBuffer()),
+  audio,
 });`;
 
 const snippets = [
