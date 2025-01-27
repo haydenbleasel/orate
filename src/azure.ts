@@ -606,21 +606,20 @@ const convertToWavBuffer = async (audio: File) => {
 
   const wavBuffer = await new Promise<Buffer>((resolve, reject) => {
     const inputStream = stream.Readable.from(inputBuffer);
-    const chunks: Buffer[] = [];
+    const chunks: Uint8Array[] = [];
 
     ffmpeg(inputStream)
       .toFormat('wav')
       .on('error', reject)
       .on('end', () => {
-        const buffer = Buffer.concat(
-          chunks.map((chunk) => new Uint8Array(chunk.buffer))
-        );
+        const buffer = Buffer.concat(chunks);
         resolve(buffer);
       })
       .pipe(
         new stream.Writable({
-          write(chunk, _, callback) {
-            chunks.push(chunk);
+          write(chunk: Buffer, _, callback) {
+            const part = new Uint8Array(chunk.buffer);
+            chunks.push(part);
             callback();
           },
         })
