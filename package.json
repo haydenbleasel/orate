@@ -58,6 +58,7 @@
     "ky": "^1.7.4",
     "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
     "openai": "^4.80.0",
+    "replicate": "^1.0.1",
     "revai-node-sdk": "^3.8.5",
     "typescript": "^5.7.3",
     "vite": "^6.0.11"

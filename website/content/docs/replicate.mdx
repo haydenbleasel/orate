@@ -1,0 +1,126 @@
+---
+title: Replicate
+description: Orate supports Replicate's speech and transcription models.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Replicate makes machine learning as easy to use as any other type of software. It has a library of hundreds of open-source models that you can run with a few lines of code. And if you’re building your own machine learning models, Replicate makes it easy to deploy them at scale. Orate supports any Replicate model.
+
+## Setup
+
+The Replicate provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { replicate } from 'orate/replicate';
+```
+
+## Configuration
+
+The Replicate provider looks for the `REPLICATE_API_TOKEN` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+REPLICATE_API_TOKEN="your_api_token"
+```
+
+## Usage
+
+The Replicate provider provides a single interface for all of Replicate's speech and transcription models.
+
+### Text to Speech
+
+The Replicate provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Replicate's TTS models. The Replicate provider is unique in the fact that it requires both an `inputTransformer` and an `outputTransformer` to be passed to the `tts` function.
+
+This is because every model on Replicate has a different input and output format. We'll cover how to create these transformers in the next section. For example, the following code creates a text-to-speech synthesis function using the `jaaari/kokoro-82m` model.
+
+```ts
+import { speak } from 'orate';
+import { replicate } from 'orate/replicate';
+import { inputTransformer, outputTransformer } from './kokoro-82m-utils';
+
+const speech = await speak({
+  model: replicate.tts('jaaari/kokoro-82m:dfdf537ba482b029e0a761699e6f55e9162cfd159270bfe0e44857caa5f275a6', inputTransformer, outputTransformer),
+  prompt: 'Friends, Romans, countrymen, lend me your ears;'
+});
+```
+
+#### Input Transformer
+
+The `inputTransformer` is a function that takes the Orate input and transforms it into the format that the model expects. In this instance, `jaaari/kokoro-82m` expects an object with a `text` property. Let's create an input transformer for this:
+
+```ts title="kokoro-82m-utils.ts"
+export const inputTransformer = (prompt: string) => ({
+  input: { text: prompt },
+});
+```
+
+#### Output Transformer
+
+The `outputTransformer` is a function that takes the model output and transforms it into the format that Orate expects. In this instance, `jaaari/kokoro-82m` returns a stream of audio data. Let's create an output transformer for this:
+
+```ts title="kokoro-82m-utils.ts"
+export const outputTransformer = async (response: unknown) => {
+  const stream = response as ReadableStream;
+  const reader = stream.getReader();
+  const chunks: Uint8Array[] = [];
+
+  while (true) {
+    const { done, value } = await reader.read();
+
+    if (done) {
+      break;
+    }
+
+    chunks.push(value);
+  }
+
+  const blob = new Blob(chunks, { type: 'audio/mpeg' });
+
+  return new File([blob], 'speech.mp3', {
+    type: 'audio/mpeg',
+  });
+};
+```
+
+### Speech to Text
+
+The Replicate provider provides a `stt` function that allows you to create a speech-to-text transcription function using any Replicate speech-to-text model.
+
+Again, the Replicate provider is unique in the fact that it requires both an `inputTransformer` and an `outputTransformer` to be passed to the `stt` function. We'll cover how to create these transformers in the next section.
+
+For example, the following code creates a speech-to-text transcription function using the `vaibhavs10/incredibly-fast-whisper` model.
+
+```ts
+import { transcribe } from 'orate';
+import { replicate } from 'orate/replicate';
+import { inputTransformer, outputTransformer } from './incredibly-fast-whisper-utils';
+import audio from './audio.wav';
+
+const text = await transcribe({
+  model: replicate.stt( 'vaibhavs10/incredibly-fast-whisper:3ab86df6c8f54c11309d4d1f930ac292bad43ace52d10c80d87eb258b3c9f79c', inputTransformer, outputTransformer),
+  audio,
+});
+```
+
+#### Input Transformer
+
+The `inputTransformer` is a function that takes the Orate input and transforms it into the format that the model expects. In this instance, `vaibhavs10/incredibly-fast-whisper` expects an object with an `input.audio` property. Also, the `input.audio` property must be a hosted URL. Let's create an input transformer for this:
+
+```ts title="incredibly-fast-whisper-utils.ts"
+export const inputTransformer = (audio: File) => {
+  // Upload audio somewhere
+  const url = 'https://www.acme.com/test.mp3';
+  
+  return { input: { audio: url } };
+};
+```
+
+#### Output Transformer
+
+The `outputTransformer` is a function that takes the model output and transforms it into the format that Orate expects. In this instance, `vaibhavs10/incredibly-fast-whisper` returns a string. Let's create an output transformer for this:
+
+```ts title="incredibly-fast-whisper-utils.ts"
+export const outputTransformer = (response: unknown) => (
+  (response as { text: string }).text
+);
+```

@@ -31,7 +31,7 @@ const createProvider = () => {
 export const rev = {
   /**
    * Creates a speech-to-text transcription function using Rev.ai
-   * @param {TranscriptionCreateParams["model"]} model - The model to use for transcription. Defaults to 'whisper-1'
+   * @param {TranscriptionCreateParams["model"]} model - The model to use for transcription. Defaults to 'machine'
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt: (

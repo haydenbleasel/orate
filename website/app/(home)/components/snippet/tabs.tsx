@@ -45,7 +45,7 @@ export const SnippetTabs = ({ tabs }: SnippetTabsProps) => {
           <div
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "This is a snippet"
             dangerouslySetInnerHTML={{ __html: html }}
-            className="overflow-x-auto p-6 text-sm"
+            className="max-h-[300px] overflow-auto p-6 text-sm"
           />
         </TabsContent>
       ))}
