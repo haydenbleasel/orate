@@ -1,3 +1,16 @@
+# v1.0.11 (Mon Jan 27 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update meta.json ([@haydenbleasel](https://github.com/haydenbleasel))
+- Simplify docs ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.10 (Mon Jan 27 2025)
 
 #### ⚠️ Pushed to `main`
