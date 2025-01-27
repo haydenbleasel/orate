@@ -1,3 +1,15 @@
+# v1.0.28 (Mon Jan 27 2025)
+
+#### 🐛 Bug Fix
+
+- Groq [#6](https://github.com/haydenbleasel/orate/pull/6) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.27 (Mon Jan 27 2025)
 
 #### ⚠️ Pushed to `main`
