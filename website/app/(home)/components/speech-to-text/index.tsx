@@ -61,6 +61,30 @@ const snippets = [
     name: 'Deepgram',
     code: createSnippet('deepgram', "'nova-2'"),
   },
+  {
+    provider: 'replicate',
+    name: 'Replicate',
+    code: `import { transcribe } from 'orate';
+import { replicate } from 'orate/replicate';
+import audio from './audio.wav';
+
+const model = 'vaibhavs10/incredibly-fast-whisper:3ab86df6c8f54c11309d4d1f930ac292bad43ace52d10c80d87eb258b3c9f79c';
+const inputTransformer = (audio: File) => {
+  // Upload audio somewhere
+  const url = 'https://www.acme.com/test.mp3';
+  
+  return { input: { audio: url } };
+};
+
+const outputTransformer = (response: unknown) => (
+  (response as { text: string }).text
+);
+
+const text = await transcribe({
+  model: replicate.stt(model, inputTransformer, outputTransformer),
+  audio,
+});`,
+  },
 ];
 
 export const SpeechToText = () => (
