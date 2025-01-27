@@ -34,7 +34,7 @@ export const Providers = () => (
   <section
     id="providers"
     className={cn(
-      'container mx-auto grid gap-8 border-y px-4 py-8 text-center',
+      'container mx-auto grid gap-8 overflow-hidden border-y px-4 py-8 text-center',
       'sm:gap-16 sm:py-16'
     )}
   >
