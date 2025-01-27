@@ -21,7 +21,7 @@ const snippets = [
   {
     provider: 'assembly',
     name: 'AssemblyAI',
-    code: createSnippet('assembly', "'nano'"),
+    code: createSnippet('assembly', "'best'"),
   },
   {
     provider: 'openai',
