@@ -74,29 +74,24 @@ type GetTranscriptionResponse = {
 };
 
 const getTranscription = async (transcriptionUrl: string) => {
-  while (true) {
-    const response = await ky
-      .get(transcriptionUrl, {
-        headers: {
-          'x-gladia-key': getApiKey(),
-        },
-      })
-      .json<GetTranscriptionResponse>();
+  const response = await ky
+    .get(transcriptionUrl, {
+      headers: {
+        'x-gladia-key': getApiKey(),
+      },
+    })
+    .json<GetTranscriptionResponse>();
 
-    if (response.status === 'error') {
-      throw new Error(`Error: ${response.status}`);
+  if (response.status === 'error') {
+    throw new Error(`Error: ${response.status}`);
+  }
+
+  if (response.status === 'done') {
+    if (!response.result?.transcription?.full_transcript) {
+      throw new Error('No transcription');
     }
 
-    if (response.status === 'done') {
-      if (!response.result?.transcription?.full_transcript) {
-        throw new Error('No transcription');
-      }
-
-      return response.result.transcription.full_transcript;
-    }
-
-    // If queued or processing, wait 1 second before polling again
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return response.result.transcription.full_transcript;
   }
 };
 
@@ -113,9 +108,17 @@ export const gladia = {
     return async (audio: File) => {
       const audioUrl = await uploadFile(audio);
       const transcriptionUrl = await transcribe(audioUrl, model, options);
-      const text = await getTranscription(transcriptionUrl);
 
-      return text;
+      while (true) {
+        const text = await getTranscription(transcriptionUrl);
+
+        if (text) {
+          return text;
+        }
+
+        // If queued or processing, wait 1 second before polling again
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
     };
   },
 };
