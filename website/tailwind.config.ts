@@ -1,6 +1,7 @@
 import { createPreset } from 'fumadocs-ui/tailwind-plugin';
 import type { Config } from 'tailwindcss';
 import animate from 'tailwindcss-animate';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 const preset = createPreset();
 
@@ -17,6 +18,10 @@ const config: Config = {
   ],
   safelist: ['dark'],
   theme: {
+    fontFamily: {
+      sans: ['var(--font-geist-sans)', ...defaultTheme.fontFamily.sans],
+      mono: ['var(--font-geist-mono)', ...defaultTheme.fontFamily.mono],
+    },
     extend: {
       colors: {
         background: 'hsl(var(--background))',

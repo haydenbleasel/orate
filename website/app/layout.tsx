@@ -18,7 +18,7 @@ const RootLayout = ({ children }: RootLayoutProps) => (
       className={cn(
         GeistSans.variable,
         GeistMono.variable,
-        'bg-secondary antialiased dark:bg-background'
+        'bg-secondary font-sans antialiased dark:bg-background'
       )}
     >
       <ThemeProvider>
