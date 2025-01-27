@@ -28,11 +28,6 @@ const snippets = [
     code: createSnippet('openai', "'tts-1', 'alloy'"),
   },
   {
-    provider: 'assemblyai',
-    name: 'AssemblyAI',
-    code: createSnippet('assemblyai', "'en-US-AvaMultilingualNeural'"),
-  },
-  {
     provider: 'google',
     name: 'Google',
     code: createSnippet('google', "'en-US-Casual-K'"),
