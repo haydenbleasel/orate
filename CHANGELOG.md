@@ -1,3 +1,15 @@
+# v1.0.27 (Mon Jan 27 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Add support for custom elevenlabs voices ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.26 (Mon Jan 27 2025)
 
 #### ⚠️ Pushed to `main`
