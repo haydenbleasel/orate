@@ -8,9 +8,9 @@ export const CallToAction = () => (
       initial={{ opacity: 0, transform: 'translateY(-8px)' }}
       whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
     >
-      <p className="text-4xl sm:text-5xl">
+      <h2 className="text-4xl sm:text-5xl">
         <Balancer>Install and use in seconds</Balancer>
-      </p>
+      </h2>
     </AnimateProvider>
     <AnimateProvider
       initial={{ opacity: 0, transform: 'translateY(-8px)' }}
