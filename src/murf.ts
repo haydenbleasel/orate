@@ -212,8 +212,9 @@ export const murf = {
      * @returns {Promise<File>} The synthesized audio data
      */
     return async (prompt: string) => {
+      const url = new URL('/v1/speech/generate', 'https://api.murf.ai');
       const response = await ky
-        .post('https://api.murf.ai/v1/speech/generate', {
+        .post(url, {
           headers: {
             'api-key': token,
           },

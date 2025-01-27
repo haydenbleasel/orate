@@ -16,11 +16,12 @@ type UploadResponse = {
 
 const uploadFile = async (file: File) => {
   const body = new FormData();
+  const url = new URL('/v2/upload', 'https://api.gladia.io');
 
   body.append('audio', file);
 
   const response = await ky
-    .post('https://api.gladia.io/v2/upload', {
+    .post(url, {
       body,
       headers: {
         'x-gladia-key': getApiKey(),
@@ -40,8 +41,10 @@ const transcribe = async (
   model: string,
   options?: object
 ) => {
+  const url = new URL('/v2/pre-recorded', 'https://api.gladia.io');
+
   const response = await ky
-    .post('https://api.gladia.io/v2/pre-recorded', {
+    .post(url, {
       json: {
         ...options,
         audio_url: audioUrl,
