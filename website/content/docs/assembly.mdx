@@ -31,7 +31,7 @@ The AssemblyAI provider provides a single interface for all of AssemblyAI's tran
 
 The AssemblyAI provider provides a `stt` function that allows you to create a speech-to-text transcription function using AssemblyAI. By default, the `stt` function uses the `best` model.
 
-```tsx
+```ts
 import { transcribe } from 'orate';
 import { assemblyai } from 'orate/assemblyai';
 
@@ -43,7 +43,7 @@ const text = await transcribe({
 
 You can specify the model to use by passing it as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: assemblyai.stt('nano'),
   audio: someArrayBuffer,
@@ -52,7 +52,7 @@ const text = await transcribe({
 
 You can also specify specific AssemblyAI properties by passing them as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: assemblyai.stt('nano', {
     punctuate: false,

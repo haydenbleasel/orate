@@ -31,7 +31,7 @@ The Speechify provider provides a single interface for all of Speechify's speech
 
 The Speechify provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Speechify's TTS. By default, the `tts` function uses the `simba-multilingual` model and the `george` voice.
 
-```tsx
+```ts
 import { speak } from 'orate';
 import { speechify } from 'orate/speechify';
 
@@ -43,7 +43,7 @@ const speech = await speak({
 
 You can specify the model and voice to use by passing them as arguments to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: speechify.tts('simba-turbo', 'kristy'),
   prompt: 'Hello, world!',
@@ -52,7 +52,7 @@ const speech = await speak({
 
 You can also specify specific Speechify properties by passing them as an argument to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: speechify.tts('simba-turbo', 'kristy', {
     options: {

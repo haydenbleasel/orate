@@ -31,7 +31,7 @@ The OpenAI provider provides a single interface for all of OpenAI's speech and t
 
 The OpenAI provider provides a `tts` function that allows you to create a text-to-speech synthesis function using OpenAI TTS. By default, the `tts` function uses the `tts-1` model and the `alloy` voice.
 
-```tsx
+```ts
 import { speak } from 'orate';
 import { openai } from 'orate/openai';
 
@@ -43,7 +43,7 @@ const speech = await speak({
 
 You can specify the model and voice to use by passing them as arguments to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: openai.tts('tts-1', 'alloy'),
   prompt: 'Hello, world!',
@@ -52,7 +52,7 @@ const speech = await speak({
 
 You can also specify specific OpenAI properties by passing them as an argument to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: openai.tts('tts-1', 'alloy', {
     speed: 1.25,
@@ -65,7 +65,7 @@ const speech = await speak({
 
 The OpenAI provider provides a `stt` function that allows you to create a speech-to-text transcription function using OpenAI Whisper. By default, the `stt` function uses the `whisper-1` model.
 
-```tsx
+```ts
 import { transcribe } from 'orate';
 import { openai } from 'orate/openai';
 
@@ -77,7 +77,7 @@ const text = await transcribe({
 
 You can specify the model to use by passing it as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: openai.stt('whisper-1'),
   audio: someArrayBuffer,
@@ -86,7 +86,7 @@ const text = await transcribe({
 
 You can also specify specific OpenAI properties by passing them as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: openai.stt('whisper-1', {
     temperature: 0.5,

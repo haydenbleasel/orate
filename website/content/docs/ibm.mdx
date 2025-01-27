@@ -31,7 +31,7 @@ The IBM provider provides a single interface for all of IBM's speech and transcr
 
 The IBM provider provides a `tts` function that allows you to create a text-to-speech synthesis function using IBM Text to Speech. By default, the `tts` function uses the `en-US_AllisonV3Voice` voice.
 
-```tsx
+```ts
 import { speak } from 'orate';
 import { ibm } from 'orate/ibm';
 
@@ -43,7 +43,7 @@ const speech = await speak({
 
 You can specify the model and voice to use by passing them as arguments to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: ibm.tts('en-AU_HeidiExpressive'),
   prompt: 'Hello, world!',
@@ -52,7 +52,7 @@ const speech = await speak({
 
 You can also specify specific IBM properties by passing them as an argument to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: ibm.tts('en-AU_HeidiExpressive', {
     pitchPercentage: 5,
@@ -65,7 +65,7 @@ const speech = await speak({
 
 The IBM provider provides a `stt` function that allows you to create a speech-to-text transcription function using IBM Speech to Text. By default, the `stt` function uses the `en-US_BroadbandModel` model.
 
-```tsx
+```ts
 import { transcribe } from 'orate';
 import { ibm } from 'orate/ibm';
 
@@ -77,7 +77,7 @@ const text = await transcribe({
 
 You can specify the model to use by passing it as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: ibm.stt('ar-MS_Telephony'),
   audio: someArrayBuffer,
@@ -86,7 +86,7 @@ const text = await transcribe({
 
 You can also specify specific IBM properties by passing them as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: ibm.stt('ar-MS_Telephony', {
     smartFormatting: true,

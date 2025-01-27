@@ -31,7 +31,7 @@ The Deepgram provider provides a single interface for all of Deepgram's speech a
 
 The Deepgram provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Deepgram TTS. By default, the `tts` function uses the `aura` model with the `asteria-en` voice.
 
-```tsx
+```ts
 import { speak } from 'orate';
 import { deepgram } from 'orate/deepgram';
 
@@ -43,7 +43,7 @@ const speech = await speak({
 
 You can specify the model and voice to use by passing them as arguments to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: deepgram.tts('aura', 'luna-en'),
   prompt: 'Hello, world!',
@@ -52,7 +52,7 @@ const speech = await speak({
 
 You can also specify specific Deepgram properties by passing them as an argument to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: deepgram.tts('aura', 'luna-en', {
     sample_rate: 16000
@@ -65,7 +65,7 @@ const speech = await speak({
 
 The Deepgram provider provides a `stt` function that allows you to create a speech-to-text transcription function using Deepgram's speech-to-text model. By default, the `stt` function uses the `nova-2` model.
 
-```tsx
+```ts
 import { transcribe } from 'orate';
 import { deepgram } from 'orate/deepgram';
 
@@ -77,7 +77,7 @@ const text = await transcribe({
 
 You can specify the model to use by passing it as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: deepgram.stt('enhanced'),
   audio: someArrayBuffer,
@@ -86,7 +86,7 @@ const text = await transcribe({
 
 You can also specify specific Deepgram properties by passing them as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: deepgram.stt('enhanced', {
     filler_words: true,

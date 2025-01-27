@@ -31,7 +31,7 @@ The Google provider provides a single interface for all of Google's speech and t
 
 The Google provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Google Cloud Text-to-Speech. By default, the `tts` function uses the `en-US-Casual-K` model.
 
-```tsx
+```ts
 import { speak } from 'orate';
 import { google } from 'orate/google';
 
@@ -43,7 +43,7 @@ const speech = await speak({
 
 You can specify the model to use by passing it as an argument to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: google.tts('ar-XA-Wavenet-A'),
   prompt: 'Hello, world!',
@@ -52,7 +52,7 @@ const speech = await speak({
 
 You can also specify specific Google properties by passing them as an argument to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: google.tts('ar-XA-Wavenet-A', {
     advancedVoiceOptions: {
@@ -67,7 +67,7 @@ const speech = await speak({
 
 The Google provider provides a `stt` function that allows you to create a speech-to-text transcription function using Google Cloud Speech-to-Text. Google is unique in the fact that you need to specify a recognizer.
 
-```tsx
+```ts
 import { transcribe } from 'orate';
 import { google } from 'orate/google';
 
@@ -79,7 +79,7 @@ const text = await transcribe({
 
 You can also specify specific Google properties by passing them as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: google.stt('projects/{project}/locations/{region}/recognizers/{recognizer}', {
     config: {

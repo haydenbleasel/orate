@@ -27,7 +27,7 @@ The Native provider provides a single interface for all of the Web Speech API's 
 
 The Native provider provides a `stt` function that allows you to create a speech-to-text transcription function using the Web Speech API.
 
-```tsx
+```ts
 import { transcribe } from 'orate';
 import { native } from 'orate/native';
 
@@ -39,7 +39,7 @@ const text = await transcribe({
 
 You can specify a language to use by passing it as an option to the `stt` function. If not specified, this defaults to the HTML lang attribute value, or the user agent's language setting if that isn't set either.
 
-```tsx
+```ts
 const text = await transcribe({
   model: native.stt({ lang: 'en-US' }),
   audio: someArrayBuffer,

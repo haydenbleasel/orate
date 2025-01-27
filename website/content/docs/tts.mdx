@@ -9,7 +9,7 @@ Orate provides a simple and unified API for converting text into speech using va
 
 The basic usage involves importing the `speak` function from Orate and your chosen provider. For example, to use OpenAI's text-to-speech model, you can import the `OpenAI` provider and use its `tts` function:
 
-```tsx
+```ts
 import { speak } from 'orate';
 import { openai } from 'orate/providers/openai';
 
@@ -23,7 +23,7 @@ const transcription = await speak({
 
 The `model` parameter is a function that returns a model instance. The model instance is a function that takes a prompt and returns a promise that resolves to the speech of the prompt.
 
-```tsx
+```ts
 const model = openai.tts();
 ```
 
@@ -31,6 +31,6 @@ const model = openai.tts();
 
 The `prompt` parameter is a string that contains the text to be converted into speech.
 
-```tsx
+```ts
 const prompt = 'Hello, world!';
 ```

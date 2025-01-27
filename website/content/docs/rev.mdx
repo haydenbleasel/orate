@@ -31,7 +31,7 @@ The Rev AI provider provides a single interface for all of Rev AI's transcriptio
 
 The Rev AI provider provides a `stt` function that allows you to create a speech-to-text transcription function using Rev AI. By default, the `stt` function uses the `machine` model.
 
-```tsx
+```ts
 import { transcribe } from 'orate';
 import { rev } from 'orate/rev';
 
@@ -43,7 +43,7 @@ const text = await transcribe({
 
 You can specify the model to use by passing it as an argument to the `stt` function. By default, the `stt` function uses the `base` model.
 
-```tsx
+```ts
 const text = await transcribe({
   model: rev.stt('fusion'),
   audio: someArrayBuffer,
@@ -52,7 +52,7 @@ const text = await transcribe({
 
 You can also specify specific Rev AI properties by passing them as an argument to the `stt` function.
 
-```tsx
+```ts
 const text = await transcribe({
   model: rev.stt('fusion', {
     remove_disfluencies: true,

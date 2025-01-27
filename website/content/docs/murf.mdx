@@ -31,7 +31,7 @@ The Murf provider provides a single interface for all of Murf's speech services.
 
 The Murf provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Murf's TTS. By default, the `tts` function uses the `GEN2` model and the `en-US-natalie` voice.
 
-```tsx
+```ts
 import { speak } from 'orate';
 import { murf } from 'orate/murf';
 
@@ -43,7 +43,7 @@ const speech = await speak({
 
 You can specify the model and voice to use by passing them as arguments to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: murf.tts('GEN1', 'en-AU-joyce'),
   prompt: 'Hello, world!',
@@ -52,7 +52,7 @@ const speech = await speak({
 
 You can also specify specific Murf properties by passing them as an argument to the `tts` function.
 
-```tsx
+```ts
 const speech = await speak({
   model: murf.tts('GEN1', 'en-AU-joyce', {
     pitch: 25,
