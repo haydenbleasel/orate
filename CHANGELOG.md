@@ -1,3 +1,15 @@
+# v1.0.23 (Mon Jan 27 2025)
+
+#### 🐛 Bug Fix
+
+- Replicate [#5](https://github.com/haydenbleasel/orate/pull/5) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.22 (Mon Jan 27 2025)
 
 #### ⚠️ Pushed to `main`
