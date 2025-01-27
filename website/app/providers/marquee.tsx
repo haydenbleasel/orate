@@ -32,7 +32,7 @@ export const MarqueeProvider = (props: MarqueeProps) => {
   }, []);
 
   return (
-    <div className="w-full overflow-hidden" ref={ref}>
+    <div className="w-full" ref={ref}>
       <Marquee {...props} style={{ width }} />
     </div>
   );
