@@ -1,3 +1,19 @@
+# v1.0.10 (Mon Jan 27 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Shift loop logic to main function in Gladia ([@haydenbleasel](https://github.com/haydenbleasel))
+- Use URL objects ([@haydenbleasel](https://github.com/haydenbleasel))
+- Remove unused file ([@haydenbleasel](https://github.com/haydenbleasel))
+- Simplify Azure response ([@haydenbleasel](https://github.com/haydenbleasel))
+- Fix queued / processing assembly jobs ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.9 (Sun Jan 26 2025)
 
 #### ⚠️ Pushed to `main`
