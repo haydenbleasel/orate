@@ -64,6 +64,7 @@ const snippets = [
 import { replicate } from 'orate/replicate';
 
 const model = 'jaaari/kokoro-82m:dfdf537ba482b029e0a761699e6f55e9162cfd159270bfe0e44857caa5f275a6';
+
 const inputTransformer = (prompt: string) => ({
   input: { text: prompt },
 });
