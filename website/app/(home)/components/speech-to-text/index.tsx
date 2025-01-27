@@ -34,11 +34,6 @@ const snippets = [
     code: createSnippet('azure', "'en-US-AvaMultilingualNeural'"),
   },
   {
-    provider: 'assemblyai',
-    name: 'AssemblyAI',
-    code: createSnippet('assemblyai', "'best'"),
-  },
-  {
     provider: 'google',
     name: 'Google',
     code: createSnippet(
