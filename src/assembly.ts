@@ -52,19 +52,23 @@ export const assembly = {
         throw new Error(response.error);
       }
 
-      if (response.status === 'processing') {
-        throw new Error('Processing');
-      }
+      while (true) {
+        const transcript = await provider.transcripts.get(response.id);
 
-      if (response.status === 'queued') {
-        throw new Error('Queued');
-      }
+        if (transcript.status === 'error') {
+          throw new Error(transcript.error);
+        }
 
-      if (!response.text) {
-        throw new Error('No text returned.');
-      }
+        if (transcript.status === 'completed') {
+          if (!transcript.text) {
+            throw new Error('No text returned.');
+          }
 
-      return response.text;
+          return transcript.text;
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
     };
   },
 };
