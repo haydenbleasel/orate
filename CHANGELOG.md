@@ -1,3 +1,15 @@
+# v1.0.17 (Mon Jan 27 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update globals.css ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.16 (Mon Jan 27 2025)
 
 #### ⚠️ Pushed to `main`
