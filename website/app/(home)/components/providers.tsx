@@ -13,6 +13,7 @@ import Google from '../../../public/providers/google.svg';
 import IBM from '../../../public/providers/ibm.svg';
 import Murf from '../../../public/providers/murf.svg';
 import OpenAI from '../../../public/providers/openai.svg';
+import Replicate from '../../../public/providers/replicate.svg';
 import Rev from '../../../public/providers/rev.svg';
 import Speechify from '../../../public/providers/speechify.svg';
 
@@ -28,6 +29,7 @@ const providers = [
   { name: 'Murf', image: Murf, href: '/docs/murf' },
   { name: 'Speechify', image: Speechify, href: '/docs/speechify' },
   { name: 'Deepgram', image: Deepgram, href: '/docs/deepgram' },
+  { name: 'Replicate', image: Replicate, href: '/docs/replicate' },
 ];
 
 export const Providers = () => (
