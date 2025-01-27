@@ -62,6 +62,11 @@ const snippets = [
     code: createSnippet('deepgram', "'nova-2'"),
   },
   {
+    provider: 'groq',
+    name: 'Groq',
+    code: createSnippet('groq', "'whisper-large-v3'"),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { transcribe } from 'orate';
