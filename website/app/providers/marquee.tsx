@@ -1,14 +1,10 @@
 'use client';
 
-import { type ReactNode, useEffect, useRef, useState } from 'react';
-import Marquee from 'react-fast-marquee';
-
-type MarqueeProviderProps = {
-  children: ReactNode;
-};
+import { useEffect, useRef, useState } from 'react';
+import Marquee, { type MarqueeProps } from 'react-fast-marquee';
 
 // https://github.com/justin-chu/react-fast-marquee/issues/66#issuecomment-1575052529
-export const MarqueeProvider = (props: MarqueeProviderProps) => {
+export const MarqueeProvider = (props: MarqueeProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState<number>();
 
