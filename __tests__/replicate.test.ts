@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
 import { replicate } from '../src/replicate';
@@ -57,15 +57,15 @@ describe('Replicate Tests', () => {
   });
 
   it('should convert speech to text using victor-upmeet/whisperx', async () => {
-    const file = await readFile('./__tests__/test.mp3');
-    const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });
-
     const text = await transcribe({
       model: replicate.stt(
         'victor-upmeet/whisperx:84d2ad2d6194fe98a17d2b60bef1c7f910c46b2f6fd38996ca457afd9c8abfcb',
-        (audio) => ({
+        () => ({
           input: {
-            audio_file: audio,
+            audio_file: new URL(
+              '/test.mp3',
+              'https://www.orate.dev'
+            ).toString(),
           },
         }),
         (response) =>
@@ -81,7 +81,32 @@ describe('Replicate Tests', () => {
             .map((segment) => segment.text)
             .join(' ')
       ),
-      audio,
+      audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+    });
+
+    expect(typeof text).toBe('string');
+    expect(text.length).toBeGreaterThan(0);
+  });
+
+  it('should convert speech to text using vaibhavs10/incredibly-fast-whisper', async () => {
+    const text = await transcribe({
+      model: replicate.stt(
+        'vaibhavs10/incredibly-fast-whisper:3ab86df6c8f54c11309d4d1f930ac292bad43ace52d10c80d87eb258b3c9f79c',
+        () => ({
+          input: {
+            audio: new URL('/test.mp3', 'https://www.orate.dev').toString(),
+          },
+        }),
+        (response) =>
+          (
+            response as {
+              output: {
+                text: string;
+              };
+            }
+          ).output.text
+      ),
+      audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
     });
 
     expect(typeof text).toBe('string');
