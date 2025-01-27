@@ -1,3 +1,15 @@
+# v1.0.15 (Mon Jan 27 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Fix fonts ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.14 (Mon Jan 27 2025)
 
 #### ⚠️ Pushed to `main`
