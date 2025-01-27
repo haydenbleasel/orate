@@ -1,9 +1,9 @@
 import { AnimateProvider } from '@/app/providers/animate';
+import { MarqueeProvider } from '@/app/providers/marquee';
 import { cn } from '@/lib/utils';
 import { ArrowRightIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Marquee from 'react-fast-marquee';
 import AssemblyAI from '../../../public/providers/assembly.svg';
 import Azure from '../../../public/providers/azure.svg';
 import Deepgram from '../../../public/providers/deepgram.svg';
@@ -52,7 +52,7 @@ export const Providers = () => (
       delay={0.2}
       className="sm:-my-8 w-full overflow-hidden sm:h-24 sm:py-8"
     >
-      <Marquee
+      <MarqueeProvider
         loop={0}
         autoFill
         pauseOnHover
@@ -89,7 +89,7 @@ export const Providers = () => (
             </div>
           </Link>
         ))}
-      </Marquee>
+      </MarqueeProvider>
       <div className="absolute top-0 bottom-0 left-0 z-10 h-full w-24 bg-gradient-to-r from-secondary to-transparent dark:from-background" />
       <div className="absolute top-0 right-0 bottom-0 z-10 h-full w-24 bg-gradient-to-l from-secondary to-transparent dark:from-background" />
     </AnimateProvider>
