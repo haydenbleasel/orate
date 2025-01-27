@@ -1,3 +1,15 @@
+# v1.0.24 (Mon Jan 27 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update replicate.mdx ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.23 (Mon Jan 27 2025)
 
 #### 🐛 Bug Fix
