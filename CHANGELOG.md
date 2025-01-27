@@ -1,3 +1,15 @@
+# v1.0.18 (Mon Jan 27 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update marquee.tsx ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.17 (Mon Jan 27 2025)
 
 #### ⚠️ Pushed to `main`
