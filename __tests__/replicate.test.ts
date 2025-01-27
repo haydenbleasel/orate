@@ -13,16 +13,33 @@ describe('Replicate Tests', () => {
             text: prompt,
           },
         }),
-        (response) => {
-          const buffer = Buffer.from(response as ArrayBuffer);
-          return new File([buffer], 'speech.mp3', { type: 'audio/mpeg' });
+        async (response) => {
+          const stream = response as ReadableStream;
+          const reader = stream.getReader();
+          const chunks: Uint8Array[] = [];
+
+          while (true) {
+            const { done, value } = await reader.read();
+
+            if (done) {
+              break;
+            }
+
+            chunks.push(value);
+          }
+
+          const blob = new Blob(chunks, { type: 'audio/mpeg' });
+
+          return new File([blob], 'speech.mp3', {
+            type: 'audio/mpeg',
+          });
         }
       ),
       prompt: 'Hello from Orate, the AI toolkit for speech.',
     });
 
     await writeFile(
-      './__tests__/output/openai-speech.wav',
+      './__tests__/output/kokoro-82m-speech.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 
@@ -37,18 +54,37 @@ describe('Replicate Tests', () => {
         (prompt) => ({
           input: {
             text: prompt,
+            speaker:
+              'https://replicate.delivery/pbxt/Jt79w0xsT64R1JsiJ0LQRL8UcWspg5J4RFrU6YwEKpOT1ukS/male.wav',
           },
         }),
-        (response) => {
-          const buffer = Buffer.from(response as ArrayBuffer);
-          return new File([buffer], 'speech.mp3', { type: 'audio/mpeg' });
+        async (response) => {
+          const stream = response as ReadableStream;
+          const reader = stream.getReader();
+          const chunks: Uint8Array[] = [];
+
+          while (true) {
+            const { done, value } = await reader.read();
+
+            if (done) {
+              break;
+            }
+
+            chunks.push(value);
+          }
+
+          const blob = new Blob(chunks, { type: 'audio/mpeg' });
+
+          return new File([blob], 'speech.mp3', {
+            type: 'audio/mpeg',
+          });
         }
       ),
       prompt: 'Hello from Orate, the AI toolkit for speech.',
     });
 
     await writeFile(
-      './__tests__/output/openai-speech.wav',
+      './__tests__/output/xtts-v2-speech.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 
@@ -68,18 +104,15 @@ describe('Replicate Tests', () => {
             ).toString(),
           },
         }),
-        (response) =>
-          (
-            response as {
-              output: {
-                segments: {
-                  text: string;
-                }[];
-              };
-            }
-          ).output.segments
-            .map((segment) => segment.text)
-            .join(' ')
+        (response) => {
+          const { segments } = response as {
+            segments: {
+              text: string;
+            }[];
+          };
+
+          return segments.map((segment) => segment.text).join(' ');
+        }
       ),
       audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
     });
@@ -97,14 +130,11 @@ describe('Replicate Tests', () => {
             audio: new URL('/test.mp3', 'https://www.orate.dev').toString(),
           },
         }),
-        (response) =>
-          (
-            response as {
-              output: {
-                text: string;
-              };
-            }
-          ).output.text
+        (response) => {
+          const { text } = response as { text: string };
+
+          return text;
+        }
       ),
       audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
     });
