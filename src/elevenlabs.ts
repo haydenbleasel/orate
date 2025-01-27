@@ -68,7 +68,7 @@ export const elevenlabs = {
    */
   tts: (
     model: keyof typeof models = 'multilingual_v2',
-    voice: keyof typeof voices = 'aria',
+    voice: keyof typeof voices | (string & {}) = 'aria',
     options?: Omit<TextToSpeechRequest, 'text' | 'model_id'>
   ) => {
     /**
@@ -79,8 +79,13 @@ export const elevenlabs = {
      */
     return async (prompt: string) => {
       const provider = createProvider();
+      let newVoice = voice;
 
-      const response = await provider.textToSpeech.convert(voices[voice], {
+      if (voice in voices) {
+        newVoice = voices[voice as keyof typeof voices];
+      }
+
+      const response = await provider.textToSpeech.convert(newVoice, {
         text: prompt,
         model_id: models[model],
         ...options,
