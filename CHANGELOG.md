@@ -1,3 +1,15 @@
+# v1.0.12 (Mon Jan 27 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Fix instances of tsx -> ts ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.11 (Mon Jan 27 2025)
 
 #### ⚠️ Pushed to `main`
