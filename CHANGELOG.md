@@ -1,3 +1,19 @@
+# v1.0.36 (Tue Jan 28 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Manav Verma ([@manaver](https://github.com/manaver)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Fix: Adjust position of "Loved by the community" text [#10](https://github.com/haydenbleasel/orate/pull/10) ([@manaver](https://github.com/manaver))
+
+#### Authors: 1
+
+- Manav Verma ([@manaver](https://github.com/manaver))
+
+---
+
 # v1.0.35 (Tue Jan 28 2025)
 
 #### 🐛 Bug Fix
