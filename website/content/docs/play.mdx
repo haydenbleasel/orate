@@ -1,0 +1,65 @@
+---
+title: Play.ai
+description: Orate supports Play.ai's speech services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Play.ai generates AI voices indistinguishable from humans with ultra realistic text to speech from the leading multi voice AI voice generator. Orate offers a single interface for all of Play.ai's speech services.
+
+## Setup
+
+The Play.ai provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { play } from 'orate/play';
+```
+
+## Configuration
+
+The Play.ai provider looks for the `PLAY_API_KEY` and `PLAY_USER_ID` environment variables. These variables are required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+PLAY_API_KEY="your_api_key"
+PLAY_USER_ID="your_user_id"
+```
+
+## Usage
+
+The Play.ai provider provides a single interface for all of Play.ai's speech services.
+
+### Text to Speech
+
+The Play.ai provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Play.ai TTS. By default, the `tts` function uses the `Play3.0-mini` model and the `Angelo` voice.
+
+```ts
+import { speak } from 'orate';
+import { play } from 'orate/play';
+
+const speech = await speak({
+  model: play.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+The voice can be the name of a default voice e.g. `Angelo` or the ID of a custom voice e.g. `s3://voice-cloning-zero-shot/.../original/manifest.json`.
+
+You can specify the model and voice to use by passing them as arguments to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: play.tts('PlayDialog', 'Abigail'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific Play.ai properties by passing them as an argument to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: play.tts('PlayDialog', 'Abigail', {
+    speed: 1.25,
+  }),
+  prompt: 'Hello, world!',
+});
+```

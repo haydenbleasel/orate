@@ -14,6 +14,7 @@ import Groq from '../../../public/providers/groq.svg';
 import IBM from '../../../public/providers/ibm.svg';
 import Murf from '../../../public/providers/murf.svg';
 import OpenAI from '../../../public/providers/openai.svg';
+import Play from '../../../public/providers/play.svg';
 import Replicate from '../../../public/providers/replicate.svg';
 import Rev from '../../../public/providers/rev.svg';
 import Speechify from '../../../public/providers/speechify.svg';
@@ -32,6 +33,7 @@ const providers = [
   { name: 'Deepgram', image: Deepgram, href: '/docs/deepgram' },
   { name: 'Replicate', image: Replicate, href: '/docs/replicate' },
   { name: 'Groq', image: Groq, href: '/docs/groq' },
+  { name: 'Play', image: Play, href: '/docs/play' },
 ];
 
 export const Providers = () => (
