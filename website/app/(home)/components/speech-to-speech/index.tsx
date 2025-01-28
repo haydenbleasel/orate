@@ -23,45 +23,6 @@ const snippets = [
     name: 'ElevenLabs',
     code: createSnippet('elevenlabs', "'multilingual_v2', 'aria'"),
   },
-  {
-    provider: 'replicate',
-    name: 'Replicate',
-    code: `import { change } from 'orate';
-import { replicate } from 'orate/replicate';
-
-const model = 'jaaari/kokoro-82m:dfdf537ba482b029e0a761699e6f55e9162cfd159270bfe0e44857caa5f275a6';
-
-const inputTransformer = (prompt: string) => ({
-  input: { text: prompt },
-});
-
-const outputTransformer = async (response: unknown) => {
-  const stream = response as ReadableStream;
-  const reader = stream.getReader();
-  const chunks: Uint8Array[] = [];
-
-  while (true) {
-    const { done, value } = await reader.read();
-
-    if (done) {
-      break;
-    }
-
-    chunks.push(value);
-  }
-
-  const blob = new Blob(chunks, { type: 'audio/mpeg' });
-
-  return new File([blob], 'speech.mp3', {
-    type: 'audio/mpeg',
-  });
-};
-
-const speech = await speak({
-  model: replicate.tts(model, inputTransformer, outputTransformer),
-  prompt: 'Friends, Romans, countrymen, lend me your ears;'
-});`,
-  },
 ];
 
 export const SpeechToSpeech = () => (
