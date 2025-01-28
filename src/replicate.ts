@@ -97,4 +97,34 @@ export const replicate = {
       return text;
     };
   },
+
+  /**
+   * Creates a speech isolation function using Replicate
+   * @param {ReplicateModel} model - The model to use for isolation.
+   * @param {(audio: File) => ReplicateProperties | Promise<ReplicateProperties>} inputTransformer - The properties to use for isolation.
+   * @param {(response: unknown) => File | Promise<File>} outputTransformer - The function to transform the response to a File.
+   * @returns {Function} Async function that takes audio and returns isolated audio
+   */
+  isl: (
+    model: ReplicateModel,
+    inputTransformer: (
+      audio: File
+    ) => ReplicateProperties | Promise<ReplicateProperties>,
+    outputTransformer: (response: unknown) => File | Promise<File>
+  ) => {
+    const provider = createProvider();
+
+    /**
+     * Isolates audio using Replicate
+     * @param {File} audio - The audio data to isolate
+     * @returns {Promise<File>} The isolated audio data
+     */
+    return async (audio: File) => {
+      const properties = await inputTransformer(audio);
+      const response = await provider.run(model, properties);
+      const file = await outputTransformer(response);
+
+      return file;
+    };
+  },
 };
