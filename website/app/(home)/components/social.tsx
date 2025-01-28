@@ -31,7 +31,7 @@ export const Social = () => (
   <section id="social" className="container mx-auto px-4 py-16 sm:py-24">
     <section className="grid lg:grid-cols-3">
       <div>
-        <div className="sticky top-14">
+        <div className="sticky top-16">
           <AnimateProvider
             initial={{ opacity: 0, transform: 'translateY(-8px)' }}
             whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
