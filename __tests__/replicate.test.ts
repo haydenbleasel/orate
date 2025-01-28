@@ -1,6 +1,6 @@
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
-import { speak, transcribe } from '../src';
+import { isolate, speak, transcribe } from '../src';
 import { replicate } from '../src/replicate';
 
 describe('Replicate Tests', () => {
@@ -141,5 +141,55 @@ describe('Replicate Tests', () => {
 
     expect(typeof text).toBe('string');
     expect(text.length).toBeGreaterThan(0);
+  });
+
+  it('should isolate speech with cjwbw/audiosep', async () => {
+    const file = await readFile('./__tests__/noise.mp3');
+    const audio = new File([file], 'noise.mp3', { type: 'audio/mp3' });
+
+    const speech = await isolate({
+      model: replicate.isl(
+        'cjwbw/audiosep:f07004438b8f3e6c5b720ba889389007cbf8dbbc9caa124afc24d9bbd2d307b8',
+        () => ({
+          input: {
+            audio_file: new URL(
+              '/noise.mp3',
+              'https://www.orate.dev'
+            ).toString(),
+            text: 'speech',
+          },
+        }),
+        async (response) => {
+          const stream = response as ReadableStream;
+          const reader = stream.getReader();
+          const chunks: Uint8Array[] = [];
+
+          while (true) {
+            const { done, value } = await reader.read();
+
+            if (done) {
+              break;
+            }
+
+            chunks.push(value);
+          }
+
+          const blob = new Blob(chunks, { type: 'audio/mp3' });
+
+          return new File([blob], 'isolated.mp3', {
+            type: 'audio/mpeg',
+          });
+        }
+      ),
+      audio,
+    });
+
+    await writeFile(
+      './__tests__/output/audiosep-speech-isolated.mp3',
+      Buffer.from(await speech.arrayBuffer())
+    );
+
+    expect(speech).toBeInstanceOf(File);
+    expect(speech.size).toBeGreaterThan(0);
   });
 });
