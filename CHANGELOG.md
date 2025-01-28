@@ -1,3 +1,15 @@
+# v1.0.33 (Tue Jan 28 2025)
+
+#### 🐛 Bug Fix
+
+- Speech to Speech [#8](https://github.com/haydenbleasel/orate/pull/8) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.32 (Tue Jan 28 2025)
 
 #### ⚠️ Pushed to `main`
