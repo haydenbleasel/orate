@@ -64,3 +64,37 @@ const speech = await speak({
   prompt: 'Hello, world!',
 });
 ```
+
+### Speech to Speech
+
+The ElevenLabs provider provides a `sts` function that allows you to change the voice of the audio. By default, the `sts` function uses the `eleven_multilingual_sts_v2` model and the `aria` voice.
+
+```ts
+import { change } from 'orate';
+import { elevenlabs } from 'orate/elevenlabs';
+
+const speech = await change({
+  model: elevenlabs.sts(),
+  audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+});
+```
+
+You can specify the model and voice to use by passing them as arguments to the `sts` function.
+
+```ts
+const speech = await change({
+  model: elevenlabs.sts('english_sts_v2', 'charlotte'),
+  audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+});
+```
+
+You can also specify specific ElevenLabs properties by passing them as an argument to the `sts` function.
+
+```ts
+const speech = await change({
+  model: elevenlabs.sts('english_sts_v2', 'charlotte', {
+    remove_background_noise: true,
+  }),
+  audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+});
+```
