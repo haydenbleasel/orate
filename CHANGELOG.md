@@ -1,3 +1,15 @@
+# v1.0.29 (Tue Jan 28 2025)
+
+#### 🐛 Bug Fix
+
+- Play.ai [#7](https://github.com/haydenbleasel/orate/pull/7) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.28 (Mon Jan 27 2025)
 
 #### 🐛 Bug Fix
