@@ -28,10 +28,7 @@ const tweets = [
 ];
 
 export const Social = () => (
-  <section
-    id="social"
-    className="container mx-auto px-4 py-16 text-center sm:py-24"
-  >
+  <section id="social" className="container mx-auto px-4 py-16 sm:py-24">
     <section className="grid lg:grid-cols-3">
       <div>
         <div className="sticky top-14">
