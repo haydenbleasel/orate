@@ -32,6 +32,7 @@ const providers = [
   { name: 'Deepgram', image: Deepgram, href: '/docs/deepgram' },
   { name: 'Replicate', image: Replicate, href: '/docs/replicate' },
   { name: 'Groq', image: Groq, href: '/docs/groq' },
+  { name: 'ElevenLabs', image: ElevenLabs, href: '/docs/elevenlabs' },
 ];
 
 export const Providers = () => (
