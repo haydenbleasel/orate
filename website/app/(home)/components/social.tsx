@@ -28,10 +28,13 @@ const tweets = [
 ];
 
 export const Social = () => (
-  <section id="social" className="container mx-auto">
+  <section
+    id="social"
+    className="container mx-auto px-4 py-16 text-center sm:py-24"
+  >
     <section className="grid lg:grid-cols-3">
       <div>
-        <div className="sticky top-14 p-4 sm:p-8">
+        <div className="sticky top-14">
           <AnimateProvider
             initial={{ opacity: 0, transform: 'translateY(-8px)' }}
             whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
@@ -42,7 +45,7 @@ export const Social = () => (
           </AnimateProvider>
         </div>
       </div>
-      <div className="columns-1 gap-6 p-4 sm:p-8 md:columns-2 lg:col-span-2">
+      <div className="columns-1 gap-6 md:columns-2 lg:col-span-2">
         {tweets.map((tweet, index) => (
           <AnimateProvider
             key={tweet}
