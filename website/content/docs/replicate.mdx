@@ -124,3 +124,68 @@ export const outputTransformer = (response: unknown) => (
   (response as { text: string }).text
 );
 ```
+
+### Speech Isolation
+
+The Replicate provider provides a `isl` function that allows you to create a speech isolation function using Replicate's speech isolation model.
+
+```ts
+import { isolate } from 'orate';
+import { replicate } from 'orate/replicate';
+import { inputTransformer, outputTransformer } from './audiosep-utils';
+
+const speech = await isolate({
+  model: replicate.isl(
+    'cjwbw/audiosep:f07004438b8f3e6c5b720ba889389007cbf8dbbc9caa124afc24d9bbd2d307b8', 
+    inputTransformer,
+    outputTransformer,
+  ),
+  audio,
+});
+```
+
+#### Input Transformer
+
+The `inputTransformer` is a function that takes the Orate input and transforms it into the format that the model expects. In this instance, `cjwbw/audiosep` expects an object with an `audio_file` property and a `text` property that defines the sound to isolate. Also, the `audio_file` property must be a hosted URL. Let's create an input transformer for this:
+
+```ts title="audiosep-utils.ts"
+export const inputTransformer = (audio: File) => {
+  // Upload audio somewhere
+  const url = 'https://www.acme.com/test.mp3';
+
+  return {
+    input: {
+      audio_file: url,
+      text: 'speech',
+    },
+  };
+};
+```
+
+#### Output Transformer
+
+The `outputTransformer` is a function that takes the model output and transforms it into the format that Orate expects. In this instance, `cjwbw/audiosep` returns a stream of audio data. Let's create an output transformer for this:
+
+```ts title="audiosep-utils.ts"
+export const outputTransformer = async (response) => {
+  const stream = response as ReadableStream;
+  const reader = stream.getReader();
+  const chunks: Uint8Array[] = [];
+
+  while (true) {
+    const { done, value } = await reader.read();
+
+    if (done) {
+      break;
+    }
+
+    chunks.push(value);
+  }
+
+  const blob = new Blob(chunks, { type: 'audio/mp3' });
+
+  return new File([blob], 'isolated.mp3', {
+    type: 'audio/mpeg',
+  });
+}
+```
