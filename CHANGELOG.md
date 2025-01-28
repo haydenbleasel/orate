@@ -1,3 +1,15 @@
+# v1.0.30 (Tue Jan 28 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Add tweets to website ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.29 (Tue Jan 28 2025)
 
 #### 🐛 Bug Fix
