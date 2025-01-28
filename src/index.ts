@@ -41,3 +41,24 @@ export const transcribe = async ({
   model,
   audio,
 }: TranscribeOptions): Promise<string> => model(audio);
+
+/**
+ * Options for the change function to change the voice of the audio.
+ * @interface ChangeOptions
+ * @property {function} model - A function that takes a File of audio data and returns a Promise resolving to a File containing the converted audio
+ * @property {File} audio - The audio data to convert to speech
+ */
+export type ChangeOptions = {
+  model: (audio: File) => Promise<File>;
+  audio: File;
+};
+
+/**
+ * Converts speech to speech using the provided model.
+ * @param {ChangeOptions} options - The options for changing the voice of the audio
+ * @param {function} options.model - The model function to use for conversion
+ * @param {File} options.audio - The audio data to convert to speech
+ * @returns {Promise<File>} A Promise that resolves to a File containing the converted audio
+ */
+export const change = async ({ model, audio }: ChangeOptions): Promise<File> =>
+  model(audio);
