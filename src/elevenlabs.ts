@@ -1,5 +1,8 @@
 import { ElevenLabsClient } from 'elevenlabs';
-import type { TextToSpeechRequest } from 'elevenlabs/api';
+import type {
+  BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost,
+  TextToSpeechRequest,
+} from 'elevenlabs/api';
 
 /**
  * Map of available ElevenLabs model IDs
@@ -100,6 +103,58 @@ export const elevenlabs = {
       const buffer = Buffer.concat(chunks);
 
       const file = new File([buffer], 'speech.mp3', {
+        type: 'audio/mpeg',
+      });
+
+      return file;
+    };
+  },
+
+  /**
+   * Creates a speech-to-speech conversion function using ElevenLabs
+   * @param {keyof typeof voices} voice - The voice ID to use for synthesis. Defaults to 'aria'
+   * @param {string} modelId - The model ID to use for conversion. Defaults to 'eleven_multilingual_sts_v2'
+   * @param {string} outputFormat - The output audio format. Defaults to 'mp3_44100_128'
+   * @returns {Function} Async function that takes audio and returns converted speech
+   */
+  sts: (
+    voice: keyof typeof voices | (string & {}) = 'aria',
+    modelId: BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost['model_id'] = 'eleven_multilingual_sts_v2',
+    options?: Omit<
+      BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost,
+      'audio' | 'model_id'
+    >
+  ) => {
+    /**
+     * Converts speech to speech using ElevenLabs
+     * @param {File} audio - The audio file to convert
+     * @returns {Promise<File>} The converted audio data
+     * @throws {Error} If conversion fails
+     */
+    return async (audio: File) => {
+      const provider = createProvider();
+      let newVoice = voice;
+
+      if (voice in voices) {
+        newVoice = voices[voice as keyof typeof voices];
+      }
+
+      const response = await provider.speechToSpeech.convert(newVoice, {
+        audio,
+        model_id: modelId,
+        output_format: 'mp3_44100_128',
+        ...options,
+      });
+
+      const chunks: Uint8Array[] = [];
+
+      for await (const chunk of response) {
+        chunks.push(chunk);
+      }
+
+      const buffer = Buffer.concat(chunks);
+
+      const file = new File([buffer], 'converted-speech.mp3', {
         type: 'audio/mpeg',
       });
 
