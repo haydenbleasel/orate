@@ -1,3 +1,15 @@
+# v1.0.32 (Tue Jan 28 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update social.tsx ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.31 (Tue Jan 28 2025)
 
 #### ⚠️ Pushed to `main`
