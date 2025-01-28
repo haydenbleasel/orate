@@ -1,3 +1,15 @@
+# v1.0.35 (Tue Jan 28 2025)
+
+#### 🐛 Bug Fix
+
+- Speech Isolation [#9](https://github.com/haydenbleasel/orate/pull/9) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.34 (Tue Jan 28 2025)
 
 #### ⚠️ Pushed to `main`
