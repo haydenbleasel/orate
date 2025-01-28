@@ -62,3 +62,26 @@ export type ChangeOptions = {
  */
 export const change = async ({ model, audio }: ChangeOptions): Promise<File> =>
   model(audio);
+
+/**
+ * Options for the isolate function to isolate the speech from the audio.
+ * @interface IsolateOptions
+ * @property {function} model - A function that takes a File of audio data and returns a Promise resolving to a File containing the isolated speech
+ * @property {File} audio - The audio data to isolate
+ */
+export type IsolateOptions = {
+  model: (audio: File) => Promise<File>;
+  audio: File;
+};
+
+/**
+ * Isolates speech from the audio using the provided model.
+ * @param {IsolateOptions} options - The options for isolating the speech from the audio
+ * @param {function} options.model - The model function to use for isolation
+ * @param {File} options.audio - The audio data to isolate
+ * @returns {Promise<File>} A Promise that resolves to a File containing the isolated speech
+ */
+export const isolate = async ({
+  model,
+  audio,
+}: IsolateOptions): Promise<File> => model(audio);
