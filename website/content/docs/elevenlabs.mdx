@@ -98,3 +98,14 @@ const speech = await change({
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
 });
 ```
+
+### Speech Isolation
+
+The ElevenLabs provider provides a `isl` function that allows you to isolate the speech from the audio.
+
+```ts
+const speech = await isolate({
+  model: elevenlabs.isl(),
+  audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+});
+```
