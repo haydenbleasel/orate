@@ -53,6 +53,11 @@ const snippets = [
     code: createSnippet('speechify', "'simba-multilingual', 'george'"),
   },
   {
+    provider: 'play',
+    name: 'Play',
+    code: createSnippet('play', "'PlayDialog', 'Angelo'"),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { speak } from 'orate';
