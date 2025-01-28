@@ -118,8 +118,8 @@ export const elevenlabs = {
    * @returns {Function} Async function that takes audio and returns converted speech
    */
   sts: (
-    voice: keyof typeof voices | (string & {}) = 'aria',
     modelId: BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost['model_id'] = 'eleven_multilingual_sts_v2',
+    voice: keyof typeof voices | (string & {}) = 'aria',
     options?: Omit<
       BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost,
       'audio' | 'model_id'
