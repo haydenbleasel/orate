@@ -6,6 +6,7 @@ import { SpeechToText } from '@/app/(home)/components/speech-to-text';
 import { TextToSpeech } from '@/app/(home)/components/text-to-speech';
 import { createMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
+import { Social } from './components/social';
 
 const title = 'Orate | The AI toolkit for speech';
 const description =
@@ -20,6 +21,7 @@ const Home = () => (
     <TextToSpeech />
     <SpeechToText />
     <CallToAction />
+    <Social />
     <Footer />
   </>
 );
