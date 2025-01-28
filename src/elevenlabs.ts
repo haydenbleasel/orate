@@ -161,4 +161,35 @@ export const elevenlabs = {
       return file;
     };
   },
+
+  /**
+   * Creates a speech isolation function using ElevenLabs
+   * @returns {Function} Async function that takes audio and returns converted speech
+   */
+  isl: () => {
+    /**
+     * Isolates speech from the audio using ElevenLabs
+     * @param {File} audio - The audio file to isolate
+     * @returns {Promise<File>} The isolated audio data
+     * @throws {Error} If isolation fails
+     */
+    return async (audio: File) => {
+      const provider = createProvider();
+      const response = await provider.audioIsolation.audioIsolation({ audio });
+
+      const chunks: Uint8Array[] = [];
+
+      for await (const chunk of response) {
+        chunks.push(chunk);
+      }
+
+      const buffer = Buffer.concat(chunks);
+
+      const file = new File([buffer], 'isolated-speech.mp3', {
+        type: 'audio/mpeg',
+      });
+
+      return file;
+    };
+  },
 };
