@@ -1,0 +1,39 @@
+---
+title: Speech to Speech
+description: Change the voice of your audio with AI
+---
+
+Orate provides a simple and unified API for changing the voice of your audio using various AI providers. The speech-to-speech functionality is accessible through the `change` function.
+
+## Usage
+
+The basic usage involves importing the `change` function from Orate and your chosen provider. For example, to use ElevenLabs' speech-to-speech model, you can import the `ElevenLabs` provider and use its `sts` function:
+
+```ts
+import { change } from 'orate';
+import { elevenlabs } from 'orate/elevenlabs';
+import audioFile from './audio.wav';
+
+const newAudio = await change({
+  model: elevenlabs.sts(),
+  audio: audioFile,
+});
+```
+
+### `model`
+
+The `model` parameter is a function that returns a model instance. The model instance is a function that takes an audio file and returns a promise that resolves to the new audio.
+
+```ts
+const model = elevenlabs.sts();
+```
+
+### `audio`
+
+The `audio` parameter is a `File` object that contains the audio data to be changed.
+
+```ts
+const audio = new File([audioBuffer], 'audio.wav', { type: 'audio/wav' });
+```
+
+Orate uses a `File` object because it is supported by all major browsers and can be easily converted to other formats. Additionally, the various AI providers require the audio data to be in a specific format, and the `File` object is the most convenient way to determine the audio format.
