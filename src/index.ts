@@ -61,3 +61,29 @@ export const isolate = async ({
   model,
   audio,
 }: IsolateOptions): Promise<File> => model(audio);
+
+
+
+/**
+ * Options for the transcribe function to convert speech to text.
+ * @interface TranscribeWithUrlOptions
+ * @property {function} model - A function that takes an audio url  and returns a Promise resolving to the transcribed text
+ * @property {string} url - The audio url to transcribe
+ */
+export type TranscribeWithUrlOptions = {
+  model: (url: string) => Promise<string>;
+  url: string;
+};
+
+
+/**
+ * Transcribes audio url to text using the provided model.
+ * @param {TranscribeWithUrlOptions} options - The options for speech-to-text transcription using audio url
+ * @param {function} options.model - The model function to use for transcription
+ * @param {string} options.url - The audio url to transcribe
+ * @returns {Promise<string>} A Promise that resolves to the transcribed text
+ */
+export const transcribeWithUrl = async ({
+  model,
+  url,
+}: TranscribeWithUrlOptions): Promise<string> => model(url);

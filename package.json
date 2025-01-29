@@ -14,19 +14,12 @@
     "build": "tsup",
     "test": "vitest"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haydenbleasel/orate.git"
   },
-  "keywords": [
-    "ai",
-    "text",
-    "speech",
-    "transcribe"
-  ],
+  "keywords": ["ai", "text", "speech", "transcribe"],
   "author": "Hayden Bleasel <hello@haydenbleasel.com>",
   "license": "MIT",
   "bugs": {
@@ -60,6 +53,7 @@
     "ibm-watson": "^10.0.0",
     "ky": "^1.7.5",
     "lmnt-node": "^2.3.0",
+    "jigsawstack": "^0.0.25",
     "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
     "openai": "^4.85.4",
     "replicate": "^1.0.1",
