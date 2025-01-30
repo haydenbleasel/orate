@@ -1,3 +1,19 @@
+# v1.0.39 (Thu Jan 30 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Change punctuation ([@haydenbleasel](https://github.com/haydenbleasel))
+- Add examples to homepage ([@haydenbleasel](https://github.com/haydenbleasel))
+- Update index.tsx ([@haydenbleasel](https://github.com/haydenbleasel))
+- Update tests, generate examples ([@haydenbleasel](https://github.com/haydenbleasel))
+- Update testing script ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.38 (Thu Jan 30 2025)
 
 #### ⚠️ Pushed to `main`
