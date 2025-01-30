@@ -1,12 +1,21 @@
-/**
- * Options for the speak function to convert text to speech.
- * @interface SpeakOptions
- * @property {function} model - A function that takes a text prompt and returns a Promise resolving to a File containing audio data
- * @property {string} prompt - The text to convert to speech
- */
 export type SpeakOptions = {
   model: (prompt: string) => Promise<File>;
   prompt: string;
+};
+
+export type TranscribeOptions = {
+  model: (audio: File) => Promise<string>;
+  audio: File;
+};
+
+export type ChangeOptions = {
+  model: (audio: File) => Promise<File>;
+  audio: File;
+};
+
+export type IsolateOptions = {
+  model: (audio: File) => Promise<File>;
+  audio: File;
 };
 
 /**
@@ -18,17 +27,6 @@ export type SpeakOptions = {
  */
 export const speak = async ({ model, prompt }: SpeakOptions): Promise<File> =>
   model(prompt);
-
-/**
- * Options for the transcribe function to convert speech to text.
- * @interface TranscribeOptions
- * @property {function} model - A function that takes a File of audio data and returns a Promise resolving to the transcribed text
- * @property {File} audio - The audio data to transcribe
- */
-export type TranscribeOptions = {
-  model: (audio: File) => Promise<string>;
-  audio: File;
-};
 
 /**
  * Transcribes audio to text using the provided model.
@@ -43,17 +41,6 @@ export const transcribe = async ({
 }: TranscribeOptions): Promise<string> => model(audio);
 
 /**
- * Options for the change function to change the voice of the audio.
- * @interface ChangeOptions
- * @property {function} model - A function that takes a File of audio data and returns a Promise resolving to a File containing the converted audio
- * @property {File} audio - The audio data to convert to speech
- */
-export type ChangeOptions = {
-  model: (audio: File) => Promise<File>;
-  audio: File;
-};
-
-/**
  * Converts speech to speech using the provided model.
  * @param {ChangeOptions} options - The options for changing the voice of the audio
  * @param {function} options.model - The model function to use for conversion
@@ -62,17 +49,6 @@ export type ChangeOptions = {
  */
 export const change = async ({ model, audio }: ChangeOptions): Promise<File> =>
   model(audio);
-
-/**
- * Options for the isolate function to isolate the speech from the audio.
- * @interface IsolateOptions
- * @property {function} model - A function that takes a File of audio data and returns a Promise resolving to a File containing the isolated speech
- * @property {File} audio - The audio data to isolate
- */
-export type IsolateOptions = {
-  model: (audio: File) => Promise<File>;
-  audio: File;
-};
 
 /**
  * Isolates speech from the audio using the provided model.

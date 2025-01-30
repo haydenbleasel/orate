@@ -4,15 +4,6 @@ import type { RecognizeParams } from 'ibm-watson/speech-to-text/v1-generated';
 import TextToSpeechV1 from 'ibm-watson/text-to-speech/v1';
 import type { SynthesizeParams } from 'ibm-watson/text-to-speech/v1-generated';
 
-/**
- * List of available IBM Watson speech-to-text models
- * Includes models for different languages, bandwidths and use cases:
- * - BroadbandModel: For high-quality audio (16kHz+)
- * - NarrowbandModel: For telephony audio (8kHz)
- * - Multimedia: Optimized for media/entertainment content
- * - Telephony: Optimized for phone conversations
- * Format: {language}-{region}_{type} (e.g. en-US_BroadbandModel)
- */
 const models = [
   'ar-MS_BroadbandModel',
   'ar-MS_Telephony',
@@ -87,13 +78,6 @@ const models = [
   'zh-CN_Telephony',
 ] as const;
 
-/**
- * List of available IBM Watson voice models for text-to-speech
- * Includes both Expressive and V3 voices in various languages and regions
- * Format examples:
- * - Expressive voices: {language}-{region}_{name}Expressive (e.g. en-US_AllisonExpressive)
- * - V3 voices: {language}-{region}_{name}V3Voice (e.g. en-US_AllisonV3Voice)
- */
 const voices = [
   'en-AU_HeidiExpressive',
   'en-AU_JackExpressive',
@@ -130,12 +114,6 @@ const voices = [
   'es-US_SofiaV3Voice',
 ] as const;
 
-/**
- * Creates a Text-to-Speech client using the IBM Watson API
- * @returns {TextToSpeechV1} Configured TTS client
- * @throws {Error} If IBM_TTS_API_KEY environment variable is not set
- * @throws {Error} If IBM_TTS_URL environment variable is not set
- */
 const createTTSProvider = () => {
   const apikey = process.env.IBM_TTS_API_KEY;
   const serviceUrl = process.env.IBM_TTS_URL;
@@ -153,12 +131,6 @@ const createTTSProvider = () => {
   return new TextToSpeechV1({ authenticator, serviceUrl });
 };
 
-/**
- * Creates a Speech-to-Text client using the IBM Watson API
- * @returns {SpeechToTextV1} Configured STT client
- * @throws {Error} If IBM_STT_API_KEY environment variable is not set
- * @throws {Error} If IBM_STT_URL environment variable is not set
- */
 const createSTTProvider = () => {
   const apikey = process.env.IBM_STT_API_KEY;
   const serviceUrl = process.env.IBM_STT_URL;
@@ -176,13 +148,11 @@ const createSTTProvider = () => {
   return new SpeechToTextV1({ authenticator, serviceUrl });
 };
 
-/**
- * IBM Watson Speech Services functionality for text-to-speech and speech-to-text
- */
 export const ibm = {
   /**
    * Creates a text-to-speech synthesis function using IBM Watson TTS
    * @param {(typeof voices)[number]} voice - The voice model to use for synthesis. Defaults to 'en-US_AllisonV3Voice'
+   * @param {object} options - Additional options for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
@@ -191,11 +161,6 @@ export const ibm = {
   ) => {
     const provider = createTTSProvider();
 
-    /**
-     * Synthesizes text to speech using IBM Watson TTS
-     * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<File>} The synthesized audio data as a File
-     */
     return async (prompt: string) => {
       const response = await provider.synthesize({
         text: prompt,
@@ -222,6 +187,8 @@ export const ibm = {
 
   /**
    * Creates a speech-to-text transcription function using IBM Watson STT
+   * @param {(typeof models)[number]} model - The model to use for transcription. Defaults to 'en-US_BroadbandModel'
+   * @param {Omit<RecognizeParams, 'model' | 'audio'>} options - Additional options for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt: (
@@ -230,13 +197,6 @@ export const ibm = {
   ) => {
     const provider = createSTTProvider();
 
-    /**
-     * Transcribes audio to text using IBM Watson STT
-     * @param {File} audio - The audio data to transcribe
-     * @returns {Promise<string>} The transcribed text
-     * @throws {Error} If no transcription results are found
-     * @throws {Error} If no transcription alternatives are found
-     */
     return async (audio: File) => {
       const buffer = await audio.arrayBuffer();
       const audioBuffer = Buffer.from(buffer);

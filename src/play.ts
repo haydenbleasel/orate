@@ -501,14 +501,12 @@ type PlayTTSResponse = {
       };
 };
 
-/**
- * Play.ai text-to-speech functionality
- */
 export const play = {
   /**
    * Creates a text-to-speech synthesis function using PlayAI
    * @param {PlayModel} model - The model to use for synthesis. Defaults to 'Play3.0-mini'
-   * @param {string} voice - The voice to use for synthesis. Defaults to 's3://voice-cloning-zero-shot/baf1ef41-36b6-428c-9bdf-50ba54682bd8/original/manifest.json'
+   * @param {PlayVoice} voice - The voice to use for synthesis. Defaults to 'Angelo'
+   * @param {Omit<PlayTTSProps, 'model' | 'voice' | 'text'>} properties - Additional properties for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (

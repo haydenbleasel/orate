@@ -2,9 +2,6 @@ import stream from 'node:stream';
 import ffmpeg from 'fluent-ffmpeg';
 import Azure from 'microsoft-cognitiveservices-speech-sdk';
 
-/**
- * List of available Azure neural voices for text-to-speech
- */
 const voices = [
   'af-ZA-AdriNeural',
   'af-ZA-WillemNeural',
@@ -572,11 +569,6 @@ const voices = [
   'zu-ZA-ThembaNeural',
 ] as const;
 
-/**
- * Creates an Azure Speech Service provider configuration
- * @returns {Azure.SpeechConfig} Configured Azure Speech Service provider
- * @throws {Error} If AZURE_API_KEY or AZURE_REGION environment variables are not set
- */
 const createProvider = () => {
   const apiKey = process.env.AZURE_API_KEY;
   const region = process.env.AZURE_REGION;
@@ -595,11 +587,6 @@ const createProvider = () => {
   return speechConfig;
 };
 
-/**
- * Converts an audio file to WAV format
- * @param {File} audio - The audio file to convert
- * @returns {Promise<Buffer>} The converted audio file
- */
 const convertToWavBuffer = async (audio: File) => {
   const arrayBuffer = await audio.arrayBuffer();
   const inputBuffer = Buffer.from(arrayBuffer);
@@ -629,9 +616,6 @@ const convertToWavBuffer = async (audio: File) => {
   return wavBuffer;
 };
 
-/**
- * Azure Speech Service functionality for text-to-speech and speech-to-text
- */
 export const azure = {
   /**
    * Creates a text-to-speech synthesis function using Azure Speech Service
@@ -642,12 +626,6 @@ export const azure = {
     const provider = createProvider();
     provider.speechSynthesisVoiceName = voice;
 
-    /**
-     * Synthesizes text to speech using Azure Speech Service
-     * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<File>} The synthesized audio data
-     * @throws {Error} If synthesis fails
-     */
     return async (prompt: string) => {
       const speechSynthesizer = new Azure.SpeechSynthesizer(provider);
 
@@ -681,12 +659,6 @@ export const azure = {
   stt: () => {
     const provider = createProvider();
 
-    /**
-     * Transcribes audio to text using Azure Speech Service
-     * @param {File} audio - The audio data to transcribe
-     * @returns {Promise<string>} The transcribed text
-     * @throws {Error} If transcription fails or no text is returned
-     */
     return async (audio: File) => {
       const buffer = audio.type.includes('wav')
         ? Buffer.from(await audio.arrayBuffer())

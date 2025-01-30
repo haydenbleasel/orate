@@ -5,11 +5,6 @@ import {
   type RevAiJobOptions,
 } from 'revai-node-sdk';
 
-/**
- * Creates a Rev.ai provider instance with API key from environment variables
- * @returns {RevAiApiClient} Configured Rev.ai client instance
- * @throws {Error} If REV_API_KEY environment variable is not set
- */
 const createProvider = () => {
   const token = process.env.REV_API_KEY;
 
@@ -25,13 +20,11 @@ const createProvider = () => {
   return client;
 };
 
-/**
- * Rev.ai Speech Services functionality for speech-to-text
- */
 export const rev = {
   /**
    * Creates a speech-to-text transcription function using Rev.ai
-   * @param {TranscriptionCreateParams["model"]} model - The model to use for transcription. Defaults to 'machine'
+   * @param {'machine' | 'human' | 'low_cost' | 'fusion'} model - The model to use for transcription. Defaults to 'machine'
+   * @param {Omit<RevAiJobOptions, 'transcriber'>} properties - Additional properties for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt: (
@@ -40,11 +33,6 @@ export const rev = {
   ) => {
     const provider = createProvider();
 
-    /**
-     * Transcribes audio to text using Rev.ai
-     * @param {File} audio - The audio data to transcribe
-     * @returns {Promise<string>} The transcribed text
-     */
     return async (audio: File) => {
       const arrayBuffer = await audio.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);

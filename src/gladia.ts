@@ -95,13 +95,11 @@ const getTranscription = async (transcriptionUrl: string) => {
   }
 };
 
-/**
- * Gladia speech-to-text functionality
- */
 export const gladia = {
   /**
    * Creates a speech-to-text transcription function using Gladia
-   * @param {File} audio - The audio data to transcribe
+   * @param {'base' | 'enhanced'} model - The model to use for transcription. Defaults to 'base'
+   * @param {object} options - Additional options for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt: (model: 'base' | 'enhanced' = 'base', options?: object) => {

@@ -1,8 +1,5 @@
 import { type AudioSpeechRequest, Speechify } from '@speechify/api-sdk';
 
-/**
- * List of available voices for Speechify TTS
- */
 const voices = [
   'henry',
   'bwyneth',
@@ -713,11 +710,6 @@ const voices = [
   'michal',
 ] as const;
 
-/**
- * Creates an Speechify provider instance with API key from environment variables
- * @returns {Speechify} Configured Speechify client instance
- * @throws {Error} If SPEECHIFY_API_KEY environment variable is not set
- */
 const createProvider = () => {
   const apiKey = process.env.SPEECHIFY_API_KEY;
 
@@ -728,14 +720,12 @@ const createProvider = () => {
   return new Speechify({ apiKey });
 };
 
-/**
- * Speechify Speech Services functionality for text-to-speech and speech-to-text
- */
 export const speechify = {
   /**
    * Creates a text-to-speech synthesis function using Speechify TTS
-   * @param {AudioSpeechRequest["model"]} model - The model to use for synthesis. Defaults to 'tts-1'
+   * @param {AudioSpeechRequest["model"]} model - The model to use for synthesis. Defaults to 'simba-multilingual'
    * @param {(typeof voices)[number]} voice - The voice to use for synthesis. Defaults to 'george'
+   * @param {Omit<AudioSpeechRequest, 'model' | 'voiceId' | 'input'>} properties - Additional properties for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
@@ -745,11 +735,6 @@ export const speechify = {
   ) => {
     const provider = createProvider();
 
-    /**
-     * Synthesizes text to speech using Speechify TTS
-     * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<File>} The synthesized audio data
-     */
     return async (prompt: string) => {
       const response = await provider.audioGenerate({
         input: prompt,

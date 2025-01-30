@@ -1,8 +1,5 @@
 import ky from 'ky';
 
-/**
- * List of available voices for Murf TTS
- */
 const voices = [
   'en-UK-hazel',
   'en-US-cooper',
@@ -189,14 +186,12 @@ type SpeechCreateResponse = {
   }[];
 };
 
-/**
- * Murf text-to-speech functionality
- */
 export const murf = {
   /**
    * Creates a text-to-speech synthesis function using Murf
    * @param {SpeechCreateParams["modelVersion"]} model - The model to use for synthesis. Defaults to 'GEN2'
    * @param {SpeechCreateParams["voiceId"]} voice - The voice to use for synthesis. Defaults to 'en-US-natalie'
+   * @param {Omit<SpeechCreateParams, 'modelVersion' | 'voiceId' | 'text'>} properties - Additional properties for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
@@ -206,11 +201,6 @@ export const murf = {
   ) => {
     const token = getApiKey();
 
-    /**
-     * Synthesizes text to speech using Murf
-     * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<File>} The synthesized audio data
-     */
     return async (prompt: string) => {
       const url = new URL('/v1/speech/generate', 'https://api.murf.ai');
       const response = await ky

@@ -27,13 +27,11 @@ interface SpeechRecognitionErrorEvent {
   message: string;
 }
 
-/**
- * Native Web Speech API functionality for speech-to-text
- */
 export const native = {
   /**
    * Creates a speech-to-text transcription function using Web Speech API
    * @param {SpeechRecognition} options - Additional options to pass to the SpeechRecognition
+   * @param {string} options.lang - The language to use for transcription. If not specified, this defaults to the HTML lang attribute value, or the user agent's language setting if that isn't set either.
    * @returns {Function} Async function that records audio and returns transcribed text
    */
   stt: (options?: { lang?: string }) => {
@@ -45,10 +43,6 @@ export const native = {
       throw new Error('Speech recognition not supported in this browser');
     }
 
-    /**
-     * Transcribes speech to text using Web Speech API
-     * @returns {Promise<string>} The transcribed text
-     */
     return async () => {
       const promise = new Promise<string>((resolve, reject) => {
         const recognition = new SpeechRecognition();

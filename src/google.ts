@@ -4,12 +4,6 @@ import textToSpeech from '@google-cloud/text-to-speech';
 import type { google as TextToSpeechTypes } from '@google-cloud/text-to-speech/build/protos/protos';
 import deepmerge from 'deepmerge';
 
-/**
- * List of available voice models for text-to-speech
- * Each voice is identified by a locale code and voice type
- * Format: {language}-{region}-{voiceType}-{voiceId}
- * Example: en-US-Standard-A represents an English (US) voice with Standard quality and ID 'A'
- */
 const voices = [
   'af-ZA-Standard-A',
   'am-ET-Standard-A',
@@ -600,11 +594,6 @@ const voices = [
   'yue-HK-Standard-D',
 ] as const;
 
-/**
- * Creates a Text-to-Speech client using the Google Cloud API
- * @returns {textToSpeech.TextToSpeechClient} Configured TTS client
- * @throws {Error} If GOOGLE_API_KEY environment variable is not set
- */
 const createTTSProvider = () => {
   const apiKey = process.env.GOOGLE_API_KEY;
 
@@ -615,11 +604,6 @@ const createTTSProvider = () => {
   return new textToSpeech.TextToSpeechClient({ apiKey });
 };
 
-/**
- * Creates a Speech-to-Text client using the Google Cloud API
- * @returns {speechToText.v2.SpeechClient} Configured STT client
- * @throws {Error} If GOOGLE_API_KEY environment variable is not set
- */
 const createSTTProvider = () => {
   const apiKey = process.env.GOOGLE_API_KEY;
 
@@ -630,39 +614,11 @@ const createSTTProvider = () => {
   return new speechToText.v2.SpeechClient({ apiKey });
 };
 
-/**
- * List of available Google Cloud Speech-to-Text models
- * Each model is optimized for different use cases:
- * - long: For long-form audio content
- * - short: For short utterances
- * - telephony: Optimized for phone call audio
- * - telephony_short: For short phone call segments
- * - medical_dictation: Specialized for medical dictation
- * - medical_conversation: For medical conversations
- * - chirp_2: Latest general purpose model
- * - chirp_telephony: Latest model for phone calls
- * - chirp: Previous generation general model
- */
-const models = [
-  'long',
-  'short',
-  'telephony',
-  'telephony_short',
-  'medical_dictation',
-  'medical_conversation',
-  'chirp_2',
-  'chirp_telephony',
-  'chirp',
-] as const;
-
-/**
- * Google Cloud Speech Services functionality for text-to-speech and speech-to-text
- */
 export const google = {
   /**
    * Creates a text-to-speech synthesis function using Google Cloud TTS
-   * @param {TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest} options - Additional voice configuration options
    * @param {(typeof voices)[number]} model - The voice model to use for synthesis. Defaults to 'en-US-Casual-K'
+   * @param {TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest} options - Additional voice configuration options
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
@@ -670,12 +626,7 @@ export const google = {
     options?: TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest
   ) => {
     const provider = createTTSProvider();
-    /**
-     * Synthesizes text to speech using Google Cloud TTS
-     * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<Buffer>} The synthesized audio data as a Buffer
-     * @throws {Error} If synthesis fails or no audio content is returned
-     */
+
     return async (prompt: string) => {
       const defaultConfig: TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest =
         {
@@ -717,12 +668,6 @@ export const google = {
   ) => {
     const provider = createSTTProvider();
 
-    /**
-     * Transcribes audio to text using Google Cloud STT
-     * @param {File} audio - The audio data to transcribe
-     * @returns {Promise<string>} The transcribed text
-     * @throws {Error} If transcription fails or no text is returned
-     */
     return async (audio: File) => {
       const buffer = await audio.arrayBuffer();
       const content = Buffer.from(buffer).toString('base64');

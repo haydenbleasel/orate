@@ -4,9 +4,6 @@ import type {
   TextToSpeechRequest,
 } from 'elevenlabs/api';
 
-/**
- * Map of available ElevenLabs model IDs
- */
 const models = {
   multilingual_v2: 'eleven_multilingual_v2',
   flash_v2_5: 'eleven_flash_v2_5',
@@ -17,9 +14,6 @@ const models = {
   english_sts_v2: 'eleven_english_sts_v2',
 };
 
-/**
- * Map of available ElevenLabs voice IDs
- */
 const voices = {
   alice: 'Xb7hH8MSUJpSbSDYk0k2',
   aria: '9BWtsMINqrJLrRacOk9x',
@@ -43,11 +37,6 @@ const voices = {
   will: 'bIHbv24MWmeRgasZH58o',
 };
 
-/**
- * Creates an ElevenLabs provider instance with API key from environment variables
- * @returns {ElevenLabsClient} Configured ElevenLabs client instance
- * @throws {Error} If ELEVENLABS_API_KEY environment variable is not set
- */
 const createProvider = () => {
   const apiKey = process.env.ELEVENLABS_API_KEY;
 
@@ -58,9 +47,6 @@ const createProvider = () => {
   return new ElevenLabsClient({ apiKey });
 };
 
-/**
- * ElevenLabs text-to-speech functionality
- */
 export const elevenlabs = {
   /**
    * Creates a text-to-speech synthesis function using ElevenLabs
@@ -74,12 +60,6 @@ export const elevenlabs = {
     voice: keyof typeof voices | (string & {}) = 'aria',
     options?: Omit<TextToSpeechRequest, 'text' | 'model_id'>
   ) => {
-    /**
-     * Synthesizes text to speech using ElevenLabs
-     * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<File>} The synthesized audio data
-     * @throws {Error} If synthesis fails
-     */
     return async (prompt: string) => {
       const provider = createProvider();
       let newVoice = voice;
@@ -112,25 +92,19 @@ export const elevenlabs = {
 
   /**
    * Creates a speech-to-speech conversion function using ElevenLabs
-   * @param {keyof typeof voices} voice - The voice ID to use for synthesis. Defaults to 'aria'
-   * @param {string} modelId - The model ID to use for conversion. Defaults to 'eleven_multilingual_sts_v2'
-   * @param {string} outputFormat - The output audio format. Defaults to 'mp3_44100_128'
+   * @param {BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost['model_id']} model - The model ID to use for conversion. Defaults to 'eleven_multilingual_sts_v2'
+   * @param {keyof typeof voices | (string & {})} voice - The voice ID to use for synthesis. Defaults to 'aria'
+   * @param {Omit<BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost, 'audio' | 'model_id'>} options - Additional options for the conversion
    * @returns {Function} Async function that takes audio and returns converted speech
    */
   sts: (
-    modelId: BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost['model_id'] = 'eleven_multilingual_sts_v2',
+    model: BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost['model_id'] = 'eleven_multilingual_sts_v2',
     voice: keyof typeof voices | (string & {}) = 'aria',
     options?: Omit<
       BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost,
       'audio' | 'model_id'
     >
   ) => {
-    /**
-     * Converts speech to speech using ElevenLabs
-     * @param {File} audio - The audio file to convert
-     * @returns {Promise<File>} The converted audio data
-     * @throws {Error} If conversion fails
-     */
     return async (audio: File) => {
       const provider = createProvider();
       let newVoice = voice;
@@ -141,7 +115,7 @@ export const elevenlabs = {
 
       const response = await provider.speechToSpeech.convert(newVoice, {
         audio,
-        model_id: modelId,
+        model_id: model,
         output_format: 'mp3_44100_128',
         ...options,
       });
@@ -167,12 +141,6 @@ export const elevenlabs = {
    * @returns {Function} Async function that takes audio and returns converted speech
    */
   isl: () => {
-    /**
-     * Isolates speech from the audio using ElevenLabs
-     * @param {File} audio - The audio file to isolate
-     * @returns {Promise<File>} The isolated audio data
-     * @throws {Error} If isolation fails
-     */
     return async (audio: File) => {
       const provider = createProvider();
       const response = await provider.audioIsolation.audioIsolation({ audio });

@@ -4,11 +4,6 @@ import {
   createClient,
 } from '@deepgram/sdk';
 
-/**
- * Creates a Deepgram provider instance with API key from environment variables
- * @returns {DeepgramClient} Configured Deepgram client instance
- * @throws {Error} If DEEPGRAM_API_KEY environment variable is not set
- */
 const createProvider = () => {
   const apiKey = process.env.DEEPGRAM_API_KEY;
 
@@ -71,14 +66,13 @@ type DeepgramSpeechModel =
   | 'whisper-small'
   | 'whisper-medium'
   | 'whisper-large';
-/**
- * Deepgram Speech Services functionality for text-to-speech and speech-to-text
- */
+
 export const deepgram = {
   /**
    * Creates a text-to-speech synthesis function using Deepgram TTS
    * @param {DeepgramTranscriptModel} model - The model to use for synthesis. Defaults to 'aura'
    * @param {DeepgramTranscriptVoice} voice - The voice to use for synthesis. Defaults to 'asteria-en'
+   * @param {Omit<SpeakSchema, 'model'>} properties - Additional properties for the TTS request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
@@ -88,11 +82,6 @@ export const deepgram = {
   ) => {
     const provider = createProvider();
 
-    /**
-     * Synthesizes text to speech using Deepgram TTS
-     * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<File>} The synthesized audio data
-     */
     return async (prompt: string) => {
       const parsedModel = `${model}-${voice}`;
       const response = await provider.speak.request(
@@ -131,6 +120,7 @@ export const deepgram = {
   /**
    * Creates a speech-to-text transcription function using Deepgram STT
    * @param {TranscriptionCreateParams["model"]} model - The model to use for transcription. Defaults to 'nova-2'
+   * @param {Omit<PrerecordedSchema, 'model'>} properties - Additional properties for the STT request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt: (
@@ -139,11 +129,6 @@ export const deepgram = {
   ) => {
     const provider = createProvider();
 
-    /**
-     * Transcribes audio to text using Deepgram STT
-     * @param {File} audio - The audio data to transcribe
-     * @returns {Promise<string>} The transcribed text
-     */
     return async (audio: File) => {
       const arrayBuffer = await audio.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);

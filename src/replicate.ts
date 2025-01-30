@@ -1,10 +1,5 @@
 import Replicate, { type WebhookEventType } from 'replicate';
 
-/**
- * Creates an OpenAI provider instance with API key from environment variables
- * @returns {OpenAI} Configured OpenAI client instance
- * @throws {Error} If OPENAI_API_KEY environment variable is not set
- */
 const createProvider = () => {
   const auth = process.env.REPLICATE_API_TOKEN;
 
@@ -34,9 +29,6 @@ type ReplicateProperties = {
   signal?: AbortSignal;
 };
 
-/**
- * Replicate Speech Services functionality for text-to-speech and speech-to-text
- */
 export const replicate = {
   /**
    * Creates a text-to-speech synthesis function using Replicate TTS
@@ -54,11 +46,6 @@ export const replicate = {
   ) => {
     const provider = createProvider();
 
-    /**
-     * Synthesizes text to speech using Replicate TTS
-     * @param {string} prompt - The text to convert to speech
-     * @returns {Promise<File>} The synthesized audio data
-     */
     return async (prompt: string) => {
       const properties = await inputTransformer(prompt);
       const response = await provider.run(model, properties);
@@ -84,11 +71,6 @@ export const replicate = {
   ) => {
     const provider = createProvider();
 
-    /**
-     * Transcribes audio to text using Replicate
-     * @param {File} audio - The audio data to transcribe
-     * @returns {Promise<string>} The transcribed text
-     */
     return async (audio: File) => {
       const properties = await inputTransformer(audio);
       const response = await provider.run(model, properties);
@@ -114,11 +96,6 @@ export const replicate = {
   ) => {
     const provider = createProvider();
 
-    /**
-     * Isolates audio using Replicate
-     * @param {File} audio - The audio data to isolate
-     * @returns {Promise<File>} The isolated audio data
-     */
     return async (audio: File) => {
       const properties = await inputTransformer(audio);
       const response = await provider.run(model, properties);
