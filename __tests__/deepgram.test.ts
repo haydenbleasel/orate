@@ -6,12 +6,12 @@ import { deepgram } from '../src/deepgram';
 describe('Deepgram Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: deepgram.tts('aura', 'asteria-en'),
+      model: deepgram.tts('aura', 'arcas-en'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './__tests__/output/deepgram-speech.wav',
+      './website/public/examples/tts/deepgram.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

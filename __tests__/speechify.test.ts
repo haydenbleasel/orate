@@ -6,12 +6,12 @@ import { speechify } from '../src/speechify';
 describe('Speechify Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: speechify.tts('simba-turbo', 'george'),
+      model: speechify.tts('simba-english', 'henry'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './__tests__/output/speechify-speech.wav',
+      './website/public/examples/tts/speechify.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

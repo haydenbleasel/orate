@@ -6,15 +6,12 @@ import { play } from '../src/play';
 describe('Play.ai Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: play.tts(
-        'Play3.0-mini',
-        's3://voice-cloning-zero-shot/baf1ef41-36b6-428c-9bdf-50ba54682bd8/original/manifest.json'
-      ),
+      model: play.tts('Play3.0-mini', 'Angelo'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './__tests__/output/play-speech.wav',
+      './website/public/examples/tts/play.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

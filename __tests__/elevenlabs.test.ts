@@ -6,12 +6,12 @@ import { elevenlabs } from '../src/elevenlabs';
 describe('ElevenLabs Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: elevenlabs.tts('multilingual_v2', 'aria'),
+      model: elevenlabs.tts('multilingual_v2', 'bill'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './__tests__/output/elevenlabs-speech.wav',
+      './website/public/examples/tts/elevenlabs.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

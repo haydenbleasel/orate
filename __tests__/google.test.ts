@@ -6,12 +6,12 @@ import { google } from '../src/google';
 describe('Google Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: google.tts(),
+      model: google.tts('en-US-Journey-D'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './__tests__/output/google-speech.wav',
+      './website/public/examples/tts/google.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

@@ -6,12 +6,12 @@ import { azure } from '../src/azure';
 describe('Azure Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: azure.tts('en-US-AvaMultilingualNeural'),
+      model: azure.tts('en-US-KaiNeural'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './__tests__/output/azure-speech.wav',
+      './website/public/examples/tts/azure.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

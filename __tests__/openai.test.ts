@@ -6,12 +6,12 @@ import { openai } from '../src/openai';
 describe('OpenAI Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: openai.tts('tts-1', 'alloy'),
+      model: openai.tts('tts-1', 'ash'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './__tests__/output/openai-speech.wav',
+      './website/public/examples/tts/openai.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

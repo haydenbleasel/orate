@@ -6,12 +6,12 @@ import { murf } from '../src/murf';
 describe('Murf Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: murf.tts(),
+      model: murf.tts('GEN2', 'en-US-terrell'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './__tests__/output/murf-speech.wav',
+      './website/public/examples/tts/murf.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

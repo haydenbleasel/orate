@@ -39,7 +39,7 @@ describe('Replicate Tests', () => {
     });
 
     await writeFile(
-      './__tests__/output/kokoro-82m-speech.wav',
+      './website/public/examples/tts/replicate.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

@@ -6,12 +6,12 @@ import { ibm } from '../src/ibm';
 describe('IBM Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: ibm.tts(),
+      model: ibm.tts('en-US_MichaelExpressive'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './__tests__/output/ibm-speech.wav',
+      './website/public/examples/tts/ibm.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 
