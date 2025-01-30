@@ -7,7 +7,7 @@ describe('ElevenLabs Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: elevenlabs.tts('multilingual_v2', 'aria'),
-      prompt: 'Hello from Orate, the AI toolkit for speech.',
+      prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
@@ -25,7 +25,7 @@ describe('ElevenLabs Tests', () => {
         'multilingual_v2',
         process.env.ELEVENLABS_CUSTOM_VOICE_ID
       ),
-      prompt: 'Hello from Orate, the AI toolkit for speech.',
+      prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(

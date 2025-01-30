@@ -7,7 +7,7 @@ describe('Azure Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: azure.tts('en-US-AvaMultilingualNeural'),
-      prompt: 'Hello from Orate, the AI toolkit for speech.',
+      prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(

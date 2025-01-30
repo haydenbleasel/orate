@@ -7,7 +7,7 @@ describe('OpenAI Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: openai.tts('tts-1', 'alloy'),
-      prompt: 'Hello from Orate, the AI toolkit for speech.',
+      prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(

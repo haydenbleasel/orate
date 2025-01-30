@@ -7,7 +7,7 @@ describe('IBM Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: ibm.tts(),
-      prompt: 'Hello from Orate, the AI toolkit for speech.',
+      prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(

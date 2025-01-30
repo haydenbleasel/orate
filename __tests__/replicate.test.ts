@@ -35,7 +35,7 @@ describe('Replicate Tests', () => {
           });
         }
       ),
-      prompt: 'Hello from Orate, the AI toolkit for speech.',
+      prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
@@ -80,7 +80,7 @@ describe('Replicate Tests', () => {
           });
         }
       ),
-      prompt: 'Hello from Orate, the AI toolkit for speech.',
+      prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
