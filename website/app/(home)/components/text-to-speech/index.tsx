@@ -13,7 +13,7 @@ import { ${provider} } from 'orate/${provider}';
 
 const speech = await speak({
   model: ${provider}.tts(${props ?? ''}),
-  prompt: 'Friends, Romans, countrymen, lend me your ears;'
+  prompt: 'Friends, Romans, countrymen, lend me your ears!'
 });`;
 
 const snippets = [
@@ -115,7 +115,7 @@ const outputTransformer = async (response: unknown) => {
 
 const speech = await speak({
   model: replicate.tts(model, inputTransformer, outputTransformer),
-  prompt: 'Friends, Romans, countrymen, lend me your ears;'
+  prompt: 'Friends, Romans, countrymen, lend me your ears!'
 });`,
     children: (
       <audio className="w-full" src="/examples/tts/replicate.wav" controls />
