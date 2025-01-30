@@ -12,6 +12,7 @@ import Google from '@/public/providers/google.svg';
 import Groq from '@/public/providers/groq.svg';
 import Hume from '@/public/providers/hume.svg';
 import IBM from '@/public/providers/ibm.svg';
+import JigsawStack from '@/public/providers/jigsaw-stack.svg';
 import LMNT from '@/public/providers/lmnt.svg';
 import Murf from '@/public/providers/murf.svg';
 import OpenAI from '@/public/providers/openai.svg';
@@ -42,6 +43,11 @@ export const providers = [
   { name: 'Hume', image: Hume, href: '/docs/providers/hume' },
   { name: 'LMNT', image: LMNT, href: '/docs/providers/lmnt' },
   { name: 'CleanVoice', image: CleanVoice, href: '/docs/providers/cleanvoice' },
+  {
+    name: 'JigsawStack',
+    image: JigsawStack,
+    href: '/docs/providers/jigsawstack',
+  },
 ];
 
 const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (
