@@ -22,6 +22,7 @@ const snippets = [
     name: 'ElevenLabs',
     code: createSnippet('elevenlabs', "'multilingual_v2', 'aria'"),
     children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/elevenlabs.wav" controls />
     ),
   },
@@ -30,6 +31,7 @@ const snippets = [
     name: 'OpenAI',
     code: createSnippet('openai', "'tts-1', 'alloy'"),
     children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/openai.wav" controls />
     ),
   },
@@ -38,6 +40,7 @@ const snippets = [
     name: 'Google',
     code: createSnippet('google', "'en-US-Casual-K'"),
     children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/google.wav" controls />
     ),
   },
@@ -45,13 +48,17 @@ const snippets = [
     provider: 'ibm',
     name: 'IBM',
     code: createSnippet('ibm', "'en-US_BroadbandModel'"),
-    children: <audio className="w-full" src="/examples/tts/ibm.wav" controls />,
+    children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
+      <audio className="w-full" src="/examples/tts/ibm.wav" controls />
+    ),
   },
   {
     provider: 'murf',
     name: 'Murf',
     code: createSnippet('murf', "'GEN2', 'en-US-natalie'"),
     children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/murf.wav" controls />
     ),
   },
@@ -60,6 +67,7 @@ const snippets = [
     name: 'Deepgram',
     code: createSnippet('deepgram', "'aura', 'asteria-en'"),
     children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/deepgram.wav" controls />
     ),
   },
@@ -68,6 +76,7 @@ const snippets = [
     name: 'Speechify',
     code: createSnippet('speechify', "'simba-multilingual', 'george'"),
     children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/speechify.wav" controls />
     ),
   },
@@ -76,6 +85,7 @@ const snippets = [
     name: 'Play',
     code: createSnippet('play', "'PlayDialog', 'Angelo'"),
     children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/play.wav" controls />
     ),
   },
@@ -118,6 +128,7 @@ const speech = await speak({
   prompt: 'Friends, Romans, countrymen, lend me your ears!'
 });`,
     children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/replicate.wav" controls />
     ),
   },
