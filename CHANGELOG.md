@@ -1,3 +1,15 @@
+# v1.0.38 (Thu Jan 30 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Remove excess comments, misc JSDoc fixes ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.37 (Tue Jan 28 2025)
 
 #### ⚠️ Pushed to `main`
