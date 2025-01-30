@@ -1,10 +1,8 @@
 import { JigsawStack } from 'jigsawstack';
 
-
 type JigsawStackType = ReturnType<typeof JigsawStack>;
-type STTParams = Parameters<JigsawStackType["audio"]["speech_to_text"]>["0"];
-type TTSParams = Parameters<JigsawStackType["audio"]["text_to_speech"]>["0"];
-
+type STTParams = Parameters<JigsawStackType['audio']['speech_to_text']>['0'];
+type TTSParams = Parameters<JigsawStackType['audio']['text_to_speech']>['0'];
 
 /**
  * Creates an JigsawStack provider instance with API key from environment variables
@@ -21,7 +19,6 @@ const createProvider = () => {
   return JigsawStack({ apiKey });
 };
 
-
 /**
  * JigsawStack speech-to-text functionality
  */
@@ -31,13 +28,11 @@ export const jigsawstack = {
    * @param {Omit<STTParams, 'url'>} options - Additional options for the transcription
    * @returns {Function} Async function that takes audio url and returns transcribed text
    */
-  stt: (
-    options?: Omit<STTParams, "url">
-  ) => {
+  stt: (options?: Omit<STTParams, 'url'>) => {
     const provider = createProvider();
     /**
      * Transcribes audio to text using JigsawStack
-     * @param {string} url - The audio url  to transcribe
+     * @param {string} url - The audio url to transcribe
      * @returns {Promise<string>} The transcribed text
      * @throws {Error} If no transcription results are found
      */
@@ -46,19 +41,18 @@ export const jigsawstack = {
         url,
         ...options,
       });
-      return response.text
+      return response.text;
     };
   },
-  
 
-    /**
+  /**
    * Creates a text-to-speech synthesis function using JigsawStack TTS
    * @param {TTSParams["accent"]} accent - The voice to use for synthesis. Defaults to 'en-US-female-27'
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
-    accent: TTSParams["accent"] = "en-US-female-27",
-    properties?: Omit<TTSParams, "text" |"accent">
+    accent: TTSParams['accent'] = 'en-US-female-27',
+    properties?: Omit<TTSParams, 'text' | 'accent'>
   ) => {
     const provider = createProvider();
 
@@ -73,8 +67,8 @@ export const jigsawstack = {
         accent,
         ...properties,
       });
-        const file =  await response.file("speech.mp3", {type:'audio/mpeg'})
-        return file
+      const file = await response.file('speech.mp3', { type: 'audio/mpeg' });
+      return file;
     };
   },
 };
