@@ -1,3 +1,15 @@
+# v1.0.41 (Thu Jan 30 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Ultracite fixes ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.39 (Thu Jan 30 2025)
 
 #### ⚠️ Pushed to `main`
