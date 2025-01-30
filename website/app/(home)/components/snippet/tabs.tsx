@@ -1,7 +1,7 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { CopyButton } from '../copy-button';
 
 type SnippetTabsProps = {
@@ -9,6 +9,7 @@ type SnippetTabsProps = {
     name: string;
     code: string;
     html: string;
+    children?: ReactNode;
   }[];
 };
 
@@ -40,13 +41,14 @@ export const SnippetTabs = ({ tabs }: SnippetTabsProps) => {
           </div>
         )}
       </div>
-      {tabs.map(({ name, html }) => (
+      {tabs.map(({ name, html, children }) => (
         <TabsContent key={name} value={name} className="m-0 overflow-hidden">
           <div
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "This is a snippet"
             dangerouslySetInnerHTML={{ __html: html }}
             className="max-h-[300px] overflow-auto p-6 text-sm"
           />
+          {children && <div className="border-t p-2">{children}</div>}
         </TabsContent>
       ))}
     </Tabs>

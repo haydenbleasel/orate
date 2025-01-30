@@ -21,49 +21,63 @@ const snippets = [
     provider: 'elevenlabs',
     name: 'ElevenLabs',
     code: createSnippet('elevenlabs', "'multilingual_v2', 'aria'"),
-    children: <audio src="/examples/tts/elevenlabs.wav" controls />,
+    children: (
+      <audio className="w-full" src="/examples/tts/elevenlabs.wav" controls />
+    ),
   },
   {
     provider: 'openai',
     name: 'OpenAI',
     code: createSnippet('openai', "'tts-1', 'alloy'"),
-    children: <audio src="/examples/tts/openai.wav" controls />,
+    children: (
+      <audio className="w-full" src="/examples/tts/openai.wav" controls />
+    ),
   },
   {
     provider: 'google',
     name: 'Google',
     code: createSnippet('google', "'en-US-Casual-K'"),
-    children: <audio src="/examples/tts/google.wav" controls />,
+    children: (
+      <audio className="w-full" src="/examples/tts/google.wav" controls />
+    ),
   },
   {
     provider: 'ibm',
     name: 'IBM',
     code: createSnippet('ibm', "'en-US_BroadbandModel'"),
-    children: <audio src="/examples/tts/ibm.wav" controls />,
+    children: <audio className="w-full" src="/examples/tts/ibm.wav" controls />,
   },
   {
     provider: 'murf',
     name: 'Murf',
     code: createSnippet('murf', "'GEN2', 'en-US-natalie'"),
-    children: <audio src="/examples/tts/murf.wav" controls />,
+    children: (
+      <audio className="w-full" src="/examples/tts/murf.wav" controls />
+    ),
   },
   {
     provider: 'deepgram',
     name: 'Deepgram',
     code: createSnippet('deepgram', "'aura', 'asteria-en'"),
-    children: <audio src="/examples/tts/deepgram.wav" controls />,
+    children: (
+      <audio className="w-full" src="/examples/tts/deepgram.wav" controls />
+    ),
   },
   {
     provider: 'speechify',
     name: 'Speechify',
     code: createSnippet('speechify', "'simba-multilingual', 'george'"),
-    children: <audio src="/examples/tts/speechify.wav" controls />,
+    children: (
+      <audio className="w-full" src="/examples/tts/speechify.wav" controls />
+    ),
   },
   {
     provider: 'play',
     name: 'Play',
     code: createSnippet('play', "'PlayDialog', 'Angelo'"),
-    children: <audio src="/examples/tts/play.wav" controls />,
+    children: (
+      <audio className="w-full" src="/examples/tts/play.wav" controls />
+    ),
   },
   {
     provider: 'replicate',
@@ -103,7 +117,9 @@ const speech = await speak({
   model: replicate.tts(model, inputTransformer, outputTransformer),
   prompt: 'Friends, Romans, countrymen, lend me your ears;'
 });`,
-    children: <audio src="/examples/tts/replicate.wav" controls />,
+    children: (
+      <audio className="w-full" src="/examples/tts/replicate.wav" controls />
+    ),
   },
 ];
 
