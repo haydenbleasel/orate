@@ -22,7 +22,7 @@ importers:
         version: 2.3.0
       assemblyai:
         specifier: ^4.8.0
-        version: 4.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        version: 4.9.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -843,8 +843,8 @@ packages:
     resolution: {integrity: sha512-3duEwti880xqi4eAMN8AyR4a0ByT90zoYdLlevfrvU43vb0YZwZVfxOgxWrLXXXpyugL0hNZc9G6BiB5B3nUug==}
     engines: {node: '>=8'}
 
-  assemblyai@4.8.0:
-    resolution: {integrity: sha512-TRIcthDBdJ+lj1ohLa516Kr/BO2AQn+IhBBl/eeomZGZym90aEC6qirc337hEPUxmmINSJ8XTSY4xwy51HmDGA==}
+  assemblyai@4.9.0:
+    resolution: {integrity: sha512-YUvkVIdMKvMLNQ07zWNma9YWvdSoGZy9RuJ/fB5uceAgDnTL2uo8sAlytkt52hD8DJ61xmZkfO9jkjXl3sZTiw==}
     engines: {node: '>=18'}
 
   assertion-error@2.0.1:
@@ -3530,7 +3530,7 @@ snapshots:
 
   arrify@2.0.1: {}
 
-  assemblyai@4.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10):
+  assemblyai@4.9.0(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     dependencies:
       ws: 8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -4348,7 +4348,7 @@ snapshots:
       isstream: 0.1.2
       jsonwebtoken: 9.0.2
       mime-types: 2.1.35
-      retry-axios: 2.6.0(axios@1.7.4(debug@4.4.0))
+      retry-axios: 2.6.0(axios@1.7.4)
       tough-cookie: 4.1.4
     transitivePeerDependencies:
       - supports-color
@@ -5014,7 +5014,7 @@ snapshots:
     dependencies:
       path-parse: 1.0.7
 
-  retry-axios@2.6.0(axios@1.7.4(debug@4.4.0)):
+  retry-axios@2.6.0(axios@1.7.4):
     dependencies:
       axios: 1.7.4(debug@4.4.0)
 
