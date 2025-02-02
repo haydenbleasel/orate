@@ -46,7 +46,7 @@ importers:
         version: 1.42.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       openai:
         specifier: ^4.80.0
-        version: 4.80.0(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        version: 4.82.0(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       replicate:
         specifier: ^1.0.1
         version: 1.0.1
@@ -2005,8 +2005,8 @@ packages:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
     engines: {node: '>=6'}
 
-  openai@4.80.0:
-    resolution: {integrity: sha512-5TqdNQgjOMxo3CkCvtjzuSwuznO/o3q5aak0MTy6IjRvPtvVA1wAFGJU3eZT1JHzhs2wFb/xtDG0o6Y/2KGCfw==}
+  openai@4.82.0:
+    resolution: {integrity: sha512-1bTxOVGZuVGsKKUWbh3BEwX1QxIXUftJv+9COhhGGVDTFwiaOd4gWsMynF2ewj1mg6by3/O+U8+EEHpWRdPaJg==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
@@ -3322,7 +3322,7 @@ snapshots:
       '@octokit/request-error': 2.1.0
       '@octokit/types': 6.41.0
       is-plain-object: 5.0.0
-      node-fetch: 2.7.0
+      node-fetch: 2.6.7
       universal-user-agent: 6.0.1
     transitivePeerDependencies:
       - encoding
@@ -3542,7 +3542,7 @@ snapshots:
 
   '@types/node-fetch@2.6.12':
     dependencies:
-      '@types/node': 22.13.0
+      '@types/node': 18.19.74
       form-data: 4.0.1
 
   '@types/node@10.14.22': {}
@@ -3577,7 +3577,7 @@ snapshots:
 
   '@types/websocket@1.0.10':
     dependencies:
-      '@types/node': 22.13.0
+      '@types/node': 13.13.52
 
   '@vitest/expect@3.0.4':
     dependencies:
@@ -3731,7 +3731,7 @@ snapshots:
   axios@1.7.4(debug@4.4.0):
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.0)
-      form-data: 4.0.1
+      form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
@@ -4935,7 +4935,7 @@ snapshots:
     dependencies:
       mimic-fn: 2.1.0
 
-  openai@4.80.0(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
+  openai@4.82.0(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
     dependencies:
       '@types/node': 18.19.74
       '@types/node-fetch': 2.6.12
