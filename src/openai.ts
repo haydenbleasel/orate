@@ -61,6 +61,7 @@ export const openai = {
       const response = await provider.audio.transcriptions.create({
         model,
         file: audio,
+      
         ...properties,
       });
 

@@ -12,6 +12,7 @@ import Gladia from '../../../public/providers/gladia.svg';
 import Google from '../../../public/providers/google.svg';
 import Groq from '../../../public/providers/groq.svg';
 import IBM from '../../../public/providers/ibm.svg';
+import JigsawStack from '../../../public/providers/jigsaw-stack.svg';
 import Murf from '../../../public/providers/murf.svg';
 import OpenAI from '../../../public/providers/openai.svg';
 import Play from '../../../public/providers/play.svg';
@@ -34,6 +35,7 @@ const providers = [
   { name: 'Replicate', image: Replicate, href: '/docs/replicate' },
   { name: 'Groq', image: Groq, href: '/docs/groq' },
   { name: 'Play', image: Play, href: '/docs/play' },
+  { name: 'JigsawStack', image: JigsawStack, href: '/docs/jigsawstack' },
 ];
 
 export const Providers = () => (
