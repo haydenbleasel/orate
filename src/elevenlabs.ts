@@ -1,6 +1,7 @@
 import { ElevenLabsClient } from 'elevenlabs';
 import type {
   BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost,
+  BodySpeechToTextV1SpeechToTextPost,
   TextToSpeechRequest,
 } from 'elevenlabs/api';
 
@@ -87,6 +88,29 @@ export const elevenlabs = {
       });
 
       return file;
+    };
+  },
+
+  /**
+   * Creates a speech-to-text transcription function using ElevenLabs
+   * @param {BodySpeechToTextV1SpeechToTextPost["model_id"]} model - The model to use for transcription. Defaults to 'scribe_v1'
+   * @param {Omit<BodySpeechToTextV1SpeechToTextPost, 'model_id' | 'file'>} properties - Additional properties for the transcription request
+   * @returns {Function} Async function that takes audio and returns transcribed text
+   */
+  stt: (
+    model: 'scribe_v1' = 'scribe_v1',
+    properties?: Omit<BodySpeechToTextV1SpeechToTextPost, 'model_id' | 'file'>
+  ) => {
+    const provider = createProvider();
+
+    return async (audio: File) => {
+      const response = await provider.speechToText.convert({
+        file: audio,
+        model_id: model,
+        ...properties,
+      });
+
+      return response.text;
     };
   },
 
