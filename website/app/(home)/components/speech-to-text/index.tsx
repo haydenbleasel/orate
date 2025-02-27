@@ -29,6 +29,11 @@ const snippets = [
     code: createSnippet('openai', "'whisper-1'"),
   },
   {
+    provider: 'elevenlabs',
+    name: 'ElevenLabs',
+    code: createSnippet('elevenlabs', "'scribe_v1'"),
+  },
+  {
     provider: 'azure',
     name: 'Azure',
     code: createSnippet('azure', "'en-US-AvaMultilingualNeural'"),
