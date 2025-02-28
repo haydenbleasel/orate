@@ -1,3 +1,15 @@
+# v1.2.0 (Fri Feb 28 2025)
+
+#### 🚀 Enhancement
+
+- 22 falai whisper and wizper [#24](https://github.com/haydenbleasel/orate/pull/24) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.1.1 (Fri Feb 28 2025)
 
 #### ⚠️ Pushed to `main`
