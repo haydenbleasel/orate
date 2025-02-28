@@ -1,9 +1,19 @@
-import { fal as falClient } from '@fal-ai/client';
+import { createFalClient } from '@fal-ai/client';
 import type { WhisperInput, WizperInput } from '@fal-ai/client/endpoints';
 
 type FalInput =
   | Omit<WhisperInput, 'audio_url'>
   | Omit<WizperInput, 'audio_url'>;
+
+const createProvider = () => {
+  const credentials = process.env.FAL_API_KEY;
+
+  if (!credentials) {
+    throw new Error('FAL_API_KEY is not set');
+  }
+
+  return createFalClient({ credentials });
+};
 
 export const fal = {
   /**
@@ -16,10 +26,12 @@ export const fal = {
     model: 'fal-ai/whisper' | 'fal-ai/wizper' = 'fal-ai/whisper',
     properties?: FalInput
   ) => {
-    return async (audio: File) => {
-      const file = await falClient.storage.upload(audio);
+    const provider = createProvider();
 
-      const response = await falClient.subscribe(model, {
+    return async (audio: File) => {
+      const file = await provider.storage.upload(audio);
+
+      const response = await provider.subscribe(model, {
         input: {
           audio_url: file,
           ...properties,
