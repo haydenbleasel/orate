@@ -1,0 +1,62 @@
+---
+title: Fal
+description: Orate supports Fal's transcription services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Fal is a generative media platform for developers, helping you build the next generation of creativity. Orate supports Fal's transcription services.
+
+## Setup
+
+The Fal provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { fal } from 'orate/fal';
+```
+
+## Configuration
+
+The Fal provider looks for the `FAL_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+FAL_API_KEY="your_api_key"
+```
+
+## Usage
+
+The Fal provider provides a single interface for all of Fal's transcription services.
+
+### Speech to Text
+
+The Fal provider provides a `stt` function that allows you to create a speech-to-text transcription function using Fal's models. By default, the `stt` function uses the `fal-ai/whisper` model.
+
+```ts
+import { transcribe } from 'orate';
+import { fal } from 'orate/fal';
+
+const text = await transcribe({
+  model: fal.stt(),
+  audio: new File(...),
+});
+```
+
+You can specify the model to use by passing it as an argument to the `stt` function.
+
+```ts
+const text = await transcribe({
+  model: fal.stt('fal-ai/wizper'),
+  audio: new File(...),
+});
+```
+
+You can also specify specific Fal properties by passing them as an argument to the `stt` function.
+
+```ts
+const text = await transcribe({
+  model: fal.stt('fal-ai/wizper', {
+    diarize: true,
+  }),
+  audio: new File(...),
+});
+```

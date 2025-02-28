@@ -8,6 +8,7 @@ import AssemblyAI from '../../../public/providers/assembly.svg';
 import Azure from '../../../public/providers/azure.svg';
 import Deepgram from '../../../public/providers/deepgram.svg';
 import ElevenLabs from '../../../public/providers/elevenlabs.svg';
+import Fal from '../../../public/providers/fal.svg';
 import Gladia from '../../../public/providers/gladia.svg';
 import Google from '../../../public/providers/google.svg';
 import Groq from '../../../public/providers/groq.svg';
@@ -34,6 +35,7 @@ const providers = [
   { name: 'Replicate', image: Replicate, href: '/docs/replicate' },
   { name: 'Groq', image: Groq, href: '/docs/groq' },
   { name: 'Play', image: Play, href: '/docs/play' },
+  { name: 'Fal', image: Fal, href: '/docs/fal' },
 ];
 
 export const Providers = () => (
