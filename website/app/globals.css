@@ -166,3 +166,8 @@
 .top-fd-layout-top {
   top: calc(var(--fd-banner-height) + var(--fd-nav-height) + var(--navbar-height)) !important;
 }
+
+/* Fix Fumadocs theme toggle icons */
+[data-theme-toggle] svg {
+  @apply fill-none;
+}
