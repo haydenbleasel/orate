@@ -37,7 +37,7 @@ import { gladia } from 'orate/gladia';
 
 const text = await transcribe({
   model: gladia.stt(),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -46,7 +46,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 ```ts
 const text = await transcribe({
   model: gladia.stt('enhanced'),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -57,6 +57,6 @@ const text = await transcribe({
   model: gladia.stt('enhanced', {
     chapterization: true,
   }),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```

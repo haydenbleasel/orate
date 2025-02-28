@@ -71,7 +71,7 @@ import { deepgram } from 'orate/deepgram';
 
 const text = await transcribe({
   model: deepgram.stt(),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -80,7 +80,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 ```ts
 const text = await transcribe({
   model: deepgram.stt('enhanced'),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -91,6 +91,6 @@ const text = await transcribe({
   model: deepgram.stt('enhanced', {
     filler_words: true,
   }),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```

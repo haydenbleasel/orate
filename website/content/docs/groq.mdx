@@ -37,7 +37,7 @@ import { groq } from 'orate/groq';
 
 const text = await transcribe({
   model: groq.stt(),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -46,7 +46,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 ```ts
 const text = await transcribe({
   model: groq.stt('whisper-large-v3'),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -57,6 +57,6 @@ const text = await transcribe({
   model: groq.stt('whisper-large-v3', {
     temperature: 0.5,
   }),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```

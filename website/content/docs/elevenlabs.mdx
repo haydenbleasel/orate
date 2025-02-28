@@ -75,7 +75,7 @@ import { elevenlabs } from 'orate/elevenlabs';
 
 const text = await transcribe({
   model: elevenlabs.stt(),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -86,7 +86,7 @@ const text = await transcribe({
   model: elevenlabs.stt('scribe_v1', {
     diarize: true,
   }),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 

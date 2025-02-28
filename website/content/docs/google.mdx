@@ -73,7 +73,7 @@ import { google } from 'orate/google';
 
 const text = await transcribe({
   model: google.stt('projects/{project}/locations/{region}/recognizers/{recognizer}'),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -90,6 +90,6 @@ const text = await transcribe({
       },
     },
   }),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```

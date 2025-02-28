@@ -61,6 +61,6 @@ import { azure } from 'orate/azure';
 
 const text = await transcribe({
   model: azure.stt(),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```

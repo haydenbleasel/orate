@@ -37,7 +37,7 @@ import { assemblyai } from 'orate/assemblyai';
 
 const text = await transcribe({
   model: assemblyai.stt(),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -46,7 +46,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 ```ts
 const text = await transcribe({
   model: assemblyai.stt('nano'),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -57,7 +57,7 @@ const text = await transcribe({
   model: assemblyai.stt('nano', {
     punctuate: false,
   }),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 

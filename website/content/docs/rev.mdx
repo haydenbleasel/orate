@@ -37,7 +37,7 @@ import { rev } from 'orate/rev';
 
 const text = await transcribe({
   model: rev.stt(),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -46,7 +46,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 ```ts
 const text = await transcribe({
   model: rev.stt('fusion'),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -57,6 +57,6 @@ const text = await transcribe({
   model: rev.stt('fusion', {
     remove_disfluencies: true,
   }),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```

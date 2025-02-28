@@ -33,7 +33,7 @@ import { native } from 'orate/native';
 
 const text = await transcribe({
   model: native.stt(),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
 
@@ -42,6 +42,6 @@ You can specify a language to use by passing it as an option to the `stt` functi
 ```ts
 const text = await transcribe({
   model: native.stt({ lang: 'en-US' }),
-  audio: someArrayBuffer,
+  audio: new File(...),
 });
 ```
