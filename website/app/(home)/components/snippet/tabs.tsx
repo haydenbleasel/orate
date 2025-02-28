@@ -24,7 +24,7 @@ export const SnippetTabs = ({ tabs }: SnippetTabsProps) => {
       className="grid divide-y overflow-hidden rounded-lg border bg-background"
     >
       <div className="grid grid-cols-[1fr_44px] divide-x overflow-hidden">
-        <TabsList className="overflow-x-auto! h-auto w-full flex-1 justify-start bg-transparent p-2">
+        <TabsList className="overflow-x-auto! h-auto w-full flex-1 justify-start rounded-none bg-transparent p-2">
           {tabs.map(({ name }) => (
             <TabsTrigger
               key={name}
