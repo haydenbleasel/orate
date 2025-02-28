@@ -42,7 +42,11 @@ export const SnippetTabs = ({ tabs }: SnippetTabsProps) => {
         )}
       </div>
       {tabs.map(({ name, html, children }) => (
-        <TabsContent key={name} value={name} className="m-0 overflow-hidden">
+        <TabsContent
+          key={name}
+          value={name}
+          className="m-0 overflow-hidden border-none"
+        >
           <div
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "This is a snippet"
             dangerouslySetInnerHTML={{ __html: html }}
