@@ -65,6 +65,31 @@ const speech = await speak({
 });
 ```
 
+### Speech to Text
+
+The ElevenLabs provider provides a `stt` function that allows you to create a speech-to-text transcription function using ElevenLabs. By default, the `stt` function uses the `scribe_v1` model.
+
+```ts
+import { transcribe } from 'orate';
+import { elevenlabs } from 'orate/elevenlabs';
+
+const text = await transcribe({
+  model: elevenlabs.stt(),
+  audio: someArrayBuffer,
+});
+```
+
+You can also specify specific ElevenLabs properties by passing them as an argument to the `stt` function.
+
+```ts
+const text = await transcribe({
+  model: elevenlabs.stt('scribe_v1', {
+    diarize: true,
+  }),
+  audio: someArrayBuffer,
+});
+```
+
 ### Speech to Speech
 
 The ElevenLabs provider provides a `sts` function that allows you to change the voice of the audio. By default, the `sts` function uses the `eleven_multilingual_sts_v2` model and the `aria` voice.

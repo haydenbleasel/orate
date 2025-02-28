@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
-import { change, isolate, speak } from '../src';
+import { change, isolate, speak, transcribe } from '../src';
 import { elevenlabs } from '../src/elevenlabs';
 
 describe('ElevenLabs Tests', () => {
@@ -17,6 +17,19 @@ describe('ElevenLabs Tests', () => {
 
     expect(speech).toBeInstanceOf(File);
     expect(speech.size).toBeGreaterThan(0);
+  });
+
+  it('should convert speech to text', async () => {
+    const file = await readFile('./__tests__/test.mp3');
+    const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });
+
+    const text = await transcribe({
+      model: elevenlabs.stt('scribe_v1'),
+      audio,
+    });
+
+    expect(typeof text).toBe('string');
+    expect(text.length).toBeGreaterThan(0);
   });
 
   it('should convert text to speech with a custom voice', async () => {

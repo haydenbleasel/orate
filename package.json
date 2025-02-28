@@ -40,28 +40,28 @@
     "@testing-library/react": "^16.2.0",
     "@types/fluent-ffmpeg": "^2.1.27",
     "jsdom": "^26.0.0",
-    "tsup": "^8.3.5",
-    "ultracite": "4.1.16",
+    "tsup": "^8.4.0",
+    "ultracite": "4.1.20",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.4"
+    "vitest": "^3.0.7"
   },
   "dependencies": {
-    "@deepgram/sdk": "^3.9.0",
-    "@google-cloud/speech": "^6.7.0",
-    "@google-cloud/text-to-speech": "^5.8.0",
-    "@speechify/api-sdk": "^2.3.0",
-    "assemblyai": "^4.8.0",
+    "@deepgram/sdk": "^3.11.1",
+    "@google-cloud/speech": "^6.7.1",
+    "@google-cloud/text-to-speech": "^5.8.1",
+    "@speechify/api-sdk": "^2.4.1",
+    "assemblyai": "^4.9.0",
     "deepmerge": "^4.3.1",
-    "elevenlabs": "^1.50.4",
+    "elevenlabs": "^1.52.0",
     "fluent-ffmpeg": "^2.1.3",
-    "groq-sdk": "^0.13.0",
+    "groq-sdk": "^0.15.0",
     "ibm-watson": "^10.0.0",
-    "ky": "^1.7.4",
+    "ky": "^1.7.5",
     "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
-    "openai": "^4.80.0",
+    "openai": "^4.85.4",
     "replicate": "^1.0.1",
     "revai-node-sdk": "^3.8.5",
     "typescript": "^5.7.3",
-    "vite": "^6.0.11"
+    "vite": "^6.2.0"
   }
 }

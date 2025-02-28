@@ -62,7 +62,7 @@ export const Providers = () => (
         loop={0}
         autoFill
         pauseOnHover
-        className="!overflow-visible flex items-center"
+        className="overflow-visible! flex items-center"
       >
         {providers.map(({ name, image, href }) => (
           <Link
@@ -96,8 +96,8 @@ export const Providers = () => (
           </Link>
         ))}
       </MarqueeProvider>
-      <div className="absolute top-0 bottom-0 left-0 z-10 h-full w-24 bg-gradient-to-r from-secondary to-transparent dark:from-background" />
-      <div className="absolute top-0 right-0 bottom-0 z-10 h-full w-24 bg-gradient-to-l from-secondary to-transparent dark:from-background" />
+      <div className="absolute top-0 bottom-0 left-0 z-10 h-full w-24 bg-linear-to-r from-secondary to-transparent dark:from-background" />
+      <div className="absolute top-0 right-0 bottom-0 z-10 h-full w-24 bg-linear-to-l from-secondary to-transparent dark:from-background" />
     </AnimateProvider>
   </section>
 );
