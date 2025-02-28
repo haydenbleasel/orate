@@ -93,6 +93,17 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  @keyframes waveform {
+    from {
+      transform: scaleY(0.2);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  --animate-waveform: waveform 1s ease-in-out infinite alternate;
 }
 
 @layer base {
