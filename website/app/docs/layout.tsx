@@ -20,6 +20,7 @@ const Layout = ({ children }: LayoutProps) => (
       links={[]}
       sidebar={{
         hideSearch: true,
+        collapsible: false,
       }}
     >
       {children}
