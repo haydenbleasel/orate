@@ -72,6 +72,11 @@ const snippets = [
     code: createSnippet('groq', "'whisper-large-v3'"),
   },
   {
+    provider: 'fal',
+    name: 'Fal',
+    code: createSnippet('fal', "'fal-ai/whisper'"),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { transcribe } from 'orate';
