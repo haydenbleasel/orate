@@ -1,3 +1,25 @@
+# v1.1.0 (Fri Feb 28 2025)
+
+#### 🚀 Enhancement
+
+- Add ElevenLabs Scribe [#23](https://github.com/haydenbleasel/orate/pull/23) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### 🔩 Dependency Updates
+
+- Bump vitest from 3.0.4 to 3.0.5 in the npm_and_yarn group [#19](https://github.com/haydenbleasel/orate/pull/19) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump openai from 4.80.0 to 4.82.0 [#16](https://github.com/haydenbleasel/orate/pull/16) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump tsup from 8.3.5 to 8.3.6 [#13](https://github.com/haydenbleasel/orate/pull/13) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump assemblyai from 4.8.0 to 4.9.0 [#14](https://github.com/haydenbleasel/orate/pull/14) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump @speechify/api-sdk from 2.3.0 to 2.4.0 [#15](https://github.com/haydenbleasel/orate/pull/15) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump groq-sdk from 0.12.0 to 0.13.0 [#17](https://github.com/haydenbleasel/orate/pull/17) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.0.41 (Thu Jan 30 2025)
 
 #### ⚠️ Pushed to `main`
