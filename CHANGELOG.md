@@ -1,3 +1,15 @@
+# v1.1.1 (Fri Feb 28 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Fix typo in audio type ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.1.0 (Fri Feb 28 2025)
 
 #### 🚀 Enhancement
