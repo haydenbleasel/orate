@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@deepgram/sdk": "^3.11.1",
+    "@fal-ai/client": "^1.2.3",
     "@google-cloud/speech": "^6.7.1",
     "@google-cloud/text-to-speech": "^5.8.1",
     "@speechify/api-sdk": "^2.4.1",

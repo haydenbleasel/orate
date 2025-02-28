@@ -11,6 +11,9 @@ importers:
       '@deepgram/sdk':
         specifier: ^3.11.1
         version: 3.11.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@fal-ai/client':
+        specifier: ^1.2.3
+        version: 1.2.3
       '@google-cloud/speech':
         specifier: ^6.7.1
         version: 6.7.1
@@ -373,6 +376,10 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@fal-ai/client@1.2.3':
+    resolution: {integrity: sha512-Lf37bJN16ssbaHYPSWDVCRspdTubcZvugyemEEtm6frhi83f9J+FJuq9uiY9WfR5bskQ8CZhBYhD9irZOPxY5Q==}
+    engines: {node: '>=18.0.0'}
+
   '@google-cloud/common@5.0.2':
     resolution: {integrity: sha512-V7bmBKYQyu0eVG2BFejuUjlBt+zrya6vtsKdY+JxMM/dNntPF41vZ9+LhOshEUH01zOHEqBSvI7Dad7ZS6aUeA==}
     engines: {node: '>=14.0.0'}
@@ -429,6 +436,10 @@ packages:
 
   '@js-sdsl/ordered-map@4.4.2':
     resolution: {integrity: sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw==}
+
+  '@msgpack/msgpack@3.1.0':
+    resolution: {integrity: sha512-igBxaq5JHWdJ0lDyKkCo00pDu+bNVuBAs/cHra6a3ndCw6vlZK9BGLuG7Fvmar/DXK2uJ25zvgcAZEl+AvLpjQ==}
+    engines: {node: '>= 18'}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1334,6 +1345,10 @@ packages:
   events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
+
+  eventsource-parser@1.1.2:
+    resolution: {integrity: sha512-v0eOBUbiaFojBu2s2NPBfYUoRR9GjcDNvCXVaqEf5vVfpIAh9f8RCo4vXTP8c63QRKCFwoLpMpTdPwwhEKVgzA==}
+    engines: {node: '>=14.18'}
 
   execa@5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
@@ -2275,6 +2290,9 @@ packages:
   revai-node-sdk@3.8.5:
     resolution: {integrity: sha512-BUld7yIKiAYiniyAcVIhy6uHmJs8Ba9d2e0qgyjKII9iHSZGKvfcNFGXl8u3MHB587ytj3ne5z7B0o5MpzzxvQ==}
 
+  robot3@0.4.1:
+    resolution: {integrity: sha512-hzjy826lrxzx8eRgv80idkf8ua1JAepRc9Efdtj03N3KNJuznQCPlyCJ7gnUmDFwZCLQjxy567mQVKmdv2BsXQ==}
+
   rollup@4.34.0:
     resolution: {integrity: sha512-+4C/cgJ9w6sudisA0nZz0+O7lTP9a3CzNLsoDwaRumM8QHwghUsu6tqHXiTmNUp/rqNiM14++7dkzHDyCRs0Jg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
@@ -3152,6 +3170,12 @@ snapshots:
   '@esbuild/win32-x64@0.25.0':
     optional: true
 
+  '@fal-ai/client@1.2.3':
+    dependencies:
+      '@msgpack/msgpack': 3.1.0
+      eventsource-parser: 1.1.2
+      robot3: 0.4.1
+
   '@google-cloud/common@5.0.2':
     dependencies:
       '@google-cloud/projectify': 4.0.0
@@ -3234,6 +3258,8 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
 
   '@js-sdsl/ordered-map@4.4.2': {}
+
+  '@msgpack/msgpack@3.1.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -4175,6 +4201,8 @@ snapshots:
   event-target-shim@5.0.1: {}
 
   events@3.3.0: {}
+
+  eventsource-parser@1.1.2: {}
 
   execa@5.1.1:
     dependencies:
@@ -5204,6 +5232,8 @@ snapshots:
     transitivePeerDependencies:
       - debug
       - supports-color
+
+  robot3@0.4.1: {}
 
   rollup@4.34.0:
     dependencies:
