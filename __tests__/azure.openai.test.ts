@@ -6,7 +6,7 @@ import { openaiAzure } from '../src/azure.openai';
 describe('Azure OpenAI Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: openaiAzure.tts('tts', 'alloy'),
+      model: openaiAzure.tts('tts-hd', 'alloy'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
