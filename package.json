@@ -59,6 +59,7 @@
     "hume": "^0.9.12",
     "ibm-watson": "^10.0.0",
     "ky": "^1.7.5",
+    "lmnt-node": "^2.3.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
     "openai": "^4.85.4",
     "replicate": "^1.0.1",

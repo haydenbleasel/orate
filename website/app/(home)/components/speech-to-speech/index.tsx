@@ -23,6 +23,11 @@ const snippets = [
     name: 'ElevenLabs',
     code: createSnippet('elevenlabs', "'multilingual_v2', 'aria'"),
   },
+  {
+    provider: 'lmnt',
+    name: 'LMNT',
+    code: createSnippet('lmnt', "'zeke'"),
+  },
 ];
 
 export const SpeechToSpeech = () => (
