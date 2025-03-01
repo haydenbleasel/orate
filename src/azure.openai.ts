@@ -9,7 +9,7 @@ const createProvider = (model: string, type: 'tts' | 'stt') => {
       ? process.env.AZURE_OPENAI_TTS_ENDPOINT
       : process.env.AZURE_OPENAI_STT_ENDPOINT;
   const apiVersion =
-    process.env.AZURE_OPENAI_API_VERSION ?? '2024-05-01-preview';
+    process.env.AZURE_OPENAI_API_VERSION ?? '2025-02-01-preview';
 
   if (!apiKey) {
     throw new Error('AZURE_OPENAI_API_KEY is not set');
