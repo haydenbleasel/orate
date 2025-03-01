@@ -77,6 +77,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.0.9)
+      ts-morph:
+        specifier: ^25.0.1
+        version: 25.0.1
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.0.9
