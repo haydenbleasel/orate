@@ -1,3 +1,15 @@
+# v1.3.2 (Sat Mar 01 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update layout.tsx ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.3.1 (Sat Mar 01 2025)
 
 #### 🐛 Bug Fix
