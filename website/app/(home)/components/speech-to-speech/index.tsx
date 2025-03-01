@@ -8,7 +8,7 @@ import Debate from './debate.jpg';
 const createSnippet = (
   provider: string,
   props?: string
-) => `import { speak } from 'orate';
+) => `import { change } from 'orate';
 import { ${provider} } from 'orate/${provider}';
 import audio from './audio.wav';
 
