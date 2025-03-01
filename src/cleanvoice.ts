@@ -158,7 +158,6 @@ const getEdit = async (id: string) => {
   }
 
   if (response.status === 'SUCCESS') {
-    console.log(response, 'response');
     return response.result;
   }
 };
