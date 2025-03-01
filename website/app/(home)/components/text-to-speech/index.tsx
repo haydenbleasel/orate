@@ -50,7 +50,7 @@ const snippets = [
     code: createSnippet('azureOpenai', "'tts', 'alloy'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
-      <audio className="w-full" src="/examples/tts/azure-openai.wav" controls />
+      <audio className="w-full" src="/examples/tts/azure.openai.wav" controls />
     ),
   },
   {
