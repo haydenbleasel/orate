@@ -65,7 +65,10 @@ type EditOptions = {
   merge?: boolean;
 };
 
-const edit = async (audioUrl: string, options?: EditOptions) => {
+const edit = async (
+  audioUrl: string,
+  options?: Omit<EditOptions, 'transcription'>
+) => {
   const url = new URL('/v2/edits', 'https://api.cleanvoice.ai');
 
   const response = await ky
@@ -73,7 +76,10 @@ const edit = async (audioUrl: string, options?: EditOptions) => {
       json: {
         input: {
           files: [audioUrl],
-          config: options,
+          config: {
+            ...options,
+            transcription: true,
+          },
         },
       },
       headers: {
@@ -152,10 +158,7 @@ const getEdit = async (id: string) => {
   }
 
   if (response.status === 'SUCCESS') {
-    if (!response.result?.transcription?.paragraphs) {
-      throw new Error('No transcription');
-    }
-
+    console.log(response, 'response');
     return response.result;
   }
 };
@@ -163,10 +166,10 @@ const getEdit = async (id: string) => {
 export const cleanvoice = {
   /**
    * Creates a speech-to-text transcription function using CleanVoice
-   * @param {EditOptions} properties - Additional properties for the transcription request
+   * @param {Omit<EditOptions, 'transcription'>} properties - Additional properties for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (options?: EditOptions) => {
+  stt: (options?: Omit<EditOptions, 'transcription'>) => {
     return async (audio: File) => {
       const presignedUrl = await getPresignedUrl(audio);
 
