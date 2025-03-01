@@ -1,31 +1,49 @@
-import { baseOptions } from '@/app/layout.config';
 import { source } from '@/lib/source';
-import { DocsLayout } from 'fumadocs-ui/layouts/docs';
-import { HomeLayout } from 'fumadocs-ui/layouts/home';
+import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
 import type { ReactNode } from 'react';
+import { Logo } from '../(home)/components/logo';
 
 type LayoutProps = {
   children: ReactNode;
 };
 
 const Layout = ({ children }: LayoutProps) => (
-  <HomeLayout className="group docs pt-0" {...baseOptions}>
-    <DocsLayout
-      tree={source.pageTree}
-      {...baseOptions}
-      nav={{
-        enabled: false,
-      }}
-      disableThemeSwitch
-      links={[]}
-      sidebar={{
-        hideSearch: true,
-        collapsible: false,
-      }}
-    >
-      {children}
-    </DocsLayout>
-  </HomeLayout>
+  <DocsLayout
+    tree={source.pageTree}
+    nav={{
+      mode: 'top',
+      title: <Logo />,
+    }}
+    disableThemeSwitch
+    links={[
+      {
+        text: 'Home',
+        url: '/',
+        active: 'url',
+      },
+      {
+        text: 'Docs',
+        url: '/docs',
+        active: 'nested-url',
+      },
+      {
+        text: 'NPM',
+        url: 'https://www.npmjs.com/package/orate',
+        active: 'none',
+      },
+      {
+        text: 'GitHub',
+        url: 'https://github.com/haydenbleasel/orate',
+        active: 'none',
+      },
+    ]}
+    tabMode="navbar"
+    sidebar={{
+      collapsible: false,
+    }}
+  >
+    {children}
+  </DocsLayout>
 );
 
 export default Layout;
