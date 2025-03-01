@@ -3,15 +3,15 @@ import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
 import { openaiAzure } from '../src/azure.openai';
 
-describe('OpenAI Tests', () => {
+describe('Azure OpenAI Tests', () => {
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: openaiAzure.tts('tts-1', 'ash'),
+      model: openaiAzure.tts('tts', 'alloy'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
     await writeFile(
-      './website/public/examples/tts/openai.wav',
+      './website/public/examples/tts/azure.openai.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 
@@ -24,7 +24,7 @@ describe('OpenAI Tests', () => {
     const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });
 
     const text = await transcribe({
-      model: openaiAzure.stt('whisper-1'),
+      model: openaiAzure.stt('whisper'),
       audio,
     });
 

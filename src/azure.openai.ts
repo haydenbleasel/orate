@@ -2,9 +2,14 @@ import { AzureOpenAI } from 'openai';
 import type { SpeechCreateParams } from 'openai/resources/audio/speech';
 import type { TranscriptionCreateParams } from 'openai/resources/audio/transcriptions';
 
-const createProvider = () => {
+const createProvider = (model: string, type: 'tts' | 'stt') => {
   const apiKey = process.env.AZURE_OPENAI_API_KEY;
-  const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
+  const endpoint =
+    type === 'tts'
+      ? process.env.AZURE_OPENAI_TTS_ENDPOINT
+      : process.env.AZURE_OPENAI_STT_ENDPOINT;
+  const apiVersion =
+    process.env.AZURE_OPENAI_API_VERSION ?? '2024-05-01-preview';
 
   if (!apiKey) {
     throw new Error('AZURE_OPENAI_API_KEY is not set');
@@ -16,29 +21,30 @@ const createProvider = () => {
 
   return new AzureOpenAI({
     apiKey,
-    apiVersion: '2024-10-21',
+    apiVersion,
     endpoint,
+    deployment: model,
   });
 };
 
 export const openaiAzure = {
   /**
    * Creates a text-to-speech synthesis function using OpenAI TTS
-   * @param {SpeechCreateParams["model"]} model - The model to use for synthesis. Defaults to 'tts-1'
+   * @param {string} model - The model (Resource ID) to use for synthesis.
    * @param {SpeechCreateParams["voice"]} voice - The voice to use for synthesis. Defaults to 'alloy'
    * @param {Omit<SpeechCreateParams, 'model' | 'voice' | 'input'>} properties - Additional properties for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
-    model: SpeechCreateParams['model'] = 'tts-1',
-    voice: SpeechCreateParams['voice'] = 'alloy',
+    model: string,
+    voice: SpeechCreateParams['voice'],
     properties?: Omit<SpeechCreateParams, 'model' | 'voice' | 'input'>
   ) => {
-    const provider = createProvider();
+    const provider = createProvider(model, 'tts');
 
     return async (prompt: string) => {
       const response = await provider.audio.speech.create({
-        model,
+        model: '',
         voice,
         input: prompt,
         response_format: 'mp3',
@@ -61,10 +67,10 @@ export const openaiAzure = {
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt: (
-    model: TranscriptionCreateParams['model'] = 'whisper-1',
+    model: string,
     properties?: Omit<TranscriptionCreateParams, 'model' | 'file'>
   ) => {
-    const provider = createProvider();
+    const provider = createProvider(model, 'stt');
 
     return async (audio: File) => {
       const response = await provider.audio.transcriptions.create({
