@@ -1,3 +1,15 @@
+# v1.5.0 (Sat Mar 01 2025)
+
+#### 🚀 Enhancement
+
+- Add Cleanvoice STT and ISL [#32](https://github.com/haydenbleasel/orate/pull/32) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.4.1 (Sat Mar 01 2025)
 
 #### ⚠️ Pushed to `main`
