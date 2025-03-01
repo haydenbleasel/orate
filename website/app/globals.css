@@ -127,47 +127,11 @@
   }
 }
 
-#nd-nav {
-  @apply bg-secondary/90 shadow-none backdrop-blur-xs m-0 border-none w-full rounded-none sticky top-0 left-auto right-auto translate-x-0 translate-y-0 mx-auto;
-  @apply group-[.docs]:max-w-none group-[.docs]:border-b group-[.docs]:border-x-0 group-[.docs]:border-t-0 group-[.docs]:border-solid
-}
-
-.dark #nd-nav {
-  @apply bg-background/90;
-}
-
-#nd-nav nav {
-  @apply h-auto sm:h-auto py-4;
-}
-
-:root {
-  --navbar-height: 64px;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --navbar-height: 68px;
-  }
-}
-
-#nd-sidebar {
-  @apply bg-background;
-  --fd-sidebar-height: calc(100dvh - var(--fd-banner-height) - var(--fd-nav-height) - var(--navbar-height)) !important;
-}
-
-#nd-sidebar > div {
-  @apply md:pt-0;
-}
-
-#nd-toc {
-  --fd-toc-height: calc(100dvh - var(--fd-banner-height) - var(--fd-nav-height) - var(--navbar-height));
-}
-
-.top-fd-layout-top {
-  top: calc(var(--fd-banner-height) + var(--fd-nav-height) + var(--navbar-height)) !important;
-}
-
 /* Fix Fumadocs theme toggle icons */
 [data-theme-toggle] svg {
   @apply fill-none;
+}
+
+#nd-docs-layout {
+  @apply min-h-screen;
 }

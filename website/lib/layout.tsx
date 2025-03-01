@@ -1,18 +1,14 @@
-import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import { Logo } from './(home)/components/logo';
+import { Logo } from '@/app/(home)/components/logo';
+import { source } from '@/lib/source';
+import type { DocsLayoutProps } from 'fumadocs-ui/layouts/notebook';
 
-/**
- * Shared layout configurations
- *
- * you can configure layouts individually from:
- * Home Layout: app/(home)/layout.tsx
- * Docs Layout: app/docs/layout.tsx
- */
-export const baseOptions: BaseLayoutProps = {
+export const layout: DocsLayoutProps = {
+  tree: source.pageTree,
   nav: {
-    // can be JSX too!
+    mode: 'top',
     title: <Logo />,
   },
+  disableThemeSwitch: true,
   links: [
     {
       text: 'Home',
@@ -35,4 +31,8 @@ export const baseOptions: BaseLayoutProps = {
       active: 'none',
     },
   ],
+  tabMode: 'navbar',
+  sidebar: {
+    collapsible: false,
+  },
 };

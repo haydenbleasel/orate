@@ -1,5 +1,5 @@
-import { baseOptions } from '@/app/layout.config';
-import { HomeLayout } from 'fumadocs-ui/layouts/home';
+import { layout } from '@/lib/layout';
+import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
 import type { ReactNode } from 'react';
 
 type LayoutProps = {
@@ -7,9 +7,16 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => (
-  <HomeLayout className="pt-0" {...baseOptions}>
-    {children}
-  </HomeLayout>
+  <DocsLayout
+    {...layout}
+    sidebar={{
+      hidden: true,
+      collapsible: false,
+    }}
+    tabMode="sidebar"
+  >
+    <main className="mx-auto pt-16">{children}</main>
+  </DocsLayout>
 );
 
 export default Layout;

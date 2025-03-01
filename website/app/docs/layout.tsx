@@ -1,7 +1,5 @@
-import { baseOptions } from '@/app/layout.config';
-import { source } from '@/lib/source';
-import { DocsLayout } from 'fumadocs-ui/layouts/docs';
-import { HomeLayout } from 'fumadocs-ui/layouts/home';
+import { layout } from '@/lib/layout';
+import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
 import type { ReactNode } from 'react';
 
 type LayoutProps = {
@@ -9,23 +7,7 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => (
-  <HomeLayout className="group docs pt-0" {...baseOptions}>
-    <DocsLayout
-      tree={source.pageTree}
-      {...baseOptions}
-      nav={{
-        enabled: false,
-      }}
-      disableThemeSwitch
-      links={[]}
-      sidebar={{
-        hideSearch: true,
-        collapsible: false,
-      }}
-    >
-      {children}
-    </DocsLayout>
-  </HomeLayout>
+  <DocsLayout {...layout}>{children}</DocsLayout>
 );
 
 export default Layout;
