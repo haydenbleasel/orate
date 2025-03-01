@@ -108,6 +108,15 @@ const snippets = [
     ),
   },
   {
+    provider: 'hume',
+    name: 'Hume',
+    code: createSnippet('hume', "'A Roman senator'"),
+    children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
+      <audio className="w-full" src="/examples/tts/hume.wav" controls />
+    ),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { speak } from 'orate';
