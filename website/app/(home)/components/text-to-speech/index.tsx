@@ -36,6 +36,24 @@ const snippets = [
     ),
   },
   {
+    provider: 'azure',
+    name: 'Azure',
+    code: createSnippet('azure', "'en-US-AriaNeural'"),
+    children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
+      <audio className="w-full" src="/examples/tts/azure.wav" controls />
+    ),
+  },
+  {
+    provider: 'azureOpenai',
+    name: 'Azure OpenAI',
+    code: createSnippet('azureOpenai', "'tts', 'alloy'"),
+    children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
+      <audio className="w-full" src="/examples/tts/azure.openai.wav" controls />
+    ),
+  },
+  {
     provider: 'google',
     name: 'Google',
     code: createSnippet('google', "'en-US-Casual-K'"),
