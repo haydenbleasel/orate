@@ -39,7 +39,7 @@ const uploadFile = async (presignedUrl: string, file: File) => {
   }
 };
 
-type IsolateOptions = {
+type EditOptions = {
   video?: boolean;
   send_email?: boolean;
   long_silences?: boolean;
@@ -65,7 +65,7 @@ type IsolateOptions = {
   merge?: boolean;
 };
 
-const isolate = async (audioUrl: string, options?: IsolateOptions) => {
+const edit = async (audioUrl: string, options?: EditOptions) => {
   const url = new URL('/v2/edits', 'https://api.cleanvoice.ai');
 
   const response = await ky
@@ -85,7 +85,7 @@ const isolate = async (audioUrl: string, options?: IsolateOptions) => {
   return response.id;
 };
 
-type GetIsolatationResponse = {
+type GetEditResponse = {
   status: 'PENDING' | 'STARTED' | 'SUCCESS' | 'RETRY' | 'FAILURE';
   result: {
     video: boolean;
@@ -138,14 +138,14 @@ type GetIsolatationResponse = {
   task_id: string;
 };
 
-const getIsolatation = async (id: string) => {
+const getEdit = async (id: string) => {
   const response = await ky
     .get(`https://api.cleanvoice.ai/v2/edits/${id}`, {
       headers: {
         'X-API-Key': getApiKey(),
       },
     })
-    .json<GetIsolatationResponse>();
+    .json<GetEditResponse>();
 
   if (response.status === 'FAILURE') {
     throw new Error(`Error: ${response.status}`);
@@ -156,31 +156,66 @@ const getIsolatation = async (id: string) => {
       throw new Error('No transcription');
     }
 
-    return response.result.transcription.paragraphs
-      .map((p) => p.text)
-      .join(' ');
+    return response.result;
   }
 };
 
 export const cleanvoice = {
   /**
-   * Creates a speech-to-text transcription function using Gladia
-   * @param {object} options - Additional options for the transcription request
+   * Creates a speech-to-text transcription function using CleanVoice
+   * @param {EditOptions} properties - Additional properties for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  isolate: (options?: IsolateOptions) => {
+  stt: (options?: EditOptions) => {
     return async (audio: File) => {
       const presignedUrl = await getPresignedUrl(audio);
 
       await uploadFile(presignedUrl, audio);
 
-      const id = await isolate(presignedUrl, options);
+      const id = await edit(presignedUrl, options);
 
       while (true) {
-        const text = await getIsolatation(id);
+        const result = await getEdit(id);
 
-        if (text) {
-          return text;
+        if (result) {
+          return result.transcription.paragraphs.map((p) => p.text).join(' ');
+        }
+
+        // If queued or processing, wait 1 second before polling again
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    };
+  },
+
+  /**
+   * Creates a speech-to-text transcription function using Gladia
+   * @param {object} options - Additional options for the transcription request
+   * @returns {Function} Async function that takes audio and returns transcribed text
+   */
+  isl: (options?: EditOptions) => {
+    return async (audio: File) => {
+      const presignedUrl = await getPresignedUrl(audio);
+
+      await uploadFile(presignedUrl, audio);
+
+      const id = await edit(presignedUrl, options);
+
+      while (true) {
+        const result = await getEdit(id);
+
+        if (result) {
+          const response = await ky.get(result.download_url, {
+            headers: {
+              'X-API-Key': getApiKey(),
+            },
+          });
+
+          const buffer = await response.arrayBuffer();
+          const file = new File([buffer], 'isolated-speech.mp3', {
+            type: 'audio/mpeg',
+          });
+
+          return file;
         }
 
         // If queued or processing, wait 1 second before polling again
