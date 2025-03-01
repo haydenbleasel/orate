@@ -1,5 +1,6 @@
 import { ProviderCard } from '@/app/components/provider-card';
 import { source } from '@/lib/source';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import {
   DocsBody,
@@ -34,7 +35,14 @@ const Page = async (props: PageProps) => {
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
-        <MDX components={{ ...defaultMdxComponents, ProviderCard }} />
+        <MDX
+          components={{
+            ...defaultMdxComponents,
+            ProviderCard,
+            Tab,
+            Tabs,
+          }}
+        />
       </DocsBody>
     </DocsPage>
   );
