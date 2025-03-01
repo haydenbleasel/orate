@@ -12,6 +12,7 @@ import Fal from '../../../public/providers/fal.svg';
 import Gladia from '../../../public/providers/gladia.svg';
 import Google from '../../../public/providers/google.svg';
 import Groq from '../../../public/providers/groq.svg';
+import Hume from '../../../public/providers/hume.svg';
 import IBM from '../../../public/providers/ibm.svg';
 import Murf from '../../../public/providers/murf.svg';
 import OpenAI from '../../../public/providers/openai.svg';
@@ -36,6 +37,7 @@ const providers = [
   { name: 'Groq', image: Groq, href: '/docs/groq' },
   { name: 'Play', image: Play, href: '/docs/play' },
   { name: 'Fal', image: Fal, href: '/docs/fal' },
+  { name: 'Hume', image: Hume, href: '/docs/hume' },
 ];
 
 export const Providers = () => (
