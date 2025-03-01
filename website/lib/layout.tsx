@@ -8,6 +8,7 @@ export const layout: DocsLayoutProps = {
     mode: 'top',
     title: <Logo />,
   },
+  githubUrl: 'https://github.com/haydenbleasel/orate',
   disableThemeSwitch: true,
   links: [
     {
@@ -23,11 +24,6 @@ export const layout: DocsLayoutProps = {
     {
       text: 'NPM',
       url: 'https://www.npmjs.com/package/orate',
-      active: 'none',
-    },
-    {
-      text: 'GitHub',
-      url: 'https://github.com/haydenbleasel/orate',
       active: 'none',
     },
   ],
