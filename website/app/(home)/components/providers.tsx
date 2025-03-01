@@ -14,6 +14,7 @@ import Google from '../../../public/providers/google.svg';
 import Groq from '../../../public/providers/groq.svg';
 import Hume from '../../../public/providers/hume.svg';
 import IBM from '../../../public/providers/ibm.svg';
+import LMNT from '../../../public/providers/lmnt.svg';
 import Murf from '../../../public/providers/murf.svg';
 import OpenAI from '../../../public/providers/openai.svg';
 import Play from '../../../public/providers/play.svg';
@@ -38,6 +39,7 @@ const providers = [
   { name: 'Play', image: Play, href: '/docs/play' },
   { name: 'Fal', image: Fal, href: '/docs/fal' },
   { name: 'Hume', image: Hume, href: '/docs/hume' },
+  { name: 'LMNT', image: LMNT, href: '/docs/lmnt' },
 ];
 
 const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (
