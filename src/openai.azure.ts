@@ -3,10 +3,10 @@ import type { SpeechCreateParams } from 'openai/resources/audio/speech';
 import type { TranscriptionCreateParams } from 'openai/resources/audio/transcriptions';
 
 const createProvider = () => {
-  const apiKey = process.env.AZURE_OPENAI_API_KEY;
+  const apiKey = process.env.AZURE_API_KEY;
 
   if (!apiKey) {
-    throw new Error('AZURE_OPENAI_API_KEY is not set');
+    throw new Error('AZURE_API_KEY is not set');
   }
 
   return new AzureOpenAI({ apiKey });
