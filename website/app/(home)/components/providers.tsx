@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AssemblyAI from '../../../public/providers/assembly.svg';
 import Azure from '../../../public/providers/azure.svg';
+import CleanVoice from '../../../public/providers/cleanvoice.svg';
 import Deepgram from '../../../public/providers/deepgram.svg';
 import ElevenLabs from '../../../public/providers/elevenlabs.svg';
 import Fal from '../../../public/providers/fal.svg';
@@ -40,6 +41,7 @@ const providers = [
   { name: 'Fal', image: Fal, href: '/docs/providers/fal' },
   { name: 'Hume', image: Hume, href: '/docs/providers/hume' },
   { name: 'LMNT', image: LMNT, href: '/docs/providers/lmnt' },
+  { name: 'CleanVoice', image: CleanVoice, href: '/docs/providers/cleanvoice' },
 ];
 
 const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (
