@@ -1,17 +1,5 @@
 {
   "title": "ui",
   "root": true,
-  "pages": [
-    "index",
-    "installation",
-    "---Functions---",
-    "stt",
-    "tts",
-    "sts",
-    "isl",
-    "---Providers---",
-    "...",
-    "---Other---",
-    "contributing"
-  ]
+  "pages": ["index", "installation"]
 }
