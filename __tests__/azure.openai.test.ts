@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
-import { openaiAzure } from '../src/openai.azure';
+import { openaiAzure } from '../src/azure.openai';
 
 describe('OpenAI Tests', () => {
   it('should convert text to speech', async () => {
