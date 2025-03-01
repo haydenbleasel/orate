@@ -215,7 +215,7 @@ export const TextToSpeech = () => (
         delay={0.8}
       >
         <Button asChild size="lg" className="px-4">
-          <Link href="/docs/tts">Read the docs</Link>
+          <Link href="/docs/features/tts">Read the docs</Link>
         </Button>
       </AnimateProvider>
     </div>
