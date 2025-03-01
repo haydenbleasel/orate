@@ -20,8 +20,8 @@ export const hume = {
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts: (
-    model: string,
-    voice: string,
+    model?: string,
+    voice?: string,
     properties?: Omit<PostedTts, 'utterances' | 'format'>
   ) => {
     const provider = createProvider();
@@ -36,21 +36,20 @@ export const hume = {
           },
         ],
         format: {
-          type: 'mp3',
+          type: 'wav',
         },
         ...properties,
       });
 
-      const buffer = response.generations.at(0)?.audio;
+      const [generation] = response.generations;
 
-      console.log(buffer, 'buffer');
-
-      if (!buffer) {
-        throw new Error('No buffer');
+      if (!generation) {
+        throw new Error('No audio returned from Hume');
       }
 
-      const file = new File([buffer], 'speech.mp3', {
-        type: 'audio/mpeg',
+      const base64 = Buffer.from(generation.audio, 'base64');
+      const file = new File([base64], 'speech.wav', {
+        type: 'audio/wav',
       });
 
       return file;
