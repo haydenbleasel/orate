@@ -1,3 +1,21 @@
+# v1.3.0 (Sat Mar 01 2025)
+
+#### 🚀 Enhancement
+
+- Add Hume [#28](https://github.com/haydenbleasel/orate/pull/28) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### 🔩 Dependency Updates
+
+- Bump typescript from 5.7.3 to 5.8.2 [#26](https://github.com/haydenbleasel/orate/pull/26) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump openai from 4.85.4 to 4.86.1 [#25](https://github.com/haydenbleasel/orate/pull/25) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.2.1 (Sat Mar 01 2025)
 
 #### 🐛 Bug Fix
