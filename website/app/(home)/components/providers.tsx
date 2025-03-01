@@ -23,7 +23,7 @@ import Replicate from '../../../public/providers/replicate.svg';
 import Rev from '../../../public/providers/rev.svg';
 import Speechify from '../../../public/providers/speechify.svg';
 
-const providers = [
+export const providers = [
   { name: 'OpenAI', image: OpenAI, href: '/docs/providers/openai' },
   { name: 'ElevenLabs', image: ElevenLabs, href: '/docs/providers/elevenlabs' },
   { name: 'AssemblyAI', image: AssemblyAI, href: '/docs/providers/assembly' },
