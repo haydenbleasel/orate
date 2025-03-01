@@ -24,6 +24,11 @@ const snippets = [
     code: createSnippet('elevenlabs'),
   },
   {
+    provider: 'cleanvoice',
+    name: 'CleanVoice',
+    code: createSnippet('cleanvoice'),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { isolate } from 'orate';

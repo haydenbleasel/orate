@@ -77,6 +77,11 @@ const snippets = [
     code: createSnippet('fal', "'fal-ai/whisper'"),
   },
   {
+    provider: 'cleanvoice',
+    name: 'CleanVoice',
+    code: createSnippet('cleanvoice'),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { transcribe } from 'orate';

@@ -1,0 +1,78 @@
+---
+title: CleanVoice
+description: Orate supports CleanVoice's speech services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Cleanvoice helps you remove background noise, filler words, long silence, and mouth sounds from your podcast using AI. Orate supports Cleanvoice's speech-to-text and speech isolation services.
+
+## Setup
+
+The CleanVoice provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { cleanvoice } from 'orate/cleanvoice';
+```
+
+## Configuration
+
+The CleanVoice provider looks for the `CLEANVOICE_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+CLEANVOICE_API_KEY="your_api_key"
+```
+
+## Usage
+
+The CleanVoice provider provides a single interface for all of CleanVoice's speech services.
+
+### Speech to Text
+
+The CleanVoice provider provides a `stt` function that allows you to create a speech-to-text transcription function using CleanVoice.
+
+```ts
+import { transcribe } from 'orate';
+import { cleanvoice } from 'orate/cleanvoice';
+
+const text = await transcribe({
+  model: cleanvoice.stt(),
+  audio: new File(...),
+});
+```
+
+You can also specify specific CleanVoice properties by passing them as an argument to the `stt` function.
+
+```ts
+const text = await transcribe({
+  model: cleanvoice.stt({
+    long_silences: true,
+  }),
+  audio: new File(...),
+});
+```
+
+### Speech Isolation
+
+The CleanVoice provider provides a `isl` function that allows you to isolate the speech from the audio.
+
+```ts
+import { isolate } from 'orate';
+import { cleanvoice } from 'orate/cleanvoice';
+
+const speech = await isolate({
+  model: cleanvoice.isl(),
+  audio: new File(...),
+});
+```
+
+You can also specify specific CleanVoice properties by passing them as an argument to the `isl` function.
+
+```ts
+const speech = await isolate({
+  model: cleanvoice.isl({
+    long_silences: true,
+  }),
+  audio: new File(...),
+});
+```
