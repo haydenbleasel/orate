@@ -131,3 +131,7 @@
 [data-theme-toggle] svg {
   @apply fill-none;
 }
+
+#nd-docs-layout {
+  @apply min-h-screen;
+}

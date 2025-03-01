@@ -5,7 +5,7 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  redirects: [
+  redirects: () => [
     {
       source: '/docs/features',
       destination: '/docs/features/tts',
