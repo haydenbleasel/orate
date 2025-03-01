@@ -1,3 +1,15 @@
+# v1.2.1 (Sat Mar 01 2025)
+
+#### 🐛 Bug Fix
+
+- Add Azure OpenAI [#27](https://github.com/haydenbleasel/orate/pull/27) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.2.0 (Fri Feb 28 2025)
 
 #### 🚀 Enhancement
