@@ -1,0 +1,90 @@
+---
+title: Microsoft Azure OpenAI
+description: Orate supports Azure's OpenAI services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Azure OpenAI is a cloud-based AI platform that provides a range of OpenAI models on their cloud computing platform. 
+
+## Setup
+
+The Azure OpenAI provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { azureOpenai } from 'orate/azure.openai';
+```
+
+## Configuration
+
+The Azure OpenAI provider looks for a number of environment variables. These variables are required for the provider to work. Simply add the following to your `.env` file:
+
+```bash
+AZURE_OPENAI_API_KEY="" # The API key for the Azure OpenAI resource
+AZURE_OPENAI_TTS_ENDPOINT="" # The endpoint for the Azure OpenAI TTS resource e.g. tts
+AZURE_OPENAI_STT_ENDPOINT="" # The endpoint for the Azure OpenAI STT resource e.g. whisper
+AZURE_OPENAI_API_VERSION="" # The API version to use. Defaults to "2025-02-01-preview"
+```
+
+## Usage
+
+The Azure OpenAI provider provides a single interface for all of Azure's OpenAI services.
+
+### Text to Speech
+
+The Azure OpenAI provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Azure OpenAI TTS.
+
+```ts
+import { speak } from 'orate';
+import { azureOpenai } from 'orate/azure.openai';
+
+const speech = await speak({
+  model: azureOpenai.tts('tts', 'alloy'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the voice to use by passing it as an argument to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: azureOpenai.tts('tts', 'nova'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific OpenAI properties by passing them as an argument to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: azureOpenai.tts('tts', 'alloy', {
+    speed: 1.25,
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+### Speech to Text
+
+The Azure OpenAI provider provides a `stt` function that allows you to create a speech-to-text transcription function using Azure OpenAI Whisper.
+
+```ts
+import { transcribe } from 'orate';
+import { azureOpenai } from 'orate/azure.openai';
+
+const text = await transcribe({
+  model: azureOpenai.stt('whisper'),
+  audio: new File(...),
+});
+```
+
+You can also specify specific OpenAI properties by passing them as an argument to the `stt` function.
+
+```ts
+const text = await transcribe({
+  model: azureOpenai.stt('whisper', {
+    temperature: 0.5,
+  }),
+  audio: new File(...),
+});
+```
