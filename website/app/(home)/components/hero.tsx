@@ -34,7 +34,7 @@ export const Hero = () => (
       whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
       delay={0.4}
     >
-      <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <div className="flex items-center justify-center gap-4">
         <Installer code="npm i orate" />
         <Button asChild variant="link" size="lg" className="px-4">
           <Link href="/docs">Read the docs</Link>

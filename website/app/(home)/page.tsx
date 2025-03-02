@@ -13,16 +13,16 @@ const description =
 export const metadata: Metadata = createMetadata(title, description);
 
 const Home = () => (
-  <div className="grid h-[calc(100dvh-var(--fd-nav-height))] grid-cols-2 divide-x overflow-hidden">
-    <div className="relative flex items-end justify-start p-16">
+  <div className="grid h-[calc(100dvh-var(--fd-nav-height))] divide-x overflow-hidden md:grid-cols-2">
+    <div className="relative flex items-end justify-start p-8 lg:p-16">
       <Image
         src={Speech}
         alt="Speech"
-        className="absolute inset-0 object-cover opacity-5"
+        className="absolute inset-0 size-full object-cover opacity-5"
       />
       <Hero />
     </div>
-    <div className="grid grid-rows-2 divide-y overflow-hidden">
+    <div className="hidden grid-rows-2 divide-y overflow-hidden md:grid">
       <div className="grid overflow-auto">
         <HeroSnippet />
       </div>
