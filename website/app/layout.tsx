@@ -1,4 +1,3 @@
-import { ThemeProvider } from '@/app/providers/theme';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/next';
@@ -21,12 +20,14 @@ const RootLayout = ({ children }: RootLayoutProps) => (
         'bg-secondary font-sans antialiased dark:bg-background'
       )}
     >
-      <ThemeProvider>
-        <RootProvider>
-          {children}
-          <Toaster />
-        </RootProvider>
-      </ThemeProvider>
+      <RootProvider
+        theme={{
+          defaultTheme: 'dark',
+        }}
+      >
+        {children}
+        <Toaster />
+      </RootProvider>
       <Analytics />
     </body>
   </html>
