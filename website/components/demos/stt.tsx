@@ -104,5 +104,5 @@ const text = await transcribe({
 ];
 
 export const SpeechToTextDemo = () => {
-  return <Snippet snippets={snippets} />;
+  return <Snippet data={snippets} />;
 };

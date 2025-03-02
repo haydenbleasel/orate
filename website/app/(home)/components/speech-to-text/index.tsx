@@ -151,7 +151,7 @@ export const SpeechToText = () => (
         delay={0.6}
         className="grid"
       >
-        <Snippet snippets={snippets} />
+        <Snippet data={snippets} />
       </AnimateProvider>
       <AnimateProvider
         initial={{ opacity: 0, transform: 'translateY(-8px)' }}

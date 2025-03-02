@@ -166,5 +166,5 @@ const speech = await speak({
 ];
 
 export const TextToSpeechDemo = () => {
-  return <Snippet snippets={snippets} />;
+  return <Snippet data={snippets} />;
 };

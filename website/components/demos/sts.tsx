@@ -26,5 +26,5 @@ const snippets = [
 ];
 
 export const SpeechToSpeechDemo = () => {
-  return <Snippet snippets={snippets} />;
+  return <Snippet data={snippets} />;
 };

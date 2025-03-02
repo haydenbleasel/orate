@@ -76,5 +76,5 @@ const speech = await isolate({
 ];
 
 export const SpeechIsolationDemo = () => {
-  return <Snippet snippets={snippets} />;
+  return <Snippet data={snippets} />;
 };
