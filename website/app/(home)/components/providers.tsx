@@ -79,10 +79,7 @@ const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (
 export const Providers = () => (
   <section
     id="providers"
-    className={cn(
-      'container mx-auto grid gap-8 overflow-hidden border-y px-4 py-8 text-center',
-      'sm:gap-16 sm:py-16'
-    )}
+    className="grid items-center justify-center gap-8 overflow-hidden py-16 text-center"
   >
     <AnimateProvider
       initial={{ opacity: 0, transform: 'translateY(-8px)' }}
@@ -101,7 +98,6 @@ export const Providers = () => (
       <MarqueeProvider
         loop={0}
         autoFill
-        pauseOnHover
         className="overflow-visible! flex items-center"
       >
         {providers.slice(0, providers.length / 2).map((props) => (
@@ -111,7 +107,6 @@ export const Providers = () => (
       <MarqueeProvider
         loop={0}
         autoFill
-        pauseOnHover
         direction="right"
         className="overflow-visible! flex items-center"
       >
@@ -119,8 +114,6 @@ export const Providers = () => (
           <MarqueeItem key={props.name} {...props} />
         ))}
       </MarqueeProvider>
-      <div className="absolute top-0 bottom-0 left-0 z-10 h-full w-24 bg-linear-to-r from-secondary to-transparent dark:from-background" />
-      <div className="absolute top-0 right-0 bottom-0 z-10 h-full w-24 bg-linear-to-l from-secondary to-transparent dark:from-background" />
     </AnimateProvider>
   </section>
 );
