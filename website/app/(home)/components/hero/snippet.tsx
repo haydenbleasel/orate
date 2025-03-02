@@ -22,7 +22,7 @@ export const HeroSnippet = async () => {
 
   return (
     <div
-      className="[&_.shiki]:size-full [&_.shiki]:p-8"
+      className="text-sm [&_.shiki]:size-full [&_.shiki]:p-8"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

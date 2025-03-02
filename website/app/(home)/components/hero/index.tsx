@@ -11,7 +11,12 @@ import { Waveform } from './waveform';
 
 export const Hero = () => (
   <div className="grid h-[calc(100dvh-var(--fd-nav-height))] grid-cols-2 divide-x overflow-hidden">
-    <div className="flex items-end justify-start p-16">
+    <div className="relative flex items-end justify-start p-16">
+      <Image
+        src={Speech}
+        alt="Speech"
+        className="absolute inset-0 object-cover opacity-5"
+      />
       <div className="flex flex-col items-start gap-8">
         <Waveform />
         <AnimateProvider
@@ -53,10 +58,7 @@ export const Hero = () => (
       <div className="grid overflow-hidden">
         <HeroSnippet />
       </div>
-      <div className="flex divide-x">
-        <Image src={Speech} alt="Speech" className="h-full w-auto" />
-        <Providers />
-      </div>
+      <Providers />
     </div>
   </div>
 );
