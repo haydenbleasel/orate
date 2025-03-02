@@ -16,7 +16,7 @@ const Layout = ({ children }: LayoutProps) => (
     tabMode="sidebar"
   >
     <main
-      className="mx-auto"
+      className="w-full"
       style={{
         paddingTop: 'var(--fd-nav-height)',
       }}
