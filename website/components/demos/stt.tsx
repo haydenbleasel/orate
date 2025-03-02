@@ -1,4 +1,4 @@
-import { Snippet } from '@/app/(home)/components/snippet';
+import { Snippet } from './snippet';
 
 const createSnippet = (
   provider: string,
