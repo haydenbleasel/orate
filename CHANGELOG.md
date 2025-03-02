@@ -1,3 +1,15 @@
+# v1.5.1 (Sun Mar 02 2025)
+
+#### 🐛 Bug Fix
+
+- Update website [#33](https://github.com/haydenbleasel/orate/pull/33) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.5.0 (Sat Mar 01 2025)
 
 #### 🚀 Enhancement
