@@ -5,8 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Balancer from 'react-wrap-balancer';
 import { Providers } from '../providers';
-import Speech from '../text-to-speech/speech.jpg';
 import { HeroSnippet } from './snippet';
+import Speech from './speech.jpg';
 import { Waveform } from './waveform';
 
 export const Hero = () => (
