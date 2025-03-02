@@ -47,7 +47,7 @@ export const providers = [
 const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (
   <Link
     href={href}
-    className="group mx-8 block sm:mx-16"
+    className="group mx-8 block sm:mx-16 "
     key={name}
     aria-label={`View docs for ${name}`}
   >
@@ -79,7 +79,7 @@ const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (
 export const Providers = () => (
   <section
     id="providers"
-    className="grid items-center justify-center gap-8 overflow-hidden py-16 text-center"
+    className="grid gap-8 overflow-hidden py-16 text-center"
   >
     <AnimateProvider
       initial={{ opacity: 0, transform: 'translateY(-8px)' }}
