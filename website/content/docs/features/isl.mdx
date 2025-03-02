@@ -5,21 +5,11 @@ description: Isolate speech from the audio using leading AI providers.
 
 Orate provides a simple and unified API for isolating speech from the audio using various AI providers. It's a very handy function for removing background noise from chaotic audio. The speech isolation functionality is accessible through the `isolate` function.
 
-<SpeechIsolationDemo />
-
 ## Usage
 
 The basic usage involves importing the `isolate` function from Orate and your chosen provider. For example, to use ElevenLabs' speech isolation model, you can import the `ElevenLabs` provider and use its `isl` function:
 
-```ts
-import { isolate } from 'orate';
-import { elevenlabs } from 'orate/elevenlabs';
-
-const transcription = await isolate({
-  model: elevenlabs.isl(),
-  audio,
-});
-```
+<SpeechIsolationDemo />
 
 ### `model`
 
