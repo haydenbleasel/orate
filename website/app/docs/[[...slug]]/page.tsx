@@ -2,6 +2,7 @@ import { SpeechIsolationDemo } from '@/components/demos/isl';
 import { SpeechToSpeechDemo } from '@/components/demos/sts';
 import { SpeechToTextDemo } from '@/components/demos/stt';
 import { TextToSpeechDemo } from '@/components/demos/tts';
+import { Tweets } from '@/components/tweets';
 import { source } from '@/lib/source';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
@@ -47,6 +48,7 @@ const Page = async (props: PageProps) => {
             SpeechToTextDemo,
             SpeechToSpeechDemo,
             SpeechIsolationDemo,
+            Tweets,
           }}
         />
       </DocsBody>

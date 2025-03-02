@@ -1,7 +1,4 @@
-import { CallToAction } from '@/app/(home)/components/cta';
-import { Footer } from '@/app/(home)/components/footer';
 import { Hero } from '@/app/(home)/components/hero';
-import { Providers } from '@/app/(home)/components/providers';
 import { createMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import { Social } from './components/social';
@@ -15,10 +12,7 @@ export const metadata: Metadata = createMetadata(title, description);
 const Home = () => (
   <>
     <Hero />
-    <Providers />
-    <CallToAction />
     <Social />
-    <Footer />
   </>
 );
 
