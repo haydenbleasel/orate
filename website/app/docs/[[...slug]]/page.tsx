@@ -1,3 +1,4 @@
+import { TextToSpeechDemo } from '@/components/demos/tts';
 import { source } from '@/lib/source';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
@@ -39,6 +40,7 @@ const Page = async (props: PageProps) => {
             ...defaultMdxComponents,
             Tab,
             Tabs,
+            TextToSpeechDemo,
           }}
         />
       </DocsBody>
