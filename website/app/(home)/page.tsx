@@ -1,7 +1,6 @@
 import { Hero } from '@/app/(home)/components/hero';
 import { createMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
-import { Social } from './components/social';
 
 const title = 'Orate | The AI toolkit for speech';
 const description =
@@ -12,7 +11,6 @@ export const metadata: Metadata = createMetadata(title, description);
 const Home = () => (
   <>
     <Hero />
-    <Social />
   </>
 );
 
