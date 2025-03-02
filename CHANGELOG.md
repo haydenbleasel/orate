@@ -1,3 +1,15 @@
+# v1.5.3 (Sun Mar 02 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Remove redundant examples ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.5.2 (Sun Mar 02 2025)
 
 #### ⚠️ Pushed to `main`
