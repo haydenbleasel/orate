@@ -1,14 +1,10 @@
-import { CallToAction } from '@/app/(home)/components/cta';
-import { Footer } from '@/app/(home)/components/footer';
-import { Hero } from '@/app/(home)/components/hero';
-import { Providers } from '@/app/(home)/components/providers';
-import { SpeechToText } from '@/app/(home)/components/speech-to-text';
-import { TextToSpeech } from '@/app/(home)/components/text-to-speech';
 import { createMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
-import { Social } from './components/social';
-import { SpeechIsolation } from './components/speech-isolation';
-import { SpeechToSpeech } from './components/speech-to-speech';
+import Image from 'next/image';
+import { Hero } from './components/hero';
+import { Providers } from './components/providers';
+import { HeroSnippet } from './components/snippet';
+import Speech from './speech.jpg';
 
 const title = 'Orate | The AI toolkit for speech';
 const description =
@@ -17,17 +13,22 @@ const description =
 export const metadata: Metadata = createMetadata(title, description);
 
 const Home = () => (
-  <>
-    <Hero />
-    <Providers />
-    <TextToSpeech />
-    <SpeechToText />
-    <SpeechToSpeech />
-    <SpeechIsolation />
-    <CallToAction />
-    <Social />
-    <Footer />
-  </>
+  <div className="grid h-[calc(100dvh-var(--fd-nav-height))] divide-x overflow-hidden md:grid-cols-2">
+    <div className="relative flex items-end justify-start p-8 lg:p-16">
+      <Image
+        src={Speech}
+        alt="Speech"
+        className="absolute inset-0 size-full object-cover opacity-5"
+      />
+      <Hero />
+    </div>
+    <div className="hidden grid-rows-2 divide-y overflow-hidden md:grid">
+      <div className="grid overflow-auto">
+        <HeroSnippet />
+      </div>
+      <Providers />
+    </div>
+  </div>
 );
 
 export default Home;
