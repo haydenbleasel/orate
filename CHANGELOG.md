@@ -1,3 +1,15 @@
+# v1.5.2 (Sun Mar 02 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Remove duplicate theme provider ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.5.1 (Sun Mar 02 2025)
 
 #### 🐛 Bug Fix
