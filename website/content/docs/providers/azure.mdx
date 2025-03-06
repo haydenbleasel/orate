@@ -17,11 +17,19 @@ import { Azure } from 'orate/azure';
 
 ## Configuration
 
-The Azure provider looks for the `AZURE_API_KEY` and `AZURE_REGION` environment variables. These variables are required for the provider to work. Simply add the following to your `.env` file:
+You can use Azure by creating a new instance of the `Azure` class:
 
-```bash
-AZURE_API_KEY="your_api_key"
-AZURE_REGION="your_region" # e.g. "eastus"
+```ts
+const azure = new Azure();
+```
+
+This will use the `AZURE_API_KEY` and `AZURE_REGION` environment variables. If you don't have these variables set, you can pass your keys as an argument to the constructor.
+
+```ts
+const azure = new Azure({
+  apiKey: 'your_api_key',
+  region: 'your_region',
+});
 ```
 
 ## Usage

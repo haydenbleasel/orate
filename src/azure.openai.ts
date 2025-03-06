@@ -8,13 +8,26 @@ export class AzureOpenAI {
   private apiKey: string;
   private apiVersion: string;
 
-  constructor(apiKey?: string) {
-    this.apiKey = apiKey || process.env.AZURE_OPENAI_API_KEY || '';
+  constructor(options: {
+    apiKey?: string;
+    ttsEndpoint?: string;
+    sttEndpoint?: string;
+    apiVersion?: string;
+  }) {
+    this.apiKey = options.apiKey || process.env.AZURE_OPENAI_API_KEY || '';
     this.apiVersion =
-      process.env.AZURE_OPENAI_API_VERSION || '2025-02-01-preview';
+      options.apiVersion ||
+      process.env.AZURE_OPENAI_API_VERSION ||
+      '2025-02-01-preview';
 
     if (!this.apiKey) {
       throw new Error('AZURE_OPENAI_API_KEY is not set');
+    }
+
+    if (!options.ttsEndpoint && !options.sttEndpoint) {
+      throw new Error(
+        'AZURE_OPENAI_TTS_ENDPOINT or AZURE_OPENAI_STT_ENDPOINT is not set'
+      );
     }
   }
 

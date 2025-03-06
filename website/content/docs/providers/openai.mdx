@@ -17,10 +17,16 @@ import { OpenAI } from 'orate/openai';
 
 ## Configuration
 
-The OpenAI provider looks for the `OPENAI_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use OpenAI by creating a new instance of the `OpenAI` class:
 
-```bash
-OPENAI_API_KEY="your_api_key"
+```ts
+const openai = new OpenAI();
+```
+
+This will use the `OPENAI_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const openai = new OpenAI('your_api_key');
 ```
 
 ## Usage

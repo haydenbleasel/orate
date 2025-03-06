@@ -17,10 +17,16 @@ import { IBM } from 'orate/ibm';
 
 ## Configuration
 
-The IBM provider looks for the `IBM_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use IBM by creating a new instance of the `IBM` class:
 
-```bash
-IBM_API_KEY="your_api_key"
+```ts
+const ibm = new IBM();
+```
+
+This will use the `IBM_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const ibm = new IBM('your_api_key');
 ```
 
 ## Usage

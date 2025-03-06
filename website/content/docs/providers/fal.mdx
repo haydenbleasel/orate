@@ -17,10 +17,16 @@ import { Fal } from 'orate/fal';
 
 ## Configuration
 
-The Fal provider looks for the `FAL_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use Fal by creating a new instance of the `Fal` class:
 
-```bash
-FAL_API_KEY="your_api_key"
+```ts
+const fal = new Fal();
+```
+
+This will use the `FAL_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const fal = new Fal('your_api_key');
 ```
 
 ## Usage

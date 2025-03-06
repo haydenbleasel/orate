@@ -17,11 +17,19 @@ import { Play } from 'orate/play';
 
 ## Configuration
 
-The Play.ai provider looks for the `PLAY_API_KEY` and `PLAY_USER_ID` environment variables. These variables are required for the provider to work. Simply add the following to your `.env` file:
+You can use Play.ai by creating a new instance of the `Play` class:
 
-```bash
-PLAY_API_KEY="your_api_key"
-PLAY_USER_ID="your_user_id"
+```ts
+const play = new Play();
+```
+
+This will use the `PLAY_API_KEY` and `PLAY_USER_ID` environment variables. If you don't have these variables set, you can pass your API key and user ID as arguments to the constructor.
+
+```ts
+const play = new Play({
+  apiKey: 'your_api_key',
+  userId: 'your_user_id',
+});
 ```
 
 ## Usage

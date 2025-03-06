@@ -17,10 +17,16 @@ import { Gladia } from 'orate/gladia';
 
 ## Configuration
 
-The Gladia provider looks for the `GLADIA_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use Gladia by creating a new instance of the `Gladia` class:
 
-```bash
-GLADIA_API_KEY="your_api_key"
+```ts
+const gladia = new Gladia();
+```
+
+This will use the `GLADIA_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const gladia = new Gladia('your_api_key');
 ```
 
 ## Usage

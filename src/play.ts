@@ -485,9 +485,12 @@ export class Play {
   private apiKey: string;
   private userId: string;
 
-  constructor(apiKey?: string, userId?: string) {
-    this.apiKey = apiKey || process.env.PLAYAI_API_KEY || '';
-    this.userId = userId || process.env.PLAYAI_USER_ID || '';
+  constructor(options: {
+    apiKey?: string;
+    userId?: string;
+  }) {
+    this.apiKey = options.apiKey || process.env.PLAYAI_API_KEY || '';
+    this.userId = options.userId || process.env.PLAYAI_USER_ID || '';
 
     if (!this.apiKey) {
       throw new Error('PLAYAI_API_KEY is not set');

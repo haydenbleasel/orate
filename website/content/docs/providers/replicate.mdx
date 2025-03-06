@@ -17,10 +17,16 @@ import { Replicate } from 'orate/replicate';
 
 ## Configuration
 
-The Replicate provider looks for the `REPLICATE_API_TOKEN` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use Replicate by creating a new instance of the `Replicate` class:
 
-```bash
-REPLICATE_API_TOKEN="your_api_token"
+```ts
+const replicate = new Replicate();
+```
+
+This will use the `REPLICATE_API_TOKEN` environment variable. If you don't have this variable set, you can pass your API token as an argument to the constructor.
+
+```ts
+const replicate = new Replicate('your_api_token');
 ```
 
 ## Usage

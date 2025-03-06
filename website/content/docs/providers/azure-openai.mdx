@@ -17,13 +17,21 @@ import { AzureOpenAI } from 'orate/azure.openai';
 
 ## Configuration
 
-The Azure OpenAI provider looks for a number of environment variables. These variables are required for the provider to work. Simply add the following to your `.env` file:
+You can use Azure OpenAI by creating a new instance of the `AzureOpenAI` class:
 
-```bash
-AZURE_OPENAI_API_KEY="" # The API key for the Azure OpenAI resource
-AZURE_OPENAI_TTS_ENDPOINT="" # The endpoint for the Azure OpenAI TTS resource e.g. tts
-AZURE_OPENAI_STT_ENDPOINT="" # The endpoint for the Azure OpenAI STT resource e.g. whisper
-AZURE_OPENAI_API_VERSION="" # The API version to use. Defaults to "2025-02-01-preview"
+```ts
+const azureOpenAI = new AzureOpenAI();
+```
+
+This will use the `AZURE_OPENAI_API_KEY`, `AZURE_OPENAI_TTS_ENDPOINT`, `AZURE_OPENAI_STT_ENDPOINT` and `AZURE_OPENAI_API_VERSION` environment variables. If you don't have these variables set, you can pass your keys as an argument to the constructor.
+
+```ts
+const azureOpenAI = new AzureOpenAI({
+  apiKey: 'your_api_key',
+  ttsEndpoint: 'your_tts_endpoint',
+  sttEndpoint: 'your_stt_endpoint',
+  apiVersion: 'your_api_version',
+});
 ```
 
 ## Usage

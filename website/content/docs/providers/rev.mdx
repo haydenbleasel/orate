@@ -17,10 +17,16 @@ import { Rev } from 'orate/rev';
 
 ## Configuration
 
-The Rev AI provider looks for the `REV_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use Rev AI by creating a new instance of the `Rev` class:
 
-```bash
-REV_API_KEY="your_api_key"
+```ts
+const rev = new Rev();
+```
+
+This will use the `REV_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const rev = new Rev('your_api_key');
 ```
 
 ## Usage
