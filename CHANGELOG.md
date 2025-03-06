@@ -1,3 +1,15 @@
+# v1.6.0 (Thu Mar 06 2025)
+
+#### 🚀 Enhancement
+
+- Add support for custom keys [#36](https://github.com/haydenbleasel/orate/pull/36) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.5.3 (Sun Mar 02 2025)
 
 #### ⚠️ Pushed to `main`
