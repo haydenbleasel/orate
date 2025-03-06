@@ -1,27 +1,27 @@
 import { AnimateProvider } from '@/app/providers/animate';
 import { MarqueeProvider } from '@/app/providers/marquee';
 import { cn } from '@/lib/utils';
+import AssemblyAI from '@/public/providers/assembly.svg';
+import Azure from '@/public/providers/azure.svg';
+import CleanVoice from '@/public/providers/cleanvoice.svg';
+import Deepgram from '@/public/providers/deepgram.svg';
+import ElevenLabs from '@/public/providers/elevenlabs.svg';
+import Fal from '@/public/providers/fal.svg';
+import Gladia from '@/public/providers/gladia.svg';
+import Google from '@/public/providers/google.svg';
+import Groq from '@/public/providers/groq.svg';
+import Hume from '@/public/providers/hume.svg';
+import IBM from '@/public/providers/ibm.svg';
+import LMNT from '@/public/providers/lmnt.svg';
+import Murf from '@/public/providers/murf.svg';
+import OpenAI from '@/public/providers/openai.svg';
+import Play from '@/public/providers/play.svg';
+import Replicate from '@/public/providers/replicate.svg';
+import Rev from '@/public/providers/rev.svg';
+import Speechify from '@/public/providers/speechify.svg';
 import { ArrowRightIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import AssemblyAI from '../../../public/providers/assembly.svg';
-import Azure from '../../../public/providers/azure.svg';
-import CleanVoice from '../../../public/providers/cleanvoice.svg';
-import Deepgram from '../../../public/providers/deepgram.svg';
-import ElevenLabs from '../../../public/providers/elevenlabs.svg';
-import Fal from '../../../public/providers/fal.svg';
-import Gladia from '../../../public/providers/gladia.svg';
-import Google from '../../../public/providers/google.svg';
-import Groq from '../../../public/providers/groq.svg';
-import Hume from '../../../public/providers/hume.svg';
-import IBM from '../../../public/providers/ibm.svg';
-import LMNT from '../../../public/providers/lmnt.svg';
-import Murf from '../../../public/providers/murf.svg';
-import OpenAI from '../../../public/providers/openai.svg';
-import Play from '../../../public/providers/play.svg';
-import Replicate from '../../../public/providers/replicate.svg';
-import Rev from '../../../public/providers/rev.svg';
-import Speechify from '../../../public/providers/speechify.svg';
 
 export const providers = [
   { name: 'OpenAI', image: OpenAI, href: '/docs/providers/openai' },
