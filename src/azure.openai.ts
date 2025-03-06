@@ -23,12 +23,6 @@ export class AzureOpenAI {
     if (!this.apiKey) {
       throw new Error('AZURE_OPENAI_API_KEY is not set');
     }
-
-    if (!options?.ttsEndpoint && !options?.sttEndpoint) {
-      throw new Error(
-        'AZURE_OPENAI_TTS_ENDPOINT or AZURE_OPENAI_STT_ENDPOINT is not set'
-      );
-    }
   }
 
   private createProvider(model: string, type: 'tts' | 'stt'): AzureOpenAISDK {

@@ -37,7 +37,7 @@ describe('ElevenLabs Tests', () => {
   it('should convert text to speech with a custom voice', async () => {
     const speech = await speak({
       model: elevenlabs.tts(
-        'eleven_multilingual_v2',
+        'eleven_multilingual_sts_v2',
         process.env.ELEVENLABS_CUSTOM_VOICE_ID
       ),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
