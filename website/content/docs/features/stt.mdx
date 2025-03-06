@@ -16,7 +16,7 @@ The basic usage involves importing the `transcribe` function from Orate and your
 The `model` parameter is a function that returns a model instance. The model instance is a function that takes an audio file and returns a promise that resolves to the transcription of the audio.
 
 ```ts
-const model = openai.stt();
+const model = new OpenAI().stt();
 ```
 
 ### `audio`
