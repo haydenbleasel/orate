@@ -12,7 +12,7 @@ Groq are a super fast and efficient AI provider. The LPU™ Inference Engine by 
 The Groq provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { groq } from 'orate/groq';
+import { Groq } from 'orate/groq';
 ```
 
 ## Configuration
@@ -33,10 +33,10 @@ The Groq provider provides a `stt` function that allows you to create a speech-t
 
 ```ts
 import { transcribe } from 'orate';
-import { groq } from 'orate/groq';
+import { Groq } from 'orate/groq';
 
 const text = await transcribe({
-  model: groq.stt(),
+  model: new Groq().stt(),
   audio: new File(...),
 });
 ```
@@ -45,7 +45,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 
 ```ts
 const text = await transcribe({
-  model: groq.stt('whisper-large-v3'),
+  model: new Groq().stt('whisper-large-v3'),
   audio: new File(...),
 });
 ```
@@ -54,7 +54,7 @@ You can also specify specific Groq properties by passing them as an argument to 
 
 ```ts
 const text = await transcribe({
-  model: groq.stt('whisper-large-v3', {
+  model: new Groq().stt('whisper-large-v3', {
     temperature: 0.5,
   }),
   audio: new File(...),

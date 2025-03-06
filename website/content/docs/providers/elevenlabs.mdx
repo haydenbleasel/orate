@@ -12,7 +12,7 @@ ElevenLabs creates emotionally & contextually aware AI voices. Their voice AI re
 The ElevenLabs provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { elevenlabs } from 'orate/elevenlabs';
+import { ElevenLabs } from 'orate/elevenlabs';
 ```
 
 ## Configuration
@@ -33,10 +33,10 @@ The ElevenLabs provider provides a `tts` function that allows you to create a te
 
 ```ts
 import { speak } from 'orate';
-import { elevenlabs } from 'orate/elevenlabs';
+import { ElevenLabs } from 'orate/elevenlabs';
 
 const speech = await speak({
-  model: elevenlabs.tts(),
+  model: new ElevenLabs().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -45,7 +45,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await speak({
-  model: elevenlabs.tts('english_sts_v2', 'charlotte'),
+  model: new ElevenLabs().tts('eleven_english_sts_v2', 'charlotte'),
   prompt: 'Hello, world!',
 });
 ```
@@ -56,7 +56,7 @@ You can also specify specific ElevenLabs properties by passing them as an argume
 
 ```ts
 const speech = await speak({
-  model: elevenlabs.tts('english_sts_v2', 'charlotte', {
+  model: new ElevenLabs().tts('eleven_english_sts_v2', 'charlotte', {
     voice_settings: {
       stability: 0.5,
     },
@@ -71,10 +71,10 @@ The ElevenLabs provider provides a `stt` function that allows you to create a sp
 
 ```ts
 import { transcribe } from 'orate';
-import { elevenlabs } from 'orate/elevenlabs';
+import { ElevenLabs } from 'orate/elevenlabs';
 
 const text = await transcribe({
-  model: elevenlabs.stt(),
+  model: new ElevenLabs().stt(),
   audio: new File(...),
 });
 ```
@@ -83,7 +83,7 @@ You can also specify specific ElevenLabs properties by passing them as an argume
 
 ```ts
 const text = await transcribe({
-  model: elevenlabs.stt('scribe_v1', {
+  model: new ElevenLabs().stt('scribe_v1', {
     diarize: true,
   }),
   audio: new File(...),
@@ -96,10 +96,10 @@ The ElevenLabs provider provides a `sts` function that allows you to change the 
 
 ```ts
 import { change } from 'orate';
-import { elevenlabs } from 'orate/elevenlabs';
+import { ElevenLabs } from 'orate/elevenlabs';
 
 const speech = await change({
-  model: elevenlabs.sts(),
+  model: new ElevenLabs().sts(),
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
 });
 ```
@@ -108,7 +108,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await change({
-  model: elevenlabs.sts('english_sts_v2', 'charlotte'),
+  model: new ElevenLabs().sts('eleven_english_sts_v2', 'charlotte'),
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
 });
 ```
@@ -117,7 +117,7 @@ You can also specify specific ElevenLabs properties by passing them as an argume
 
 ```ts
 const speech = await change({
-  model: elevenlabs.sts('english_sts_v2', 'charlotte', {
+  model: new ElevenLabs().sts('eleven_english_sts_v2', 'charlotte', {
     remove_background_noise: true,
   }),
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
@@ -129,8 +129,11 @@ const speech = await change({
 The ElevenLabs provider provides a `isl` function that allows you to isolate the speech from the audio.
 
 ```ts
+import { isolate } from 'orate';
+import { ElevenLabs } from 'orate/elevenlabs';
+
 const speech = await isolate({
-  model: elevenlabs.isl(),
+  model: new ElevenLabs().isl(),
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
 });
 ```

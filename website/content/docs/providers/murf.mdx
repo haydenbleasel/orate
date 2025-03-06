@@ -12,7 +12,7 @@ Murf is a leading provider of AI services, offering a wide range of speech servi
 The Murf provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { murf } from 'orate/murf';
+import { Murf } from 'orate/murf';
 ```
 
 ## Configuration
@@ -33,10 +33,10 @@ The Murf provider provides a `tts` function that allows you to create a text-to-
 
 ```ts
 import { speak } from 'orate';
-import { murf } from 'orate/murf';
+import { Murf } from 'orate/murf';
 
 const speech = await speak({
-  model: murf.tts(),
+  model: new Murf().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -45,7 +45,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await speak({
-  model: murf.tts('GEN1', 'en-AU-joyce'),
+  model: new Murf().tts('GEN1', 'en-AU-joyce'),
   prompt: 'Hello, world!',
 });
 ```
@@ -54,7 +54,7 @@ You can also specify specific Murf properties by passing them as an argument to 
 
 ```ts
 const speech = await speak({
-  model: murf.tts('GEN1', 'en-AU-joyce', {
+  model: new Murf().tts('GEN1', 'en-AU-joyce', {
     pitch: 25,
   }),
   prompt: 'Hello, world!',

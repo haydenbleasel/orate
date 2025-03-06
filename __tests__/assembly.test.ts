@@ -1,10 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { transcribe } from '../src';
-import { Assembly } from '../src/assembly';
+import { AssemblyAI } from '../src/assembly';
 
 describe('AssemblyAI Tests', () => {
-  const assembly = new Assembly();
+  const assembly = new AssemblyAI();
 
   it('should convert speech to text', async () => {
     const file = await readFile('./__tests__/test.mp3');

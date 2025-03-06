@@ -12,7 +12,7 @@ Deepgram’s voice AI platform provides APIs for speech-to-text, text-to-speech,
 The Deepgram provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { deepgram } from 'orate/deepgram';
+import { Deepgram } from 'orate/deepgram';
 ```
 
 ## Configuration
@@ -33,10 +33,10 @@ The Deepgram provider provides a `tts` function that allows you to create a text
 
 ```ts
 import { speak } from 'orate';
-import { deepgram } from 'orate/deepgram';
+import { Deepgram } from 'orate/deepgram';
 
 const speech = await speak({
-  model: deepgram.tts(),
+  model: new Deepgram().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -45,7 +45,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await speak({
-  model: deepgram.tts('aura', 'luna-en'),
+  model: new Deepgram().tts('aura', 'luna-en'),
   prompt: 'Hello, world!',
 });
 ```
@@ -54,7 +54,7 @@ You can also specify specific Deepgram properties by passing them as an argument
 
 ```ts
 const speech = await speak({
-  model: deepgram.tts('aura', 'luna-en', {
+  model: new Deepgram().tts('aura', 'luna-en', {
     sample_rate: 16000
   }),
   prompt: 'Hello, world!',
@@ -67,10 +67,10 @@ The Deepgram provider provides a `stt` function that allows you to create a spee
 
 ```ts
 import { transcribe } from 'orate';
-import { deepgram } from 'orate/deepgram';
+import { Deepgram } from 'orate/deepgram';
 
 const text = await transcribe({
-  model: deepgram.stt(),
+  model: new Deepgram().stt(),
   audio: new File(...),
 });
 ```
@@ -79,7 +79,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 
 ```ts
 const text = await transcribe({
-  model: deepgram.stt('enhanced'),
+  model: new Deepgram().stt('enhanced'),
   audio: new File(...),
 });
 ```
@@ -88,7 +88,7 @@ You can also specify specific Deepgram properties by passing them as an argument
 
 ```ts
 const text = await transcribe({
-  model: deepgram.stt('enhanced', {
+  model: new Deepgram().stt('enhanced', {
     filler_words: true,
   }),
   audio: new File(...),

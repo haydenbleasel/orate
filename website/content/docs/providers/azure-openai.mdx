@@ -12,7 +12,7 @@ Azure OpenAI is a cloud-based AI platform that provides a range of OpenAI models
 The Azure OpenAI provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { azureOpenai } from 'orate/azure.openai';
+import { AzureOpenAI } from 'orate/azure.openai';
 ```
 
 ## Configuration
@@ -36,10 +36,10 @@ The Azure OpenAI provider provides a `tts` function that allows you to create a 
 
 ```ts
 import { speak } from 'orate';
-import { azureOpenai } from 'orate/azure.openai';
+import { AzureOpenAI } from 'orate/azure.openai';
 
 const speech = await speak({
-  model: azureOpenai.tts('tts', 'alloy'),
+  model: new AzureOpenAI().tts('tts', 'alloy'),
   prompt: 'Hello, world!',
 });
 ```
@@ -48,7 +48,7 @@ You can specify the voice to use by passing it as an argument to the `tts` funct
 
 ```ts
 const speech = await speak({
-  model: azureOpenai.tts('tts', 'nova'),
+  model: new AzureOpenAI().tts('tts', 'nova'),
   prompt: 'Hello, world!',
 });
 ```
@@ -57,7 +57,7 @@ You can also specify specific OpenAI properties by passing them as an argument t
 
 ```ts
 const speech = await speak({
-  model: azureOpenai.tts('tts', 'alloy', {
+  model: new AzureOpenAI().tts('tts', 'alloy', {
     speed: 1.25,
   }),
   prompt: 'Hello, world!',
@@ -70,10 +70,10 @@ The Azure OpenAI provider provides a `stt` function that allows you to create a 
 
 ```ts
 import { transcribe } from 'orate';
-import { azureOpenai } from 'orate/azure.openai';
+import { AzureOpenAI } from 'orate/azure.openai';
 
 const text = await transcribe({
-  model: azureOpenai.stt('whisper'),
+  model: new AzureOpenAI().stt('whisper'),
   audio: new File(...),
 });
 ```
@@ -82,7 +82,7 @@ You can also specify specific OpenAI properties by passing them as an argument t
 
 ```ts
 const text = await transcribe({
-  model: azureOpenai.stt('whisper', {
+  model: new AzureOpenAI().stt('whisper', {
     temperature: 0.5,
   }),
   audio: new File(...),

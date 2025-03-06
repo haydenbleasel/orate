@@ -12,7 +12,7 @@ AssemblyAI is a leader in Speech AI to power world-class products with unmatched
 The AssemblyAI provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { assemblyai } from 'orate/assemblyai';
+import { AssemblyAI } from 'orate/assembly';
 ```
 
 ## Configuration
@@ -33,10 +33,10 @@ The AssemblyAI provider provides a `stt` function that allows you to create a sp
 
 ```ts
 import { transcribe } from 'orate';
-import { assemblyai } from 'orate/assemblyai';
+import { AssemblyAI } from 'orate/assemblyai';
 
 const text = await transcribe({
-  model: assemblyai.stt(),
+  model: new AssemblyAI().stt(),
   audio: new File(...),
 });
 ```
@@ -45,7 +45,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 
 ```ts
 const text = await transcribe({
-  model: assemblyai.stt('nano'),
+  model: new AssemblyAI().stt('nano'),
   audio: new File(...),
 });
 ```
@@ -54,7 +54,7 @@ You can also specify specific AssemblyAI properties by passing them as an argume
 
 ```ts
 const text = await transcribe({
-  model: assemblyai.stt('nano', {
+  model: new AssemblyAI().stt('nano', {
     punctuate: false,
   }),
   audio: new File(...),

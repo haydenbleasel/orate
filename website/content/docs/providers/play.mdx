@@ -12,7 +12,7 @@ Play.ai generates AI voices indistinguishable from humans with ultra realistic t
 The Play.ai provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { play } from 'orate/play';
+import { Play } from 'orate/play';
 ```
 
 ## Configuration
@@ -34,10 +34,10 @@ The Play.ai provider provides a `tts` function that allows you to create a text-
 
 ```ts
 import { speak } from 'orate';
-import { play } from 'orate/play';
+import { Play } from 'orate/play';
 
 const speech = await speak({
-  model: play.tts(),
+  model: new Play().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -48,7 +48,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await speak({
-  model: play.tts('PlayDialog', 'Abigail'),
+  model: new Play().tts('PlayDialog', 'Abigail'),
   prompt: 'Hello, world!',
 });
 ```
@@ -57,7 +57,7 @@ You can also specify specific Play.ai properties by passing them as an argument 
 
 ```ts
 const speech = await speak({
-  model: play.tts('PlayDialog', 'Abigail', {
+  model: new Play().tts('PlayDialog', 'Abigail', {
     speed: 1.25,
   }),
   prompt: 'Hello, world!',

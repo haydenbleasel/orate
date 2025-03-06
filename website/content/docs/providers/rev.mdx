@@ -12,7 +12,7 @@ Rev AI offers an accurate API for AI and human-generated transcripts. Trained fr
 The Rev AI provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { rev } from 'orate/rev';
+import { Rev } from 'orate/rev';
 ```
 
 ## Configuration
@@ -33,10 +33,10 @@ The Rev AI provider provides a `stt` function that allows you to create a speech
 
 ```ts
 import { transcribe } from 'orate';
-import { rev } from 'orate/rev';
+import { Rev } from 'orate/rev';
 
 const text = await transcribe({
-  model: rev.stt(),
+  model: new Rev().stt(),
   audio: new File(...),
 });
 ```
@@ -45,7 +45,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 
 ```ts
 const text = await transcribe({
-  model: rev.stt('fusion'),
+  model: new Rev().stt('fusion'),
   audio: new File(...),
 });
 ```
@@ -54,7 +54,7 @@ You can also specify specific Rev AI properties by passing them as an argument t
 
 ```ts
 const text = await transcribe({
-  model: rev.stt('fusion', {
+  model: new Rev().stt('fusion', {
     remove_disfluencies: true,
   }),
   audio: new File(...),

@@ -1,8 +1,8 @@
-import { AssemblyAI } from 'assemblyai';
+import { AssemblyAI as AssemblyAISDK } from 'assemblyai';
 import type { SpeechModel, TranscribeParams } from 'assemblyai';
 
-export class Assembly {
-  private provider: AssemblyAI;
+export class AssemblyAI {
+  private provider: AssemblyAISDK;
 
   constructor(apiKey?: string) {
     const key = apiKey || process.env.ASSEMBLYAI_API_KEY;
@@ -11,7 +11,7 @@ export class Assembly {
       throw new Error('ASSEMBLYAI_API_KEY is not set');
     }
 
-    this.provider = new AssemblyAI({ apiKey: key });
+    this.provider = new AssemblyAISDK({ apiKey: key });
   }
 
   /**

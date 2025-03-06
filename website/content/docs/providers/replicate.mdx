@@ -12,7 +12,7 @@ Replicate makes machine learning as easy to use as any other type of software. I
 The Replicate provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { replicate } from 'orate/replicate';
+import { Replicate } from 'orate/replicate';
 ```
 
 ## Configuration
@@ -35,11 +35,11 @@ This is because every model on Replicate has a different input and output format
 
 ```ts
 import { speak } from 'orate';
-import { replicate } from 'orate/replicate';
+import { Replicate } from 'orate/replicate';
 import { inputTransformer, outputTransformer } from './kokoro-82m-utils';
 
 const speech = await speak({
-  model: replicate.tts('jaaari/kokoro-82m:dfdf537ba482b029e0a761699e6f55e9162cfd159270bfe0e44857caa5f275a6', inputTransformer, outputTransformer),
+  model: new Replicate().tts('jaaari/kokoro-82m:dfdf537ba482b029e0a761699e6f55e9162cfd159270bfe0e44857caa5f275a6', inputTransformer, outputTransformer),
   prompt: 'Friends, Romans, countrymen, lend me your ears!'
 });
 ```
@@ -92,12 +92,12 @@ For example, the following code creates a speech-to-text transcription function 
 
 ```ts
 import { transcribe } from 'orate';
-import { replicate } from 'orate/replicate';
+import { Replicate } from 'orate/replicate';
 import { inputTransformer, outputTransformer } from './incredibly-fast-whisper-utils';
 import audio from './audio.wav';
 
 const text = await transcribe({
-  model: replicate.stt('vaibhavs10/incredibly-fast-whisper:3ab86df6c8f54c11309d4d1f930ac292bad43ace52d10c80d87eb258b3c9f79c', inputTransformer, outputTransformer),
+  model: new Replicate().stt('vaibhavs10/incredibly-fast-whisper:3ab86df6c8f54c11309d4d1f930ac292bad43ace52d10c80d87eb258b3c9f79c', inputTransformer, outputTransformer),
   audio,
 });
 ```
@@ -131,11 +131,11 @@ The Replicate provider provides a `isl` function that allows you to create a spe
 
 ```ts
 import { isolate } from 'orate';
-import { replicate } from 'orate/replicate';
+import { Replicate } from 'orate/replicate';
 import { inputTransformer, outputTransformer } from './audiosep-utils';
 
 const speech = await isolate({
-  model: replicate.isl(
+  model: new Replicate().isl(
     'cjwbw/audiosep:f07004438b8f3e6c5b720ba889389007cbf8dbbc9caa124afc24d9bbd2d307b8', 
     inputTransformer,
     outputTransformer,

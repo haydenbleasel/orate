@@ -12,7 +12,7 @@ Azure Cognitive Services by Microsoft are a collection of artificial intelligenc
 The Azure provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { azure } from 'orate/azure';
+import { Azure } from 'orate/azure';
 ```
 
 ## Configuration
@@ -34,10 +34,10 @@ The Azure provider provides a `tts` function that allows you to create a text-to
 
 ```ts
 import { speak } from 'orate';
-import { azure } from 'orate/azure';
+import { Azure } from 'orate/azure';
 
 const speech = await speak({
-  model: azure.tts(),
+  model: new Azure().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -46,7 +46,7 @@ You can specify the voice to use by passing it as an argument to the `tts` funct
 
 ```ts
 const speech = await speak({
-  model: azure.tts('en-US-AriaNeural'),
+  model: new Azure().tts('en-US-AriaNeural'),
   prompt: 'Hello, world!',
 });
 ```
@@ -57,10 +57,10 @@ The Azure provider provides a `stt` function that allows you to create a speech-
 
 ```ts
 import { transcribe } from 'orate';
-import { azure } from 'orate/azure';
+import { Azure } from 'orate/azure';
 
 const text = await transcribe({
-  model: azure.stt(),
+  model: new Azure().stt(),
   audio: new File(...),
 });
 ```

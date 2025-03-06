@@ -8,7 +8,7 @@ import { ${provider} } from 'orate/${provider}';
 import audio from './audio.wav';
 
 const speech = await isolate({
-  model: ${provider}.isl(${props ?? ''}),
+  model: new ${provider}().isl(${props ?? ''}),
   audio,
 });`;
 
@@ -16,18 +16,18 @@ const snippets = [
   {
     provider: 'elevenlabs',
     name: 'ElevenLabs',
-    code: createSnippet('elevenlabs'),
+    code: createSnippet('ElevenLabs'),
   },
   {
     provider: 'cleanvoice',
     name: 'CleanVoice',
-    code: createSnippet('cleanvoice'),
+    code: createSnippet('CleanVoice'),
   },
   {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { isolate } from 'orate';
-import { replicate } from 'orate/replicate';
+import { Replicate } from 'orate/replicate';
 import audio from './audio.wav';
 
 const model = 'cjwbw/audiosep:f07004438b8f3e6c5b720ba889389007cbf8dbbc9caa124afc24d9bbd2d307b8';
@@ -65,7 +65,7 @@ const outputTransformer = async (response: unknown) => {
 };
 
 const speech = await isolate({
-  model: replicate.isl(
+  model: new Replicate().isl(
     model,
     inputTransformer,
     outputTransformer,

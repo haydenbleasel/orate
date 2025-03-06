@@ -12,7 +12,7 @@ The Web Speech API, built into all modern browsers, enables you to incorporate v
 The Web Speech API provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { native } from 'orate/native';
+import { Native } from 'orate/native';
 ```
 
 ## Configuration
@@ -29,10 +29,10 @@ The Native provider provides a `stt` function that allows you to create a speech
 
 ```ts
 import { transcribe } from 'orate';
-import { native } from 'orate/native';
+import { Native } from 'orate/native';
 
 const text = await transcribe({
-  model: native.stt(),
+  model: new Native().stt(),
   audio: new File(...),
 });
 ```
@@ -41,7 +41,7 @@ You can specify a language to use by passing it as an option to the `stt` functi
 
 ```ts
 const text = await transcribe({
-  model: native.stt({ lang: 'en-US' }),
+  model: new Native().stt({ lang: 'en-US' }),
   audio: new File(...),
 });
 ```
