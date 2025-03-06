@@ -114,52 +114,58 @@ const voices = [
   'es-US_SofiaV3Voice',
 ] as const;
 
-const createTTSProvider = () => {
-  const apikey = process.env.IBM_TTS_API_KEY;
-  const serviceUrl = process.env.IBM_TTS_URL;
+export class IBM {
+  private ttsApiKey: string;
+  private ttsUrl: string;
+  private sttApiKey: string;
+  private sttUrl: string;
 
-  if (!apikey) {
-    throw new Error('IBM_TTS_API_KEY is not set');
+  constructor(config?: {
+    ttsApiKey?: string;
+    ttsUrl?: string;
+    sttApiKey?: string;
+    sttUrl?: string;
+  }) {
+    this.ttsApiKey = config?.ttsApiKey || process.env.IBM_TTS_API_KEY || '';
+    this.ttsUrl = config?.ttsUrl || process.env.IBM_TTS_URL || '';
+    this.sttApiKey = config?.sttApiKey || process.env.IBM_STT_API_KEY || '';
+    this.sttUrl = config?.sttUrl || process.env.IBM_STT_URL || '';
+
+    if (!this.ttsApiKey) {
+      throw new Error('IBM_TTS_API_KEY is not set');
+    }
+    if (!this.ttsUrl) {
+      throw new Error('IBM_TTS_URL is not set');
+    }
+    if (!this.sttApiKey) {
+      throw new Error('IBM_STT_API_KEY is not set');
+    }
+    if (!this.sttUrl) {
+      throw new Error('IBM_STT_URL is not set');
+    }
   }
 
-  if (!serviceUrl) {
-    throw new Error('IBM_TTS_URL is not set');
+  private createTTSProvider() {
+    const authenticator = new IamAuthenticator({ apikey: this.ttsApiKey });
+    return new TextToSpeechV1({ authenticator, serviceUrl: this.ttsUrl });
   }
 
-  const authenticator = new IamAuthenticator({ apikey });
-
-  return new TextToSpeechV1({ authenticator, serviceUrl });
-};
-
-const createSTTProvider = () => {
-  const apikey = process.env.IBM_STT_API_KEY;
-  const serviceUrl = process.env.IBM_STT_URL;
-
-  if (!apikey) {
-    throw new Error('IBM_STT_API_KEY is not set');
+  private createSTTProvider() {
+    const authenticator = new IamAuthenticator({ apikey: this.sttApiKey });
+    return new SpeechToTextV1({ authenticator, serviceUrl: this.sttUrl });
   }
 
-  if (!serviceUrl) {
-    throw new Error('IBM_STT_URL is not set');
-  }
-
-  const authenticator = new IamAuthenticator({ apikey });
-
-  return new SpeechToTextV1({ authenticator, serviceUrl });
-};
-
-export const ibm = {
   /**
    * Creates a text-to-speech synthesis function using IBM Watson TTS
    * @param {(typeof voices)[number]} voice - The voice model to use for synthesis. Defaults to 'en-US_AllisonV3Voice'
    * @param {object} options - Additional options for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
+  tts(
     voice: (typeof voices)[number] = 'en-US_AllisonV3Voice',
     options?: Omit<SynthesizeParams, 'text' | 'voice'>
-  ) => {
-    const provider = createTTSProvider();
+  ) {
+    const provider = this.createTTSProvider();
 
     return async (prompt: string) => {
       const response = await provider.synthesize({
@@ -183,7 +189,7 @@ export const ibm = {
 
       return file;
     };
-  },
+  }
 
   /**
    * Creates a speech-to-text transcription function using IBM Watson STT
@@ -191,11 +197,11 @@ export const ibm = {
    * @param {Omit<RecognizeParams, 'model' | 'audio'>} options - Additional options for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (
+  stt(
     model: (typeof models)[number] = 'en-US_BroadbandModel',
     options?: Omit<RecognizeParams, 'model' | 'audio'>
-  ) => {
-    const provider = createSTTProvider();
+  ) {
+    const provider = this.createSTTProvider();
 
     return async (audio: File) => {
       const buffer = await audio.arrayBuffer();
@@ -220,5 +226,5 @@ export const ibm = {
 
       return transcript;
     };
-  },
-};
+  }
+}

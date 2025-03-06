@@ -1,44 +1,5 @@
 import ky from 'ky';
 
-const getApiKey = () => {
-  const apiKey = process.env.CLEANVOICE_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('CLEANVOICE_API_KEY is not set');
-  }
-
-  return apiKey;
-};
-
-const getPresignedUrl = async (file: File) => {
-  const url = new URL('/v2/upload', 'https://api.cleanvoice.ai');
-
-  url.searchParams.set('filename', file.name);
-
-  const response = await ky
-    .post(url, {
-      headers: {
-        'X-API-Key': getApiKey(),
-      },
-    })
-    .json<{ signedUrl: string }>();
-
-  return response.signedUrl;
-};
-
-const uploadFile = async (presignedUrl: string, file: File) => {
-  const response = await ky.put(presignedUrl, {
-    body: file,
-    headers: {
-      'X-API-Key': getApiKey(),
-    },
-  });
-
-  if (response.status !== 200) {
-    throw new Error('Failed to upload file');
-  }
-};
-
 type EditOptions = {
   video?: boolean;
   send_email?: boolean;
@@ -63,32 +24,6 @@ type EditOptions = {
   export_timestamps?: boolean;
   signed_url?: string;
   merge?: boolean;
-};
-
-const edit = async (
-  audioUrl: string,
-  options?: Omit<EditOptions, 'transcription'>
-) => {
-  const url = new URL('/v2/edits', 'https://api.cleanvoice.ai');
-
-  const response = await ky
-    .post(url, {
-      json: {
-        input: {
-          files: [audioUrl],
-          config: {
-            ...options,
-            transcription: true,
-          },
-        },
-      },
-      headers: {
-        'X-API-Key': getApiKey(),
-      },
-    })
-    .json<{ id: string }>();
-
-  return response.id;
 };
 
 type GetEditResponse = {
@@ -144,40 +79,105 @@ type GetEditResponse = {
   task_id: string;
 };
 
-const getEdit = async (id: string) => {
-  const response = await ky
-    .get(`https://api.cleanvoice.ai/v2/edits/${id}`, {
+export class CleanVoice {
+  private apiKey: string;
+
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.CLEANVOICE_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('CLEANVOICE_API_KEY is not set');
+    }
+  }
+
+  private async getPresignedUrl(file: File) {
+    const url = new URL('/v2/upload', 'https://api.cleanvoice.ai');
+
+    url.searchParams.set('filename', file.name);
+
+    const response = await ky
+      .post(url, {
+        headers: {
+          'X-API-Key': this.apiKey,
+        },
+      })
+      .json<{ signedUrl: string }>();
+
+    return response.signedUrl;
+  }
+
+  private async uploadFile(presignedUrl: string, file: File) {
+    const response = await ky.put(presignedUrl, {
+      body: file,
       headers: {
-        'X-API-Key': getApiKey(),
+        'X-API-Key': this.apiKey,
       },
-    })
-    .json<GetEditResponse>();
+    });
 
-  if (response.status === 'FAILURE') {
-    throw new Error(`Error: ${response.status}`);
+    if (response.status !== 200) {
+      throw new Error('Failed to upload file');
+    }
   }
 
-  if (response.status === 'SUCCESS') {
-    return response.result;
-  }
-};
+  private async edit(
+    audioUrl: string,
+    options?: Omit<EditOptions, 'transcription'>
+  ) {
+    const url = new URL('/v2/edits', 'https://api.cleanvoice.ai');
 
-export const cleanvoice = {
+    const response = await ky
+      .post(url, {
+        json: {
+          input: {
+            files: [audioUrl],
+            config: {
+              ...options,
+              transcription: true,
+            },
+          },
+        },
+        headers: {
+          'X-API-Key': this.apiKey,
+        },
+      })
+      .json<{ id: string }>();
+
+    return response.id;
+  }
+
+  private async getEdit(id: string) {
+    const response = await ky
+      .get(`https://api.cleanvoice.ai/v2/edits/${id}`, {
+        headers: {
+          'X-API-Key': this.apiKey,
+        },
+      })
+      .json<GetEditResponse>();
+
+    if (response.status === 'FAILURE') {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    if (response.status === 'SUCCESS') {
+      return response.result;
+    }
+  }
+
   /**
    * Creates a speech-to-text transcription function using CleanVoice
    * @param {Omit<EditOptions, 'transcription'>} properties - Additional properties for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (options?: Omit<EditOptions, 'transcription'>) => {
+  stt(options?: Omit<EditOptions, 'transcription'>) {
     return async (audio: File) => {
-      const presignedUrl = await getPresignedUrl(audio);
+      const presignedUrl = await this.getPresignedUrl(audio);
 
-      await uploadFile(presignedUrl, audio);
+      await this.uploadFile(presignedUrl, audio);
 
-      const id = await edit(presignedUrl, options);
+      const id = await this.edit(presignedUrl, options);
 
       while (true) {
-        const result = await getEdit(id);
+        const result = await this.getEdit(id);
 
         if (result) {
           return result.transcription.paragraphs.map((p) => p.text).join(' ');
@@ -187,28 +187,28 @@ export const cleanvoice = {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
-  },
+  }
 
   /**
    * Creates a speech-to-text transcription function using Gladia
    * @param {object} options - Additional options for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  isl: (options?: EditOptions) => {
+  isl(options?: EditOptions) {
     return async (audio: File) => {
-      const presignedUrl = await getPresignedUrl(audio);
+      const presignedUrl = await this.getPresignedUrl(audio);
 
-      await uploadFile(presignedUrl, audio);
+      await this.uploadFile(presignedUrl, audio);
 
-      const id = await edit(presignedUrl, options);
+      const id = await this.edit(presignedUrl, options);
 
       while (true) {
-        const result = await getEdit(id);
+        const result = await this.getEdit(id);
 
         if (result) {
           const response = await ky.get(result.download_url, {
             headers: {
-              'X-API-Key': getApiKey(),
+              'X-API-Key': this.apiKey,
             },
           });
 
@@ -224,5 +224,5 @@ export const cleanvoice = {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
-  },
-};
+  }
+}

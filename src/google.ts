@@ -594,38 +594,36 @@ const voices = [
   'yue-HK-Standard-D',
 ] as const;
 
-const createTTSProvider = () => {
-  const apiKey = process.env.GOOGLE_API_KEY;
+export class Google {
+  private apiKey: string;
 
-  if (!apiKey) {
-    throw new Error('GOOGLE_API_KEY is not set');
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.GOOGLE_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('GOOGLE_API_KEY is not set');
+    }
   }
 
-  return new textToSpeech.TextToSpeechClient({ apiKey });
-};
-
-const createSTTProvider = () => {
-  const apiKey = process.env.GOOGLE_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('GOOGLE_API_KEY is not set');
+  private createTTSProvider() {
+    return new textToSpeech.TextToSpeechClient({ apiKey: this.apiKey });
   }
 
-  return new speechToText.v2.SpeechClient({ apiKey });
-};
+  private createSTTProvider() {
+    return new speechToText.v2.SpeechClient({ apiKey: this.apiKey });
+  }
 
-export const google = {
   /**
    * Creates a text-to-speech synthesis function using Google Cloud TTS
    * @param {(typeof voices)[number]} model - The voice model to use for synthesis. Defaults to 'en-US-Casual-K'
    * @param {TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest} options - Additional voice configuration options
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
+  tts(
     model: (typeof voices)[number] = 'en-US-Casual-K',
     options?: TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest
-  ) => {
-    const provider = createTTSProvider();
+  ) {
+    const provider = this.createTTSProvider();
 
     return async (prompt: string) => {
       const defaultConfig: TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest =
@@ -654,7 +652,7 @@ export const google = {
 
       return file;
     };
-  },
+  }
 
   /**
    * Creates a speech-to-text transcription function using Google Cloud STT
@@ -662,11 +660,11 @@ export const google = {
    * @param {SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest} options - Additional options for the transcription
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (
+  stt(
     recognizer: string,
     options?: SpeechToTextTypes.cloud.speech.v2.IRecognizeRequest
-  ) => {
-    const provider = createSTTProvider();
+  ) {
+    const provider = this.createSTTProvider();
 
     return async (audio: File) => {
       const buffer = await audio.arrayBuffer();
@@ -699,5 +697,5 @@ export const google = {
 
       return transcript;
     };
-  },
-};
+  }
+}

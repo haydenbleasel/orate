@@ -1,4 +1,7 @@
-import { type AudioSpeechRequest, Speechify } from '@speechify/api-sdk';
+import {
+  type AudioSpeechRequest,
+  Speechify as SpeechifySDK,
+} from '@speechify/api-sdk';
 
 const voices = [
   'henry',
@@ -710,17 +713,21 @@ const voices = [
   'michal',
 ] as const;
 
-const createProvider = () => {
-  const apiKey = process.env.SPEECHIFY_API_KEY;
+export class Speechify {
+  private apiKey: string;
 
-  if (!apiKey) {
-    throw new Error('SPEECHIFY_API_KEY is not set');
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.SPEECHIFY_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('SPEECHIFY_API_KEY is not set');
+    }
   }
 
-  return new Speechify({ apiKey });
-};
+  private createProvider() {
+    return new SpeechifySDK({ apiKey: this.apiKey });
+  }
 
-export const speechify = {
   /**
    * Creates a text-to-speech synthesis function using Speechify TTS
    * @param {AudioSpeechRequest["model"]} model - The model to use for synthesis. Defaults to 'simba-multilingual'
@@ -728,12 +735,12 @@ export const speechify = {
    * @param {Omit<AudioSpeechRequest, 'model' | 'voiceId' | 'input'>} properties - Additional properties for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
+  tts(
     model: AudioSpeechRequest['model'] = 'simba-multilingual',
     voice: (typeof voices)[number] = 'george',
     properties?: Omit<AudioSpeechRequest, 'model' | 'voiceId' | 'input'>
-  ) => {
-    const provider = createProvider();
+  ) {
+    const provider = this.createProvider();
 
     return async (prompt: string) => {
       const response = await provider.audioGenerate({
@@ -750,5 +757,5 @@ export const speechify = {
 
       return file;
     };
-  },
-};
+  }
+}

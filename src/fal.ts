@@ -5,28 +5,32 @@ type FalInput =
   | Omit<WhisperInput, 'audio_url'>
   | Omit<WizperInput, 'audio_url'>;
 
-const createProvider = () => {
-  const credentials = process.env.FAL_API_KEY;
+export class Fal {
+  private apiKey: string;
 
-  if (!credentials) {
-    throw new Error('FAL_API_KEY is not set');
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.FAL_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('FAL_API_KEY is not set');
+    }
   }
 
-  return createFalClient({ credentials });
-};
+  private createProvider() {
+    return createFalClient({ credentials: this.apiKey });
+  }
 
-export const fal = {
   /**
    * Creates a speech-to-text transcription function using Fal
-   * @param {TranscriptionCreateParams["model"]} model - The model to use for transcription. Defaults to 'whisper-1'
-   * @param {Omit<TranscriptionCreateParams, 'model' | 'file'>} properties - Additional properties for the transcription request
+   * @param {string} model - The model to use for transcription. Defaults to 'fal-ai/whisper'
+   * @param {FalInput} properties - Additional properties for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (
+  stt(
     model: 'fal-ai/whisper' | 'fal-ai/wizper' = 'fal-ai/whisper',
     properties?: FalInput
-  ) => {
-    const provider = createProvider();
+  ) {
+    const provider = this.createProvider();
 
     return async (audio: File) => {
       const file = await provider.storage.upload(audio);
@@ -40,5 +44,5 @@ export const fal = {
 
       return response.data.text;
     };
-  },
-};
+  }
+}

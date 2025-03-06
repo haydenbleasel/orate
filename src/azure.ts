@@ -1,6 +1,6 @@
 import stream from 'node:stream';
 import ffmpeg from 'fluent-ffmpeg';
-import Azure from 'microsoft-cognitiveservices-speech-sdk';
+import AzureSDK from 'microsoft-cognitiveservices-speech-sdk';
 
 const voices = [
   'af-ZA-AdriNeural',
@@ -569,65 +569,73 @@ const voices = [
   'zu-ZA-ThembaNeural',
 ] as const;
 
-const createProvider = () => {
-  const apiKey = process.env.AZURE_API_KEY;
-  const region = process.env.AZURE_REGION;
+export class Azure {
+  private apiKey: string;
+  private region: string;
 
-  if (!apiKey) {
-    throw new Error('AZURE_API_KEY is not set');
+  constructor(apiKey?: string, region?: string) {
+    this.apiKey = apiKey || process.env.AZURE_API_KEY || '';
+    this.region = region || process.env.AZURE_REGION || '';
+
+    if (!this.apiKey) {
+      throw new Error('AZURE_API_KEY is not set');
+    }
+
+    if (!this.region) {
+      throw new Error('AZURE_REGION is not set');
+    }
   }
 
-  if (!region) {
-    throw new Error('AZURE_REGION is not set');
+  private createProvider() {
+    const speechConfig = AzureSDK.SpeechConfig.fromSubscription(
+      this.apiKey,
+      this.region
+    );
+    speechConfig.speechRecognitionLanguage = 'en-US';
+
+    return speechConfig;
   }
 
-  const speechConfig = Azure.SpeechConfig.fromSubscription(apiKey, region);
-  speechConfig.speechRecognitionLanguage = 'en-US';
+  private async convertToWavBuffer(audio: File) {
+    const arrayBuffer = await audio.arrayBuffer();
+    const inputBuffer = Buffer.from(arrayBuffer);
 
-  return speechConfig;
-};
+    const wavBuffer = await new Promise<Buffer>((resolve, reject) => {
+      const inputStream = stream.Readable.from(inputBuffer);
+      const chunks: Uint8Array[] = [];
 
-const convertToWavBuffer = async (audio: File) => {
-  const arrayBuffer = await audio.arrayBuffer();
-  const inputBuffer = Buffer.from(arrayBuffer);
-
-  const wavBuffer = await new Promise<Buffer>((resolve, reject) => {
-    const inputStream = stream.Readable.from(inputBuffer);
-    const chunks: Uint8Array[] = [];
-
-    ffmpeg(inputStream)
-      .toFormat('wav')
-      .on('error', reject)
-      .on('end', () => {
-        const buffer = Buffer.concat(chunks);
-        resolve(buffer);
-      })
-      .pipe(
-        new stream.Writable({
-          write(chunk: Buffer, _, callback) {
-            const part = new Uint8Array(chunk.buffer);
-            chunks.push(part);
-            callback();
-          },
+      ffmpeg(inputStream)
+        .toFormat('wav')
+        .on('error', reject)
+        .on('end', () => {
+          const buffer = Buffer.concat(chunks);
+          resolve(buffer);
         })
-      );
-  });
+        .pipe(
+          new stream.Writable({
+            write(chunk: Buffer, _, callback) {
+              const part = new Uint8Array(chunk.buffer);
+              chunks.push(part);
+              callback();
+            },
+          })
+        );
+    });
 
-  return wavBuffer;
-};
+    return wavBuffer;
+  }
 
-export const azure = {
   /**
    * Creates a text-to-speech synthesis function using Azure Speech Service
    * @param {(typeof voices)[number]} voice - The neural voice to use for synthesis. Defaults to 'en-US-AriaNeural'
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (voice: (typeof voices)[number] = 'en-US-AriaNeural') => {
-    const provider = createProvider();
+  tts(voice: (typeof voices)[number] = 'en-US-AriaNeural') {
+    const provider = this.createProvider();
     provider.speechSynthesisVoiceName = voice;
 
     return async (prompt: string) => {
-      const speechSynthesizer = new Azure.SpeechSynthesizer(provider);
+      const speechSynthesizer = new AzureSDK.SpeechSynthesizer(provider);
 
       const result = new Promise<ArrayBuffer>((resolve, reject) => {
         speechSynthesizer.speakTextAsync(
@@ -650,22 +658,22 @@ export const azure = {
 
       return file;
     };
-  },
+  }
 
   /**
    * Creates a speech-to-text transcription function using Azure Speech Service
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: () => {
-    const provider = createProvider();
+  stt() {
+    const provider = this.createProvider();
 
     return async (audio: File) => {
       const buffer = audio.type.includes('wav')
         ? Buffer.from(await audio.arrayBuffer())
-        : await convertToWavBuffer(audio);
+        : await this.convertToWavBuffer(audio);
 
-      const audioConfig = Azure.AudioConfig.fromWavFileInput(buffer);
-      const speechRecognizer = new Azure.SpeechRecognizer(
+      const audioConfig = AzureSDK.AudioConfig.fromWavFileInput(buffer);
+      const speechRecognizer = new AzureSDK.SpeechRecognizer(
         provider,
         audioConfig
       );
@@ -676,14 +684,14 @@ export const azure = {
             speechRecognizer.close();
 
             switch (result.reason) {
-              case Azure.ResultReason.RecognizedSpeech:
+              case AzureSDK.ResultReason.RecognizedSpeech:
                 resolve(result.text);
                 break;
-              case Azure.ResultReason.NoMatch:
+              case AzureSDK.ResultReason.NoMatch:
                 resolve(null);
                 break;
-              case Azure.ResultReason.Canceled:
-                reject(Azure.CancellationDetails.fromResult(result).reason);
+              case AzureSDK.ResultReason.Canceled:
+                reject(AzureSDK.CancellationDetails.fromResult(result).reason);
                 break;
               default:
                 resolve(null);
@@ -702,5 +710,5 @@ export const azure = {
 
       return result;
     };
-  },
-};
+  }
+}

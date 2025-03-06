@@ -27,14 +27,14 @@ interface SpeechRecognitionErrorEvent {
   message: string;
 }
 
-export const native = {
+export class Native {
   /**
    * Creates a speech-to-text transcription function using Web Speech API
    * @param {SpeechRecognition} options - Additional options to pass to the SpeechRecognition
    * @param {string} options.lang - The language to use for transcription. If not specified, this defaults to the HTML lang attribute value, or the user agent's language setting if that isn't set either.
    * @returns {Function} Async function that records audio and returns transcribed text
    */
-  stt: (options?: { lang?: string }) => {
+  stt(options?: { lang?: string }) {
     const SpeechRecognition =
       (window as unknown as Window).SpeechRecognition ||
       (window as unknown as Window).webkitSpeechRecognition;
@@ -63,5 +63,5 @@ export const native = {
 
       return promise;
     };
-  },
-};
+  }
+}

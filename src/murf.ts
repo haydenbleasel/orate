@@ -142,16 +142,6 @@ const voices = [
   'en-US-molly',
 ] as const;
 
-const getApiKey = () => {
-  const apiKey = process.env.MURF_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('MURF_API_KEY is not set');
-  }
-
-  return apiKey;
-};
-
 type SpeechCreateParams = {
   voiceId: (typeof voices)[number];
   style: string;
@@ -186,7 +176,17 @@ type SpeechCreateResponse = {
   }[];
 };
 
-export const murf = {
+export class Murf {
+  private apiKey: string;
+
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.MURF_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('MURF_API_KEY is not set');
+    }
+  }
+
   /**
    * Creates a text-to-speech synthesis function using Murf
    * @param {SpeechCreateParams["modelVersion"]} model - The model to use for synthesis. Defaults to 'GEN2'
@@ -194,19 +194,17 @@ export const murf = {
    * @param {Omit<SpeechCreateParams, 'modelVersion' | 'voiceId' | 'text'>} properties - Additional properties for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
+  tts(
     model: SpeechCreateParams['modelVersion'] = 'GEN2',
     voice: SpeechCreateParams['voiceId'] = 'en-US-natalie',
     properties?: Omit<SpeechCreateParams, 'modelVersion' | 'voiceId' | 'text'>
-  ) => {
-    const token = getApiKey();
-
+  ) {
     return async (prompt: string) => {
       const url = new URL('/v1/speech/generate', 'https://api.murf.ai');
       const response = await ky
         .post(url, {
           headers: {
-            'api-key': token,
+            'api-key': this.apiKey,
           },
           json: {
             voiceId: voice,
@@ -224,5 +222,5 @@ export const murf = {
 
       return file;
     };
-  },
-};
+  }
+}
