@@ -572,9 +572,12 @@ export class Azure {
   private apiKey: string;
   private region: string;
 
-  constructor(apiKey?: string, region?: string) {
-    this.apiKey = apiKey || process.env.AZURE_API_KEY || '';
-    this.region = region || process.env.AZURE_REGION || '';
+  constructor(options?: {
+    apiKey: string;
+    region: string;
+  }) {
+    this.apiKey = options?.apiKey || process.env.AZURE_API_KEY || '';
+    this.region = options?.region || process.env.AZURE_REGION || '';
 
     if (!this.apiKey) {
       throw new Error('AZURE_API_KEY is not set');
