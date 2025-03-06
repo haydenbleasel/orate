@@ -4,41 +4,44 @@ import type {
   SpeechGenerateParams,
 } from 'lmnt-node/resources';
 
-const createProvider = () => {
-  const apiKey = process.env.LMNT_API_KEY;
+type LMNTVoice =
+  | 'amy'
+  | 'ava'
+  | 'caleb'
+  | 'chloe'
+  | 'dalton'
+  | 'daniel'
+  | 'james'
+  | 'lauren'
+  | 'lily'
+  | 'magnus'
+  | 'miles'
+  | 'morgan'
+  | 'nathan'
+  | 'noah'
+  | 'oliver'
+  | 'paige'
+  | 'sophie'
+  | 'terrence'
+  | 'zain'
+  | 'zeke'
+  | 'zoe';
 
-  if (!apiKey) {
-    throw new Error('LMNT_API_KEY is not set');
+export class LMNT {
+  private apiKey: string;
+
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.LMNT_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('LMNT_API_KEY is not set');
+    }
   }
 
-  return new Lmnt({ apiKey });
-};
+  private createProvider() {
+    return new Lmnt({ apiKey: this.apiKey });
+  }
 
-const voices = [
-  'amy',
-  'ava',
-  'caleb',
-  'chloe',
-  'dalton',
-  'daniel',
-  'james',
-  'lauren',
-  'lily',
-  'magnus',
-  'miles',
-  'morgan',
-  'nathan',
-  'noah',
-  'oliver',
-  'paige',
-  'sophie',
-  'terrence',
-  'zain',
-  'zeke',
-  'zoe',
-] as const;
-
-export const lmnt = {
   /**
    * Creates a text-to-speech synthesis function using LMNT
    * @param {SpeechGenerateParams['model']} model - The model ID to use for synthesis. Defaults to 'aurora'
@@ -46,13 +49,13 @@ export const lmnt = {
    * @param {Omit<SpeechGenerateParams, 'text' | 'voice' | 'model'>} options - Additional options for the synthesis
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
+  tts(
     model: SpeechGenerateParams['model'] = 'aurora',
-    voice: (typeof voices)[number] = 'lily',
+    voice: LMNTVoice = 'lily',
     options?: Omit<SpeechGenerateParams, 'text' | 'model' | 'voice'>
-  ) => {
+  ) {
     return async (prompt: string) => {
-      const provider = createProvider();
+      const provider = this.createProvider();
 
       const response = await provider.speech.generate({
         text: prompt,
@@ -68,7 +71,7 @@ export const lmnt = {
 
       return file;
     };
-  },
+  }
 
   /**
    * Creates a speech-to-speech conversion function using LMNT
@@ -76,12 +79,12 @@ export const lmnt = {
    * @param {Omit<SpeechConvertParams, 'audio' | 'model_id'>} options - Additional options for the synthesis
    * @returns {Function} Async function that takes audio and returns converted speech
    */
-  sts: (
-    voice: (typeof voices)[number] = 'lily',
+  sts(
+    voice: LMNTVoice = 'lily',
     options?: Omit<SpeechConvertParams, 'audio' | 'model'>
-  ) => {
+  ) {
     return async (audio: File) => {
-      const provider = createProvider();
+      const provider = this.createProvider();
 
       const response = await provider.speech.convert({
         audio,
@@ -97,5 +100,5 @@ export const lmnt = {
 
       return file;
     };
-  },
-};
+  }
+}

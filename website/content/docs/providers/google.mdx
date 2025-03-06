@@ -12,15 +12,21 @@ Google offers a wide range of speech and transcription services through their La
 The Google provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { google } from 'orate/google';
+import { Google } from 'orate/google';
 ```
 
 ## Configuration
 
-The Google provider looks for the `GOOGLE_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use Google by creating a new instance of the `Google` class:
 
-```bash
-GOOGLE_API_KEY="your_api_key"
+```ts
+const google = new Google();
+```
+
+This will use the `GOOGLE_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const google = new Google('your_api_key');
 ```
 
 ## Usage
@@ -33,10 +39,10 @@ The Google provider provides a `tts` function that allows you to create a text-t
 
 ```ts
 import { speak } from 'orate';
-import { google } from 'orate/google';
+import { Google } from 'orate/google';
 
 const speech = await speak({
-  model: google.tts(),
+  model: new Google().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -45,7 +51,7 @@ You can specify the model to use by passing it as an argument to the `tts` funct
 
 ```ts
 const speech = await speak({
-  model: google.tts('ar-XA-Wavenet-A'),
+  model: new Google().tts('ar-XA-Wavenet-A'),
   prompt: 'Hello, world!',
 });
 ```
@@ -54,7 +60,7 @@ You can also specify specific Google properties by passing them as an argument t
 
 ```ts
 const speech = await speak({
-  model: google.tts('ar-XA-Wavenet-A', {
+  model: new Google().tts('ar-XA-Wavenet-A', {
     advancedVoiceOptions: {
       lowLatencyJourneySynthesis: true,
     },
@@ -69,10 +75,10 @@ The Google provider provides a `stt` function that allows you to create a speech
 
 ```ts
 import { transcribe } from 'orate';
-import { google } from 'orate/google';
+import { Google } from 'orate/google';
 
 const text = await transcribe({
-  model: google.stt('projects/{project}/locations/{region}/recognizers/{recognizer}'),
+  model: new Google().stt('projects/{project}/locations/{region}/recognizers/{recognizer}'),
   audio: new File(...),
 });
 ```
@@ -81,7 +87,7 @@ You can also specify specific Google properties by passing them as an argument t
 
 ```ts
 const text = await transcribe({
-  model: google.stt('projects/{project}/locations/{region}/recognizers/{recognizer}', {
+  model: new Google().stt('projects/{project}/locations/{region}/recognizers/{recognizer}', {
     config: {
       adaptation: {
         phraseSets: {

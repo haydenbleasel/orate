@@ -1,25 +1,5 @@
 import ky from 'ky';
 
-const getApiKey = () => {
-  const apiKey = process.env.PLAYAI_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('PLAYAI_API_KEY is not set');
-  }
-
-  return apiKey;
-};
-
-const getUserId = () => {
-  const userId = process.env.PLAYAI_USER_ID;
-
-  if (!userId) {
-    throw new Error('PLAYAI_USER_ID is not set');
-  }
-
-  return userId;
-};
-
 const voices = {
   Angelo:
     's3://voice-cloning-zero-shot/baf1ef41-36b6-428c-9bdf-50ba54682bd8/original/manifest.json',
@@ -501,7 +481,26 @@ type PlayTTSResponse = {
       };
 };
 
-export const play = {
+export class Play {
+  private apiKey: string;
+  private userId: string;
+
+  constructor(options?: {
+    apiKey: string;
+    userId: string;
+  }) {
+    this.apiKey = options?.apiKey || process.env.PLAYAI_API_KEY || '';
+    this.userId = options?.userId || process.env.PLAYAI_USER_ID || '';
+
+    if (!this.apiKey) {
+      throw new Error('PLAYAI_API_KEY is not set');
+    }
+
+    if (!this.userId) {
+      throw new Error('PLAYAI_USER_ID is not set');
+    }
+  }
+
   /**
    * Creates a text-to-speech synthesis function using PlayAI
    * @param {PlayModel} model - The model to use for synthesis. Defaults to 'Play3.0-mini'
@@ -509,11 +508,11 @@ export const play = {
    * @param {Omit<PlayTTSProps, 'model' | 'voice' | 'text'>} properties - Additional properties for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
+  tts(
     model: PlayModel = 'Play3.0-mini',
     voice: PlayVoice = 'Angelo',
     options?: Omit<PlayTTSProps, 'model' | 'voice' | 'text'>
-  ) => {
+  ) {
     let voiceId = voice;
 
     if (!voiceId.startsWith('s3://')) {
@@ -532,8 +531,8 @@ export const play = {
       const response = await ky
         .post(url, {
           headers: {
-            AUTHORIZATION: getApiKey(),
-            'X-USER-ID': getUserId(),
+            AUTHORIZATION: this.apiKey,
+            'X-USER-ID': this.userId,
           },
           json: body,
         })
@@ -560,8 +559,8 @@ export const play = {
         const checkResponse = await ky
           .get(checkUrl, {
             headers: {
-              AUTHORIZATION: getApiKey(),
-              'X-USER-ID': getUserId(),
+              AUTHORIZATION: this.apiKey,
+              'X-USER-ID': this.userId,
             },
           })
           .json<PlayTTSResponse>();
@@ -583,5 +582,5 @@ export const play = {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
-  },
-};
+  }
+}

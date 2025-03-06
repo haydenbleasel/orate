@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
-import { openai } from '../src/openai';
+import { OpenAI } from '../src/openai';
 
 describe('OpenAI Tests', () => {
+  const openai = new OpenAI();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: openai.tts('tts-1', 'ash'),

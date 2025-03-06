@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
-import { ibm } from '../src/ibm';
+import { IBM } from '../src/ibm';
 
 describe('IBM Tests', () => {
+  const ibm = new IBM();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: ibm.tts('en-US_MichaelExpressive'),

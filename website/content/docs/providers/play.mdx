@@ -12,16 +12,24 @@ Play.ai generates AI voices indistinguishable from humans with ultra realistic t
 The Play.ai provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { play } from 'orate/play';
+import { Play } from 'orate/play';
 ```
 
 ## Configuration
 
-The Play.ai provider looks for the `PLAY_API_KEY` and `PLAY_USER_ID` environment variables. These variables are required for the provider to work. Simply add the following to your `.env` file:
+You can use Play.ai by creating a new instance of the `Play` class:
 
-```bash
-PLAY_API_KEY="your_api_key"
-PLAY_USER_ID="your_user_id"
+```ts
+const play = new Play();
+```
+
+This will use the `PLAY_API_KEY` and `PLAY_USER_ID` environment variables. If you don't have these variables set, you can pass your API key and user ID as arguments to the constructor.
+
+```ts
+const play = new Play({
+  apiKey: 'your_api_key',
+  userId: 'your_user_id',
+});
 ```
 
 ## Usage
@@ -34,10 +42,10 @@ The Play.ai provider provides a `tts` function that allows you to create a text-
 
 ```ts
 import { speak } from 'orate';
-import { play } from 'orate/play';
+import { Play } from 'orate/play';
 
 const speech = await speak({
-  model: play.tts(),
+  model: new Play().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -48,7 +56,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await speak({
-  model: play.tts('PlayDialog', 'Abigail'),
+  model: new Play().tts('PlayDialog', 'Abigail'),
   prompt: 'Hello, world!',
 });
 ```
@@ -57,7 +65,7 @@ You can also specify specific Play.ai properties by passing them as an argument 
 
 ```ts
 const speech = await speak({
-  model: play.tts('PlayDialog', 'Abigail', {
+  model: new Play().tts('PlayDialog', 'Abigail', {
     speed: 1.25,
   }),
   prompt: 'Hello, world!',

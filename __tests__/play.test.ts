@@ -1,9 +1,11 @@
 import { writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak } from '../src';
-import { play } from '../src/play';
+import { Play } from '../src/play';
 
 describe('Play.ai Tests', () => {
+  const play = new Play();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: play.tts('Play3.0-mini', 'Angelo'),

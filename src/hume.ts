@@ -1,17 +1,21 @@
 import { HumeClient } from 'hume';
 import type { PostedTts } from 'hume/api/resources/tts';
 
-const createProvider = () => {
-  const apiKey = process.env.HUME_API_KEY;
+export class Hume {
+  private apiKey: string;
 
-  if (!apiKey) {
-    throw new Error('HUME_API_KEY is not set');
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.HUME_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('HUME_API_KEY is not set');
+    }
   }
 
-  return new HumeClient({ apiKey });
-};
+  private createProvider() {
+    return new HumeClient({ apiKey: this.apiKey });
+  }
 
-export const hume = {
   /**
    * Creates a text-to-speech synthesis function using Hume
    * @param {string} model - The model to use for synthesis, described in natural language.
@@ -19,12 +23,12 @@ export const hume = {
    * @param {Omit<PostedTts, 'utterances' | 'format'>} properties - Additional properties for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
+  tts(
     model?: string,
     voice?: string,
     properties?: Omit<PostedTts, 'utterances' | 'format'>
-  ) => {
-    const provider = createProvider();
+  ) {
+    const provider = this.createProvider();
 
     return async (prompt: string) => {
       const response = await provider.tts.synthesizeJson({
@@ -54,5 +58,5 @@ export const hume = {
 
       return file;
     };
-  },
-};
+  }
+}

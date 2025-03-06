@@ -8,7 +8,7 @@ import { ${provider} } from 'orate/${provider}';
 import audio from './audio.wav';
 
 const text = await transcribe({
-  model: ${provider}.stt(${props ?? ''}),
+  model: new ${provider}().stt(${props ?? ''}),
   audio,
 });`;
 
@@ -16,71 +16,71 @@ const snippets = [
   {
     provider: 'assembly',
     name: 'AssemblyAI',
-    code: createSnippet('assembly', "'best'"),
+    code: createSnippet('Assembly', "'best'"),
   },
   {
     provider: 'openai',
     name: 'OpenAI',
-    code: createSnippet('openai', "'whisper-1'"),
+    code: createSnippet('OpenAI', "'whisper-1'"),
   },
   {
     provider: 'elevenlabs',
     name: 'ElevenLabs',
-    code: createSnippet('elevenlabs', "'scribe_v1'"),
+    code: createSnippet('ElevenLabs', "'scribe_v1'"),
   },
   {
     provider: 'azure',
     name: 'Azure',
-    code: createSnippet('azure', "'en-US-AvaMultilingualNeural'"),
+    code: createSnippet('Azure', "'en-US-AvaMultilingualNeural'"),
   },
   {
     provider: 'google',
     name: 'Google',
     code: createSnippet(
-      'google',
+      'Google',
       "'projects/{project}/locations/{region}/recognizers/{recognizer}'"
     ),
   },
   {
     provider: 'ibm',
     name: 'IBM',
-    code: createSnippet('ibm', "'en-US_BroadbandModel'"),
+    code: createSnippet('IBM', "'en-US_BroadbandModel'"),
   },
   {
     provider: 'gladia',
     name: 'Gladia',
-    code: createSnippet('gladia', "'enhanced'"),
+    code: createSnippet('Gladia', "'enhanced'"),
   },
   {
     provider: 'rev',
     name: 'Rev AI',
-    code: createSnippet('rev', "'machine'"),
+    code: createSnippet('Rev', "'machine'"),
   },
   {
     provider: 'deepgram',
     name: 'Deepgram',
-    code: createSnippet('deepgram', "'nova-2'"),
+    code: createSnippet('Deepgram', "'nova-2'"),
   },
   {
     provider: 'groq',
     name: 'Groq',
-    code: createSnippet('groq', "'whisper-large-v3'"),
+    code: createSnippet('Groq', "'whisper-large-v3'"),
   },
   {
     provider: 'fal',
     name: 'Fal',
-    code: createSnippet('fal', "'fal-ai/whisper'"),
+    code: createSnippet('Fal', "'fal-ai/whisper'"),
   },
   {
     provider: 'cleanvoice',
     name: 'CleanVoice',
-    code: createSnippet('cleanvoice'),
+    code: createSnippet('CleanVoice'),
   },
   {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { transcribe } from 'orate';
-import { replicate } from 'orate/replicate';
+import { Replicate } from 'orate/replicate';
 import audio from './audio.wav';
 
 const model = 'vaibhavs10/incredibly-fast-whisper:3ab86df6c8f54c11309d4d1f930ac292bad43ace52d10c80d87eb258b3c9f79c';
@@ -97,7 +97,7 @@ const outputTransformer = (response: unknown) => (
 );
 
 const text = await transcribe({
-  model: replicate.stt(model, inputTransformer, outputTransformer),
+  model: new Replicate().stt(model, inputTransformer, outputTransformer),
   audio,
 });`,
   },

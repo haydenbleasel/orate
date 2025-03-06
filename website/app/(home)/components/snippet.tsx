@@ -2,31 +2,30 @@ import { cn } from '@/lib/utils';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
 
 const code = `import { speak, transcribe, isolate, change } from 'orate';
-import { elevenlabs } from 'orate/elevenlabs';
-import { assembly } from 'orate/assembly';
-import { azure } from 'orate/azure';
-import { lmnt } from 'orate/lmnt';
+import { ElevenLabs } from 'orate/elevenlabs';
+import { AssemblyAI } from 'orate/assembly';
+import { Azure } from 'orate/azure';
+import { LMNT } from 'orate/lmnt';
 
 const speech = await speak({
-  model: azure.tts('en-US-AriaNeural'),
+  model: new Azure().tts('en-US-AriaNeural'),
   prompt: 'Friends, Romans, countrymen, lend me your ears!'
 });
 
 const text = await transcribe({
-  model: assembly.stt('best'),
+  model: new AssemblyAI().stt('best'),
   audio,
 });
 
 const newSpeech = await change({
-  model: lmnt.sts('zeke'),
+  model: new LMNT().sts('zeke'),
   audio,
 });
 
 const isolatedSpeech = await isolate({
-  model: elevenlabs.isl(),
+  model: new ElevenLabs().isl(),
   audio: new File([], 'audio.wav'),
-});
-`;
+});`;
 
 export const HeroSnippet = () => (
   <div

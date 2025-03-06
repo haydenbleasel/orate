@@ -12,15 +12,21 @@ Gladia provide infrastructure to transform note-taking, customer support, sales 
 The Gladia provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { gladia } from 'orate/gladia';
+import { Gladia } from 'orate/gladia';
 ```
 
 ## Configuration
 
-The Gladia provider looks for the `GLADIA_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use Gladia by creating a new instance of the `Gladia` class:
 
-```bash
-GLADIA_API_KEY="your_api_key"
+```ts
+const gladia = new Gladia();
+```
+
+This will use the `GLADIA_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const gladia = new Gladia('your_api_key');
 ```
 
 ## Usage
@@ -33,10 +39,10 @@ The Gladia provider provides a `stt` function that allows you to create a speech
 
 ```ts
 import { transcribe } from 'orate';
-import { gladia } from 'orate/gladia';
+import { Gladia } from 'orate/gladia';
 
 const text = await transcribe({
-  model: gladia.stt(),
+  model: new Gladia().stt(),
   audio: new File(...),
 });
 ```
@@ -45,7 +51,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 
 ```ts
 const text = await transcribe({
-  model: gladia.stt('enhanced'),
+  model: new Gladia().stt('enhanced'),
   audio: new File(...),
 });
 ```
@@ -54,7 +60,7 @@ You can also specify specific Gladia properties by passing them as an argument t
 
 ```ts
 const text = await transcribe({
-  model: gladia.stt('enhanced', {
+  model: new Gladia().stt('enhanced', {
     chapterization: true,
   }),
   audio: new File(...),

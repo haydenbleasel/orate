@@ -5,15 +5,14 @@ import type {
   TextToSpeechRequest,
 } from 'elevenlabs/api';
 
-const models = {
-  multilingual_v2: 'eleven_multilingual_v2',
-  flash_v2_5: 'eleven_flash_v2_5',
-  flash_v2: 'eleven_flash_v2',
-  turbo_v2: 'eleven_turbo_v2',
-  turbo_v2_5: 'eleven_turbo_v2_5',
-  multilingual_sts_v2: 'eleven_multilingual_sts_v2',
-  english_sts_v2: 'eleven_english_sts_v2',
-};
+type ElevenLabsModel =
+  | 'eleven_multilingual_v2'
+  | 'eleven_flash_v2_5'
+  | 'eleven_flash_v2'
+  | 'eleven_turbo_v2'
+  | 'eleven_turbo_v2_5'
+  | 'eleven_multilingual_sts_v2'
+  | 'eleven_english_sts_v2';
 
 const voices = {
   alice: 'Xb7hH8MSUJpSbSDYk0k2',
@@ -38,31 +37,35 @@ const voices = {
   will: 'bIHbv24MWmeRgasZH58o',
 };
 
-const createProvider = () => {
-  const apiKey = process.env.ELEVENLABS_API_KEY;
+export class ElevenLabs {
+  private apiKey: string;
 
-  if (!apiKey) {
-    throw new Error('ELEVENLABS_API_KEY is not set');
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.ELEVENLABS_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('ELEVENLABS_API_KEY is not set');
+    }
   }
 
-  return new ElevenLabsClient({ apiKey });
-};
+  private createProvider() {
+    return new ElevenLabsClient({ apiKey: this.apiKey });
+  }
 
-export const elevenlabs = {
   /**
    * Creates a text-to-speech synthesis function using ElevenLabs
-   * @param {keyof typeof models} model - The model ID to use for synthesis. Defaults to 'multilingual_v2'
+   * @param {ElevenLabsModel} model - The model ID to use for synthesis. Defaults to 'multilingual_v2'
    * @param {keyof typeof voices} voice - The voice ID to use for synthesis. Defaults to 'aria'
    * @param {Omit<TextToSpeechRequest, 'text' | 'model_id'>} options - Additional options for the synthesis
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
-    model: keyof typeof models = 'multilingual_v2',
+  tts(
+    model: ElevenLabsModel = 'eleven_multilingual_v2',
     voice: keyof typeof voices | (string & {}) = 'aria',
     options?: Omit<TextToSpeechRequest, 'text' | 'model_id'>
-  ) => {
+  ) {
     return async (prompt: string) => {
-      const provider = createProvider();
+      const provider = this.createProvider();
       let newVoice = voice;
 
       if (voice in voices) {
@@ -71,7 +74,7 @@ export const elevenlabs = {
 
       const response = await provider.textToSpeech.convert(newVoice, {
         text: prompt,
-        model_id: models[model],
+        model_id: model,
         ...options,
       });
 
@@ -89,7 +92,7 @@ export const elevenlabs = {
 
       return file;
     };
-  },
+  }
 
   /**
    * Creates a speech-to-text transcription function using ElevenLabs
@@ -97,13 +100,13 @@ export const elevenlabs = {
    * @param {Omit<BodySpeechToTextV1SpeechToTextPost, 'model_id' | 'file'>} properties - Additional properties for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (
+  stt(
     model: 'scribe_v1' = 'scribe_v1',
     properties?: Omit<BodySpeechToTextV1SpeechToTextPost, 'model_id' | 'file'>
-  ) => {
-    const provider = createProvider();
-
+  ) {
     return async (audio: File) => {
+      const provider = this.createProvider();
+
       const response = await provider.speechToText.convert({
         file: audio,
         model_id: model,
@@ -112,7 +115,7 @@ export const elevenlabs = {
 
       return response.text;
     };
-  },
+  }
 
   /**
    * Creates a speech-to-speech conversion function using ElevenLabs
@@ -121,16 +124,16 @@ export const elevenlabs = {
    * @param {Omit<BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost, 'audio' | 'model_id'>} options - Additional options for the conversion
    * @returns {Function} Async function that takes audio and returns converted speech
    */
-  sts: (
+  sts(
     model: BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost['model_id'] = 'eleven_multilingual_sts_v2',
     voice: keyof typeof voices | (string & {}) = 'aria',
     options?: Omit<
       BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost,
       'audio' | 'model_id'
     >
-  ) => {
+  ) {
     return async (audio: File) => {
-      const provider = createProvider();
+      const provider = this.createProvider();
       let newVoice = voice;
 
       if (voice in voices) {
@@ -158,15 +161,15 @@ export const elevenlabs = {
 
       return file;
     };
-  },
+  }
 
   /**
    * Creates a speech isolation function using ElevenLabs
    * @returns {Function} Async function that takes audio and returns converted speech
    */
-  isl: () => {
+  isl() {
     return async (audio: File) => {
-      const provider = createProvider();
+      const provider = this.createProvider();
       const response = await provider.audioIsolation.audioIsolation({ audio });
 
       const chunks: Uint8Array[] = [];
@@ -183,5 +186,5 @@ export const elevenlabs = {
 
       return file;
     };
-  },
-};
+  }
+}

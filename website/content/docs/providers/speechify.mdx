@@ -12,15 +12,21 @@ Speechify offer a text-to-speech API that delivers their most natural and belove
 The Speechify provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { speechify } from 'orate/speechify';
+import { Speechify } from 'orate/speechify';
 ```
 
 ## Configuration
 
-The Speechify provider looks for the `SPEECHIFY_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use Speechify by creating a new instance of the `Speechify` class:
 
-```bash
-SPEECHIFY_API_KEY="your_api_key"
+```ts
+const speechify = new Speechify();
+```
+
+This will use the `SPEECHIFY_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const speechify = new Speechify('your_api_key');
 ```
 
 ## Usage
@@ -33,10 +39,10 @@ The Speechify provider provides a `tts` function that allows you to create a tex
 
 ```ts
 import { speak } from 'orate';
-import { speechify } from 'orate/speechify';
+import { Speechify } from 'orate/speechify';
 
 const speech = await speak({
-  model: speechify.tts(),
+  model: new Speechify().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -45,7 +51,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await speak({
-  model: speechify.tts('simba-turbo', 'kristy'),
+  model: new Speechify().tts('simba-turbo', 'kristy'),
   prompt: 'Hello, world!',
 });
 ```
@@ -54,7 +60,7 @@ You can also specify specific Speechify properties by passing them as an argumen
 
 ```ts
 const speech = await speak({
-  model: speechify.tts('simba-turbo', 'kristy', {
+  model: new Speechify().tts('simba-turbo', 'kristy', {
     options: {
       enableLoudnessNormalization: true,
     }

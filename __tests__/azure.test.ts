@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
-import { azure } from '../src/azure';
+import { Azure } from '../src/azure';
 
 describe('Azure Tests', () => {
+  const azure = new Azure();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: azure.tts('en-US-KaiNeural'),

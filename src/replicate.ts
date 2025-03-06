@@ -1,14 +1,4 @@
-import Replicate, { type WebhookEventType } from 'replicate';
-
-const createProvider = () => {
-  const auth = process.env.REPLICATE_API_TOKEN;
-
-  if (!auth) {
-    throw new Error('REPLICATE_API_TOKEN is not set');
-  }
-
-  return new Replicate({ auth });
-};
+import ReplicateSDK, { type WebhookEventType } from 'replicate';
 
 type ReplicateModel = `${string}/${string}` | `${string}/${string}:${string}`;
 
@@ -29,7 +19,21 @@ type ReplicateProperties = {
   signal?: AbortSignal;
 };
 
-export const replicate = {
+export class Replicate {
+  private apiKey: string;
+
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.REPLICATE_API_TOKEN || '';
+
+    if (!this.apiKey) {
+      throw new Error('REPLICATE_API_TOKEN is not set');
+    }
+  }
+
+  private createProvider() {
+    return new ReplicateSDK({ auth: this.apiKey });
+  }
+
   /**
    * Creates a text-to-speech synthesis function using Replicate TTS
    * @param {ReplicateModel} model - The model to use for synthesis.
@@ -37,14 +41,14 @@ export const replicate = {
    * @param {(response: unknown) => File | Promise<File>} outputTransformer - The function to transform the response to a File.
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
+  tts(
     model: ReplicateModel,
     inputTransformer: (
       prompt: string
     ) => ReplicateProperties | Promise<ReplicateProperties>,
     outputTransformer: (response: unknown) => File | Promise<File>
-  ) => {
-    const provider = createProvider();
+  ) {
+    const provider = this.createProvider();
 
     return async (prompt: string) => {
       const properties = await inputTransformer(prompt);
@@ -53,7 +57,7 @@ export const replicate = {
 
       return file;
     };
-  },
+  }
 
   /**
    * Creates a speech-to-text transcription function using Replicate
@@ -62,14 +66,14 @@ export const replicate = {
    * @param {(response: unknown) => string | Promise<string>} outputTransformer - The function to transform the response to a string.
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (
+  stt(
     model: ReplicateModel,
     inputTransformer: (
       audio: File
     ) => ReplicateProperties | Promise<ReplicateProperties>,
     outputTransformer: (response: unknown) => string | Promise<string>
-  ) => {
-    const provider = createProvider();
+  ) {
+    const provider = this.createProvider();
 
     return async (audio: File) => {
       const properties = await inputTransformer(audio);
@@ -78,7 +82,7 @@ export const replicate = {
 
       return text;
     };
-  },
+  }
 
   /**
    * Creates a speech isolation function using Replicate
@@ -87,14 +91,14 @@ export const replicate = {
    * @param {(response: unknown) => File | Promise<File>} outputTransformer - The function to transform the response to a File.
    * @returns {Function} Async function that takes audio and returns isolated audio
    */
-  isl: (
+  isl(
     model: ReplicateModel,
     inputTransformer: (
       audio: File
     ) => ReplicateProperties | Promise<ReplicateProperties>,
     outputTransformer: (response: unknown) => File | Promise<File>
-  ) => {
-    const provider = createProvider();
+  ) {
+    const provider = this.createProvider();
 
     return async (audio: File) => {
       const properties = await inputTransformer(audio);
@@ -103,5 +107,5 @@ export const replicate = {
 
       return file;
     };
-  },
-};
+  }
+}

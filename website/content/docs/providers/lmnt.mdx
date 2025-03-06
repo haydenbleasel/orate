@@ -12,15 +12,21 @@ LMNT is a platform that offers multimodal models that create natural speech in a
 The LMNT provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { lmnt } from 'orate/lmnt';
+import { LMNT } from 'orate/lmnt';
 ```
 
 ## Configuration
 
-The LMNT provider looks for the `LMNT_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use LMNT by creating a new instance of the `LMNT` class:
 
-```bash
-LMNT_API_KEY="your_api_key"
+```ts
+const lmnt = new LMNT();
+```
+
+This will use the `LMNT_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const lmnt = new LMNT('your_api_key');
 ```
 
 ## Usage
@@ -33,10 +39,10 @@ The LMNT provider provides a `tts` function that allows you to create a text-to-
 
 ```ts
 import { speak } from 'orate';
-import { lmnt } from 'orate/lmnt';
+import { LMNT } from 'orate/lmnt';
 
 const speech = await speak({
-  model: lmnt.tts(),
+  model: new LMNT().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -45,7 +51,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await speak({
-  model: lmnt.tts('blizzard', 'zeke'),
+  model: new LMNT().tts('blizzard', 'zeke'),
   prompt: 'Hello, world!',
 });
 ```
@@ -54,7 +60,7 @@ You can also specify specific LMNT properties by passing them as an argument to 
 
 ```ts
 const speech = await speak({
-  model: lmnt.tts('blizzard', 'zeke', {
+  model: new LMNT().tts('blizzard', 'zeke', {
     speed: 1.2,
   }),
   prompt: 'Hello, world!',
@@ -67,10 +73,10 @@ The LMNT provider provides a `sts` function that allows you to change the voice 
 
 ```ts
 import { change } from 'orate';
-import { lmnt } from 'orate/lmnt';
+import { LMNT } from 'orate/lmnt';
 
 const speech = await change({
-  model: lmnt.sts(),
+  model: new LMNT().sts(),
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
 });
 ```
@@ -79,7 +85,7 @@ You can specify the voice to use by passing it as an argument to the `sts` funct
 
 ```ts
 const speech = await change({
-  model: lmnt.sts('zeke'),
+  model: new LMNT().sts('zeke'),
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
 });
 ```
@@ -88,7 +94,7 @@ You can also specify specific LMNT properties by passing them as an argument to 
 
 ```ts
 const speech = await change({
-  model: lmnt.sts('zeke', {
+  model: new LMNT().sts('zeke', {
     language: 'de',
   }),
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),

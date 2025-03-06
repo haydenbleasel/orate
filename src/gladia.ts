@@ -1,67 +1,11 @@
 import ky from 'ky';
 
-const getApiKey = () => {
-  const apiKey = process.env.GLADIA_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('GLADIA_API_KEY is not set');
-  }
-
-  return apiKey;
-};
-
-type UploadResponse = {
-  audio_url: string;
-};
-
-const uploadFile = async (file: File) => {
-  const body = new FormData();
-  const url = new URL('/v2/upload', 'https://api.gladia.io');
-
-  body.append('audio', file);
-
-  const response = await ky
-    .post(url, {
-      body,
-      headers: {
-        'x-gladia-key': getApiKey(),
-      },
-    })
-    .json<UploadResponse>();
-
-  return response.audio_url;
-};
-
 type TranscribeResponse = {
   result_url: string;
 };
 
-const transcribe = async (
-  audioUrl: string,
-  model: string,
-  options?: object
-) => {
-  const url = new URL('/v2/pre-recorded', 'https://api.gladia.io');
-
-  const response = await ky
-    .post(url, {
-      json: {
-        ...options,
-        audio_url: audioUrl,
-        translation_config: {
-          ...(options
-            ? (options as { translation_config: object }).translation_config
-            : {}),
-          model,
-        },
-      },
-      headers: {
-        'x-gladia-key': getApiKey(),
-      },
-    })
-    .json<TranscribeResponse>();
-
-  return response.result_url;
+type UploadResponse = {
+  audio_url: string;
 };
 
 type GetTranscriptionResponse = {
@@ -73,42 +17,98 @@ type GetTranscriptionResponse = {
   };
 };
 
-const getTranscription = async (transcriptionUrl: string) => {
-  const response = await ky
-    .get(transcriptionUrl, {
-      headers: {
-        'x-gladia-key': getApiKey(),
-      },
-    })
-    .json<GetTranscriptionResponse>();
+export class Gladia {
+  private apiKey: string;
 
-  if (response.status === 'error') {
-    throw new Error(`Error: ${response.status}`);
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.GLADIA_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('GLADIA_API_KEY is not set');
+    }
   }
 
-  if (response.status === 'done') {
-    if (!response.result?.transcription?.full_transcript) {
-      throw new Error('No transcription');
+  private getApiKey() {
+    return this.apiKey;
+  }
+
+  private async uploadFile(file: File) {
+    const body = new FormData();
+    const url = new URL('/v2/upload', 'https://api.gladia.io');
+
+    body.append('audio', file);
+
+    const response = await ky
+      .post(url, {
+        body,
+        headers: {
+          'x-gladia-key': this.getApiKey(),
+        },
+      })
+      .json<UploadResponse>();
+
+    return response.audio_url;
+  }
+
+  private async transcribe(audioUrl: string, model: string, options?: object) {
+    const url = new URL('/v2/pre-recorded', 'https://api.gladia.io');
+
+    const response = await ky
+      .post(url, {
+        json: {
+          ...options,
+          audio_url: audioUrl,
+          translation_config: {
+            ...(options
+              ? (options as { translation_config: object }).translation_config
+              : {}),
+            model,
+          },
+        },
+        headers: {
+          'x-gladia-key': this.getApiKey(),
+        },
+      })
+      .json<TranscribeResponse>();
+
+    return response.result_url;
+  }
+
+  private async getTranscription(transcriptionUrl: string) {
+    const response = await ky
+      .get(transcriptionUrl, {
+        headers: {
+          'x-gladia-key': this.getApiKey(),
+        },
+      })
+      .json<GetTranscriptionResponse>();
+
+    if (response.status === 'error') {
+      throw new Error(`Error: ${response.status}`);
     }
 
-    return response.result.transcription.full_transcript;
-  }
-};
+    if (response.status === 'done') {
+      if (!response.result?.transcription?.full_transcript) {
+        throw new Error('No transcription');
+      }
 
-export const gladia = {
+      return response.result.transcription.full_transcript;
+    }
+  }
+
   /**
    * Creates a speech-to-text transcription function using Gladia
    * @param {'base' | 'enhanced'} model - The model to use for transcription. Defaults to 'base'
    * @param {object} options - Additional options for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (model: 'base' | 'enhanced' = 'base', options?: object) => {
+  stt(model: 'base' | 'enhanced' = 'base', options?: object) {
     return async (audio: File) => {
-      const audioUrl = await uploadFile(audio);
-      const transcriptionUrl = await transcribe(audioUrl, model, options);
+      const audioUrl = await this.uploadFile(audio);
+      const transcriptionUrl = await this.transcribe(audioUrl, model, options);
 
       while (true) {
-        const text = await getTranscription(transcriptionUrl);
+        const text = await this.getTranscription(transcriptionUrl);
 
         if (text) {
           return text;
@@ -118,5 +118,5 @@ export const gladia = {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
-  },
-};
+  }
+}

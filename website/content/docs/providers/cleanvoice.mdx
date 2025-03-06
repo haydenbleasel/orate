@@ -12,15 +12,21 @@ Cleanvoice helps you remove background noise, filler words, long silence, and mo
 The CleanVoice provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { cleanvoice } from 'orate/cleanvoice';
+import { CleanVoice } from 'orate/cleanvoice';
 ```
 
 ## Configuration
 
-The CleanVoice provider looks for the `CLEANVOICE_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use CleanVoice by creating a new instance of the `CleanVoice` class:
 
-```bash
-CLEANVOICE_API_KEY="your_api_key"
+```ts
+const cleanvoice = new CleanVoice();
+```
+
+This will use the `CLEANVOICE_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const cleanvoice = new CleanVoice('your_api_key');
 ```
 
 ## Usage
@@ -33,10 +39,10 @@ The CleanVoice provider provides a `stt` function that allows you to create a sp
 
 ```ts
 import { transcribe } from 'orate';
-import { cleanvoice } from 'orate/cleanvoice';
+import { CleanVoice } from 'orate/cleanvoice';
 
 const text = await transcribe({
-  model: cleanvoice.stt(),
+  model: new CleanVoice().stt(),
   audio: new File(...),
 });
 ```
@@ -45,7 +51,7 @@ You can also specify specific CleanVoice properties by passing them as an argume
 
 ```ts
 const text = await transcribe({
-  model: cleanvoice.stt({
+  model: new CleanVoice().stt({
     long_silences: true,
   }),
   audio: new File(...),
@@ -58,10 +64,10 @@ The CleanVoice provider provides a `isl` function that allows you to isolate the
 
 ```ts
 import { isolate } from 'orate';
-import { cleanvoice } from 'orate/cleanvoice';
+import { CleanVoice } from 'orate/cleanvoice';
 
 const speech = await isolate({
-  model: cleanvoice.isl(),
+  model: new CleanVoice().isl(),
   audio: new File(...),
 });
 ```
@@ -70,7 +76,7 @@ You can also specify specific CleanVoice properties by passing them as an argume
 
 ```ts
 const speech = await isolate({
-  model: cleanvoice.isl({
+  model: new CleanVoice().isl({
     long_silences: true,
   }),
   audio: new File(...),

@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { isolate, transcribe } from '../src';
-import { cleanvoice } from '../src/cleanvoice';
+import { CleanVoice } from '../src/cleanvoice';
 
 describe('CleanVoice Tests', () => {
+  const cleanvoice = new CleanVoice();
+
   it('should convert speech to text', async () => {
     const file = await readFile('./__tests__/test.mp3');
     const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });

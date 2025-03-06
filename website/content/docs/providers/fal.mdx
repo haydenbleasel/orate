@@ -12,15 +12,21 @@ Fal is a generative media platform for developers, helping you build the next ge
 The Fal provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { fal } from 'orate/fal';
+import { Fal } from 'orate/fal';
 ```
 
 ## Configuration
 
-The Fal provider looks for the `FAL_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use Fal by creating a new instance of the `Fal` class:
 
-```bash
-FAL_API_KEY="your_api_key"
+```ts
+const fal = new Fal();
+```
+
+This will use the `FAL_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const fal = new Fal('your_api_key');
 ```
 
 ## Usage
@@ -33,10 +39,10 @@ The Fal provider provides a `stt` function that allows you to create a speech-to
 
 ```ts
 import { transcribe } from 'orate';
-import { fal } from 'orate/fal';
+import { Fal } from 'orate/fal';
 
 const text = await transcribe({
-  model: fal.stt(),
+  model: new Fal().stt(),
   audio: new File(...),
 });
 ```
@@ -45,7 +51,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 
 ```ts
 const text = await transcribe({
-  model: fal.stt('fal-ai/wizper'),
+  model: new Fal().stt('fal-ai/wizper'),
   audio: new File(...),
 });
 ```
@@ -54,7 +60,7 @@ You can also specify specific Fal properties by passing them as an argument to t
 
 ```ts
 const text = await transcribe({
-  model: fal.stt('fal-ai/wizper', {
+  model: new Fal().stt('fal-ai/wizper', {
     diarize: true,
   }),
   audio: new File(...),

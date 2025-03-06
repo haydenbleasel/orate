@@ -12,15 +12,21 @@ Hume is a LLM for text-to-speech synthesis, allowing you to generate realistic s
 The Hume provider is available by default in Orate. To import it, you can use the following code:
 
 ```ts
-import { hume } from 'orate/hume';
+import { Hume } from 'orate/hume';
 ```
 
 ## Configuration
 
-The Hume provider looks for the `HUME_API_KEY` environment variable. This variable is required for the provider to work. Simply add the following to your `.env` file:
+You can use Hume by creating a new instance of the `Hume` class:
 
-```bash
-HUME_API_KEY="your_api_key"
+```ts
+const hume = new Hume();
+```
+
+This will use the `HUME_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const hume = new Hume('your_api_key');
 ```
 
 ## Usage
@@ -35,10 +41,10 @@ Hume is unique in that it allows you to describe the voice you want to use in na
 
 ```ts
 import { speak } from 'orate';
-import { hume } from 'orate/hume';
+import { Hume } from 'orate/hume';
 
 const speech = await speak({
-  model: hume.tts('A medieval knight'),
+  model: new Hume().tts('A medieval knight'),
   prompt: 'Hello, world!',
 });
 ```
@@ -47,7 +53,7 @@ If you have a voice saved in your library, you can use the voice's name to descr
 
 ```ts
 const speech = await speak({
-  model: hume.tts('A medieval knight', 'voice_id'),
+  model: new Hume().tts('A medieval knight', 'voice_id'),
   prompt: 'Hello, world!',
 });
 ```
@@ -56,7 +62,7 @@ You can also specify specific Hume properties by passing them as an argument to 
 
 ```ts
 const speech = await speak({
-  model: hume.tts('A medieval knight', 'voice_id', {
+  model: new Hume().tts('A medieval knight', 'voice_id', {
     numGenerations: 3,
   }),
   prompt: 'Hello, world!',

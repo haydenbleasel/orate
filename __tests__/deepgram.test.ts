@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
-import { deepgram } from '../src/deepgram';
+import { Deepgram } from '../src/deepgram';
 
 describe('Deepgram Tests', () => {
+  const deepgram = new Deepgram();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: deepgram.tts('aura', 'arcas-en'),

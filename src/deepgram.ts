@@ -4,16 +4,6 @@ import {
   createClient,
 } from '@deepgram/sdk';
 
-const createProvider = () => {
-  const apiKey = process.env.DEEPGRAM_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('DEEPGRAM_API_KEY is not set');
-  }
-
-  return createClient(apiKey);
-};
-
 type DeepgramTranscriptModel = 'aura';
 
 type DeepgramTranscriptVoice =
@@ -67,7 +57,21 @@ type DeepgramSpeechModel =
   | 'whisper-medium'
   | 'whisper-large';
 
-export const deepgram = {
+export class Deepgram {
+  private apiKey: string;
+
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey || process.env.DEEPGRAM_API_KEY || '';
+
+    if (!this.apiKey) {
+      throw new Error('DEEPGRAM_API_KEY is not set');
+    }
+  }
+
+  private createProvider() {
+    return createClient(this.apiKey);
+  }
+
   /**
    * Creates a text-to-speech synthesis function using Deepgram TTS
    * @param {DeepgramTranscriptModel} model - The model to use for synthesis. Defaults to 'aura'
@@ -75,12 +79,12 @@ export const deepgram = {
    * @param {Omit<SpeakSchema, 'model'>} properties - Additional properties for the TTS request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
-  tts: (
+  tts(
     model: DeepgramTranscriptModel = 'aura',
     voice: DeepgramTranscriptVoice = 'asteria-en',
     properties?: Omit<SpeakSchema, 'model'>
-  ) => {
-    const provider = createProvider();
+  ) {
+    const provider = this.createProvider();
 
     return async (prompt: string) => {
       const parsedModel = `${model}-${voice}`;
@@ -115,7 +119,7 @@ export const deepgram = {
 
       return file;
     };
-  },
+  }
 
   /**
    * Creates a speech-to-text transcription function using Deepgram STT
@@ -123,11 +127,11 @@ export const deepgram = {
    * @param {Omit<PrerecordedSchema, 'model'>} properties - Additional properties for the STT request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt: (
+  stt(
     model: DeepgramSpeechModel | string = 'nova-2',
     properties?: Omit<PrerecordedSchema, 'model'>
-  ) => {
-    const provider = createProvider();
+  ) {
+    const provider = this.createProvider();
 
     return async (audio: File) => {
       const arrayBuffer = await audio.arrayBuffer();
@@ -159,5 +163,5 @@ export const deepgram = {
 
       return response.result.results.channels[0].alternatives[0].transcript;
     };
-  },
-};
+  }
+}
