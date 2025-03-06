@@ -4,29 +4,28 @@ import type {
   SpeechGenerateParams,
 } from 'lmnt-node/resources';
 
-const voices = [
-  'amy',
-  'ava',
-  'caleb',
-  'chloe',
-  'dalton',
-  'daniel',
-  'james',
-  'lauren',
-  'lily',
-  'magnus',
-  'miles',
-  'morgan',
-  'nathan',
-  'noah',
-  'oliver',
-  'paige',
-  'sophie',
-  'terrence',
-  'zain',
-  'zeke',
-  'zoe',
-] as const;
+type LMNTVoice =
+  | 'amy'
+  | 'ava'
+  | 'caleb'
+  | 'chloe'
+  | 'dalton'
+  | 'daniel'
+  | 'james'
+  | 'lauren'
+  | 'lily'
+  | 'magnus'
+  | 'miles'
+  | 'morgan'
+  | 'nathan'
+  | 'noah'
+  | 'oliver'
+  | 'paige'
+  | 'sophie'
+  | 'terrence'
+  | 'zain'
+  | 'zeke'
+  | 'zoe';
 
 export class LMNT {
   private apiKey: string;
@@ -52,7 +51,7 @@ export class LMNT {
    */
   tts(
     model: SpeechGenerateParams['model'] = 'aurora',
-    voice: (typeof voices)[number] = 'lily',
+    voice: LMNTVoice = 'lily',
     options?: Omit<SpeechGenerateParams, 'text' | 'model' | 'voice'>
   ) {
     return async (prompt: string) => {
@@ -81,7 +80,7 @@ export class LMNT {
    * @returns {Function} Async function that takes audio and returns converted speech
    */
   sts(
-    voice: (typeof voices)[number] = 'lily',
+    voice: LMNTVoice = 'lily',
     options?: Omit<SpeechConvertParams, 'audio' | 'model'>
   ) {
     return async (audio: File) => {

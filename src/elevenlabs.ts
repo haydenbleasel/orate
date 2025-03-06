@@ -5,15 +5,14 @@ import type {
   TextToSpeechRequest,
 } from 'elevenlabs/api';
 
-const models = {
-  multilingual_v2: 'eleven_multilingual_v2',
-  flash_v2_5: 'eleven_flash_v2_5',
-  flash_v2: 'eleven_flash_v2',
-  turbo_v2: 'eleven_turbo_v2',
-  turbo_v2_5: 'eleven_turbo_v2_5',
-  multilingual_sts_v2: 'eleven_multilingual_sts_v2',
-  english_sts_v2: 'eleven_english_sts_v2',
-};
+type ElevenLabsModel =
+  | 'eleven_multilingual_v2'
+  | 'eleven_flash_v2_5'
+  | 'eleven_flash_v2'
+  | 'eleven_turbo_v2'
+  | 'eleven_turbo_v2_5'
+  | 'eleven_multilingual_sts_v2'
+  | 'eleven_english_sts_v2';
 
 const voices = {
   alice: 'Xb7hH8MSUJpSbSDYk0k2',
@@ -55,13 +54,13 @@ export class ElevenLabs {
 
   /**
    * Creates a text-to-speech synthesis function using ElevenLabs
-   * @param {keyof typeof models} model - The model ID to use for synthesis. Defaults to 'multilingual_v2'
+   * @param {ElevenLabsModel} model - The model ID to use for synthesis. Defaults to 'multilingual_v2'
    * @param {keyof typeof voices} voice - The voice ID to use for synthesis. Defaults to 'aria'
    * @param {Omit<TextToSpeechRequest, 'text' | 'model_id'>} options - Additional options for the synthesis
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts(
-    model: keyof typeof models = 'multilingual_v2',
+    model: ElevenLabsModel = 'eleven_multilingual_v2',
     voice: keyof typeof voices | (string & {}) = 'aria',
     options?: Omit<TextToSpeechRequest, 'text' | 'model_id'>
   ) {
@@ -75,7 +74,7 @@ export class ElevenLabs {
 
       const response = await provider.textToSpeech.convert(newVoice, {
         text: prompt,
-        model_id: models[model],
+        model_id: model,
         ...options,
       });
 
