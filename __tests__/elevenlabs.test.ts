@@ -1,12 +1,14 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { change, isolate, speak, transcribe } from '../src';
-import { elevenlabs } from '../src/elevenlabs';
+import { ElevenLabs } from '../src/elevenlabs';
 
 describe('ElevenLabs Tests', () => {
+  const elevenlabs = new ElevenLabs();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
-      model: elevenlabs.tts('multilingual_v2', 'bill'),
+      model: elevenlabs.tts('eleven_multilingual_v2', 'bill'),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',
     });
 
@@ -35,7 +37,7 @@ describe('ElevenLabs Tests', () => {
   it('should convert text to speech with a custom voice', async () => {
     const speech = await speak({
       model: elevenlabs.tts(
-        'multilingual_v2',
+        'eleven_multilingual_v2',
         process.env.ELEVENLABS_CUSTOM_VOICE_ID
       ),
       prompt: 'Friends, Romans, countrymen, lend me your ears!',

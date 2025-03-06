@@ -1,9 +1,11 @@
 import { writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak } from '../src';
-import { speechify } from '../src/speechify';
+import { Speechify } from '../src/speechify';
 
 describe('Speechify Tests', () => {
+  const speechify = new Speechify();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: speechify.tts('simba-english', 'henry'),

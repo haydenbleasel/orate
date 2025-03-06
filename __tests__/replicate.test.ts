@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { isolate, speak, transcribe } from '../src';
-import { replicate } from '../src/replicate';
+import { Replicate } from '../src/replicate';
 
 describe('Replicate Tests', () => {
+  const replicate = new Replicate();
+
   it('should convert text to speech using jaaari/kokoro-82m', async () => {
     const speech = await speak({
       model: replicate.tts(

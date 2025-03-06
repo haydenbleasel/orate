@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { change, speak } from '../src';
-import { lmnt } from '../src/lmnt';
+import { LMNT } from '../src/lmnt';
 
 describe('LMNT Tests', () => {
+  const lmnt = new LMNT();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: lmnt.tts('blizzard', 'zeke'),

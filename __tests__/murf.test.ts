@@ -1,9 +1,11 @@
 import { writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak } from '../src';
-import { murf } from '../src/murf';
+import { Murf } from '../src/murf';
 
 describe('Murf Tests', () => {
+  const murf = new Murf();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: murf.tts('GEN2', 'en-US-terrell'),

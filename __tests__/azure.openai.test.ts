@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
-import { openaiAzure } from '../src/azure.openai';
+import { AzureOpenAI } from '../src/azure.openai';
 
 describe('Azure OpenAI Tests', () => {
+  const openaiAzure = new AzureOpenAI();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: openaiAzure.tts('tts-hd', 'alloy'),

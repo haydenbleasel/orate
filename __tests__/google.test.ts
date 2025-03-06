@@ -1,9 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
-import { google } from '../src/google';
+import { Google } from '../src/google';
 
 describe('Google Tests', () => {
+  const google = new Google();
+
   it('should convert text to speech', async () => {
     const speech = await speak({
       model: google.tts('en-US-Journey-D'),

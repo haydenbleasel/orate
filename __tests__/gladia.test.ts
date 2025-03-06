@@ -1,9 +1,11 @@
 import { readFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { transcribe } from '../src';
-import { gladia } from '../src/gladia';
+import { Gladia } from '../src/gladia';
 
 describe('Gladia Tests', () => {
+  const gladia = new Gladia();
+
   it('should convert speech to text', async () => {
     const file = await readFile('./__tests__/test.mp3');
     const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });

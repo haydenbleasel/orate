@@ -1,10 +1,10 @@
-import { AzureOpenAI } from 'openai';
+import { AzureOpenAI as AzureOpenAISDK } from 'openai';
 import type { SpeechCreateParams } from 'openai/resources/audio/speech';
 import type { TranscriptionCreateParams } from 'openai/resources/audio/transcriptions';
 
-export class Azure {
-  private ttsProvider?: AzureOpenAI;
-  private sttProvider?: AzureOpenAI;
+export class AzureOpenAI {
+  private ttsProvider?: AzureOpenAISDK;
+  private sttProvider?: AzureOpenAISDK;
   private apiKey: string;
   private apiVersion: string;
 
@@ -18,7 +18,7 @@ export class Azure {
     }
   }
 
-  private createProvider(model: string, type: 'tts' | 'stt'): AzureOpenAI {
+  private createProvider(model: string, type: 'tts' | 'stt'): AzureOpenAISDK {
     const endpoint =
       type === 'tts'
         ? process.env.AZURE_OPENAI_TTS_ENDPOINT
@@ -28,7 +28,7 @@ export class Azure {
       throw new Error('AZURE_OPENAI_ENDPOINT is not set');
     }
 
-    return new AzureOpenAI({
+    return new AzureOpenAISDK({
       apiKey: this.apiKey,
       apiVersion: this.apiVersion,
       endpoint,
