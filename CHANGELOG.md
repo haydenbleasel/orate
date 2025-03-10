@@ -1,3 +1,15 @@
+# v1.6.1 (Mon Mar 10 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Create issue templates ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.6.0 (Thu Mar 06 2025)
 
 #### 🚀 Enhancement
