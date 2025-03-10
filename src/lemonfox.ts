@@ -259,20 +259,21 @@ export class LemonFox {
 
   /**
    * Creates a speech-to-text transcription function using LemonFox
-   * @param {Omit<SpeechToTextRequest, 'file'>} options - The options for the transcription.
+   * @param {Omit<SpeechToTextRequest, 'file' | 'response_format'>} options - The options for the transcription.
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt(options: Omit<SpeechToTextRequest, 'file'>) {
+  stt(options: Omit<SpeechToTextRequest, 'file' | 'response_format'>) {
     return async (audio: File) => {
       const body = new FormData();
+
+      body.append('file', audio);
+      body.append('response_format', 'json');
 
       for (const key in options) {
         if (options[key as keyof typeof options] !== undefined) {
           body.append(key, options[key as keyof typeof options] as never);
         }
       }
-
-      body.append('file', audio);
 
       const response = await ky
         .post<SpeechToTextResponse>(
