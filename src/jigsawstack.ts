@@ -25,10 +25,15 @@ export class JigsawStackProvider {
    * @returns {Function} Async function that takes audio url and returns transcribed text
    */
   stt(options?: Omit<STTParams, 'url'>) {
-    return async (url: string) => {
+    return async (audio: File) => {
       const provider = this.createProvider();
+
+      const result = await provider.store.upload(audio, {
+        filename: audio.name,
+      });
+
       const response = await provider.audio.speech_to_text({
-        url,
+        url: result.url,
         ...options,
       });
       return response.text;
