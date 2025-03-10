@@ -121,6 +121,15 @@ const snippets = [
     ),
   },
   {
+    provider: 'jigsawstack',
+    name: 'JigsawStack',
+    code: createSnippet('JigsawStack', "'en-US-female-27'"),
+    children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
+      <audio className="w-full" src="/examples/tts/jigsawstack.wav" controls />
+    ),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { speak } from 'orate';

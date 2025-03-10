@@ -1,0 +1,93 @@
+---
+title: JigsawStack
+description: Orate supports JigsawStack's speech and transcription services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+JigsawStack offer a suite of small fast models that automate the boring and complex tasks in every tech stack with specialized finetuning.
+
+## Setup
+
+The JigsawStack provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { JigsawStack } from 'orate/jigsawstack';
+```
+
+## Configuration
+
+You can use JigsawStack by creating a new instance of the `JigsawStack` class:
+
+```ts
+const jigsawstack = new JigsawStack();
+```
+
+This will use the `JIGSAWSTACK_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const jigsawstack = new JigsawStack('your_api_key');
+```
+
+## Usage
+
+The JigsawStack provider provides a single interface for all of JigsawStack's speech and transcription services.
+
+### Text to Speech
+
+The JigsawStack provider provides a `tts` function that allows you to create a text-to-speech synthesis function using JigsawStack TTS. By default, the `tts` function uses the `en-US-female-27` voice (accent).
+
+```ts
+import { speak } from 'orate';
+import { jigsawstack } from 'orate/jigsawstack';
+
+const speech = await speak({
+  model: jigsawstack.tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the model and voice to use by passing them as arguments to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: jigsawstack.tts('en-US-female-27'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific JigsawStack properties by passing them as an argument to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: jigsawstack.tts('en-US-female-27', {
+    speaker_clone_file_store_key: '...',
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+### Speech to Text
+
+The JigsawStack provider provides a `stt` function that allows you to create a speech-to-text transcription function using JigsawStack.
+
+```ts
+import { transcribe } from 'orate';
+import { jigsawstack } from 'orate/jigsawstack';
+
+const text = await transcribe({
+  model: jigsawstack.stt(),
+  audio: new File(...),
+});
+```
+
+You can also specify specific JigsawStack properties by passing them as an argument to the `stt` function.
+
+```ts
+const text = await transcribe({
+  model: jigsawstack.stt({
+    batch_size: 1,
+  }),
+  audio: new File(...),
+});
+```
