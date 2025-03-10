@@ -1,3 +1,20 @@
+# v1.6.2 (Mon Mar 10 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, null[@iamNarcisse](https://github.com/iamNarcisse), for all your work!
+
+#### 🐛 Bug Fix
+
+- Add JigsawStack provider for TTS and STT [#11](https://github.com/haydenbleasel/orate/pull/11) ([@iamNarcisse](https://github.com/iamNarcisse) [@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 2
+
+- [@iamNarcisse](https://github.com/iamNarcisse)
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.6.1 (Mon Mar 10 2025)
 
 #### ⚠️ Pushed to `main`
