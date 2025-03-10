@@ -29,11 +29,11 @@ export class JigsawStack {
       const provider = this.createProvider();
 
       const result = await provider.store.upload(audio, {
-        filename: audio.name,
+        filename: `${audio.name}-${Date.now()}`,
       });
 
       const response = await provider.audio.speech_to_text({
-        url: result.url,
+        file_store_key: result.key,
         ...options,
       });
 
