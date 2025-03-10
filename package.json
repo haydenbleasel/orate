@@ -1,6 +1,6 @@
 {
   "name": "orate",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "The AI toolkit for speech.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
