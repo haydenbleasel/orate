@@ -1,6 +1,6 @@
 {
   "name": "orate",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "The AI toolkit for speech.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -14,12 +14,19 @@
     "build": "tsup",
     "test": "vitest"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haydenbleasel/orate.git"
   },
-  "keywords": ["ai", "text", "speech", "transcribe"],
+  "keywords": [
+    "ai",
+    "text",
+    "speech",
+    "transcribe"
+  ],
   "author": "Hayden Bleasel <hello@haydenbleasel.com>",
   "license": "MIT",
   "bugs": {
