@@ -36,28 +36,32 @@ export class JigsawStackProvider {
         url: result.url,
         ...options,
       });
+
       return response.text;
     };
   }
 
   /**
    * Creates a text-to-speech synthesis function using JigsawStack TTS
-   * @param {TTSParams["accent"]} accent - The voice to use for synthesis. Defaults to 'en-US-female-27'
+   * @param {TTSParams["accent"]} voice - The voice to use for synthesis. Defaults to 'en-US-female-27'
    * @param {Omit<TTSParams, 'text' | 'accent'>} properties - Additional properties for the synthesis request
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts(
-    accent: TTSParams['accent'] = 'en-US-female-27',
+    voice: TTSParams['accent'] = 'en-US-female-27',
     properties?: Omit<TTSParams, 'text' | 'accent'>
   ) {
     return async (text: string) => {
       const provider = this.createProvider();
+
       const response = await provider.audio.text_to_speech({
         text,
-        accent,
+        accent: voice,
         ...properties,
       });
+
       const file = await response.file('speech.mp3', { type: 'audio/mpeg' });
+
       return file;
     };
   }
