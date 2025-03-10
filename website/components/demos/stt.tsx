@@ -77,6 +77,11 @@ const snippets = [
     code: createSnippet('CleanVoice'),
   },
   {
+    provider: 'jigsawstack',
+    name: 'JigsawStack',
+    code: createSnippet('JigsawStack'),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { transcribe } from 'orate';
