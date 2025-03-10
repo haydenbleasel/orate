@@ -39,10 +39,10 @@ The JigsawStack provider provides a `tts` function that allows you to create a t
 
 ```ts
 import { speak } from 'orate';
-import { jigsawstack } from 'orate/jigsawstack';
+import { JigsawStack } from 'orate/jigsawstack';
 
 const speech = await speak({
-  model: jigsawstack.tts(),
+  model: new JigsawStack().tts(),
   prompt: 'Hello, world!',
 });
 ```
@@ -51,7 +51,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await speak({
-  model: jigsawstack.tts('en-US-female-27'),
+  model: new JigsawStack().tts('en-US-female-27'),
   prompt: 'Hello, world!',
 });
 ```
@@ -60,7 +60,7 @@ You can also specify specific JigsawStack properties by passing them as an argum
 
 ```ts
 const speech = await speak({
-  model: jigsawstack.tts('en-US-female-27', {
+  model: new JigsawStack().tts('en-US-female-27', {
     speaker_clone_file_store_key: '...',
   }),
   prompt: 'Hello, world!',
@@ -73,10 +73,10 @@ The JigsawStack provider provides a `stt` function that allows you to create a s
 
 ```ts
 import { transcribe } from 'orate';
-import { jigsawstack } from 'orate/jigsawstack';
+import { JigsawStack } from 'orate/jigsawstack';
 
 const text = await transcribe({
-  model: jigsawstack.stt(),
+  model: new JigsawStack().stt(),
   audio: new File(...),
 });
 ```
@@ -85,7 +85,7 @@ You can also specify specific JigsawStack properties by passing them as an argum
 
 ```ts
 const text = await transcribe({
-  model: jigsawstack.stt({
+  model: new JigsawStack().stt({
     batch_size: 1,
   }),
   audio: new File(...),
