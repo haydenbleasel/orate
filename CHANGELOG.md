@@ -1,3 +1,15 @@
+# v1.6.4 (Mon Mar 10 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update jigsaw-stack.mdx ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.6.3 (Mon Mar 10 2025)
 
 #### ⚠️ Pushed to `main`
