@@ -1,10 +1,10 @@
-import { JigsawStack } from 'jigsawstack';
+import { JigsawStack as JigsawStackSDK } from 'jigsawstack';
 
-type JigsawStackType = ReturnType<typeof JigsawStack>;
+type JigsawStackType = ReturnType<typeof JigsawStackSDK>;
 type STTParams = Parameters<JigsawStackType['audio']['speech_to_text']>['0'];
 type TTSParams = Parameters<JigsawStackType['audio']['text_to_speech']>['0'];
 
-export class JigsawStackProvider {
+export class JigsawStack {
   private apiKey: string;
 
   constructor(apiKey?: string) {
@@ -16,7 +16,7 @@ export class JigsawStackProvider {
   }
 
   private createProvider() {
-    return JigsawStack({ apiKey: this.apiKey });
+    return JigsawStackSDK({ apiKey: this.apiKey });
   }
 
   /**
