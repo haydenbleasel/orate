@@ -229,7 +229,7 @@ export class LemonFox {
   tts<L extends TextToSpeechRequest['language']>(
     language: L,
     voice: Extract<TextToSpeechRequest, { language: L }>['voice'],
-    options: Omit<TextToSpeechRequest, 'input' | 'language' | 'voice'>
+    options?: Omit<TextToSpeechRequest, 'input' | 'language' | 'voice'>
   ) {
     return async (prompt: string) => {
       const json = {
