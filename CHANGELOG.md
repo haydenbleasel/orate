@@ -1,3 +1,15 @@
+# v1.6.3 (Mon Mar 10 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Fix JigsawStack doc path ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.6.2 (Mon Mar 10 2025)
 
 :tada: This release contains work from a new contributor! :tada:
