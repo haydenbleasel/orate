@@ -1,17 +1,15 @@
 import ky from 'ky';
 
-type CreateTTSResponse = {
-  id: string;
-  status: string;
+type CreateTextToSpeechRequest = {
+  text: string;
+  voice_id: number;
+  language: number;
+  gender?: 'female' | 'unknown' | 'not_applicable';
+  age?: 'child' | 'adult' | 'senior';
 };
 
-type TTSStatusResponse = {
-  status: string;
-  run_id?: string;
-};
-
-type TTSResultResponse = {
-  url: string;
+type CreateTextToSpeechResponse = {
+  task_id: string;
 };
 
 export class CambAI {
