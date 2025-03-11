@@ -2,9 +2,10 @@ import { Snippet } from './snippet';
 
 const createSnippet = (
   provider: string,
+  path: string,
   props?: string
 ) => `import { transcribe } from 'orate';
-import { ${provider} } from 'orate/${provider}';
+import { ${provider} } from 'orate/${path}';
 import audio from './audio.wav';
 
 const text = await transcribe({
@@ -16,75 +17,76 @@ const snippets = [
   {
     provider: 'assembly',
     name: 'AssemblyAI',
-    code: createSnippet('Assembly', "'best'"),
+    code: createSnippet('AssemblyAI', 'assembly', "'best'"),
   },
   {
     provider: 'openai',
     name: 'OpenAI',
-    code: createSnippet('OpenAI', "'whisper-1'"),
+    code: createSnippet('OpenAI', 'openai', "'whisper-1'"),
   },
   {
     provider: 'elevenlabs',
     name: 'ElevenLabs',
-    code: createSnippet('ElevenLabs', "'scribe_v1'"),
+    code: createSnippet('ElevenLabs', 'elevenlabs', "'scribe_v1'"),
   },
   {
     provider: 'azure',
     name: 'Azure',
-    code: createSnippet('Azure', "'en-US-AvaMultilingualNeural'"),
+    code: createSnippet('Azure', 'azure', "'en-US-AvaMultilingualNeural'"),
   },
   {
     provider: 'google',
     name: 'Google',
     code: createSnippet(
       'Google',
+      'google',
       "'projects/{project}/locations/{region}/recognizers/{recognizer}'"
     ),
   },
   {
     provider: 'ibm',
     name: 'IBM',
-    code: createSnippet('IBM', "'en-US_BroadbandModel'"),
+    code: createSnippet('IBM', 'ibm', "'en-US_BroadbandModel'"),
   },
   {
     provider: 'gladia',
     name: 'Gladia',
-    code: createSnippet('Gladia', "'enhanced'"),
+    code: createSnippet('Gladia', 'gladia', "'enhanced'"),
   },
   {
     provider: 'rev',
     name: 'Rev AI',
-    code: createSnippet('Rev', "'machine'"),
+    code: createSnippet('Rev', 'rev', "'machine'"),
   },
   {
     provider: 'deepgram',
     name: 'Deepgram',
-    code: createSnippet('Deepgram', "'nova-2'"),
+    code: createSnippet('Deepgram', 'deepgram', "'nova-2'"),
   },
   {
     provider: 'groq',
     name: 'Groq',
-    code: createSnippet('Groq', "'whisper-large-v3'"),
+    code: createSnippet('Groq', 'groq', "'whisper-large-v3'"),
   },
   {
     provider: 'fal',
     name: 'Fal',
-    code: createSnippet('Fal', "'fal-ai/whisper'"),
+    code: createSnippet('Fal', 'fal', "'fal-ai/whisper'"),
   },
   {
     provider: 'cleanvoice',
     name: 'CleanVoice',
-    code: createSnippet('CleanVoice'),
+    code: createSnippet('CleanVoice', 'cleanvoice'),
   },
   {
     provider: 'jigsawstack',
     name: 'JigsawStack',
-    code: createSnippet('JigsawStack'),
+    code: createSnippet('JigsawStack', 'jigsawstack'),
   },
   {
     provider: 'lemonfox',
     name: 'LemonFox',
-    code: createSnippet('LemonFox'),
+    code: createSnippet('LemonFox', 'lemonfox'),
   },
   {
     provider: 'replicate',

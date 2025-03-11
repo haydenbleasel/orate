@@ -2,9 +2,10 @@ import { Snippet } from './snippet';
 
 const createSnippet = (
   provider: string,
+  path: string,
   props?: string
 ) => `import { speak } from 'orate';
-import { ${provider} } from 'orate/${provider}';
+import { ${provider} } from 'orate/${path}';
 
 const speech = await speak({
   model: new ${provider}().tts(${props ?? ''}),
@@ -15,7 +16,11 @@ const snippets = [
   {
     provider: 'elevenlabs',
     name: 'ElevenLabs',
-    code: createSnippet('ElevenLabs', "'multilingual_v2', 'aria'"),
+    code: createSnippet(
+      'ElevenLabs',
+      'elevenlabs',
+      "'multilingual_v2', 'aria'"
+    ),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/elevenlabs.wav" controls />
@@ -24,7 +29,7 @@ const snippets = [
   {
     provider: 'openai',
     name: 'OpenAI',
-    code: createSnippet('OpenAI', "'tts-1', 'alloy'"),
+    code: createSnippet('OpenAI', 'openai', "'tts-1', 'alloy'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/openai.wav" controls />
@@ -33,7 +38,7 @@ const snippets = [
   {
     provider: 'azure',
     name: 'Azure',
-    code: createSnippet('Azure', "'en-US-AriaNeural'"),
+    code: createSnippet('Azure', 'azure', "'en-US-AriaNeural'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/azure.wav" controls />
@@ -42,7 +47,7 @@ const snippets = [
   {
     provider: 'azureOpenai',
     name: 'Azure OpenAI',
-    code: createSnippet('AzureOpenAI', "'tts', 'alloy'"),
+    code: createSnippet('AzureOpenAI', 'azure.openai', "'tts', 'alloy'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/azure.openai.wav" controls />
@@ -51,7 +56,7 @@ const snippets = [
   {
     provider: 'google',
     name: 'Google',
-    code: createSnippet('Google', "'en-US-Casual-K'"),
+    code: createSnippet('Google', 'google', "'en-US-Casual-K'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/google.wav" controls />
@@ -60,7 +65,7 @@ const snippets = [
   {
     provider: 'ibm',
     name: 'IBM',
-    code: createSnippet('IBM', "'en-US_BroadbandModel'"),
+    code: createSnippet('IBM', 'ibm', "'en-US_BroadbandModel'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/ibm.wav" controls />
@@ -69,7 +74,7 @@ const snippets = [
   {
     provider: 'murf',
     name: 'Murf',
-    code: createSnippet('Murf', "'GEN2', 'en-US-natalie'"),
+    code: createSnippet('Murf', 'murf', "'GEN2', 'en-US-natalie'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/murf.wav" controls />
@@ -78,7 +83,7 @@ const snippets = [
   {
     provider: 'deepgram',
     name: 'Deepgram',
-    code: createSnippet('Deepgram', "'aura', 'asteria-en'"),
+    code: createSnippet('Deepgram', 'deepgram', "'aura', 'asteria-en'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/deepgram.wav" controls />
@@ -87,7 +92,11 @@ const snippets = [
   {
     provider: 'speechify',
     name: 'Speechify',
-    code: createSnippet('Speechify', "'simba-multilingual', 'george'"),
+    code: createSnippet(
+      'Speechify',
+      'speechify',
+      "'simba-multilingual', 'george'"
+    ),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/speechify.wav" controls />
@@ -96,7 +105,7 @@ const snippets = [
   {
     provider: 'play',
     name: 'Play',
-    code: createSnippet('Play', "'PlayDialog', 'Angelo'"),
+    code: createSnippet('Play', 'play', "'PlayDialog', 'Angelo'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/play.wav" controls />
@@ -105,7 +114,7 @@ const snippets = [
   {
     provider: 'hume',
     name: 'Hume',
-    code: createSnippet('Hume', "'A Roman senator'"),
+    code: createSnippet('Hume', 'hume', "'A Roman senator'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/hume.wav" controls />
@@ -114,7 +123,7 @@ const snippets = [
   {
     provider: 'lmnt',
     name: 'LMNT',
-    code: createSnippet('LMNT', "'blizzard', 'zeke'"),
+    code: createSnippet('LMNT', 'lmnt', "'blizzard', 'zeke'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/lmnt.wav" controls />
@@ -123,7 +132,7 @@ const snippets = [
   {
     provider: 'jigsawstack',
     name: 'JigsawStack',
-    code: createSnippet('JigsawStack', "'en-US-female-27'"),
+    code: createSnippet('JigsawStack', 'jigsawstack', "'en-US-female-27'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/jigsawstack.wav" controls />
@@ -132,7 +141,7 @@ const snippets = [
   {
     provider: 'lemonfox',
     name: 'LemonFox',
-    code: createSnippet('LemonFox', "'en-US', 'sarah'"),
+    code: createSnippet('LemonFox', 'lemonfox', "'en-US', 'sarah'"),
     children: (
       // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
       <audio className="w-full" src="/examples/tts/lemonfox.wav" controls />

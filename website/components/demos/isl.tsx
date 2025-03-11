@@ -2,9 +2,10 @@ import { Snippet } from './snippet';
 
 const createSnippet = (
   provider: string,
+  path: string,
   props?: string
 ) => `import { isolate } from 'orate';
-import { ${provider} } from 'orate/${provider}';
+import { ${provider} } from 'orate/${path}';
 import audio from './audio.wav';
 
 const speech = await isolate({
@@ -16,12 +17,12 @@ const snippets = [
   {
     provider: 'elevenlabs',
     name: 'ElevenLabs',
-    code: createSnippet('ElevenLabs'),
+    code: createSnippet('ElevenLabs', 'elevenlabs'),
   },
   {
     provider: 'cleanvoice',
     name: 'CleanVoice',
-    code: createSnippet('CleanVoice'),
+    code: createSnippet('CleanVoice', 'cleanvoice'),
   },
   {
     provider: 'replicate',
