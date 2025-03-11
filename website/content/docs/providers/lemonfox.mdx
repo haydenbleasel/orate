@@ -1,0 +1,88 @@
+---
+title: Lemonfox
+description: Orate supports Lemonfox's speech and transcription services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Lemonfox is an easy to use text-to-speech and speech-to-text provider.
+
+## Setup
+
+The Lemonfox provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { Lemonfox } from 'orate/lemonfox';
+```
+
+## Configuration
+
+You can use Lemonfox by creating a new instance of the `Lemonfox` class:
+
+```ts
+const lemonfox = new Lemonfox();
+```
+
+This will use the `LEMONFOX_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const lemonfox = new Lemonfox('your_api_key');
+```
+
+## Usage
+
+The Lemonfox provider provides a single interface for all of Lemonfox's speech and transcription services.
+
+### Text to Speech
+
+The Lemonfox provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Lemonfox TTS.
+
+The first argument is the language of the text to be spoken. The second argument is the voice to use.
+
+In Lemonfox, the voices are tied to a specific language. For example, the `sarah` voice is only available for the `en-us` language.
+
+```ts
+import { speak } from 'orate';
+import { Lemonfox } from 'orate/lemonfox';
+
+const speech = await speak({
+  model: new Lemonfox().tts('en-us', 'sarah'),
+  prompt: 'Hello, world!',
+});
+```
+
+You can also specify specific Lemonfox properties by passing them as an argument to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: new Lemonfox().tts('en-us', 'sarah', {
+    speed: 1.5,
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+### Speech to Text
+
+The Lemonfox provider provides a `stt` function that allows you to create a speech-to-text transcription function using Lemonfox STT.
+
+```ts
+import { transcribe } from 'orate';
+import { Lemonfox } from 'orate/lemonfox';
+
+const text = await transcribe({
+  model: new Lemonfox().stt(),
+  audio: new File(...),
+});
+```
+
+You can also specify specific Lemonfox properties by passing them as an argument to the `stt` function.
+
+```ts
+const text = await transcribe({
+  model: new Lemonfox().stt({
+    speaker_labels: true,
+  }),
+  audio: new File(...),
+});
+```

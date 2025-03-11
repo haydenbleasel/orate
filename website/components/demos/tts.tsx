@@ -130,6 +130,15 @@ const snippets = [
     ),
   },
   {
+    provider: 'lemonfox',
+    name: 'LemonFox',
+    code: createSnippet('LemonFox', "'en-US', 'sarah'"),
+    children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
+      <audio className="w-full" src="/examples/tts/lemonfox.wav" controls />
+    ),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { speak } from 'orate';
