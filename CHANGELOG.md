@@ -1,3 +1,15 @@
+# v1.6.5 (Tue Mar 11 2025)
+
+#### 🐛 Bug Fix
+
+- 42 lemonfox support [#44](https://github.com/haydenbleasel/orate/pull/44) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.6.4 (Mon Mar 10 2025)
 
 #### ⚠️ Pushed to `main`
