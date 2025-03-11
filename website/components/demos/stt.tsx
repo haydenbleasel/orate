@@ -82,6 +82,11 @@ const snippets = [
     code: createSnippet('JigsawStack'),
   },
   {
+    provider: 'lemonfox',
+    name: 'LemonFox',
+    code: createSnippet('LemonFox'),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { transcribe } from 'orate';

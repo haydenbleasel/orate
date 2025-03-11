@@ -13,6 +13,7 @@ import Groq from '@/public/providers/groq.svg';
 import Hume from '@/public/providers/hume.svg';
 import IBM from '@/public/providers/ibm.svg';
 import JigsawStack from '@/public/providers/jigsaw-stack.svg';
+import LemonFox from '@/public/providers/lemonfox.svg';
 import LMNT from '@/public/providers/lmnt.svg';
 import Murf from '@/public/providers/murf.svg';
 import OpenAI from '@/public/providers/openai.svg';
@@ -48,6 +49,7 @@ export const providers = [
     image: JigsawStack,
     href: '/docs/providers/jigsawstack',
   },
+  { name: 'LemonFox', image: LemonFox, href: '/docs/providers/lemonfox' },
 ];
 
 const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (

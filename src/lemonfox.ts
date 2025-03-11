@@ -262,7 +262,7 @@ export class LemonFox {
    * @param {Omit<SpeechToTextRequest, 'file' | 'response_format'>} options - The options for the transcription.
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
-  stt(options: Omit<SpeechToTextRequest, 'file' | 'response_format'>) {
+  stt(options?: Omit<SpeechToTextRequest, 'file' | 'response_format'>) {
     return async (audio: File) => {
       const body = new FormData();
 

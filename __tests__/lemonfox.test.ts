@@ -26,7 +26,7 @@ describe('LemonFox Tests', () => {
     const audio = new File([file], 'test.mp3', { type: 'audio/mp3' });
 
     const text = await transcribe({
-      model: lemonfox.stt({}),
+      model: lemonfox.stt(),
       audio,
     });
 
