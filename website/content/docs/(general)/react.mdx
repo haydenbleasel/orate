@@ -1,0 +1,56 @@
+---
+title: React
+description: Learn how to use Orate in a React application.
+---
+
+Orate offers a React hook for easy integration into your application. Here's an example of how to use it in a Next.js application.
+
+## Backend
+
+```tsx title="app/api/speech/route.ts"
+import { speak } from 'orate';
+import { ElevenLabs } from 'orate/elevenlabs';
+
+export const POST = async (req: Request) => {
+  const { prompt } = await req.json();
+  const model = new ElevenLabs().tts();
+  const speech = await speak({ model, prompt });
+
+  return new Response(speech);
+}
+```
+
+## Frontend
+
+```tsx title="app/page.tsx"
+'use client';
+
+import { useSpeech } from 'orate/react';
+import { useEffect } from 'react';
+
+const Home = () => {
+  const { speak, loading, error } = useSpeech({ endpoint: '/api/speech' });
+
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+    }
+  }, [error]);
+
+  return (
+    <button
+      type="button"
+      disabled={loading}
+      onClick={() => speak('Hello, world!')}
+    >
+      Speak
+    </button>
+  );
+}
+
+export default Home;
+```
+
+## Example
+
+<ReactDemo />
