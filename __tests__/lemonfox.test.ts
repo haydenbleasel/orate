@@ -1,10 +1,10 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { speak, transcribe } from '../src';
-import { LemonFox } from '../src/lemonfox';
+import { Lemonfox } from '../src/lemonfox';
 
-describe('LemonFox Tests', () => {
-  const lemonfox = new LemonFox();
+describe('Lemonfox Tests', () => {
+  const lemonfox = new Lemonfox();
 
   it('should convert text to speech', async () => {
     const speech = await speak({

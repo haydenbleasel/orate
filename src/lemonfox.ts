@@ -206,7 +206,7 @@ type TextToSpeechRequest = {
     }
 );
 
-export class LemonFox {
+export class Lemonfox {
   private apiKey: string;
 
   constructor(apiKey?: string) {
