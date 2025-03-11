@@ -1,3 +1,15 @@
+# v1.6.6 (Tue Mar 11 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update lemonfox.svg ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.6.5 (Tue Mar 11 2025)
 
 #### 🐛 Bug Fix
