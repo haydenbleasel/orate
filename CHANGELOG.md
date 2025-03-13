@@ -1,3 +1,15 @@
+# v1.7.0 (Thu Mar 13 2025)
+
+#### 🚀 Enhancement
+
+- 45 cartesia support [#46](https://github.com/haydenbleasel/orate/pull/46) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.6.7 (Tue Mar 11 2025)
 
 #### ⚠️ Pushed to `main`
