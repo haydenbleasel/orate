@@ -1,3 +1,15 @@
+# v1.7.1 (Thu Mar 13 2025)
+
+#### 🐛 Bug Fix
+
+- Bump @babel/runtime from 7.26.7 to 7.26.10 in the npm_and_yarn group [#47](https://github.com/haydenbleasel/orate/pull/47) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v1.7.0 (Thu Mar 13 2025)
 
 #### 🚀 Enhancement
