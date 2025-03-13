@@ -46,6 +46,7 @@
     "vitest": "^3.0.7"
   },
   "dependencies": {
+    "@cartesia/cartesia-js": "^2.1.10",
     "@deepgram/sdk": "^3.11.1",
     "@fal-ai/client": "^1.2.3",
     "@google-cloud/speech": "^6.7.1",
@@ -58,9 +59,9 @@
     "groq-sdk": "^0.15.0",
     "hume": "^0.9.12",
     "ibm-watson": "^10.0.0",
+    "jigsawstack": "^0.0.25",
     "ky": "^1.7.5",
     "lmnt-node": "^2.3.0",
-    "jigsawstack": "^0.0.25",
     "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
     "openai": "^4.85.4",
     "replicate": "^1.0.1",
