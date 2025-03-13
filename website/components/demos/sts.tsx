@@ -28,6 +28,11 @@ const snippets = [
     name: 'LMNT',
     code: createSnippet('LMNT', 'lmnt', "'zeke'"),
   },
+  {
+    provider: 'cartesia',
+    name: 'Cartesia',
+    code: createSnippet('Cartesia', 'cartesia', "'sonic-2', 'Silas'"),
+  },
 ];
 
 export const SpeechToSpeechDemo = () => {
