@@ -279,18 +279,22 @@ export class Cartesia {
   /**
    * Creates a text-to-speech synthesis function using Cartesia
    * @param {CartesiaModel} model - The model ID to use for synthesis. Defaults to 'sonic-2'
-   * @param {keyof typeof CartesiaVoices} voice - The voice ID to use for synthesis. Defaults to 'Australian Man'
+   * @param {keyof typeof CartesiaVoices | (string & {})} voice - The voice ID to use for synthesis. Defaults to 'Griffin'
    * @param {Omit<TtsRequest, 'text' | 'modelId' | 'voice'>} options - Additional options for the synthesis
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
   tts(
     model: CartesiaModel = 'sonic-2',
-    voice: keyof typeof CartesiaVoices = 'Australian Man',
+    voice: keyof typeof CartesiaVoices | (string & {}) = 'Griffin',
     options?: Omit<TtsRequest, 'text' | 'modelId' | 'voice'>
   ) {
     return async (prompt: string) => {
       const provider = this.createProvider();
-      const voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
+      let voiceId = voice;
+
+      if (voice in CartesiaVoices) {
+        voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
+      }
 
       const response = await provider.tts.bytes({
         modelId: model,
@@ -317,17 +321,21 @@ export class Cartesia {
 
   /**
    * Creates a speech-to-speech conversion function using Cartesia
-   * @param {keyof typeof CartesiaVoices} voice - The voice ID to use for synthesis. Defaults to 'Australian Man'
+   * @param {keyof typeof CartesiaVoices | (string & {})} voice - The voice ID to use for synthesis. Defaults to 'Griffin'
    * @param {Omit<VoiceChangerBytesRequest, 'audio' | 'voiceId'>} options - Additional options for the conversion
    * @returns {Function} Async function that takes audio and returns converted speech
    */
   sts(
-    voice: keyof typeof CartesiaVoices = 'Australian Man',
+    voice: keyof typeof CartesiaVoices | (string & {}) = 'Griffin',
     options?: Omit<VoiceChangerBytesRequest, 'audio' | 'voiceId'>
   ) {
     return async (audio: File) => {
       const provider = this.createProvider();
-      const voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
+      let voiceId = voice;
+
+      if (voice in CartesiaVoices) {
+        voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
+      }
 
       const response = await provider.voiceChanger.bytes(audio, {
         voiceId,

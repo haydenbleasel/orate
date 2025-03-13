@@ -1,0 +1,104 @@
+---
+title: Cartesia
+description: Orate supports Cartesia's speech services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Cartesia is a platform for real-time, multimodal intelligence. It helps you generate seamless speech, power voice applications, and fine-tune your own voice models on the fastest real-time AI platform.
+
+## Setup
+
+The Cartesia provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { Cartesia } from 'orate/cartesia';
+```
+
+## Configuration
+
+You can use Cartesia by creating a new instance of the `Cartesia` class:
+
+```ts
+const cartesia = new Cartesia();
+```
+
+This will use the `CARTESIA_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const cartesia = new Cartesia('your_api_key');
+```
+
+## Usage
+
+The Cartesia provider provides a single interface for all of Cartesia's speech and transcription services.
+
+### Text to Speech
+
+The Cartesia provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Cartesia. By default, the `tts` function uses the `sonic-2` model and the `Griffin` voice.
+
+```ts
+import { speak } from 'orate';
+import { Cartesia } from 'orate/cartesia';
+
+const speech = await speak({
+  model: new Cartesia().tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the model and voice to use by passing them as arguments to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: new Cartesia().tts('sonic-2', 'Silas'),
+  prompt: 'Hello, world!',
+});
+```
+
+The voice can be the name of a default voice e.g. `Silas` or the ID of a custom voice e.g. `rxQ8sHg3rojjgBilXbSC`.
+
+You can also specify specific Cartesia properties by passing them as an argument to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: new Cartesia().tts('sonic-2', 'Silas', {
+    duration: 10,
+  }),
+  prompt: 'Hello, world!',
+});
+```
+
+### Speech to Speech
+
+The Cartesia provider provides a `sts` function that allows you to change the voice of the audio. By default, the `sts` function uses the `Silas` voice.
+
+```ts
+import { change } from 'orate';
+import { Cartesia } from 'orate/cartesia';
+
+const speech = await change({
+  model: new Cartesia().sts(),
+  audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+});
+```
+
+You can specify the voice to use by passing it as an argument to the `sts` function.
+
+```ts
+const speech = await change({
+  model: new Cartesia().sts('Silas'),
+  audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+});
+```
+
+You can also specify specific Cartesia properties by passing them as an argument to the `sts` function.
+
+```ts
+const speech = await change({
+  model: new Cartesia().sts('Silas', {
+    outputFormatSampleRate: 16000,
+  }),
+  audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+});
+```
