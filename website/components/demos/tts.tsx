@@ -148,6 +148,15 @@ const snippets = [
     ),
   },
   {
+    provider: 'cartesia',
+    name: 'Cartesia',
+    code: createSnippet('Cartesia', 'cartesia', "'sonic-2', 'Silas'"),
+    children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
+      <audio className="w-full" src="/examples/tts/cartesia.wav" controls />
+    ),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { speak } from 'orate';
