@@ -3,6 +3,7 @@ import { MarqueeProvider } from '@/app/providers/marquee';
 import { cn } from '@/lib/utils';
 import AssemblyAI from '@/public/providers/assembly.svg';
 import Azure from '@/public/providers/azure.svg';
+import Cartesia from '@/public/providers/cartesia.svg';
 import CleanVoice from '@/public/providers/cleanvoice.svg';
 import Deepgram from '@/public/providers/deepgram.svg';
 import ElevenLabs from '@/public/providers/elevenlabs.svg';
@@ -50,6 +51,7 @@ export const providers = [
     href: '/docs/providers/jigsawstack',
   },
   { name: 'LemonFox', image: LemonFox, href: '/docs/providers/lemonfox' },
+  { name: 'Cartesia', image: Cartesia, href: '/docs/providers/cartesia' },
 ];
 
 const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (
