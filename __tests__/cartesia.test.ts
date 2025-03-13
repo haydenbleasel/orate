@@ -13,7 +13,7 @@ describe('Cartesia Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/elevenlabs.wav',
+      './website/public/examples/tts/cartesia.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

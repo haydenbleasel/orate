@@ -290,13 +290,13 @@ export class Cartesia {
   ) {
     return async (prompt: string) => {
       const provider = this.createProvider();
-      const newVoice = CartesiaVoices[voice as keyof typeof CartesiaVoices];
+      const voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
 
       const response = await provider.tts.bytes({
         modelId: model,
         voice: {
           mode: 'id',
-          id: newVoice,
+          id: voiceId,
         },
         transcript: prompt,
         outputFormat: {
@@ -327,9 +327,10 @@ export class Cartesia {
   ) {
     return async (audio: File) => {
       const provider = this.createProvider();
+      const voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
 
       const response = await provider.voiceChanger.bytes(audio, {
-        voiceId: voice,
+        voiceId,
         outputFormatContainer: 'wav',
         outputFormatEncoding: 'pcm_s16le',
         outputFormatSampleRate: 44100,
