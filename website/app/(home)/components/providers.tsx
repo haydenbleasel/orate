@@ -53,7 +53,7 @@ export const providers = [
   },
   { name: 'LemonFox', image: LemonFox, href: '/docs/providers/lemonfox' },
   { name: 'Cartesia', image: Cartesia, href: '/docs/providers/cartesia' },
-  { name: 'Neuphonic', image: Neuphonic, href: '/docs/providers/neuphonic' }, // TODO: add image
+  { name: 'Neuphonic', image: Neuphonic, href: '/docs/providers/neuphonic' },
 ];
 
 const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (
