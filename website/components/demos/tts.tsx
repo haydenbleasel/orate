@@ -157,6 +157,15 @@ const snippets = [
     ),
   },
   {
+    provider: 'neuphonic',
+    name: 'Neuphonic',
+    code: createSnippet('Neuphonic', 'neuphonic', "'James'"),
+    children: (
+      // biome-ignore lint/a11y/useMediaCaption: 'inline demo'
+      <audio className="w-full" src="/examples/tts/neuphonic.wav" controls />
+    ),
+  },
+  {
     provider: 'replicate',
     name: 'Replicate',
     code: `import { speak } from 'orate';
