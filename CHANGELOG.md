@@ -1,3 +1,20 @@
+# v1.7.2 (Mon Mar 17 2025)
+
+:tada: This release contains work from a new contributor! :tada:
+
+Thank you, Adnan Siddiquei ([@adnansiddiquei](https://github.com/adnansiddiquei)), for all your work!
+
+#### 🐛 Bug Fix
+
+- Added implementation for Neuphonic TTS. [#48](https://github.com/haydenbleasel/orate/pull/48) ([@adnansiddiquei](https://github.com/adnansiddiquei) [@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 2
+
+- Adnan Siddiquei ([@adnansiddiquei](https://github.com/adnansiddiquei))
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.7.1 (Thu Mar 13 2025)
 
 #### 🐛 Bug Fix
