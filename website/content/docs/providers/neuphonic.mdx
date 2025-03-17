@@ -1,0 +1,70 @@
+---
+title: Neuphonic
+description: Orate supports Neuphonic's speech services.
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+Neuphonic provides hyper-realistic and realtime voice experiences. It enables seamless speech generation, powers voice applications, and offers voice cloning capabilities on an ultra-fast AI platform.
+
+## Setup
+
+The Neuphonic provider is available by default in Orate. To import it, you can use the following code:
+
+```ts
+import { Neuphonic } from 'orate/neuphonic';
+```
+
+## Configuration
+
+You can use Neuphonic by creating a new instance of the `Neuphonic` class:
+
+```ts
+const neuphonic = new Neuphonic();
+```
+
+This will use the `NEUPHONIC_API_KEY` environment variable. If you don't have this variable set, you can pass your API key as an argument to the constructor.
+
+```ts
+const neuphonic = new Neuphonic('your_api_key');
+```
+
+## Usage
+
+The Neuphonic provider provides a single interface for all of Neuphonic's speech and transcription services.
+
+### Text to Speech
+
+The Neuphonic provider provides a `tts` function that allows you to create a text-to-speech synthesis function using Neuphonic.
+
+```ts
+import { speak } from 'orate';
+import { Neuphonic } from 'orate/neuphonic';
+
+const speech = await speak({
+  model: new Neuphonic().tts(),
+  prompt: 'Hello, world!',
+});
+```
+
+You can specify the voice to use by passing it as an argument to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: new Neuphonic().tts('Emily'),
+  prompt: 'Hello, world!',
+});
+```
+
+The voice can be the name of a default voice e.g. `Emily` or the ID of a custom cloned voice.
+
+You can also specify specific Neuphonic properties by passing them as an argument to the `tts` function.
+
+```ts
+const speech = await speak({
+  model: new Neuphonic().tts('Emily', {
+    speed: 1.5
+  }),
+  prompt: 'Hello, world!',
+});
+```
