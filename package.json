@@ -51,6 +51,7 @@
     "@fal-ai/client": "^1.2.3",
     "@google-cloud/speech": "^6.7.1",
     "@google-cloud/text-to-speech": "^5.8.1",
+    "@neuphonic/neuphonic-js": "^0.2.5",
     "@speechify/api-sdk": "^2.4.1",
     "assemblyai": "^4.9.0",
     "deepmerge": "^4.3.1",
