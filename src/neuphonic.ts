@@ -55,7 +55,7 @@ export class Neuphonic {
   /**
    * Creates a text-to-speech synthesis function using Neuphonic.
    * @param {keyof typeof NeuphonicVoices | (string & {})} voice - The voice name to use, or voice ID
-   * if using a cloned voice.
+   * if using a cloned voice. Defaults to `Emily`.
    * @param {Omit<TtsConfig, 'voice_id'>} options - Additional options for TTS synthesis.
    * @returns {Function} Async function that takes text and returns synthesized audio
    */
@@ -66,15 +66,14 @@ export class Neuphonic {
     return async (prompt: string) => {
       const provider = this.createProvider();
 
-      let voiceId, langCode;
+      let voiceId = voice;
+      let langCode = 'en';
 
       if (voice in NeuphonicVoices) {
         const selectedVoice =
           NeuphonicVoices[voice as keyof typeof NeuphonicVoices];
         voiceId = selectedVoice.id;
         langCode = selectedVoice.langCode;
-      } else {
-        voiceId = voice;
       }
 
       const response = await (
