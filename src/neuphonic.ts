@@ -44,12 +44,12 @@ export class Neuphonic {
     this.apiKey = apiKey || process.env.NEUPHONIC_API_KEY || '';
 
     if (!this.apiKey) {
-      throw new Error('NEUPHONIC_API_KEY is not set.')
+      throw new Error('NEUPHONIC_API_KEY is not set.');
     }
   }
 
   private createProvider() {
-    return createClient({apiKey: this.apiKey})
+    return createClient({ apiKey: this.apiKey });
   }
 
   /**
@@ -69,24 +69,31 @@ export class Neuphonic {
       let voiceId, langCode;
 
       if (voice in NeuphonicVoices) {
-        const selectedVoice = NeuphonicVoices[voice as keyof typeof NeuphonicVoices]
+        const selectedVoice =
+          NeuphonicVoices[voice as keyof typeof NeuphonicVoices];
         voiceId = selectedVoice.id;
-        langCode = selectedVoice.langCode
+        langCode = selectedVoice.langCode;
       } else {
         voiceId = voice;
       }
 
-      const response = await (await provider.tts.sse({
-        lang_code: langCode,
-        voice_id: voiceId,
-        ...options,
-      })).send(prompt)
+      const response = await (
+        await provider.tts.sse({
+          lang_code: langCode,
+          voice_id: voiceId,
+          ...options,
+        })
+      ).send(prompt);
 
-      const file = new File([toWav(response.audio, options?.sampling_rate)], 'speech.wav', {
-        type: 'audio/wav',
-      });
+      const file = new File(
+        [toWav(response.audio, options?.sampling_rate)],
+        'speech.wav',
+        {
+          type: 'audio/wav',
+        }
+      );
 
-      return file;    
-    }
+      return file;
+    };
   }
 }
