@@ -17,6 +17,7 @@ import JigsawStack from '@/public/providers/jigsaw-stack.svg';
 import LemonFox from '@/public/providers/lemonfox.svg';
 import LMNT from '@/public/providers/lmnt.svg';
 import Murf from '@/public/providers/murf.svg';
+import Neuphonic from '@/public/providers/neuphonic.svg';
 import OpenAI from '@/public/providers/openai.svg';
 import Play from '@/public/providers/play.svg';
 import Replicate from '@/public/providers/replicate.svg';
@@ -52,6 +53,7 @@ export const providers = [
   },
   { name: 'LemonFox', image: LemonFox, href: '/docs/providers/lemonfox' },
   { name: 'Cartesia', image: Cartesia, href: '/docs/providers/cartesia' },
+  { name: 'Neuphonic', image: Neuphonic, href: '/docs/providers/neuphonic' }, // TODO: add image
 ];
 
 const MarqueeItem = ({ name, image, href }: (typeof providers)[number]) => (
