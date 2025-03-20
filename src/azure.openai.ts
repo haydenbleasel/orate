@@ -82,12 +82,12 @@ export class AzureOpenAI {
   /**
    * Creates a speech-to-text transcription function using OpenAI Whisper
    * @param {TranscriptionCreateParams["model"]} model - The model to use for transcription. Defaults to 'whisper-1'
-   * @param {Omit<TranscriptionCreateParams, 'model' | 'file'>} properties - Additional properties for the transcription request
+   * @param {Omit<TranscriptionCreateParams, 'model' | 'file' | 'stream'>} properties - Additional properties for the transcription request
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt(
     model: string,
-    properties?: Omit<TranscriptionCreateParams, 'model' | 'file'>
+    properties?: Omit<TranscriptionCreateParams, 'model' | 'file' | 'stream'>
   ) {
     this.sttProvider = this.createProvider(model, 'stt');
 
