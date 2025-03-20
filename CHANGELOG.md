@@ -1,3 +1,16 @@
+# v1.7.3 (Thu Mar 20 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update azure.openai.ts ([@haydenbleasel](https://github.com/haydenbleasel))
+- Resolves #49 ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.7.2 (Mon Mar 17 2025)
 
 :tada: This release contains work from a new contributor! :tada:
