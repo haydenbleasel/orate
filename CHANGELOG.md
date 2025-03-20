@@ -1,3 +1,15 @@
+# v1.7.4 (Thu Mar 20 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update pnpm-lock.yaml ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.7.3 (Thu Mar 20 2025)
 
 #### ⚠️ Pushed to `main`
