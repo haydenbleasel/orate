@@ -51,7 +51,7 @@ You can specify the model and voice to use by passing them as arguments to the `
 
 ```ts
 const speech = await speak({
-  model: new OpenAI().tts('tts-1', 'alloy'),
+  model: new OpenAI().tts('gpt-4o-mini-tts', 'alloy'),
   prompt: 'Hello, world!',
 });
 ```
@@ -60,7 +60,7 @@ You can also specify specific OpenAI properties by passing them as an argument t
 
 ```ts
 const speech = await speak({
-  model: new OpenAI().tts('tts-1', 'alloy', {
+  model: new OpenAI().tts('gpt-4o-mini-tts', 'alloy', {
     speed: 1.25,
   }),
   prompt: 'Hello, world!',
@@ -85,7 +85,7 @@ You can specify the model to use by passing it as an argument to the `stt` funct
 
 ```ts
 const text = await transcribe({
-  model: new OpenAI().stt('whisper-1'),
+  model: new OpenAI().stt('gpt-4o-mini-transcribe'),
   audio: new File(...),
 });
 ```
@@ -94,7 +94,7 @@ You can also specify specific OpenAI properties by passing them as an argument t
 
 ```ts
 const text = await transcribe({
-  model: new OpenAI().stt('whisper-1', {
+  model: new OpenAI().stt('gpt-4o-mini-transcribe', {
     temperature: 0.5,
   }),
   audio: new File(...),
