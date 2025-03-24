@@ -32,7 +32,7 @@ import { speak, transcribe, change, isolate } from 'orate';
 import { ElevenLabs } from 'orate/providers/elevenlabs';
 
 const speech = await speak({
-  model: elevenlabs.tts('eleven_multilingual_v2', 'bill'),
+  model: new ElevenLabs().tts('eleven_multilingual_v2', 'bill'),
   prompt: 'Friends, Romans, countrymen, lend me your ears!',
 });
 ```
@@ -45,7 +45,7 @@ To use streaming, you can pass the `stream` option to the function.
 
 ```ts
 const stream = await speak({
-  model: elevenlabs.tts('eleven_multilingual_v2', 'bill'),
+  model: new ElevenLabs().tts('eleven_multilingual_v2', 'bill'),
   prompt: 'Friends, Romans, countrymen, lend me your ears!',
   stream: true,
 });
