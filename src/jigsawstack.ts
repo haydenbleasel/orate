@@ -1,4 +1,5 @@
 import { JigsawStack as JigsawStackSDK } from 'jigsawstack';
+import type { SpeakOptions, TranscribeOptions } from '.';
 
 type JigsawStackType = ReturnType<typeof JigsawStackSDK>;
 type STTParams = Parameters<JigsawStackType['audio']['speech_to_text']>['0'];
@@ -25,7 +26,9 @@ export class JigsawStack {
    * @returns {Function} Async function that takes audio url and returns transcribed text
    */
   stt(options?: Omit<STTParams, 'url'>) {
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const provider = this.createProvider();
 
       const result = await provider.store.upload(audio, {
@@ -39,6 +42,8 @@ export class JigsawStack {
 
       return response.text;
     };
+
+    return { generate };
   }
 
   /**
@@ -51,11 +56,13 @@ export class JigsawStack {
     voice: TTSParams['accent'] = 'en-US-female-27',
     properties?: Omit<TTSParams, 'text' | 'accent'>
   ) {
-    return async (text: string) => {
-      const provider = this.createProvider();
+    const provider = this.createProvider();
 
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await provider.audio.text_to_speech({
-        text,
+        text: prompt,
         accent: voice,
         ...properties,
       });
@@ -64,5 +71,7 @@ export class JigsawStack {
 
       return file;
     };
+
+    return { generate };
   }
 }
