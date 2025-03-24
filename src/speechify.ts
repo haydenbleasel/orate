@@ -2,6 +2,7 @@ import {
   type AudioSpeechRequest,
   Speechify as SpeechifySDK,
 } from '@speechify/api-sdk';
+import type { SpeakOptions } from '.';
 
 type SpeechifyVoice =
   | 'henry'
@@ -741,13 +742,15 @@ export class Speechify {
   ) {
     const provider = this.createProvider();
 
-    return async (prompt: string) => {
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await provider.audioGenerate({
         input: prompt,
         voiceId: voice,
         model: model,
-        audioFormat: 'mp3',
         ...properties,
+        audioFormat: 'mp3',
       });
 
       const file = new File([response.audioData], 'speech.mp3', {
@@ -756,5 +759,19 @@ export class Speechify {
 
       return file;
     };
+
+    const stream: SpeakOptions['model']['stream'] = async (prompt: string) => {
+      const response = await provider.audioStream({
+        input: prompt,
+        voiceId: voice,
+        model: model,
+        ...properties,
+        audioFormat: 'mp3',
+      });
+
+      return response;
+    };
+
+    return { generate, stream };
   }
 }
