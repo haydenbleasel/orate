@@ -3,6 +3,7 @@ import type {
   SpeechConvertParams,
   SpeechGenerateParams,
 } from 'lmnt-node/resources';
+import type { ChangeOptions, SpeakOptions } from '.';
 
 type LMNTVoice =
   | 'amy'
@@ -54,9 +55,11 @@ export class LMNT {
     voice: LMNTVoice = 'lily',
     options?: Omit<SpeechGenerateParams, 'text' | 'model' | 'voice'>
   ) {
-    return async (prompt: string) => {
-      const provider = this.createProvider();
+    const provider = this.createProvider();
 
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await provider.speech.generate({
         text: prompt,
         voice: voice,
@@ -71,6 +74,8 @@ export class LMNT {
 
       return file;
     };
+
+    return { generate };
   }
 
   /**
@@ -83,9 +88,11 @@ export class LMNT {
     voice: LMNTVoice = 'lily',
     options?: Omit<SpeechConvertParams, 'audio' | 'model'>
   ) {
-    return async (audio: File) => {
-      const provider = this.createProvider();
+    const provider = this.createProvider();
 
+    const generate: ChangeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const response = await provider.speech.convert({
         audio,
         voice,
@@ -100,5 +107,7 @@ export class LMNT {
 
       return file;
     };
+
+    return { generate };
   }
 }
