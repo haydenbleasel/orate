@@ -4,6 +4,12 @@ import type {
   BodySpeechToTextV1SpeechToTextPost,
   TextToSpeechRequest,
 } from 'elevenlabs/api';
+import type {
+  ChangeOptions,
+  IsolateOptions,
+  SpeakOptions,
+  TranscribeOptions,
+} from '.';
 
 type ElevenLabsModel =
   | 'eleven_multilingual_v2'
@@ -64,14 +70,16 @@ export class ElevenLabs {
     voice: keyof typeof voices | (string & {}) = 'aria',
     options?: Omit<TextToSpeechRequest, 'text' | 'model_id'>
   ) {
-    return async (prompt: string) => {
-      const provider = this.createProvider();
-      let newVoice = voice;
+    const provider = this.createProvider();
+    let newVoice = voice;
 
-      if (voice in voices) {
-        newVoice = voices[voice as keyof typeof voices];
-      }
+    if (voice in voices) {
+      newVoice = voices[voice as keyof typeof voices];
+    }
 
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await provider.textToSpeech.convert(newVoice, {
         text: prompt,
         model_id: model,
@@ -92,6 +100,32 @@ export class ElevenLabs {
 
       return file;
     };
+    const stream: SpeakOptions['model']['stream'] = async (prompt: string) => {
+      const response = await provider.textToSpeech.convertAsStream(newVoice, {
+        text: prompt,
+        model_id: model,
+        ...options,
+      });
+
+      // Convert Node.js Readable to Web ReadableStream
+      return new ReadableStream({
+        start(controller) {
+          response.on('data', (chunk) => {
+            controller.enqueue(chunk);
+          });
+
+          response.on('end', () => {
+            controller.close();
+          });
+
+          response.on('error', (err) => {
+            controller.error(err);
+          });
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 
   /**
@@ -104,9 +138,11 @@ export class ElevenLabs {
     model: 'scribe_v1' = 'scribe_v1',
     properties?: Omit<BodySpeechToTextV1SpeechToTextPost, 'model_id' | 'file'>
   ) {
-    return async (audio: File) => {
-      const provider = this.createProvider();
+    const provider = this.createProvider();
 
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const response = await provider.speechToText.convert({
         file: audio,
         model_id: model,
@@ -115,6 +151,8 @@ export class ElevenLabs {
 
       return response.text;
     };
+
+    return { generate };
   }
 
   /**
@@ -132,14 +170,17 @@ export class ElevenLabs {
       'audio' | 'model_id'
     >
   ) {
-    return async (audio: File) => {
-      const provider = this.createProvider();
-      let newVoice = voice;
+    const provider = this.createProvider();
 
-      if (voice in voices) {
-        newVoice = voices[voice as keyof typeof voices];
-      }
+    let newVoice = voice;
 
+    if (voice in voices) {
+      newVoice = voices[voice as keyof typeof voices];
+    }
+
+    const generate: ChangeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const response = await provider.speechToSpeech.convert(newVoice, {
         audio,
         model_id: model,
@@ -161,6 +202,34 @@ export class ElevenLabs {
 
       return file;
     };
+
+    const stream: ChangeOptions['model']['stream'] = async (audio: File) => {
+      const response = await provider.speechToSpeech.convertAsStream(newVoice, {
+        audio,
+        model_id: model,
+        output_format: 'mp3_44100_128',
+        ...options,
+      });
+
+      // Convert Node.js Readable to Web ReadableStream
+      return new ReadableStream({
+        start(controller) {
+          response.on('data', (chunk) => {
+            controller.enqueue(chunk);
+          });
+
+          response.on('end', () => {
+            controller.close();
+          });
+
+          response.on('error', (err) => {
+            controller.error(err);
+          });
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 
   /**
@@ -168,8 +237,11 @@ export class ElevenLabs {
    * @returns {Function} Async function that takes audio and returns converted speech
    */
   isl() {
-    return async (audio: File) => {
-      const provider = this.createProvider();
+    const provider = this.createProvider();
+
+    const generate: IsolateOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const response = await provider.audioIsolation.audioIsolation({ audio });
 
       const chunks: Uint8Array[] = [];
@@ -186,5 +258,30 @@ export class ElevenLabs {
 
       return file;
     };
+
+    const stream: IsolateOptions['model']['stream'] = async (audio: File) => {
+      const response = await provider.audioIsolation.audioIsolationStream({
+        audio,
+      });
+
+      // Convert Node.js Readable to Web ReadableStream
+      return new ReadableStream({
+        start(controller) {
+          response.on('data', (chunk) => {
+            controller.enqueue(chunk);
+          });
+
+          response.on('end', () => {
+            controller.close();
+          });
+
+          response.on('error', (err) => {
+            controller.error(err);
+          });
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 }
