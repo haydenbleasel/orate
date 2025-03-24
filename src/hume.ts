@@ -1,5 +1,6 @@
 import { HumeClient } from 'hume';
 import type { PostedTts } from 'hume/api/resources/tts';
+import type { SpeakOptions } from '.';
 
 export class Hume {
   private apiKey: string;
@@ -30,7 +31,9 @@ export class Hume {
   ) {
     const provider = this.createProvider();
 
-    return async (prompt: string) => {
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await provider.tts.synthesizeJson({
         utterances: [
           {
@@ -58,5 +61,7 @@ export class Hume {
 
       return file;
     };
+
+    return { generate };
   }
 }
