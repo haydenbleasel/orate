@@ -1,3 +1,15 @@
+# v2.0.0 (Mon Mar 24 2025)
+
+#### 💥 Breaking Change
+
+- Add streaming support [#50](https://github.com/haydenbleasel/orate/pull/50) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v1.7.4 (Thu Mar 20 2025)
 
 #### ⚠️ Pushed to `main`
