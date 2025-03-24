@@ -1,5 +1,6 @@
 import { AssemblyAI as AssemblyAISDK } from 'assemblyai';
 import type { SpeechModel, TranscribeParams } from 'assemblyai';
+import type { TranscribeOptions } from '.';
 
 export class AssemblyAI {
   private provider: AssemblyAISDK;
@@ -24,7 +25,9 @@ export class AssemblyAI {
     model: SpeechModel = 'best',
     options?: Omit<TranscribeParams, 'audio' | 'speech_model'>
   ) {
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const buffer = await audio.arrayBuffer();
       const audioBuffer = Buffer.from(buffer);
 
@@ -56,5 +59,7 @@ export class AssemblyAI {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
+
+    return { generate };
   }
 }
