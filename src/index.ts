@@ -42,16 +42,22 @@ export type IsolateOptions = {
  * @param {boolean} options.stream - Whether to stream the audio
  * @returns {Promise<File> | Promise<ReadableStream>} A Promise that resolves to a File containing the generated audio
  */
-export const speak = async ({ model, prompt, stream }: SpeakOptions) => {
+export const speak = async <T extends boolean = false>({
+  model,
+  prompt,
+  stream = false as T,
+}: SpeakOptions & { stream?: T }): Promise<
+  T extends true ? ReadableStream : File
+> => {
   if (!stream) {
-    return await model.generate(prompt);
+    return (await model.generate(prompt)) as never;
   }
 
   if (!model.stream) {
     throw new Error('Model does not support streaming');
   }
 
-  return await model.stream(prompt);
+  return (await model.stream(prompt)) as never;
 };
 
 /**
@@ -62,20 +68,22 @@ export const speak = async ({ model, prompt, stream }: SpeakOptions) => {
  * @param {boolean} options.stream - Whether to stream the transcription
  * @returns {Promise<string> | Promise<ReadableStream>} A Promise that resolves to the transcribed text
  */
-export const transcribe = async ({
+export const transcribe = async <T extends boolean = false>({
   model,
   audio,
-  stream,
-}: TranscribeOptions) => {
+  stream = false as T,
+}: TranscribeOptions & { stream?: T }): Promise<
+  T extends true ? ReadableStream : string
+> => {
   if (!stream) {
-    return await model.generate(audio);
+    return (await model.generate(audio)) as never;
   }
 
   if (!model.stream) {
     throw new Error('Model does not support streaming');
   }
 
-  return await model.stream(audio);
+  return (await model.stream(audio)) as never;
 };
 
 /**
@@ -86,16 +94,22 @@ export const transcribe = async ({
  * @param {boolean} options.stream - Whether to stream the converted audio
  * @returns {Promise<File> | Promise<ReadableStream>} A Promise that resolves to a File containing the converted audio
  */
-export const change = async ({ model, audio, stream }: ChangeOptions) => {
+export const change = async <T extends boolean = false>({
+  model,
+  audio,
+  stream = false as T,
+}: ChangeOptions & { stream?: T }): Promise<
+  T extends true ? ReadableStream : File
+> => {
   if (!stream) {
-    return await model.generate(audio);
+    return (await model.generate(audio)) as never;
   }
 
   if (!model.stream) {
     throw new Error('Model does not support streaming');
   }
 
-  return await model.stream(audio);
+  return (await model.stream(audio)) as never;
 };
 
 /**
@@ -106,14 +120,20 @@ export const change = async ({ model, audio, stream }: ChangeOptions) => {
  * @param {boolean} options.stream - Whether to stream the isolated speech
  * @returns {Promise<File> | Promise<ReadableStream>} A Promise that resolves to a File containing the isolated speech
  */
-export const isolate = async ({ model, audio, stream }: IsolateOptions) => {
+export const isolate = async <T extends boolean = false>({
+  model,
+  audio,
+  stream = false as T,
+}: IsolateOptions & { stream?: T }): Promise<
+  T extends true ? ReadableStream : File
+> => {
   if (!stream) {
-    return await model.generate(audio);
+    return (await model.generate(audio)) as never;
   }
 
   if (!model.stream) {
     throw new Error('Model does not support streaming');
   }
 
-  return await model.stream(audio);
+  return (await model.stream(audio)) as never;
 };
