@@ -1,4 +1,5 @@
 import ky from 'ky';
+import type { IsolateOptions, TranscribeOptions } from '.';
 
 type EditOptions = {
   video?: boolean;
@@ -169,7 +170,9 @@ export class CleanVoice {
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt(options?: Omit<EditOptions, 'transcription'>) {
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const presignedUrl = await this.getPresignedUrl(audio);
 
       await this.uploadFile(presignedUrl, audio);
@@ -187,6 +190,8 @@ export class CleanVoice {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
+
+    return { generate };
   }
 
   /**
@@ -195,7 +200,9 @@ export class CleanVoice {
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   isl(options?: EditOptions) {
-    return async (audio: File) => {
+    const generate: IsolateOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const presignedUrl = await this.getPresignedUrl(audio);
 
       await this.uploadFile(presignedUrl, audio);
@@ -224,5 +231,7 @@ export class CleanVoice {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
+
+    return { generate };
   }
 }
