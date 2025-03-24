@@ -1,7 +1,7 @@
 export type SpeakOptions = {
   model: {
     generate: (prompt: string) => Promise<File>;
-    stream: (prompt: string) => Promise<ReadableStream>;
+    stream?: (prompt: string) => Promise<ReadableStream>;
   };
   prompt: string;
   stream?: boolean;
@@ -10,7 +10,7 @@ export type SpeakOptions = {
 export type TranscribeOptions = {
   model: {
     generate: (audio: File) => Promise<string>;
-    stream: (audio: File) => Promise<ReadableStream>;
+    stream?: (audio: File) => Promise<ReadableStream>;
   };
   audio: File;
   stream?: boolean;
@@ -19,7 +19,7 @@ export type TranscribeOptions = {
 export type ChangeOptions = {
   model: {
     generate: (audio: File) => Promise<File>;
-    stream: (audio: File) => Promise<ReadableStream>;
+    stream?: (audio: File) => Promise<ReadableStream>;
   };
   audio: File;
   stream?: boolean;
@@ -28,7 +28,7 @@ export type ChangeOptions = {
 export type IsolateOptions = {
   model: {
     generate: (audio: File) => Promise<File>;
-    stream: (audio: File) => Promise<ReadableStream>;
+    stream?: (audio: File) => Promise<ReadableStream>;
   };
   audio: File;
   stream?: boolean;
@@ -40,10 +40,19 @@ export type IsolateOptions = {
  * @param {function} options.model - The model function to use for conversion
  * @param {string} options.prompt - The text to convert to speech
  * @param {boolean} options.stream - Whether to stream the audio
- * @returns {Promise<File> | AsyncGenerator<File>} A Promise that resolves to a File containing the generated audio
+ * @returns {Promise<File> | Promise<ReadableStream>} A Promise that resolves to a File containing the generated audio
  */
-export const speak = async ({ model, prompt, stream }: SpeakOptions) =>
-  stream ? model.stream(prompt) : model.generate(prompt);
+export const speak = async ({ model, prompt, stream }: SpeakOptions) => {
+  if (!stream) {
+    return await model.generate(prompt);
+  }
+
+  if (!model.stream) {
+    throw new Error('Model does not support streaming');
+  }
+
+  return await model.stream(prompt);
+};
 
 /**
  * Transcribes audio to text using the provided model.
@@ -57,7 +66,17 @@ export const transcribe = async ({
   model,
   audio,
   stream,
-}: TranscribeOptions) => (stream ? model.stream(audio) : model.generate(audio));
+}: TranscribeOptions) => {
+  if (!stream) {
+    return await model.generate(audio);
+  }
+
+  if (!model.stream) {
+    throw new Error('Model does not support streaming');
+  }
+
+  return await model.stream(audio);
+};
 
 /**
  * Converts speech to speech using the provided model.
@@ -65,10 +84,19 @@ export const transcribe = async ({
  * @param {function} options.model - The model function to use for conversion
  * @param {File} options.audio - The audio data to convert to speech
  * @param {boolean} options.stream - Whether to stream the converted audio
- * @returns {Promise<File> | AsyncGenerator<File>} A Promise that resolves to a File containing the converted audio
+ * @returns {Promise<File> | Promise<ReadableStream>} A Promise that resolves to a File containing the converted audio
  */
-export const change = async ({ model, audio, stream }: ChangeOptions) =>
-  stream ? model.stream(audio) : model.generate(audio);
+export const change = async ({ model, audio, stream }: ChangeOptions) => {
+  if (!stream) {
+    return await model.generate(audio);
+  }
+
+  if (!model.stream) {
+    throw new Error('Model does not support streaming');
+  }
+
+  return await model.stream(audio);
+};
 
 /**
  * Isolates speech from the audio using the provided model.
@@ -76,7 +104,16 @@ export const change = async ({ model, audio, stream }: ChangeOptions) =>
  * @param {function} options.model - The model function to use for isolation
  * @param {File} options.audio - The audio data to isolate
  * @param {boolean} options.stream - Whether to stream the isolated speech
- * @returns {Promise<File> | AsyncGenerator<File>} A Promise that resolves to a File containing the isolated speech
+ * @returns {Promise<File> | Promise<ReadableStream>} A Promise that resolves to a File containing the isolated speech
  */
-export const isolate = async ({ model, audio, stream }: IsolateOptions) =>
-  stream ? model.stream(audio) : model.generate(audio);
+export const isolate = async ({ model, audio, stream }: IsolateOptions) => {
+  if (!stream) {
+    return await model.generate(audio);
+  }
+
+  if (!model.stream) {
+    throw new Error('Model does not support streaming');
+  }
+
+  return await model.stream(audio);
+};
