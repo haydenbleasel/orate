@@ -1,5 +1,6 @@
 import { createClient, toWav } from '@neuphonic/neuphonic-js';
 import type { TtsConfig } from '@neuphonic/neuphonic-js';
+import type { SpeakOptions } from '.';
 
 /**
  * All Neuphonic voiceIds and langCodes.
@@ -63,26 +64,27 @@ export class Neuphonic {
     voice: keyof typeof NeuphonicVoices | (string & {}) = 'Emily',
     options?: Omit<TtsConfig, 'voice_id'>
   ) {
-    return async (prompt: string) => {
-      const provider = this.createProvider();
+    const provider = this.createProvider();
 
-      let voiceId = voice;
-      let langCode = 'en';
+    let voiceId = voice;
+    let langCode = 'en';
 
-      if (voice in NeuphonicVoices) {
-        const selectedVoice =
-          NeuphonicVoices[voice as keyof typeof NeuphonicVoices];
-        voiceId = selectedVoice.id;
-        langCode = selectedVoice.langCode;
-      }
+    if (voice in NeuphonicVoices) {
+      const selectedVoice =
+        NeuphonicVoices[voice as keyof typeof NeuphonicVoices];
+      voiceId = selectedVoice.id;
+      langCode = selectedVoice.langCode;
+    }
 
-      const response = await (
-        await provider.tts.sse({
-          lang_code: langCode,
-          voice_id: voiceId,
-          ...options,
-        })
-      ).send(prompt);
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
+      const request = await provider.tts.sse({
+        lang_code: langCode,
+        voice_id: voiceId,
+        ...options,
+      });
+      const response = await request.send(prompt);
 
       const file = new File(
         [toWav(response.audio, options?.sampling_rate)],
@@ -94,5 +96,7 @@ export class Neuphonic {
 
       return file;
     };
+
+    return { generate };
   }
 }
