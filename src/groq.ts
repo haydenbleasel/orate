@@ -1,5 +1,6 @@
 import GroqSDK from 'groq-sdk';
 import type { TranscriptionCreateParams } from 'groq-sdk/resources/audio/transcriptions';
+import type { TranscribeOptions } from '.';
 
 export class Groq {
   private apiKey: string;
@@ -28,7 +29,9 @@ export class Groq {
   ) {
     const provider = this.createProvider();
 
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const response = await provider.audio.transcriptions.create({
         model,
         file: audio,
@@ -37,5 +40,7 @@ export class Groq {
 
       return response.text;
     };
+
+    return { generate };
   }
 }
