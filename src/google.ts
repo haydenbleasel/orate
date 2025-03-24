@@ -3,6 +3,7 @@ import type { google as SpeechToTextTypes } from '@google-cloud/speech/build/pro
 import textToSpeech from '@google-cloud/text-to-speech';
 import type { google as TextToSpeechTypes } from '@google-cloud/text-to-speech/build/protos/protos';
 import deepmerge from 'deepmerge';
+import type { SpeakOptions, TranscribeOptions } from '.';
 
 type GoogleVoice =
   | 'af-ZA-Standard-A'
@@ -624,7 +625,9 @@ export class Google {
   ) {
     const provider = this.createTTSProvider();
 
-    return async (prompt: string) => {
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const defaultConfig: TextToSpeechTypes.cloud.texttospeech.v1.ISynthesizeSpeechRequest =
         {
           input: { text: prompt },
@@ -651,6 +654,8 @@ export class Google {
 
       return file;
     };
+
+    return { generate };
   }
 
   /**
@@ -665,7 +670,9 @@ export class Google {
   ) {
     const provider = this.createSTTProvider();
 
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const buffer = await audio.arrayBuffer();
       const content = Buffer.from(buffer).toString('base64');
 
@@ -696,5 +703,7 @@ export class Google {
 
       return transcript;
     };
+
+    return { generate };
   }
 }
