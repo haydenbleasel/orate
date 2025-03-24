@@ -69,6 +69,16 @@ const speech = await speak({
 });
 ```
 
+You can also stream the speech.
+
+```ts
+const speech = await speak({
+  model: new Cartesia().tts(),
+  prompt: 'Hello, world!',
+  stream: true,
+});
+```
+
 ### Speech to Speech
 
 The Cartesia provider provides a `sts` function that allows you to change the voice of the audio. By default, the `sts` function uses the `Silas` voice.
@@ -100,5 +110,15 @@ const speech = await change({
     outputFormatSampleRate: 16000,
   }),
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+});
+```
+
+You can also stream the speech.
+
+```ts
+const speech = await change({
+  model: new Cartesia().sts(),
+  audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+  stream: true,
 });
 ```

@@ -67,6 +67,16 @@ const speech = await speak({
 });
 ```
 
+You can also stream the speech.
+
+```ts
+const speech = await speak({
+  model: new OpenAI().tts(),
+  prompt: 'Hello, world!',
+  stream: true,
+});
+```
+
 ### Speech to Text
 
 The OpenAI provider provides a `stt` function that allows you to create a speech-to-text transcription function using OpenAI Whisper. By default, the `stt` function uses the `whisper-1` model.
@@ -98,5 +108,15 @@ const text = await transcribe({
     temperature: 0.5,
   }),
   audio: new File(...),
+});
+```
+
+You can also stream the transcription.
+
+```ts
+const text = await transcribe({
+  model: new OpenAI().stt(),
+  audio: new File(...),
+  stream: true,
 });
 ```

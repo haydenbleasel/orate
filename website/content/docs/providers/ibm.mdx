@@ -67,6 +67,16 @@ const speech = await speak({
 });
 ```
 
+You can also stream the speech.
+
+```ts
+const speech = await speak({
+  model: new IBM().tts(),
+  prompt: 'Hello, world!',
+  stream: true,
+});
+```
+
 ### Speech to Text
 
 The IBM provider provides a `stt` function that allows you to create a speech-to-text transcription function using IBM Speech to Text. By default, the `stt` function uses the `en-US_BroadbandModel` model.
