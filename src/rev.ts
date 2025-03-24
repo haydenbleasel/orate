@@ -4,6 +4,7 @@ import {
   RevAiApiDeploymentConfigMap,
   type RevAiJobOptions,
 } from 'revai-node-sdk';
+import type { TranscribeOptions } from '.';
 
 export class Rev {
   private apiKey: string;
@@ -35,8 +36,11 @@ export class Rev {
     model: 'machine' | 'human' | 'low_cost' | 'fusion' = 'machine',
     properties?: Omit<RevAiJobOptions, 'transcriber'>
   ) {
-    return async (audio: File) => {
-      const provider = this.createProvider();
+    const provider = this.createProvider();
+
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const arrayBuffer = await audio.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const response = await provider.submitJobAudioData(buffer, audio.name, {
@@ -65,5 +69,7 @@ export class Rev {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
+
+    return { generate };
   }
 }

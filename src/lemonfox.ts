@@ -1,4 +1,5 @@
 import ky from 'ky';
+import type { SpeakOptions, TranscribeOptions } from '.';
 
 type SpeechToTextRequest = {
   file: File | URL;
@@ -231,7 +232,9 @@ export class Lemonfox {
     voice: Extract<TextToSpeechRequest, { language: L }>['voice'],
     options?: Omit<TextToSpeechRequest, 'input' | 'language' | 'voice'>
   ) {
-    return async (prompt: string) => {
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const json = {
         input: prompt,
         language,
@@ -255,6 +258,8 @@ export class Lemonfox {
         type: 'audio/wav',
       });
     };
+
+    return { generate };
   }
 
   /**
@@ -263,7 +268,9 @@ export class Lemonfox {
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt(options?: Omit<SpeechToTextRequest, 'file' | 'response_format'>) {
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const body = new FormData();
 
       body.append('file', audio);
@@ -289,5 +296,7 @@ export class Lemonfox {
 
       return response.text;
     };
+
+    return { generate };
   }
 }

@@ -1,4 +1,5 @@
 import ky from 'ky';
+import type { SpeakOptions } from '.';
 
 type MurfVoice =
   | 'en-UK-hazel'
@@ -198,8 +199,11 @@ export class Murf {
     voice: SpeechCreateParams['voiceId'] = 'en-US-natalie',
     properties?: Omit<SpeechCreateParams, 'modelVersion' | 'voiceId' | 'text'>
   ) {
-    return async (prompt: string) => {
-      const url = new URL('/v1/speech/generate', 'https://api.murf.ai');
+    const url = new URL('/v1/speech/generate', 'https://api.murf.ai');
+
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await ky
         .post(url, {
           headers: {
@@ -221,5 +225,7 @@ export class Murf {
 
       return file;
     };
+
+    return { generate };
   }
 }

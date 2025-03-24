@@ -1,3 +1,5 @@
+import type { TranscribeOptions } from '.';
+
 interface Window {
   SpeechRecognition: typeof SpeechRecognition;
   webkitSpeechRecognition: typeof SpeechRecognition;
@@ -43,7 +45,7 @@ export class Native {
       throw new Error('Speech recognition not supported in this browser');
     }
 
-    return async () => {
+    const generate: TranscribeOptions['model']['generate'] = async () => {
       const promise = new Promise<string>((resolve, reject) => {
         const recognition = new SpeechRecognition();
 
@@ -63,5 +65,7 @@ export class Native {
 
       return promise;
     };
+
+    return { generate };
   }
 }

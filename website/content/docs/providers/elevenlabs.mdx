@@ -71,6 +71,16 @@ const speech = await speak({
 });
 ```
 
+You can also stream the speech.
+
+```ts
+const speech = await speak({
+  model: new ElevenLabs().tts(),
+  prompt: 'Hello, world!',
+  stream: true,
+});
+```
+
 ### Speech to Text
 
 The ElevenLabs provider provides a `stt` function that allows you to create a speech-to-text transcription function using ElevenLabs. By default, the `stt` function uses the `scribe_v1` model.
@@ -93,6 +103,16 @@ const text = await transcribe({
     diarize: true,
   }),
   audio: new File(...),
+});
+```
+
+You can also stream the transcription.
+
+```ts
+const text = await transcribe({
+  model: new ElevenLabs().stt(),
+  audio: new File(...),
+  stream: true,
 });
 ```
 
@@ -141,5 +161,23 @@ import { ElevenLabs } from 'orate/elevenlabs';
 const speech = await isolate({
   model: new ElevenLabs().isl(),
   audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+});
+```
+
+You can also specify specific ElevenLabs properties by passing them as an argument to the `isl` function (though there are none right now).
+
+```ts
+const speech = await isolate({
+  model: new ElevenLabs().isl({ }),
+});
+```
+
+You can also stream the isolation.
+
+```ts
+const speech = await isolate({
+  model: new ElevenLabs().isl(),
+  audio: new File([], 'test.mp3', { type: 'audio/mp3' }),
+  stream: true,
 });
 ```

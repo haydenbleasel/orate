@@ -67,6 +67,16 @@ const speech = await speak({
 });
 ```
 
+You can also stream the speech.
+
+```ts
+const speech = await speak({
+  model: new Deepgram().tts(),
+  prompt: 'Hello, world!',
+  stream: true,
+});
+```
+
 ### Speech to Text
 
 The Deepgram provider provides a `stt` function that allows you to create a speech-to-text transcription function using Deepgram's speech-to-text model. By default, the `stt` function uses the `nova-2` model.
@@ -98,5 +108,15 @@ const text = await transcribe({
     filler_words: true,
   }),
   audio: new File(...),
+});
+```
+
+You can also stream the transcription.
+
+```ts
+const text = await transcribe({
+  model: new Deepgram().stt(),
+  audio: new File(...),
+  stream: true,
 });
 ```

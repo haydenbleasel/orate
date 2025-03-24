@@ -68,3 +68,13 @@ const speech = await speak({
   prompt: 'Hello, world!',
 });
 ```
+
+You can also stream the speech.
+
+```ts
+const speech = await speak({
+  model: new Speechify().tts(),
+  prompt: 'Hello, world!',
+  stream: true,
+});
+```

@@ -1,0 +1,84 @@
+---
+title: Usage
+description: Learn how to use Orate to create realistic, human-like speech and transcribe audio.
+---
+
+## Installation
+
+Orate is available as an npm package. You can install it with your preferred package manager.
+
+```package-install
+orate
+```
+
+## Getting Started
+
+After installing Orate, you can import the various functions from the package...
+
+```ts
+import { speak, transcribe, change, isolate } from 'orate';
+```
+
+... as well as the providers you want to use.
+
+```ts
+import { ElevenLabs } from 'orate/providers/elevenlabs';
+```
+
+Then, you can use the provider with the function you want to use:
+
+```ts
+import { speak, transcribe, change, isolate } from 'orate';
+import { ElevenLabs } from 'orate/providers/elevenlabs';
+
+const speech = await speak({
+  model: elevenlabs.tts('eleven_multilingual_v2', 'bill'),
+  prompt: 'Friends, Romans, countrymen, lend me your ears!',
+});
+```
+
+## Streaming
+
+Orate supports streaming where possible for all functions, depending on the provider.
+
+To use streaming, you can pass the `stream` option to the function.
+
+```ts
+const stream = await speak({
+  model: elevenlabs.tts('eleven_multilingual_v2', 'bill'),
+  prompt: 'Friends, Romans, countrymen, lend me your ears!',
+  stream: true,
+});
+```
+
+## Responses
+
+Orate functions return different types of responses depending on the function and whether streaming is enabled:
+
+### `speak`
+
+The `speak` function converts text to speech:
+
+- Without streaming: Returns a `Promise<File>` containing the generated audio
+- With streaming: Returns a `Promise<ReadableStream>` for streaming the audio
+
+### `transcribe`
+
+The `transcribe` function converts audio to text:
+
+- Without streaming: Returns a `Promise<string>` containing the transcribed text
+- With streaming: Returns a `Promise<ReadableStream>` for streaming the transcribed text
+
+### `change`
+
+The `change` function changes the voice of an audio file:
+
+- Without streaming: Returns a `Promise<File>` containing the changed audio
+- With streaming: Returns a `Promise<ReadableStream>` for streaming the changed audio
+
+### `isolate`
+
+The `isolate` function isolates speech from an audio file:
+
+- Without streaming: Returns a `Promise<File>` containing the isolated speech
+- With streaming: Returns a `Promise<ReadableStream>` for streaming the isolated speech

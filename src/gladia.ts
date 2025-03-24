@@ -1,4 +1,5 @@
 import ky from 'ky';
+import type { TranscribeOptions } from '.';
 
 type TranscribeResponse = {
   result_url: string;
@@ -103,7 +104,9 @@ export class Gladia {
    * @returns {Function} Async function that takes audio and returns transcribed text
    */
   stt(model: 'base' | 'enhanced' = 'base', options?: object) {
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const audioUrl = await this.uploadFile(audio);
       const transcriptionUrl = await this.transcribe(audioUrl, model, options);
 
@@ -118,5 +121,7 @@ export class Gladia {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
+
+    return { generate };
   }
 }

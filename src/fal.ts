@@ -1,5 +1,6 @@
 import { createFalClient } from '@fal-ai/client';
 import type { WhisperInput, WizperInput } from '@fal-ai/client/endpoints';
+import type { TranscribeOptions } from '.';
 
 type FalInput =
   | Omit<WhisperInput, 'audio_url'>
@@ -32,7 +33,9 @@ export class Fal {
   ) {
     const provider = this.createProvider();
 
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const file = await provider.storage.upload(audio);
 
       const response = await provider.subscribe(model, {
@@ -44,5 +47,36 @@ export class Fal {
 
       return response.data.text;
     };
+
+    const stream: TranscribeOptions['model']['stream'] = async (
+      audio: File
+    ) => {
+      const file = await provider.storage.upload(audio);
+
+      const response = await provider.stream(model, {
+        input: {
+          audio_url: file,
+          ...properties,
+        },
+      });
+
+      return new ReadableStream({
+        start(controller) {
+          response.on('data', (data) => {
+            controller.enqueue(data.text);
+          });
+
+          response.on('error', (error) => {
+            controller.error(error);
+          });
+
+          response.on('done', () => {
+            controller.close();
+          });
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 }

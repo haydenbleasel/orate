@@ -1,4 +1,5 @@
 import ReplicateSDK, { type WebhookEventType } from 'replicate';
+import type { IsolateOptions, SpeakOptions, TranscribeOptions } from '.';
 
 type ReplicateModel = `${string}/${string}` | `${string}/${string}:${string}`;
 
@@ -50,13 +51,17 @@ export class Replicate {
   ) {
     const provider = this.createProvider();
 
-    return async (prompt: string) => {
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const properties = await inputTransformer(prompt);
       const response = await provider.run(model, properties);
       const file = await outputTransformer(response);
 
       return file;
     };
+
+    return { generate };
   }
 
   /**
@@ -75,13 +80,17 @@ export class Replicate {
   ) {
     const provider = this.createProvider();
 
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const properties = await inputTransformer(audio);
       const response = await provider.run(model, properties);
       const text = await outputTransformer(response);
 
       return text;
     };
+
+    return { generate };
   }
 
   /**
@@ -100,12 +109,16 @@ export class Replicate {
   ) {
     const provider = this.createProvider();
 
-    return async (audio: File) => {
+    const generate: IsolateOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const properties = await inputTransformer(audio);
       const response = await provider.run(model, properties);
       const file = await outputTransformer(response);
 
       return file;
     };
+
+    return { generate };
   }
 }

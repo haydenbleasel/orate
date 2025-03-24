@@ -1,6 +1,7 @@
 import OpenAISDK from 'openai';
 import type { SpeechCreateParams } from 'openai/resources/audio/speech';
 import type { TranscriptionCreateParams } from 'openai/resources/audio/transcriptions';
+import type { SpeakOptions, TranscribeOptions } from '.';
 
 export class OpenAI {
   private apiKey: string;
@@ -29,9 +30,11 @@ export class OpenAI {
     voice: SpeechCreateParams['voice'] = 'alloy',
     properties?: Omit<SpeechCreateParams, 'model' | 'voice' | 'input'>
   ) {
-    return async (prompt: string) => {
-      const provider = this.createProvider();
+    const provider = this.createProvider();
 
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await provider.audio.speech.create({
         model,
         voice,
@@ -47,6 +50,24 @@ export class OpenAI {
 
       return file;
     };
+
+    const stream: SpeakOptions['model']['stream'] = async (prompt: string) => {
+      const response = await provider.audio.speech.create({
+        model,
+        voice,
+        input: prompt,
+        response_format: 'mp3',
+        ...properties,
+      });
+
+      if (!response.body) {
+        throw new Error('No response body');
+      }
+
+      return response.body;
+    };
+
+    return { generate, stream };
   }
 
   /**
@@ -59,16 +80,34 @@ export class OpenAI {
     model: TranscriptionCreateParams['model'] = 'whisper-1',
     properties?: Omit<TranscriptionCreateParams, 'model' | 'file' | 'stream'>
   ) {
-    return async (audio: File) => {
-      const provider = this.createProvider();
+    const provider = this.createProvider();
 
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const response = await provider.audio.transcriptions.create({
         model,
         file: audio,
+        stream: false,
         ...properties,
       });
 
       return response.text;
     };
+
+    const stream: TranscribeOptions['model']['stream'] = async (
+      audio: File
+    ) => {
+      const response = await provider.audio.transcriptions.create({
+        model,
+        file: audio,
+        stream: true,
+        ...properties,
+      });
+
+      return response.toReadableStream();
+    };
+
+    return { generate, stream };
   }
 }

@@ -1,6 +1,7 @@
 import stream from 'node:stream';
 import ffmpeg from 'fluent-ffmpeg';
 import AzureSDK from 'microsoft-cognitiveservices-speech-sdk';
+import type { SpeakOptions, TranscribeOptions } from '.';
 
 type AzureVoice =
   | 'af-ZA-AdriNeural'
@@ -593,6 +594,7 @@ export class Azure {
       this.apiKey,
       this.region
     );
+
     speechConfig.speechRecognitionLanguage = 'en-US';
 
     return speechConfig;
@@ -636,7 +638,9 @@ export class Azure {
     const provider = this.createProvider();
     provider.speechSynthesisVoiceName = voice;
 
-    return async (prompt: string) => {
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const speechSynthesizer = new AzureSDK.SpeechSynthesizer(provider);
 
       const result = new Promise<ArrayBuffer>((resolve, reject) => {
@@ -660,6 +664,30 @@ export class Azure {
 
       return file;
     };
+
+    const stream: SpeakOptions['model']['stream'] = async (prompt: string) => {
+      return new ReadableStream({
+        start(controller) {
+          const speechSynthesizer = new AzureSDK.SpeechSynthesizer(provider);
+
+          speechSynthesizer.speakTextAsync(
+            prompt,
+            (result) => {
+              const audioData = new Uint8Array(result.audioData);
+              controller.enqueue(audioData);
+              controller.close();
+              speechSynthesizer.close();
+            },
+            (error) => {
+              controller.error(error);
+              speechSynthesizer.close();
+            }
+          );
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 
   /**
@@ -669,7 +697,9 @@ export class Azure {
   stt() {
     const provider = this.createProvider();
 
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const buffer = audio.type.includes('wav')
         ? Buffer.from(await audio.arrayBuffer())
         : await this.convertToWavBuffer(audio);
@@ -712,5 +742,37 @@ export class Azure {
 
       return result;
     };
+
+    const stream: TranscribeOptions['model']['stream'] = async (
+      audio: File
+    ) => {
+      const buffer = audio.type.includes('wav')
+        ? Buffer.from(await audio.arrayBuffer())
+        : await this.convertToWavBuffer(audio);
+
+      const audioConfig = AzureSDK.AudioConfig.fromWavFileInput(buffer);
+      const speechRecognizer = new AzureSDK.SpeechRecognizer(
+        provider,
+        audioConfig
+      );
+
+      return new ReadableStream({
+        start(controller) {
+          speechRecognizer.recognizeOnceAsync(
+            (result) => {
+              controller.enqueue(result.text);
+              controller.close();
+              speechRecognizer.close();
+            },
+            (error) => {
+              controller.error(error);
+              speechRecognizer.close();
+            }
+          );
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 }

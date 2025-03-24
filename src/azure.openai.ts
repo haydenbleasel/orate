@@ -1,6 +1,7 @@
 import { AzureOpenAI as AzureOpenAISDK } from 'openai';
 import type { SpeechCreateParams } from 'openai/resources/audio/speech';
 import type { TranscriptionCreateParams } from 'openai/resources/audio/transcriptions';
+import type { SpeakOptions, TranscribeOptions } from '.';
 
 export class AzureOpenAI {
   private ttsProvider?: AzureOpenAISDK;
@@ -57,7 +58,9 @@ export class AzureOpenAI {
   ) {
     this.ttsProvider = this.createProvider(model, 'tts');
 
-    return async (prompt: string) => {
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       if (!this.ttsProvider) {
         throw new Error('Failed to create TTS provider');
       }
@@ -77,6 +80,8 @@ export class AzureOpenAI {
 
       return file;
     };
+
+    return { generate };
   }
 
   /**
@@ -91,7 +96,9 @@ export class AzureOpenAI {
   ) {
     this.sttProvider = this.createProvider(model, 'stt');
 
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       if (!this.sttProvider) {
         throw new Error('Failed to create STT provider');
       }
@@ -99,10 +106,30 @@ export class AzureOpenAI {
       const response = await this.sttProvider.audio.transcriptions.create({
         model,
         file: audio,
+        stream: false,
         ...properties,
       });
 
       return response.text;
     };
+
+    const stream: TranscribeOptions['model']['stream'] = async (
+      audio: File
+    ) => {
+      if (!this.sttProvider) {
+        throw new Error('Failed to create STT provider');
+      }
+
+      const response = await this.sttProvider.audio.transcriptions.create({
+        model,
+        file: audio,
+        stream: true,
+        ...properties,
+      });
+
+      return response.toReadableStream();
+    };
+
+    return { generate, stream };
   }
 }

@@ -96,3 +96,12 @@ const text = await transcribe({
   audio: new File(...),
 });
 ```
+
+You can also stream the transcription.
+
+```ts
+const text = await transcribe({
+  model: new AzureOpenAI().stt('whisper'),
+  audio: new File(...),
+  stream: true,
+});
