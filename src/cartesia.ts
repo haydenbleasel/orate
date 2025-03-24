@@ -3,6 +3,7 @@ import type {
   TtsRequest,
   VoiceChangerBytesRequest,
 } from '@cartesia/cartesia-js/api';
+import type { ChangeOptions, SpeakOptions } from '.';
 
 type CartesiaModel =
   | 'sonic-2'
@@ -288,14 +289,17 @@ export class Cartesia {
     voice: keyof typeof CartesiaVoices | (string & {}) = 'Griffin',
     options?: Omit<TtsRequest, 'text' | 'modelId' | 'voice'>
   ) {
-    return async (prompt: string) => {
-      const provider = this.createProvider();
-      let voiceId = voice;
+    const provider = this.createProvider();
 
-      if (voice in CartesiaVoices) {
-        voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
-      }
+    let voiceId = voice;
 
+    if (voice in CartesiaVoices) {
+      voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
+    }
+
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await provider.tts.bytes({
         modelId: model,
         voice: {
@@ -317,6 +321,37 @@ export class Cartesia {
 
       return file;
     };
+
+    const stream: SpeakOptions['model']['stream'] = async (prompt: string) => {
+      const response = await provider.tts.sse({
+        modelId: model,
+        voice: {
+          mode: 'id',
+          id: voiceId,
+        },
+        transcript: prompt,
+        outputFormat: {
+          container: 'wav',
+          encoding: 'pcm_s16le',
+          sampleRate: 44100,
+        },
+        ...options,
+      });
+
+      const controller = new ReadableStream({
+        async start(controller) {
+          for await (const item of response) {
+            controller.enqueue(item);
+          }
+
+          controller.close();
+        },
+      });
+
+      return controller;
+    };
+
+    return { generate, stream };
   }
 
   /**
@@ -329,14 +364,16 @@ export class Cartesia {
     voice: keyof typeof CartesiaVoices | (string & {}) = 'Griffin',
     options?: Omit<VoiceChangerBytesRequest, 'audio' | 'voiceId'>
   ) {
-    return async (audio: File) => {
-      const provider = this.createProvider();
-      let voiceId = voice;
+    const provider = this.createProvider();
+    let voiceId = voice;
 
-      if (voice in CartesiaVoices) {
-        voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
-      }
+    if (voice in CartesiaVoices) {
+      voiceId = CartesiaVoices[voice as keyof typeof CartesiaVoices];
+    }
 
+    const generate: ChangeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const response = await provider.voiceChanger.bytes(audio, {
         voiceId,
         outputFormatContainer: 'wav',
@@ -351,5 +388,29 @@ export class Cartesia {
 
       return file;
     };
+
+    const stream: ChangeOptions['model']['stream'] = async (audio: File) => {
+      const response = await provider.voiceChanger.sse(audio, {
+        voiceId,
+        outputFormatContainer: 'wav',
+        outputFormatEncoding: 'pcm_s16le',
+        outputFormatSampleRate: 44100,
+        ...options,
+      });
+
+      const controller = new ReadableStream({
+        async start(controller) {
+          for await (const item of response) {
+            controller.enqueue(item);
+          }
+
+          controller.close();
+        },
+      });
+
+      return controller;
+    };
+
+    return { generate, stream };
   }
 }
