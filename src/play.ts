@@ -1,4 +1,5 @@
 import ky from 'ky';
+import type { SpeakOptions } from '.';
 
 const voices = {
   Angelo:
@@ -513,14 +514,16 @@ export class Play {
     voice: PlayVoice = 'Angelo',
     options?: Omit<PlayTTSProps, 'model' | 'voice' | 'text'>
   ) {
+    const url = new URL('/api/v1/tts', 'https://api.play.ai');
     let voiceId = voice;
 
     if (!voiceId.startsWith('s3://')) {
       voiceId = voices[voiceId as keyof typeof voices] as PlayVoice;
     }
 
-    return async (prompt: string) => {
-      const url = new URL('/api/v1/tts', 'https://api.play.ai');
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const body: PlayTTSProps = {
         model,
         voice: voiceId,
@@ -582,5 +585,7 @@ export class Play {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
+
+    return { generate };
   }
 }
