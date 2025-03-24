@@ -1,5 +1,6 @@
 import { ElevenLabsClient } from 'elevenlabs';
 import type {
+  BodyAudioIsolationV1AudioIsolationPost,
   BodySpeechToSpeechV1SpeechToSpeechVoiceIdPost,
   BodySpeechToTextV1SpeechToTextPost,
   TextToSpeechRequest,
@@ -236,13 +237,16 @@ export class ElevenLabs {
    * Creates a speech isolation function using ElevenLabs
    * @returns {Function} Async function that takes audio and returns converted speech
    */
-  isl() {
+  isl(options?: Omit<BodyAudioIsolationV1AudioIsolationPost, 'audio'>) {
     const provider = this.createProvider();
 
     const generate: IsolateOptions['model']['generate'] = async (
       audio: File
     ) => {
-      const response = await provider.audioIsolation.audioIsolation({ audio });
+      const response = await provider.audioIsolation.audioIsolation({
+        audio,
+        ...options,
+      });
 
       const chunks: Uint8Array[] = [];
 
