@@ -1,8 +1,10 @@
 import {
+  LiveTranscriptionEvents,
   type PrerecordedSchema,
   type SpeakSchema,
   createClient,
 } from '@deepgram/sdk';
+import type { SpeakOptions, TranscribeOptions } from '.';
 
 type DeepgramTranscriptModel = 'aura';
 
@@ -85,9 +87,11 @@ export class Deepgram {
     properties?: Omit<SpeakSchema, 'model'>
   ) {
     const provider = this.createProvider();
+    const parsedModel = `${model}-${voice}`;
 
-    return async (prompt: string) => {
-      const parsedModel = `${model}-${voice}`;
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await provider.speak.request(
         { text: prompt },
         { model: parsedModel, ...properties }
@@ -119,6 +123,42 @@ export class Deepgram {
 
       return file;
     };
+
+    const stream: SpeakOptions['model']['stream'] = async (prompt: string) => {
+      const response = await provider.speak.request(
+        { text: prompt },
+        { model: parsedModel, ...properties }
+      );
+
+      const dgStream = await response.getStream();
+
+      if (!dgStream) {
+        throw new Error('No stream returned from Deepgram');
+      }
+
+      return new ReadableStream({
+        async start(controller) {
+          const reader = dgStream.getReader();
+
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+
+              if (done) {
+                controller.close();
+                break;
+              }
+
+              controller.enqueue(value);
+            }
+          } catch (error) {
+            controller.error(error);
+          }
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 
   /**
@@ -133,7 +173,9 @@ export class Deepgram {
   ) {
     const provider = this.createProvider();
 
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const arrayBuffer = await audio.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
 
@@ -163,5 +205,36 @@ export class Deepgram {
 
       return response.result.results.channels[0].alternatives[0].transcript;
     };
+
+    const stream: TranscribeOptions['model']['stream'] = async (
+      audio: File
+    ) => {
+      const arrayBuffer = await audio.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const response = await provider.listen.live({
+        buffer,
+        model,
+        ...properties,
+      });
+
+      return new ReadableStream({
+        async start(controller) {
+          response.on(LiveTranscriptionEvents.Transcript, (data) => {
+            controller.enqueue(data.channel.alternatives[0].transcript);
+          });
+
+          response.on(LiveTranscriptionEvents.Error, (err) => {
+            controller.error(err);
+          });
+
+          response.on(LiveTranscriptionEvents.Close, () => {
+            controller.close();
+          });
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 }
