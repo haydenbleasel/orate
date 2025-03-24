@@ -1,3 +1,15 @@
+# v2.0.1 (Mon Mar 24 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update usage.mdx ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v2.0.0 (Mon Mar 24 2025)
 
 #### 💥 Breaking Change
