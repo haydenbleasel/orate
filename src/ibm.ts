@@ -3,6 +3,7 @@ import SpeechToTextV1 from 'ibm-watson/speech-to-text/v1';
 import type { RecognizeParams } from 'ibm-watson/speech-to-text/v1-generated';
 import TextToSpeechV1 from 'ibm-watson/text-to-speech/v1';
 import type { SynthesizeParams } from 'ibm-watson/text-to-speech/v1-generated';
+import type { SpeakOptions, TranscribeOptions } from '.';
 
 type IBMModel =
   | 'ar-MS_BroadbandModel'
@@ -165,7 +166,9 @@ export class IBM {
   ) {
     const provider = this.createTTSProvider();
 
-    return async (prompt: string) => {
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const response = await provider.synthesize({
         text: prompt,
         accept: 'audio/mpeg',
@@ -187,6 +190,33 @@ export class IBM {
 
       return file;
     };
+
+    const stream: SpeakOptions['model']['stream'] = async (prompt: string) => {
+      const response = await provider.synthesize({
+        text: prompt,
+        accept: 'audio/mpeg',
+        voice,
+        ...options,
+      });
+
+      // Convert Node.js Readable stream to Web ReadableStream
+      const nodeReadable = response.result;
+      return new ReadableStream({
+        start(controller) {
+          nodeReadable.on('data', (chunk) => {
+            controller.enqueue(chunk);
+          });
+          nodeReadable.on('end', () => {
+            controller.close();
+          });
+          nodeReadable.on('error', (err) => {
+            controller.error(err);
+          });
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 
   /**
@@ -201,7 +231,9 @@ export class IBM {
   ) {
     const provider = this.createSTTProvider();
 
-    return async (audio: File) => {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
       const buffer = await audio.arrayBuffer();
       const audioBuffer = Buffer.from(buffer);
 
@@ -224,5 +256,7 @@ export class IBM {
 
       return transcript;
     };
+
+    return { generate };
   }
 }
