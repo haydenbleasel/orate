@@ -202,6 +202,13 @@ const CambAILanguages = {
   'pa-in': 148,
 } as const;
 
+const CambAIVoices = {
+  Gary: 20299,
+  Daniel: 20298,
+  Arielle: 20303,
+  Alice: 20305,
+} as const;
+
 export class CambAI {
   private apiKey: string;
 
@@ -224,7 +231,6 @@ export class CambAI {
         json: props,
         headers: {
           'x-api-key': this.getApiKey(),
-          'Content-Type': 'application/json',
         },
       })
       .json<CreateTextToSpeechResponse>();
@@ -239,7 +245,6 @@ export class CambAI {
       json: props,
       headers: {
         'x-api-key': this.getApiKey(),
-        'Content-Type': 'application/json',
       },
     });
 
@@ -284,7 +289,6 @@ export class CambAI {
         json: props,
         headers: {
           'x-api-key': this.getApiKey(),
-          'Content-Type': 'application/json',
         },
       })
       .json<CreateSpeechToTextResponse>();
@@ -331,7 +335,6 @@ export class CambAI {
         json: props,
         headers: {
           'x-api-key': this.getApiKey(),
-          'Content-Type': 'application/json',
         },
       })
       .json<CreateIsolationResponse>();
@@ -380,16 +383,16 @@ export class CambAI {
    * @returns {Function} Async function that takes text and returns audio URL
    */
   tts(
-    voice: keyof typeof CambAILanguages,
-    options?: Omit<CreateTextToSpeechRequest, 'text' | 'voice_id'>
+    voice: keyof typeof CambAIVoices = 'Gary',
+    options?: Omit<CreateTextToSpeechRequest, 'text' | 'voice_id' | 'language'>
   ) {
     const generate: SpeakOptions['model']['generate'] = async (
       prompt: string
     ) => {
       const jobId = await this.createTTSJob({
         text: prompt,
-        voice_id: CambAILanguages[voice],
-        language: 1,
+        voice_id: CambAIVoices[voice],
+        language: CambAILanguages['en-us'],
         gender: 0,
         ...options,
       });
@@ -415,8 +418,8 @@ export class CambAI {
     const stream: SpeakOptions['model']['stream'] = async (prompt: string) => {
       const response = await this.createTTSStream({
         text: prompt,
-        voice_id: CambAILanguages[voice],
-        language: 1,
+        voice_id: CambAIVoices[voice],
+        language: CambAILanguages['en-us'],
         gender: 0,
         ...options,
       });
@@ -465,7 +468,7 @@ export class CambAI {
     ) => {
       const jobId = await this.createSTTJob({
         file: audio,
-        language: 1,
+        language: CambAILanguages['en-us'],
         ...properties,
       });
 
@@ -494,7 +497,7 @@ export class CambAI {
    * @param {CreateIsolationRequest} properties - Additional properties for the isolation request
    * @returns {Function} Async function that takes audio and returns isolated audio
    */
-  isolation(properties?: CreateIsolationRequest) {
+  isl(properties?: CreateIsolationRequest) {
     const generate: IsolateOptions['model']['generate'] = async (
       audio: File
     ) => {
