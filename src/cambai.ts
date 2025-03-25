@@ -1,5 +1,5 @@
 import ky from 'ky';
-import type { SpeakOptions } from '.';
+import type { SpeakOptions, TranscribeOptions } from '.';
 
 type CreateTextToSpeechRequest = {
   text: string;
@@ -19,6 +19,27 @@ type GetTextToSpeechStatusResponse = {
 };
 
 type GetTextToSpeechResultResponse = string;
+
+type CreateSpeechToTextRequest = {
+  file: File;
+  language: number;
+};
+
+type CreateSpeechToTextResponse = {
+  task_id: string;
+};
+
+type GetSpeechToTextStatusResponse = {
+  status: 'SUCCESS' | 'PENDING' | 'TIMEOUT' | 'ERROR' | 'PAYMENT_REQUIRED';
+  run_id?: string;
+};
+
+type GetSpeechToTextResultResponse = {
+  start: number;
+  end: number;
+  text: string;
+  speaker: string;
+}[];
 
 const CambAILanguages = {
   'en-us': 1,
@@ -239,6 +260,53 @@ export class CambAI {
     return response;
   }
 
+  private async createSTTJob(props: CreateSpeechToTextRequest) {
+    const url = new URL('/apis/transcribe', 'https://client.camb.ai');
+
+    const response = await ky
+      .post(url, {
+        json: props,
+        headers: {
+          'x-api-key': this.getApiKey(),
+          'Content-Type': 'application/json',
+        },
+      })
+      .json<CreateSpeechToTextResponse>();
+
+    return response.task_id;
+  }
+
+  private async getSTTStatus(id: string) {
+    const url = new URL(`/apis/transcribe/${id}`, 'https://client.camb.ai');
+
+    const response = await ky
+      .get(url, {
+        headers: {
+          'x-api-key': this.getApiKey(),
+        },
+      })
+      .json<GetSpeechToTextStatusResponse>();
+
+    return response;
+  }
+
+  private async getSTTResult(runId: string) {
+    const url = new URL(
+      `/apis/transcription-result/${runId}`,
+      'https://client.camb.ai'
+    );
+
+    const response = await ky
+      .get(url, {
+        headers: {
+          'x-api-key': this.getApiKey(),
+        },
+      })
+      .json<GetSpeechToTextResultResponse>();
+
+    return response;
+  }
+
   /**
    * Creates a text-to-speech function using CambAI
    * @param {keyof typeof CambAILanguages} voice - The voice ID to use
@@ -318,5 +386,40 @@ export class CambAI {
     };
 
     return { generate, stream };
+  }
+
+  /**
+   * Creates a speech-to-text transcription function using CambAI
+   * @param {Omit<CreateSpeechToTextRequest, 'file'>} properties - Additional properties for the transcription request
+   * @returns {Function} Async function that takes audio and returns transcribed text
+   */
+  stt(properties?: Omit<CreateSpeechToTextRequest, 'file'>) {
+    const generate: TranscribeOptions['model']['generate'] = async (
+      audio: File
+    ) => {
+      const jobId = await this.createSTTJob({
+        file: audio,
+        language: 1,
+        ...properties,
+      });
+
+      while (true) {
+        const status = await this.getSTTStatus(jobId);
+
+        if (status.status === 'SUCCESS' && status.run_id) {
+          const result = await this.getSTTResult(status.run_id);
+
+          return result.map((item) => item.text).join(' ');
+        }
+
+        if (status.status === 'ERROR') {
+          throw new Error('STT job failed');
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    };
+
+    return { generate };
   }
 }
