@@ -33,4 +33,24 @@ describe('IBM Tests', () => {
     expect(typeof text).toBe('string');
     expect(text.length).toBeGreaterThan(0);
   });
+
+  it('should stream text to speech', async () => {
+    const stream = await speak({
+      model: ibm.tts('en-US_MichaelExpressive'),
+      prompt: 'Friends, Romans, countrymen, lend me your ears!',
+      stream: true,
+    });
+
+    const chunks: Uint8Array[] = [];
+
+    for await (const chunk of stream) {
+      chunks.push(chunk);
+    }
+
+    const combinedBuffer = Buffer.concat(chunks);
+    await writeFile('./__tests__/output/ibm-speech-stream.wav', combinedBuffer);
+
+    expect(chunks.length).toBeGreaterThan(0);
+    expect(combinedBuffer.length).toBeGreaterThan(0);
+  });
 });

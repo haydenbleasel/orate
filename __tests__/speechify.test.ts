@@ -20,4 +20,27 @@ describe('Speechify Tests', () => {
     expect(speech).toBeInstanceOf(File);
     expect(speech.size).toBeGreaterThan(0);
   });
+
+  it('should stream text to speech', async () => {
+    const stream = await speak({
+      model: speechify.tts('simba-english', 'henry'),
+      prompt: 'Friends, Romans, countrymen, lend me your ears!',
+      stream: true,
+    });
+
+    const chunks: Uint8Array[] = [];
+
+    for await (const chunk of stream) {
+      chunks.push(chunk);
+    }
+
+    const combinedBuffer = Buffer.concat(chunks);
+    await writeFile(
+      './__tests__/output/speechify-speech-stream.wav',
+      combinedBuffer
+    );
+
+    expect(chunks.length).toBeGreaterThan(0);
+    expect(combinedBuffer.length).toBeGreaterThan(0);
+  });
 });
