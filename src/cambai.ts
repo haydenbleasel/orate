@@ -195,6 +195,20 @@ export class CambAI {
     return response.task_id;
   }
 
+  private async createTTSStream(props: CreateTextToSpeechRequest) {
+    const url = new URL('/apis/tts-stream', 'https://client.camb.ai');
+
+    const response = await ky.post(url, {
+      json: props,
+      headers: {
+        'x-api-key': this.getApiKey(),
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.body;
+  }
+
   private async getTTSStatus(id: string) {
     const url = new URL(`/apis/tts/${id}`, 'https://client.camb.ai');
 
@@ -211,6 +225,8 @@ export class CambAI {
 
   private async getTTSResult(runId: string) {
     const url = new URL(`/apis/tts-result/${runId}`, 'https://client.camb.ai');
+
+    url.searchParams.set('output_type', 'raw_bytes');
 
     const response = await ky
       .get(url, {
@@ -233,9 +249,11 @@ export class CambAI {
     voice: keyof typeof CambAILanguages,
     options?: Omit<CreateTextToSpeechRequest, 'text' | 'voice_id'>
   ) {
-    const generate: SpeakOptions['model'] = async (text: string) => {
+    const generate: SpeakOptions['model']['generate'] = async (
+      prompt: string
+    ) => {
       const jobId = await this.createTTSJob({
-        text,
+        text: prompt,
         voice_id: CambAILanguages[voice],
         language: 1,
         gender: 0,
@@ -246,7 +264,9 @@ export class CambAI {
         const status = await this.getTTSStatus(jobId);
 
         if (status.status === 'SUCCESS' && status.run_id) {
-          return await this.getTTSResult(status.run_id);
+          const result = await this.getTTSResult(status.run_id);
+
+          return new File([result], 'output.wav', { type: 'audio/wav' });
         }
 
         if (status.status === 'ERROR') {
@@ -257,5 +277,46 @@ export class CambAI {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
+
+    const stream: SpeakOptions['model']['stream'] = async (prompt: string) => {
+      const response = await this.createTTSStream({
+        text: prompt,
+        voice_id: CambAILanguages[voice],
+        language: 1,
+        gender: 0,
+        ...options,
+      });
+
+      if (!response) {
+        throw new Error('Failed to get TTS stream response');
+      }
+
+      return new ReadableStream({
+        start(controller) {
+          const reader = response.getReader();
+
+          function push() {
+            reader
+              .read()
+              .then(({ done, value }) => {
+                if (done) {
+                  controller.close();
+                  return;
+                }
+
+                controller.enqueue(value);
+                push();
+              })
+              .catch((err) => {
+                controller.error(err);
+              });
+          }
+
+          push();
+        },
+      });
+    };
+
+    return { generate, stream };
   }
 }
