@@ -18,8 +18,6 @@ type GetTextToSpeechStatusResponse = {
   run_id?: string;
 };
 
-type GetTextToSpeechResultResponse = string;
-
 type CreateSpeechToTextRequest = {
   file: File;
   language: number;
@@ -276,7 +274,7 @@ export class CambAI {
           'x-api-key': this.getApiKey(),
         },
       })
-      .json<GetTextToSpeechResultResponse>();
+      .blob();
 
     return response;
   }
