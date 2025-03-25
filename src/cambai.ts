@@ -1,5 +1,5 @@
 import ky from 'ky';
-import type { SpeakOptions, TranscribeOptions } from '.';
+import type { IsolateOptions, SpeakOptions, TranscribeOptions } from '.';
 
 type CreateTextToSpeechRequest = {
   text: string;
@@ -40,6 +40,23 @@ type GetSpeechToTextResultResponse = {
   text: string;
   speaker: string;
 }[];
+
+type CreateIsolationRequest = {
+  audio_file: File;
+};
+
+type CreateIsolationResponse = {
+  task_id: string;
+};
+
+type GetIsolationStatusResponse = {
+  status: 'SUCCESS' | 'PENDING' | 'TIMEOUT' | 'ERROR' | 'PAYMENT_REQUIRED';
+};
+
+type GetIsolationResultResponse = {
+  foreground_audio_url: string;
+  background_audio_url: string;
+};
 
 const CambAILanguages = {
   'en-us': 1,
@@ -202,7 +219,6 @@ export class CambAI {
 
   private async createTTSJob(props: CreateTextToSpeechRequest) {
     const url = new URL('/apis/tts', 'https://client.camb.ai');
-
     const response = await ky
       .post(url, {
         json: props,
@@ -241,7 +257,7 @@ export class CambAI {
       })
       .json<GetTextToSpeechStatusResponse>();
 
-    return response;
+    return response.status;
   }
 
   private async getTTSResult(runId: string) {
@@ -287,7 +303,7 @@ export class CambAI {
       })
       .json<GetSpeechToTextStatusResponse>();
 
-    return response;
+    return response.status;
   }
 
   private async getSTTResult(runId: string) {
@@ -305,6 +321,56 @@ export class CambAI {
       .json<GetSpeechToTextResultResponse>();
 
     return response;
+  }
+
+  private async createIsolationJob(props: CreateIsolationRequest) {
+    const url = new URL('/apis/audio-separation', 'https://client.camb.ai');
+
+    const response = await ky
+      .post(url, {
+        json: props,
+        headers: {
+          'x-api-key': this.getApiKey(),
+          'Content-Type': 'application/json',
+        },
+      })
+      .json<CreateIsolationResponse>();
+
+    return response.task_id;
+  }
+
+  private async getIsolationStatus(id: string) {
+    const url = new URL(
+      `/apis/audio-separation/${id}`,
+      'https://client.camb.ai'
+    );
+
+    const response = await ky
+      .get(url, {
+        headers: {
+          'x-api-key': this.getApiKey(),
+        },
+      })
+      .json<GetIsolationStatusResponse>();
+
+    return response.status;
+  }
+
+  private async getIsolationResult(runId: string) {
+    const url = new URL(
+      `/apis/audio-separation-result/${runId}`,
+      'https://client.camb.ai'
+    );
+
+    const response = await ky
+      .get(url, {
+        headers: {
+          'x-api-key': this.getApiKey(),
+        },
+      })
+      .json<GetIsolationResultResponse>();
+
+    return response.foreground_audio_url;
   }
 
   /**
@@ -331,13 +397,13 @@ export class CambAI {
       while (true) {
         const status = await this.getTTSStatus(jobId);
 
-        if (status.status === 'SUCCESS' && status.run_id) {
-          const result = await this.getTTSResult(status.run_id);
+        if (status === 'SUCCESS') {
+          const result = await this.getTTSResult(jobId);
 
           return new File([result], 'output.wav', { type: 'audio/wav' });
         }
 
-        if (status.status === 'ERROR') {
+        if (status === 'ERROR') {
           throw new Error('TTS job failed');
         }
 
@@ -406,14 +472,51 @@ export class CambAI {
       while (true) {
         const status = await this.getSTTStatus(jobId);
 
-        if (status.status === 'SUCCESS' && status.run_id) {
-          const result = await this.getSTTResult(status.run_id);
+        if (status === 'SUCCESS') {
+          const result = await this.getSTTResult(jobId);
 
           return result.map((item) => item.text).join(' ');
         }
 
-        if (status.status === 'ERROR') {
+        if (status === 'ERROR') {
           throw new Error('STT job failed');
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    };
+
+    return { generate };
+  }
+
+  /**
+   * Creates a speech isolation function using CambAI
+   * @param {CreateIsolationRequest} properties - Additional properties for the isolation request
+   * @returns {Function} Async function that takes audio and returns isolated audio
+   */
+  isolation(properties?: CreateIsolationRequest) {
+    const generate: IsolateOptions['model']['generate'] = async (
+      audio: File
+    ) => {
+      const jobId = await this.createIsolationJob({
+        audio_file: audio,
+        ...properties,
+      });
+
+      while (true) {
+        const status = await this.getIsolationStatus(jobId);
+
+        if (status === 'SUCCESS') {
+          const result = await this.getIsolationResult(jobId);
+          const foreground = await ky.get(result).arrayBuffer();
+
+          return new File([foreground], 'isolation.wav', {
+            type: 'audio/wav',
+          });
+        }
+
+        if (status === 'ERROR') {
+          throw new Error('Isolation job failed');
         }
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
