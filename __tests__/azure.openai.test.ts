@@ -13,7 +13,7 @@ describe('Azure OpenAI Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/azure.openai.wav',
+      './__tests__/output/azure.openai.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

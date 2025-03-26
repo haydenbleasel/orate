@@ -13,7 +13,7 @@ describe('Lemonfox Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/lemonfox.wav',
+      './__tests__/output/lemonfox.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

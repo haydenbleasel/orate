@@ -13,7 +13,7 @@ describe('IBM Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/ibm.wav',
+      './__tests__/output/ibm.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

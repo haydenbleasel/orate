@@ -13,7 +13,7 @@ describe('Neuphonic Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/neuphonic.wav',
+      './__tests__/output/neuphonic.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

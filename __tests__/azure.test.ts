@@ -13,7 +13,7 @@ describe('Azure Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/azure.wav',
+      './__tests__/output/azure.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

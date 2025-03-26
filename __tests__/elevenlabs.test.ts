@@ -13,7 +13,7 @@ describe('ElevenLabs Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/elevenlabs.wav',
+      './__tests__/output/elevenlabs.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

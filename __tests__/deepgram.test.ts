@@ -13,7 +13,7 @@ describe('Deepgram Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/deepgram.wav',
+      './__tests__/output/deepgram.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

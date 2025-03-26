@@ -13,7 +13,7 @@ describe('Speechify Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/speechify.wav',
+      './__tests__/output/speechify.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 
