@@ -24,8 +24,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       '@neuphonic/neuphonic-js':
-        specifier: ^0.2.5
-        version: 0.2.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^0.5.0
+        version: 0.5.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@speechify/api-sdk':
         specifier: ^2.4.1
         version: 2.4.1
@@ -45,8 +45,8 @@ importers:
         specifier: ^0.17.0
         version: 0.17.0
       hume:
-        specifier: ^0.9.12
-        version: 0.9.12(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^0.9.15
+        version: 0.9.15(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       ibm-watson:
         specifier: ^10.0.0
         version: 10.0.0
@@ -63,8 +63,8 @@ importers:
         specifier: ^1.43.0
         version: 1.43.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       openai:
-        specifier: ^4.89.0
-        version: 4.89.0(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2)
+        specifier: ^4.89.1
+        version: 4.89.1(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2)
       replicate:
         specifier: ^1.0.1
         version: 1.0.1
@@ -75,8 +75,8 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
       vite:
-        specifier: ^6.2.2
-        version: 6.2.2(@types/node@22.13.0)
+        specifier: ^6.2.3
+        version: 6.2.3(@types/node@22.13.0)
     devDependencies:
       '@auto-it/first-time-contributor':
         specifier: ^11.3.0
@@ -100,11 +100,11 @@ importers:
         specifier: ^8.4.0
         version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
       ultracite:
-        specifier: 4.1.21
-        version: 4.1.21
+        specifier: 4.2.0
+        version: 4.2.0
       vite-tsconfig-paths:
         specifier: ^5.1.4
-        version: 5.1.4(typescript@5.8.2)(vite@6.2.2(@types/node@22.13.0))
+        version: 5.1.4(typescript@5.8.2)(vite@6.2.3(@types/node@22.13.0))
       vitest:
         specifier: ^3.0.9
         version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.0)(jsdom@26.0.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
@@ -459,8 +459,8 @@ packages:
     resolution: {integrity: sha512-igBxaq5JHWdJ0lDyKkCo00pDu+bNVuBAs/cHra6a3ndCw6vlZK9BGLuG7Fvmar/DXK2uJ25zvgcAZEl+AvLpjQ==}
     engines: {node: '>= 18'}
 
-  '@neuphonic/neuphonic-js@0.2.5':
-    resolution: {integrity: sha512-g265eUqydbDMk/jo8v4cYCFs4C7tNZhy/ycenMlTKRRKU8XeGUW5/2LWCZJMagOjeO7fBHPr6tLcZ+faKd14jw==}
+  '@neuphonic/neuphonic-js@0.5.0':
+    resolution: {integrity: sha512-p9JMtJyQHHSO7e+3JOgH5dILsF+19h1D2FR1Z3iwc25x/iKDW11elu4c/z73s5VojziGn+g+eP1fAuw5VlhKMw==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
 
   '@nodelib/fs.scandir@2.1.5':
@@ -1560,8 +1560,8 @@ packages:
   humanize-ms@1.2.1:
     resolution: {integrity: sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==}
 
-  hume@0.9.12:
-    resolution: {integrity: sha512-JYqVBZVkx/pNNnsOJXjfHsFfownMU+6rP4mkN6P8occaVz/GxMVLVz4oybfa9EY5WTq9njg9btkwKEo0UO+BhQ==}
+  hume@0.9.15:
+    resolution: {integrity: sha512-FbBbNwqJyPwNwQm6D+BSZ5iWxf6SJTFnpyb+vL1k2ZFYA0wybE6ZVw15J+i9pZnB4/dauCx2v40NDthYlsB4Jw==}
 
   ibm-cloud-sdk-core@5.1.1:
     resolution: {integrity: sha512-19nSrd8UcCP4q3974wtY+gxwOcD9cQfeVUkpGRWoHs4D7bN+SB5g0m5aPAPa6QjwqDY68EYkQUboEt7dTp+4jQ==}
@@ -1730,6 +1730,11 @@ packages:
 
   isomorphic-fetch@3.0.0:
     resolution: {integrity: sha512-qvUtwJ3j6qwsF3jLxkZ72qCgjMysPzDfeV240JHiGZsANBYd+EEuu35v7dfrJ9Up0Ak07D7GGSkGhCHTqg/5wA==}
+
+  isomorphic-ws@5.0.0:
+    resolution: {integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==}
+    peerDependencies:
+      ws: '*'
 
   isstream@0.1.2:
     resolution: {integrity: sha512-Yljz7ffyPbrLpLngrMtZ7NduUgVvi6wG9RJ9IUcyCd59YQ911PBJphODUcbOVbqYfxe1wuYf/LJ8PauMRwsM/g==}
@@ -2000,8 +2005,8 @@ packages:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
     engines: {node: '>=6'}
 
-  openai@4.89.0:
-    resolution: {integrity: sha512-XNI0q2l8/Os6jmojxaID5EhyQjxZgzR2gWcpEjYWK5hGKwE7AcifxEY7UNwFDDHJQXqeiosQ0CJwQN+rvnwdjA==}
+  openai@4.89.1:
+    resolution: {integrity: sha512-k6t7WfnodIctPo40/9sy7Ww4VypnfkKi/urO2VQx4trCIwgzeroO1jkaCL2f5MyTS1H3HT9X+M2qLsc7NSXwTw==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
@@ -2639,8 +2644,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ultracite@4.1.21:
-    resolution: {integrity: sha512-t1AMqC4V4FHKVObPNcQZYdeIStaDaEA3/GEh8k9aEaKn5f+7JJArS2ZkPKmMfv8rdqBQnstq+TMk3I+/hA07sA==}
+  ultracite@4.2.0:
+    resolution: {integrity: sha512-nMytk8r18BHqiZesOZogGuSGHPrsfPbI7qewSfeRD5bKtJsTl2F/c921HjIN5Zvlv5+QZvixfF3DuHRwONv0/w==}
     hasBin: true
 
   unbox-primitive@1.1.0:
@@ -2697,8 +2702,8 @@ packages:
       vite:
         optional: true
 
-  vite@6.2.2:
-    resolution: {integrity: sha512-yW7PeMM+LkDzc7CgJuRLMW2Jz0FxMOsVJ8Lv3gpgW9WLcb9cTW+121UEr1hvmfR7w3SegR5ItvYyzVz1vxNJgQ==}
+  vite@6.2.3:
+    resolution: {integrity: sha512-IzwM54g4y9JA/xAeBPNaDXiBF8Jsgl3VBQ2YQ/wOY6fyW3xMdSoltIV3Bo59DErdqdE6RxUfv8W69DvUorE4Eg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -3281,10 +3286,11 @@ snapshots:
 
   '@msgpack/msgpack@3.1.0': {}
 
-  '@neuphonic/neuphonic-js@0.2.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+  '@neuphonic/neuphonic-js@0.5.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       dotenv: 16.4.7
       eventsource: 3.0.5
+      isomorphic-ws: 5.0.0(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       js-base64: 3.7.7
       node-fetch: 3.3.2
       ws: 8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -3589,13 +3595,13 @@ snapshots:
       chai: 5.2.0
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.0.9(vite@6.2.2(@types/node@22.13.0))':
+  '@vitest/mocker@3.0.9(vite@6.2.3(@types/node@22.13.0))':
     dependencies:
       '@vitest/spy': 3.0.9
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
-      vite: 6.2.2(@types/node@22.13.0)
+      vite: 6.2.3(@types/node@22.13.0)
 
   '@vitest/pretty-format@3.0.9':
     dependencies:
@@ -4522,7 +4528,7 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
-  hume@0.9.12(bufferutil@4.0.9)(utf-8-validate@5.0.10):
+  hume@0.9.15(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     dependencies:
       form-data: 4.0.1
       form-data-encoder: 4.0.2
@@ -4532,7 +4538,7 @@ snapshots:
       readable-stream: 4.7.0
       url-join: 4.0.1
       uuid: 9.0.1
-      ws: 8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      ws: 8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       zod: 3.24.2
     transitivePeerDependencies:
       - bufferutil
@@ -4733,6 +4739,10 @@ snapshots:
       whatwg-fetch: 3.6.20
     transitivePeerDependencies:
       - encoding
+
+  isomorphic-ws@5.0.0(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
+    dependencies:
+      ws: 8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
 
   isstream@0.1.2: {}
 
@@ -5010,7 +5020,7 @@ snapshots:
     dependencies:
       mimic-fn: 2.1.0
 
-  openai@4.89.0(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2):
+  openai@4.89.1(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2):
     dependencies:
       '@types/node': 18.19.74
       '@types/node-fetch': 2.6.12
@@ -5713,7 +5723,7 @@ snapshots:
 
   typescript@5.8.2: {}
 
-  ultracite@4.1.21:
+  ultracite@4.2.0:
     dependencies:
       commander: 12.1.0
 
@@ -5757,7 +5767,7 @@ snapshots:
       debug: 4.4.0
       es-module-lexer: 1.6.0
       pathe: 2.0.3
-      vite: 6.2.2(@types/node@22.13.0)
+      vite: 6.2.3(@types/node@22.13.0)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -5772,18 +5782,18 @@ snapshots:
       - tsx
       - yaml
 
-  vite-tsconfig-paths@5.1.4(typescript@5.8.2)(vite@6.2.2(@types/node@22.13.0)):
+  vite-tsconfig-paths@5.1.4(typescript@5.8.2)(vite@6.2.3(@types/node@22.13.0)):
     dependencies:
       debug: 4.4.0
       globrex: 0.1.2
       tsconfck: 3.1.4(typescript@5.8.2)
     optionalDependencies:
-      vite: 6.2.2(@types/node@22.13.0)
+      vite: 6.2.3(@types/node@22.13.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@6.2.2(@types/node@22.13.0):
+  vite@6.2.3(@types/node@22.13.0):
     dependencies:
       esbuild: 0.25.0
       postcss: 8.5.3
@@ -5795,7 +5805,7 @@ snapshots:
   vitest@3.0.9(@types/debug@4.1.12)(@types/node@22.13.0)(jsdom@26.0.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
     dependencies:
       '@vitest/expect': 3.0.9
-      '@vitest/mocker': 3.0.9(vite@6.2.2(@types/node@22.13.0))
+      '@vitest/mocker': 3.0.9(vite@6.2.3(@types/node@22.13.0))
       '@vitest/pretty-format': 3.0.9
       '@vitest/runner': 3.0.9
       '@vitest/snapshot': 3.0.9
@@ -5811,7 +5821,7 @@ snapshots:
       tinyexec: 0.3.2
       tinypool: 1.0.2
       tinyrainbow: 2.0.0
-      vite: 6.2.2(@types/node@22.13.0)
+      vite: 6.2.3(@types/node@22.13.0)
       vite-node: 3.0.9(@types/node@22.13.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
