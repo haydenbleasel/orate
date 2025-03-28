@@ -331,8 +331,13 @@ export class Cartesia {
         },
         transcript: prompt,
         outputFormat: {
-          container: 'wav',
-          encoding: 'pcm_s16le',
+          // Raw is the only format that supports streaming
+          container: 'raw',
+
+          // pcm_f32le is a 32-bit, little endian audio format designed for audio processing
+          encoding: 'pcm_f32le',
+
+          // 44100 Hz is the standard sample rate for audio
           sampleRate: 44100,
         },
         ...options,
@@ -392,8 +397,14 @@ export class Cartesia {
     const stream: ChangeOptions['model']['stream'] = async (audio: File) => {
       const response = await provider.voiceChanger.sse(audio, {
         voiceId,
-        outputFormatContainer: 'wav',
-        outputFormatEncoding: 'pcm_s16le',
+
+        // Raw is the only format that supports streaming
+        outputFormatContainer: 'raw',
+
+        // pcm_f32le is a 32-bit, little endian audio format designed for audio processing
+        outputFormatEncoding: 'pcm_f32le',
+
+        // 44100 Hz is the standard sample rate for audio
         outputFormatSampleRate: 44100,
         ...options,
       });
