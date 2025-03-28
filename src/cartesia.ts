@@ -346,10 +346,26 @@ export class Cartesia {
       const controller = new ReadableStream({
         async start(controller) {
           for await (const item of response) {
-            controller.enqueue(item);
-          }
+            if (item.type === 'chunk') {
+              // Convert base64 string to Uint8Array for proper streaming
+              const binaryString = atob(item.data);
+              const bytes = new Uint8Array(binaryString.length);
+              for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+              }
 
-          controller.close();
+              controller.enqueue(bytes);
+            }
+
+            if (item.type === 'done') {
+              controller.close();
+              break;
+            }
+
+            if (item.type === 'error') {
+              controller.error(item.error);
+            }
+          }
         },
       });
 
@@ -412,10 +428,19 @@ export class Cartesia {
       const controller = new ReadableStream({
         async start(controller) {
           for await (const item of response) {
-            controller.enqueue(item);
-          }
+            if (item.type === 'chunk') {
+              controller.enqueue(item.data);
+            }
 
-          controller.close();
+            if (item.type === 'done') {
+              controller.close();
+              break;
+            }
+
+            if (item.type === 'error') {
+              controller.error(item.error);
+            }
+          }
         },
       });
 
