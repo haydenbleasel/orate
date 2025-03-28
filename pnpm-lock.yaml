@@ -12,8 +12,8 @@ importers:
         specifier: ^2.1.10
         version: 2.1.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@deepgram/sdk':
-        specifier: ^3.11.2
-        version: 3.11.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^3.11.3
+        version: 3.11.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@fal-ai/client':
         specifier: ^1.3.0
         version: 1.3.0
@@ -36,8 +36,8 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       elevenlabs:
-        specifier: ^1.54.0
-        version: 1.54.0
+        specifier: ^1.55.0
+        version: 1.55.0
       fluent-ffmpeg:
         specifier: ^2.1.3
         version: 2.1.3
@@ -57,14 +57,14 @@ importers:
         specifier: ^1.7.5
         version: 1.7.5
       lmnt-node:
-        specifier: ^2.3.0
-        version: 2.3.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^2.4.0
+        version: 2.4.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       microsoft-cognitiveservices-speech-sdk:
         specifier: ^1.43.0
         version: 1.43.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       openai:
-        specifier: ^4.89.1
-        version: 4.89.1(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2)
+        specifier: ^4.90.0
+        version: 4.90.0(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2)
       replicate:
         specifier: ^1.0.1
         version: 1.0.1
@@ -234,8 +234,8 @@ packages:
     resolution: {integrity: sha512-8B1C/oTxTxyHlSFubAhNRgCbQ2SQ5wwvtlByn8sDYZvdDtdn/VE2yEPZ4BvUnrKWmsbTQY6/ooLV+9Ka2qmDSQ==}
     engines: {node: '>=18.0.0'}
 
-  '@deepgram/sdk@3.11.2':
-    resolution: {integrity: sha512-sx/2B0vG18YJ9c807U6ZojliURZvPS0jFnwyMmzwfK5nELp3vvYrmAcoI2nRjndzYrkFe3YUg5T/dFLtI5l2Wg==}
+  '@deepgram/sdk@3.11.3':
+    resolution: {integrity: sha512-erOxfbci5beg2wiEUwmloXsg+JcSW+PGk2BVTMFaQvFxSOdJHN+tw8ymNktwxijaKrrL0osqkEpZ1YWbCxMJbQ==}
     engines: {node: '>=18.0.0'}
 
   '@endemolshinegroup/cosmiconfig-typescript-loader@3.0.2':
@@ -1176,8 +1176,8 @@ packages:
   ecdsa-sig-formatter@1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
 
-  elevenlabs@1.54.0:
-    resolution: {integrity: sha512-ME7oNwFUc1b5wGU9XymflfZM5ILrCX4hI24Aw6wCLMgLZ7OawkoYmnxbVkXfUASeEfH94PREMhl/im53NS60fg==}
+  elevenlabs@1.55.0:
+    resolution: {integrity: sha512-gcLRCBRx0f2PAgd1Lz5oBhg9m8mfwbGrkXrBmEBCgWevwgrFxwBAGmOsWB5qJfoFqiRRCgqH217QRpUFIR+r8w==}
 
   emittery@0.13.1:
     resolution: {integrity: sha512-DeWwawk6r5yR9jFgnDKYt4sLS0LmHJJi3ZOnb5/JdbYwj3nW+FxQnHIjhBKz8YLC7oRNPVM9NQ47I3CVx34eqQ==}
@@ -1805,8 +1805,8 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  lmnt-node@2.3.0:
-    resolution: {integrity: sha512-jZwjBuYtcmeJEqc7lZgjuDQAvfYa5/ANfE1cgHGw+YF+N0ow3ukK4aFPRNAPYNaE++5g2Z10QTNkdWITLkMGJw==}
+  lmnt-node@2.4.0:
+    resolution: {integrity: sha512-gT12VC4/W9JaSQ5kb8BzmfGgS4wWD+iYChggtA04QmIfzT3+csqyeGsljdLCCNKnHsmoEFJ4JtoJhmyfFwzo/A==}
 
   load-json-file@4.0.0:
     resolution: {integrity: sha512-Kx8hMakjX03tiGTLAIdJ+lL0htKnXjEZN6hk/tozf/WOuYGdZBJrZ+rCJRbVCugsjB3jMLn9746NsQIf5VjBMw==}
@@ -2005,8 +2005,8 @@ packages:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
     engines: {node: '>=6'}
 
-  openai@4.89.1:
-    resolution: {integrity: sha512-k6t7WfnodIctPo40/9sy7Ww4VypnfkKi/urO2VQx4trCIwgzeroO1jkaCL2f5MyTS1H3HT9X+M2qLsc7NSXwTw==}
+  openai@4.90.0:
+    resolution: {integrity: sha512-YCuHMMycqtCg1B8G9ezkOF0j8UnBWD3Al/zYaelpuXwU1yhCEv+Y4n9G20MnyGy6cH4GsFwOMrgstQ+bgG1PtA==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
@@ -3100,7 +3100,7 @@ snapshots:
     dependencies:
       dayjs: 1.11.13
 
-  '@deepgram/sdk@3.11.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+  '@deepgram/sdk@3.11.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@deepgram/captions': 1.2.0
       '@types/node': 18.19.74
@@ -3991,7 +3991,7 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  elevenlabs@1.54.0:
+  elevenlabs@1.55.0:
     dependencies:
       command-exists: 1.2.9
       execa: 5.1.1
@@ -4843,7 +4843,7 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lmnt-node@2.3.0(bufferutil@4.0.9)(utf-8-validate@5.0.10):
+  lmnt-node@2.4.0(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     dependencies:
       '@types/node': 18.19.74
       '@types/node-fetch': 2.6.12
@@ -4852,7 +4852,7 @@ snapshots:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.7.0
-      ws: 8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      ws: 8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -5020,7 +5020,7 @@ snapshots:
     dependencies:
       mimic-fn: 2.1.0
 
-  openai@4.89.1(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2):
+  openai@4.90.0(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2):
     dependencies:
       '@types/node': 18.19.74
       '@types/node-fetch': 2.6.12
