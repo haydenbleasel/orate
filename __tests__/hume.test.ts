@@ -13,7 +13,7 @@ describe('Hume Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/hume.wav',
+      './__tests__/output/hume.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

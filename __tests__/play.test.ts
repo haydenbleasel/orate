@@ -13,7 +13,7 @@ describe('Play.ai Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/play.wav',
+      './__tests__/output/play.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

@@ -13,7 +13,7 @@ describe('Murf Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/murf.wav',
+      './__tests__/output/murf.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

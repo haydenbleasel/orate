@@ -13,7 +13,7 @@ describe('LMNT Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/lmnt.wav',
+      './__tests__/output/lmnt.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 
