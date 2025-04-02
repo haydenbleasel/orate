@@ -13,7 +13,7 @@ describe('Google Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/google.wav',
+      './__tests__/output/google.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

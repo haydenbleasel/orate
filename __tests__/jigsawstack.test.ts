@@ -13,7 +13,7 @@ describe('JigsawStack Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/jigsawstack.wav',
+      './__tests__/output/jigsawstack.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 

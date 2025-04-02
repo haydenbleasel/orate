@@ -130,15 +130,15 @@ export class Deepgram {
         { model: parsedModel, ...properties }
       );
 
-      const dgStream = await response.getStream();
+      const stream = await response.getStream();
 
-      if (!dgStream) {
+      if (!stream) {
         throw new Error('No stream returned from Deepgram');
       }
 
       return new ReadableStream({
         async start(controller) {
-          const reader = dgStream.getReader();
+          const reader = stream.getReader();
 
           try {
             while (true) {
@@ -212,7 +212,7 @@ export class Deepgram {
       const arrayBuffer = await audio.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
 
-      const response = await provider.listen.live({
+      const response = provider.listen.live({
         buffer,
         model,
         ...properties,
@@ -220,8 +220,16 @@ export class Deepgram {
 
       return new ReadableStream({
         async start(controller) {
-          response.on(LiveTranscriptionEvents.Transcript, (data) => {
-            controller.enqueue(data.channel.alternatives[0].transcript);
+          response.on(LiveTranscriptionEvents.Open, () => {
+            response.on(LiveTranscriptionEvents.Transcript, (data) => {
+              const transcript = data.channel.alternatives.at(0)?.transcript;
+
+              if (!transcript) {
+                return;
+              }
+
+              controller.enqueue(transcript);
+            });
           });
 
           response.on(LiveTranscriptionEvents.Error, (err) => {

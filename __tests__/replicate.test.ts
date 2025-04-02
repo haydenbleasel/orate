@@ -41,7 +41,7 @@ describe('Replicate Tests', () => {
     });
 
     await writeFile(
-      './website/public/examples/tts/replicate.wav',
+      './__tests__/output/replicate.wav',
       Buffer.from(await speech.arrayBuffer())
     );
 
