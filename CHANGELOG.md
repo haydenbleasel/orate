@@ -1,3 +1,15 @@
+# v2.0.2 (Wed Apr 02 2025)
+
+#### 🐛 Bug Fix
+
+- Add new tests [#53](https://github.com/haydenbleasel/orate/pull/53) ([@haydenbleasel](https://github.com/haydenbleasel))
+
+#### Authors: 1
+
+- Hayden Bleasel ([@haydenbleasel](https://github.com/haydenbleasel))
+
+---
+
 # v2.0.1 (Mon Mar 24 2025)
 
 #### ⚠️ Pushed to `main`
