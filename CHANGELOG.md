@@ -1,3 +1,17 @@
+# v2.0.3 (Wed Apr 02 2025)
+
+#### 🐛 Bug Fix
+
+- Bump hume from 0.9.12 to 0.9.15 [#56](https://github.com/haydenbleasel/orate/pull/56) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump vite from 6.2.2 to 6.2.4 [#57](https://github.com/haydenbleasel/orate/pull/57) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump image-size from 2.0.1 to 2.0.2 in /website in the npm_and_yarn group across 1 directory [#59](https://github.com/haydenbleasel/orate/pull/59) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v2.0.2 (Wed Apr 02 2025)
 
 #### 🐛 Bug Fix
