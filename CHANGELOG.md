@@ -1,3 +1,15 @@
+# v2.0.5 (Wed Apr 09 2025)
+
+#### 🐛 Bug Fix
+
+- Bump estree-util-value-to-estree from 3.3.2 to 3.3.3 in /website in the npm_and_yarn group across 1 directory [#62](https://github.com/haydenbleasel/orate/pull/62) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v2.0.4 (Sun Apr 06 2025)
 
 #### 🐛 Bug Fix
