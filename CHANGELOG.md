@@ -1,3 +1,15 @@
+# v2.0.6 (Fri Apr 11 2025)
+
+#### 🐛 Bug Fix
+
+- Bump vite from 6.2.5 to 6.2.6 in the npm_and_yarn group [#63](https://github.com/haydenbleasel/orate/pull/63) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 1
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+
+---
+
 # v2.0.5 (Wed Apr 09 2025)
 
 #### 🐛 Bug Fix
