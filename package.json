@@ -41,7 +41,7 @@
     "@types/fluent-ffmpeg": "^2.1.27",
     "jsdom": "^26.0.0",
     "tsup": "^8.4.0",
-    "ultracite": "4.2.0",
+    "ultracite": "4.2.1",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.9"
   },
