@@ -100,8 +100,8 @@ importers:
         specifier: ^8.4.0
         version: 8.4.0(postcss@8.5.3)(typescript@5.8.2)
       ultracite:
-        specifier: 4.2.0
-        version: 4.2.0
+        specifier: 4.2.1
+        version: 4.2.1
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.8.2)(vite@6.2.6(@types/node@22.13.0))
@@ -909,6 +909,7 @@ packages:
 
   '@speechify/api-sdk@2.4.1':
     resolution: {integrity: sha512-feWF7l9z3w/pHqhSMR8wR7Te+/f4BETx85lyeWeD+xB12g0L/Q0ltoGRGYcoAb2jag9Yu/C3GC3bYk0fiw+mNQ==}
+    deprecated: 'This package is no longer supported. Please use the new official SDK: @speechify/api'
 
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
@@ -2219,6 +2220,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch@2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
@@ -2931,8 +2933,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ultracite@4.2.0:
-    resolution: {integrity: sha512-nMytk8r18BHqiZesOZogGuSGHPrsfPbI7qewSfeRD5bKtJsTl2F/c921HjIN5Zvlv5+QZvixfF3DuHRwONv0/w==}
+  ultracite@4.2.1:
+    resolution: {integrity: sha512-xQjwWscDOpiBF6z6hKPOJSQrNgLXJOTZ738NUym58aqUbam0xB9trVZlG5td3LjmE98Z7qjpnspDxr3lwlLkAA==}
     hasBin: true
 
   unbox-primitive@1.1.0:
@@ -6241,7 +6243,7 @@ snapshots:
 
   typescript@5.8.2: {}
 
-  ultracite@4.2.0:
+  ultracite@4.2.1:
     dependencies:
       commander: 12.1.0
 
