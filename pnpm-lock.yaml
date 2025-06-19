@@ -31,7 +31,7 @@ importers:
         version: 2.4.1
       assemblyai:
         specifier: ^4.9.0
-        version: 4.9.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        version: 4.12.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -909,6 +909,7 @@ packages:
 
   '@speechify/api-sdk@2.4.1':
     resolution: {integrity: sha512-feWF7l9z3w/pHqhSMR8wR7Te+/f4BETx85lyeWeD+xB12g0L/Q0ltoGRGYcoAb2jag9Yu/C3GC3bYk0fiw+mNQ==}
+    deprecated: 'This package is no longer supported. Please use the new official SDK: @speechify/api'
 
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
@@ -1133,8 +1134,8 @@ packages:
     resolution: {integrity: sha512-3duEwti880xqi4eAMN8AyR4a0ByT90zoYdLlevfrvU43vb0YZwZVfxOgxWrLXXXpyugL0hNZc9G6BiB5B3nUug==}
     engines: {node: '>=8'}
 
-  assemblyai@4.9.0:
-    resolution: {integrity: sha512-YUvkVIdMKvMLNQ07zWNma9YWvdSoGZy9RuJ/fB5uceAgDnTL2uo8sAlytkt52hD8DJ61xmZkfO9jkjXl3sZTiw==}
+  assemblyai@4.12.2:
+    resolution: {integrity: sha512-T0QPhKfKoIV1hiQgUvH8fmxYeDsNZI8gSvJHCntJnzQF/WwbtMrebc4z6rFy29QP1tp28iXlmABGRZjHwW0LEQ==}
     engines: {node: '>=18'}
 
   assertion-error@2.0.1:
@@ -2219,6 +2220,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch@2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
@@ -4130,9 +4132,9 @@ snapshots:
 
   arrify@2.0.1: {}
 
-  assemblyai@4.9.0(bufferutil@4.0.9)(utf-8-validate@5.0.10):
+  assemblyai@4.12.2(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     dependencies:
-      ws: 8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      ws: 8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
